@@ -7,10 +7,10 @@ export type DrawFooterSerialProps = {
 /**
  * Draw the YU3DOH serial treatment in the lower-left footer.
  *
- * Base geometry is calibrated from the provided 480x700 visual reference and
- * converted to YGO Carder's 813x1185 master canvas. The right edge expands for
- * serials wider than the normal 3-digit/3-digit form while preserving the
- * reference's slanted end cap.
+ * The serial is treated as a structural part of the frame rather than a floating
+ * label. Geometry is calibrated from the supplied reference and deliberately
+ * overlaps the footer frame. The right edge expands for serials wider than the
+ * normal 3-digit/3-digit form while preserving the slanted end cap.
  */
 export const drawFooterSerial = ({
     ctx,
@@ -19,21 +19,30 @@ export const drawFooterSerial = ({
 }: DrawFooterSerialProps) => {
     if (!ctx) return { rightEdge: 0 };
 
-    const plateLeft = 30.5;
-    const plateTop = 1114;
-    const plateBottom = 1153;
-    const minimumPlateTopRight = 191.4;
-    const slantWidth = 16.9;
+    /**
+     * Reference-matched plate. Compared with the first pass, the plate grows in
+     * every direction so its top/bottom edges visually merge into the card frame.
+     */
+    const plateLeft = 27;
+    const plateTop = 1109;
+    const plateBottom = 1157;
+    const minimumPlateTopRight = 198;
+    const slantWidth = 18;
 
-    const textLeft = 52.5;
-    const textBaseline = 1147;
-    const textRightPadding = 13.5;
+    const textLeft = 50;
+    const textBaseline = 1148;
+    const textRightPadding = 14;
     const fontSize = 31;
 
     ctx.save();
     ctx.scale(globalScale, globalScale);
 
-    ctx.font = `${fontSize}px YuGiOhITCStoneSerifBSc, stone-serif-regular, serif`;
+    /**
+     * Rodin is already bundled by YGO Carder for OCG creator text. Its numerals
+     * have a substantially more uniform stroke than the high-contrast serif used
+     * in the first serial pass, while retaining the requested text height.
+     */
+    ctx.font = `${fontSize}px "FOT-Rodin Pro M", MatrixBook, sans-serif`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
 
@@ -54,13 +63,12 @@ export const drawFooterSerial = ({
     ctx.fillStyle = '#000000';
     ctx.fill();
 
-    /** Thin warm outline visible in the supplied reference around the black plate. */
+    /** Warm frame seam visible around the black insert in the supplied reference. */
     ctx.strokeStyle = '#d8cbb6';
-    ctx.lineWidth = 1.6;
+    ctx.lineWidth = 1.2;
     ctx.lineJoin = 'miter';
     ctx.stroke();
 
-    /** Reference serial uses a warm yellow-gold treatment rather than footer black/white. */
     ctx.fillStyle = '#f0df48';
     ctx.fillText(value, textLeft, textBaseline);
 
