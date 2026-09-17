@@ -3,6 +3,7 @@ import WebFont from 'webfontloader';
 import { useCard } from './use-card';
 import { useShallow } from 'zustand/react/shallow';
 import { getCardFormatMode, PUBLIC_PATH } from 'src/model';
+import { useSerial } from './use-serial';
 
 export type UseOCGFont = {
     isLanguageInitiating: boolean,
@@ -27,6 +28,7 @@ export const useOCGFont = ({
         font: state.card.nameStyle.font,
         region: state.card.region,
     })));
+    const serialEnabled = useSerial(state => state.serialEnabled);
     const [styleContent, setStyleContent] = useState('');
 
     const readyMap = useRef<Record<'ocg' | 'sc', boolean>>({ ocg: false, sc: false });
@@ -34,7 +36,8 @@ export const useOCGFont = ({
     useEffect(() => {
         const cardMode = getCardFormatMode(format, region);
         const mode = font === 'SC' || cardMode === 'sc' ? 'sc' : 'ocg';
-        const shouldLoad = format === 'ocg' || font === 'OCG' || font === 'SC';
+        /** Serial uses FOT-Rodin Pro M regardless of the card format. */
+        const shouldLoad = format === 'ocg' || font === 'OCG' || font === 'SC' || serialEnabled;
         if (
             shouldLoad
             && readyMap.current[mode] === false
@@ -68,7 +71,7 @@ export const useOCGFont = ({
                 fontinactive: onFontInactive,
             });
         }
-    }, [format, font, region, isLanguageInitiating, onActive, onBeforeLoad, onFontInactive, onInactive]);
+    }, [format, font, region, serialEnabled, isLanguageInitiating, onActive, onBeforeLoad, onFontInactive, onInactive]);
 
     return {
         styleContent,
