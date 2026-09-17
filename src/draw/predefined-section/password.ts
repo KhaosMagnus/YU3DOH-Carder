@@ -1,4 +1,5 @@
 import { PasswordFontData, PasswordCoordinateMap, DefaultFontSizeData, CanvasTextStyle } from 'src/model';
+import { formatSerial, useSerial } from 'src/service/use-serial';
 import { condense, createFontGetter, scaleCoordinateData, scaleFontData, scaleFontSizeData } from 'src/util';
 import { tokenizeText } from '../text-util';
 import { drawLine } from '../line';
@@ -35,6 +36,16 @@ export const drawPasswordText = async ({
         rightEdge: 0,
     };
 
+    const {
+        serialEnabled,
+        serialNumber,
+        serialTotal,
+    } = useSerial.getState();
+    const renderedValue = serialEnabled
+        ? formatSerial(serialNumber, serialTotal)
+        : value;
+    const renderedFontLevel = serialEnabled ? 0 : fontLevel;
+
     const resetTextStyle = setTextStyle({
         ctx,
         color: lightFooter ? '#ffffff' : '#000000',
@@ -55,11 +66,11 @@ export const drawPasswordText = async ({
     );
     const fontData = scaleFontData(PasswordFontData[format], globalScale);
     const { font } = fontData;
-    const normalizedText = normalizeCardText(value, format, { multiline: false, furiganaHelper: false });
+    const normalizedText = normalizeCardText(renderedValue, format, { multiline: false, furiganaHelper: false });
 
     /** Calculation */
     let textData = {
-        fontLevel,
+        fontLevel: renderedFontLevel,
         fontData,
         currentFont: createFontGetter(),
     };
@@ -67,7 +78,7 @@ export const drawPasswordText = async ({
     const lineHeight = textData.fontData.fontList[textData.fontLevel].lineHeight;
     let internalEffectiveMedian = 1000;
     let fontSizeData = fontData.fontList[0];
-    for (let fontLevel = 0; fontLevel < fontData.fontList.length; fontLevel++) {
+    for (let fontLevel = renderedFontLevel; fontLevel < fontData.fontList.length; fontLevel++) {
         fontSizeData = fontData.fontList[fontLevel];
         const fontGetter = createFontGetter({
             defaultFamily: font,
