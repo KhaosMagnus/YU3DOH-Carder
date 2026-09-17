@@ -1,5 +1,6 @@
 
 import { CanvasConst, CanvasTextStyle, IconWithGlowMap, NO_STICKER, parseOffset, RegionOffset } from 'src/model';
+import { useSerial } from 'src/service/use-serial';
 import { drawAsset, drawWithStyle } from '../image';
 import { clearCanvas, getFinishIterator, setTextStyle } from '../canvas-util';
 import { createCanvas, scaleDrawCoordinate } from 'src/util';
@@ -265,6 +266,9 @@ export const drawLimitedEditionMark = async ({
     bordered: boolean,
     textStyle?: CanvasTextStyle,
 }) => {
+    /** Serial mode follows the reference layout: the serial replaces edition marks. */
+    if (useSerial.getState().serialEnabled) return;
+
     const coordinate: [number, number, number, number] = !isLegacyCard || isPendulum
         ? (isLink && isPendulum)
             ? [220, 1123, 150 - widthOffset / globalScale, 37]
