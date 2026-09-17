@@ -6,6 +6,7 @@ import { drawLine } from '../line';
 import { createLineList } from '../line-list';
 import { normalizeCardText } from '../text-normalize';
 import { clearCanvas, setTextStyle } from '../canvas-util';
+import { drawFooterSerial } from './serial';
 
 export const drawPasswordText = async ({
     ctx,
@@ -41,10 +42,13 @@ export const drawPasswordText = async ({
         serialNumber,
         serialTotal,
     } = useSerial.getState();
-    const renderedValue = serialEnabled
-        ? formatSerial(serialNumber, serialTotal)
-        : value;
-    const renderedFontLevel = serialEnabled ? 0 : fontLevel;
+    if (serialEnabled) {
+        return drawFooterSerial({
+            ctx,
+            globalScale,
+            value: formatSerial(serialNumber, serialTotal),
+        });
+    }
 
     const resetTextStyle = setTextStyle({
         ctx,
@@ -66,11 +70,11 @@ export const drawPasswordText = async ({
     );
     const fontData = scaleFontData(PasswordFontData[format], globalScale);
     const { font } = fontData;
-    const normalizedText = normalizeCardText(renderedValue, format, { multiline: false, furiganaHelper: false });
+    const normalizedText = normalizeCardText(value, format, { multiline: false, furiganaHelper: false });
 
     /** Calculation */
     let textData = {
-        fontLevel: renderedFontLevel,
+        fontLevel,
         fontData,
         currentFont: createFontGetter(),
     };
