@@ -78,7 +78,7 @@ export const drawPasswordText = async ({
     const lineHeight = textData.fontData.fontList[textData.fontLevel].lineHeight;
     let internalEffectiveMedian = 1000;
     let fontSizeData = fontData.fontList[0];
-    for (let fontLevel = renderedFontLevel; fontLevel < fontData.fontList.length; fontLevel++) {
+    for (let fontLevel = 0; fontLevel < fontData.fontList.length; fontLevel++) {
         fontSizeData = fontData.fontList[fontLevel];
         const fontGetter = createFontGetter({
             defaultFamily: font,
