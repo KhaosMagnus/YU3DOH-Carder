@@ -5,6 +5,25 @@ export type DrawFooterSerialProps = {
 };
 
 /**
+ * Base geometry for the serial plate. The bottom-right value is also used by the
+ * frame compositor to restore only the piece of outer frame that must remain
+ * visible underneath the serial when Overframe Render is enabled.
+ */
+export const FooterSerialGeometry = {
+    plateLeft: 27,
+    plateTop: 1109,
+    plateBottom: 1157,
+    minimumPlateTopRight: 198,
+    slantWidth: 18,
+} as const;
+
+export const FooterSerialFrameBridge = {
+    left: 0,
+    top: FooterSerialGeometry.plateBottom,
+    right: FooterSerialGeometry.minimumPlateTopRight + FooterSerialGeometry.slantWidth,
+} as const;
+
+/**
  * Draw the YU3DOH serial treatment in the lower-left footer.
  *
  * The serial is treated as a structural part of the frame rather than a floating
@@ -23,11 +42,13 @@ export const drawFooterSerial = ({
      * Reference-matched plate. Compared with the first pass, the plate grows in
      * every direction so its top/bottom edges visually merge into the card frame.
      */
-    const plateLeft = 27;
-    const plateTop = 1109;
-    const plateBottom = 1157;
-    const minimumPlateTopRight = 198;
-    const slantWidth = 18;
+    const {
+        plateLeft,
+        plateTop,
+        plateBottom,
+        minimumPlateTopRight,
+        slantWidth,
+    } = FooterSerialGeometry;
 
     const textLeft = 50;
     const textBaseline = 1146;
