@@ -224,7 +224,7 @@ export const CardInputPanel = forwardRef<CardInputPanelRef, CardInputPanel>(({
                 height: nextHeight,
                 aspect: to.ratio,
             };
-            imageInputGroupRef.current?.setCropInfo(nextArtCrop);
+            imageInputGroupRef.current?.setCropInfo(nextArtCrop, { preserveCrop: true });
         }
 
         setCard(curr => ({
