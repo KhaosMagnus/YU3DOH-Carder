@@ -162,7 +162,7 @@ export type ImageInputGroupRef = {
         artSource?: string,
         artCrop?: Partial<ReactCrop.Crop>,
     }) => void,
-    setCropInfo: (cropInfo: Partial<ReactCrop.Crop>) => void,
+    setCropInfo: (cropInfo: Partial<ReactCrop.Crop>, options?: { preserveCrop?: boolean }) => void,
     isLoading: () => boolean,
 };
 export type ImageInputGroup = {
@@ -251,7 +251,7 @@ export const ImageInputGroup = forwardRef<ImageInputGroupRef, ImageInputGroup>((
 
     useImperativeHandle(ref, () => ({
         isLoading: () => imageCropperRef.current?.isLoading() ?? false,
-        setCropInfo: cropInfo => imageCropperRef.current?.setCropInfo(cropInfo),
+        setCropInfo: (cropInfo, options) => imageCropperRef.current?.setCropInfo(cropInfo, options),
         setValue: ({ art, artCrop, artData, artSource }) => {
             if (artSource === 'offline') {
                 if (typeof artData === 'string' && artCrop) {
