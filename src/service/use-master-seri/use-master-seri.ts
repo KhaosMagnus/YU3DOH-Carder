@@ -745,34 +745,13 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
 
                 if (frameBorder) await drawFrameBorder();
 
-                if (frameBorder) {
-                    const overframeBottomInset = 8;
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.rect(
-                        globalScale * artX,
-                        globalScale * artY,
-                        globalScale * artWidth,
-                        globalScale * Math.max(0, artWidth / ratio - overframeBottomInset),
-                    );
-                    ctx.clip();
-                    ctx.drawImage(
-                        artOnCardCanvas,
-                        globalScale * artX, globalScale * artY,
-                        globalScale * artWidth, globalScale * artWidth / ratio,
-                        globalScale * artX, globalScale * artY,
-                        globalScale * artWidth, globalScale * artWidth / ratio,
-                    );
-                    ctx.restore();
-                } else {
-                    ctx.drawImage(
-                        artOnCardCanvas,
-                        globalScale * artX, globalScale * artY,
-                        globalScale * artWidth, globalScale * artWidth / ratio,
-                        globalScale * artX, globalScale * artY,
-                        globalScale * artWidth, globalScale * artWidth / ratio,
-                    );
-                }
+                ctx.drawImage(
+                    artOnCardCanvas,
+                    globalScale * artX, globalScale * artY,
+                    globalScale * artWidth, globalScale * artWidth / ratio,
+                    globalScale * artX, globalScale * artY,
+                    globalScale * artWidth, globalScale * artWidth / ratio,
+                );
 
                 if (!frameBorder) await drawFrameBorder();
 
@@ -793,6 +772,14 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     await drawEffectBorderFoil();
                 }
                 await drawFrameFinish();
+
+                /** Overframe Render: the boundless artwork pass intentionally lies above
+                 * the frame. Repaint the physical outer card perimeter last so artwork
+                 * cannot cover the card edge/finish overlap. */
+                if (frameBorder) {
+                    if (backgroundType !== 'frame' || keepEffectBox) await drawCardBorder();
+                    await drawCardBorderFinish();
+                }
             }
 
             if (statInEffect) await drawStatBorder({
