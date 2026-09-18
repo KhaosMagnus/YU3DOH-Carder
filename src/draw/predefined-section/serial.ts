@@ -18,9 +18,7 @@ export const FooterSerialGeometry = {
 } as const;
 
 export const FooterSerialFrameBridge = {
-    left: 0,
-    top: FooterSerialGeometry.plateBottom,
-    right: FooterSerialGeometry.minimumPlateTopRight + FooterSerialGeometry.slantWidth,
+    top: FooterSerialGeometry.plateTop,
 } as const;
 
 /**
