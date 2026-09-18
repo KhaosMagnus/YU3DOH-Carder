@@ -106,7 +106,7 @@ export type ImageCropperRef = {
     isLoading: () => boolean,
     hasImage: () => boolean,
     forceSource: (type: ImageSourceType, artLinkOrData: string, cropInfo: Partial<ReactCrop.Crop>) => void,
-    setCropInfo: (cropInfo: Partial<ReactCrop.Crop>) => void,
+    setCropInfo: (cropInfo: Partial<ReactCrop.Crop>, options?: { preserveCrop?: boolean }) => void,
     getSource: () => ({ type: ImageSourceType, image: string, imageData: string, crop: Partial<ReactCrop.Crop> }),
 };
 export type ImageCropper = {
@@ -406,7 +406,12 @@ export const ImageCropper = forwardRef<ImageCropperRef, ImageCropper>(({
 
     }, [completedCrop, receivingCanvas, redrawSignal, forceFit, imageStyle]);
 
+    const skipNextRatioNormalize = useRef(false);
     useEffect(() => {
+        if (skipNextRatioNormalize.current) {
+            skipNextRatioNormalize.current = false;
+            return;
+        }
         setInteracted(false);
         setCrop(cur => {
             if (imgRef.current != null && cur.current) {
@@ -433,8 +438,20 @@ export const ImageCropper = forwardRef<ImageCropperRef, ImageCropper>(({
                 imageData: sourceType === 'offline' ? internalSource : '',
             };
         },
-        setCropInfo: cropInfo => {
+        setCropInfo: (cropInfo, options) => {
             setInteracted(false);
+            if (options?.preserveCrop) {
+                /** The caller already remapped the crop into the next target ratio.
+                 * Do not normalize it again when the ratio prop updates, otherwise
+                 * normalizeCrop may recenter a near-edge crop. */
+                skipNextRatioNormalize.current = true;
+                setCrop({
+                    current: cropInfo,
+                    completed: cropInfo as ReactCrop.Crop,
+                });
+                setMigrated(cropInfo.unit === '%');
+                return;
+            }
             const normalizedCrop = normalizeCrop(cropInfo, imgRef.current, ratio);
             setCrop({
                 current: normalizedCrop,
