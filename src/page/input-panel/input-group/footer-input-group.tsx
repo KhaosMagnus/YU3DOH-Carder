@@ -44,28 +44,21 @@ const StyledFooterInputContainer = styled.div`
     }
     .serial-input {
         display: grid;
-        grid-template-columns: auto 1fr 1fr;
+        grid-template-columns: auto auto minmax(0, 1fr) auto minmax(0, 1fr);
         gap: var(--spacing-sm);
-        align-items: end;
-        padding: var(--spacing-sm);
-        border: var(--bw) solid var(--sub-secondary);
-        border-radius: var(--br-lg);
+        align-items: center;
     }
-    .serial-enabled {
-        align-self: center;
+    .serial-enabled,
+    .serial-field-label {
         white-space: nowrap;
-    }
-    .serial-field {
-        display: grid;
-        gap: var(--spacing-xs);
-        min-width: 0;
     }
     .serial-field-label {
         font-size: var(--fs-sm);
         opacity: 0.8;
     }
-    .serial-field .ant-input-number {
+    .serial-input .ant-input-number {
         width: 100%;
+        min-width: 0;
     }
 `;
 const StyledLinkRatingInputContainer = styled(StyledInputLabelWithButton)`
@@ -346,26 +339,22 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
             >
                 Serial
             </Checkbox>
-            <div className="serial-field">
-                <span className="serial-field-label">Number</span>
-                <InputNumber
-                    min={1}
-                    precision={0}
-                    disabled={!serialEnabled}
-                    value={serialNumber}
-                    onChange={value => setSerialNumber(Number(value))}
-                />
-            </div>
-            <div className="serial-field">
-                <span className="serial-field-label">Total</span>
-                <InputNumber
-                    min={1}
-                    precision={0}
-                    disabled={!serialEnabled}
-                    value={serialTotal}
-                    onChange={value => setSerialTotal(Number(value))}
-                />
-            </div>
+            <span className="serial-field-label">Number</span>
+            <InputNumber
+                min={1}
+                precision={0}
+                disabled={!serialEnabled}
+                value={serialNumber}
+                onChange={value => setSerialNumber(Number(value))}
+            />
+            <span className="serial-field-label">Total</span>
+            <InputNumber
+                min={1}
+                precision={0}
+                disabled={!serialEnabled}
+                value={serialTotal}
+                onChange={value => setSerialTotal(Number(value))}
+            />
         </div>
         {formatMode !== 'sc' && <CardTextInput ref={firstEditionTextRef}
             id="firstEditionText"
