@@ -773,13 +773,6 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 }
                 await drawFrameFinish();
 
-                /** Overframe Render: the boundless artwork pass intentionally lies above
-                 * the frame. Repaint the physical outer card perimeter last so artwork
-                 * cannot cover the card edge/finish overlap. */
-                if (frameBorder) {
-                    if (backgroundType !== 'frame' || keepEffectBox) await drawCardBorder();
-                    await drawCardBorderFinish();
-                }
             }
 
             if (statInEffect) await drawStatBorder({
