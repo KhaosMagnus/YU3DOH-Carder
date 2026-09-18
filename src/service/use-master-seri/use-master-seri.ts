@@ -744,13 +744,36 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 }
 
                 if (frameBorder) await drawFrameBorder();
-                ctx.drawImage(
-                    artOnCardCanvas,
-                    globalScale * artX, globalScale * artY,
-                    globalScale * artWidth, globalScale * artWidth / ratio,
-                    globalScale * artX, globalScale * artY,
-                    globalScale * artWidth, globalScale * artWidth / ratio,
-                );
+
+                if (frameBorder) {
+                    const overframeBottomInset = 8;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(
+                        globalScale * artX,
+                        globalScale * artY,
+                        globalScale * artWidth,
+                        globalScale * Math.max(0, artWidth / ratio - overframeBottomInset),
+                    );
+                    ctx.clip();
+                    ctx.drawImage(
+                        artOnCardCanvas,
+                        globalScale * artX, globalScale * artY,
+                        globalScale * artWidth, globalScale * artWidth / ratio,
+                        globalScale * artX, globalScale * artY,
+                        globalScale * artWidth, globalScale * artWidth / ratio,
+                    );
+                    ctx.restore();
+                } else {
+                    ctx.drawImage(
+                        artOnCardCanvas,
+                        globalScale * artX, globalScale * artY,
+                        globalScale * artWidth, globalScale * artWidth / ratio,
+                        globalScale * artX, globalScale * artY,
+                        globalScale * artWidth, globalScale * artWidth / ratio,
+                    );
+                }
+
                 if (!frameBorder) await drawFrameBorder();
 
                 /** Redraw various part here because the extended artwork may overlap with those */
