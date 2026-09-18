@@ -22,7 +22,6 @@ import {
     drawLimitedEditionMark,
     baseDrawLinkArrowMap,
     baseDrawLinkMapFoil,
-    FooterSerialFrameBridge,
 } from 'src/draw';
 import {
     CanvasConst,
@@ -737,19 +736,6 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 );
                 if (!frameBorder) await drawFrameBorder();
 
-                if (frameBorder && serialEnabled) {
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.rect(
-                        0,
-                        FooterSerialFrameBridge.top * globalScale,
-                        CanvasWidth * globalScale,
-                        (CanvasHeight - FooterSerialFrameBridge.top) * globalScale,
-                    );
-                    ctx.clip();
-                    await drawFrameBorder();
-                    ctx.restore();
-                }
                 /** Redraw various part here because the extended artwork may overlap with those */
                 if (isPendulum) {
                     if (keepEffectBox) {

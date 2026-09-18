@@ -5,9 +5,7 @@ export type DrawFooterSerialProps = {
 };
 
 /**
- * Base geometry for the serial plate. The bottom-right value is also used by the
- * frame compositor to restore only the piece of outer frame that must remain
- * visible underneath the serial when Overframe Render is enabled.
+ * Base geometry for the serial plate.
  */
 export const FooterSerialGeometry = {
     plateLeft: 27,
@@ -17,9 +15,6 @@ export const FooterSerialGeometry = {
     slantWidth: 18,
 } as const;
 
-export const FooterSerialFrameBridge = {
-    top: FooterSerialGeometry.plateTop,
-} as const;
 
 /**
  * Draw the YU3DOH serial treatment in the lower-left footer.
