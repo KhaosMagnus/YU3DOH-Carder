@@ -741,9 +741,9 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     ctx.save();
                     ctx.beginPath();
                     ctx.rect(
-                        FooterSerialFrameBridge.left * globalScale,
+                        0,
                         FooterSerialFrameBridge.top * globalScale,
-                        (FooterSerialFrameBridge.right - FooterSerialFrameBridge.left) * globalScale,
+                        CanvasWidth * globalScale,
                         (CanvasHeight - FooterSerialFrameBridge.top) * globalScale,
                     );
                     ctx.clip();
