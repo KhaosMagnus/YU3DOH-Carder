@@ -30,7 +30,7 @@ export const drawFooterSerial = ({
     const slantWidth = 18;
 
     const textLeft = 50;
-    const textBaseline = 1144;
+    const textBaseline = 1146;
     const textRightPadding = 14;
     const fontSize = 31;
 
