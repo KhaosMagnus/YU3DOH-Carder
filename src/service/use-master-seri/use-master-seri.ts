@@ -690,22 +690,25 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     ratio,
                 } = getArtCanvasCoordinate(isPendulum, opacity, 'full', pendulumSize);
 
-                /** Boundless/overframe artwork semantically replaces the frame beneath
-                 * its destination. Restore the pre-frame underlay first so transparent
-                 * pixels in CardArt reveal the base/background instead of the body/card
-                 * frame that was rendered earlier in the pipeline. */
-                ctx.save();
-                ctx.beginPath();
-                ctx.rect(
-                    globalScale * artX,
-                    globalScale * artY,
-                    globalScale * artWidth,
-                    globalScale * artWidth / ratio,
-                );
-                ctx.clip();
-                ctx.globalCompositeOperation = 'copy';
-                ctx.drawImage(combinedArtCanvas, 0, 0);
-                ctx.restore();
+                /** Full-card boundless mode (Overframe Render OFF) replaces the frame
+                 * beneath its destination so transparent CardArt pixels reveal the
+                 * base/background. Overframe Render ON intentionally keeps the legacy
+                 * pipeline: the original frame stays underneath and the artwork is
+                 * painted over it. */
+                if (!frameBorder) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(
+                        globalScale * artX,
+                        globalScale * artY,
+                        globalScale * artWidth,
+                        globalScale * artWidth / ratio,
+                    );
+                    ctx.clip();
+                    ctx.globalCompositeOperation = 'copy';
+                    ctx.drawImage(combinedArtCanvas, 0, 0);
+                    ctx.restore();
+                }
 
                 await drawNameBackground();
                 await drawNameFinish();
