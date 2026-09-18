@@ -192,17 +192,36 @@ export const CardInputPanel = forwardRef<CardInputPanelRef, CardInputPanel>(({
 
         let nextArtCrop = artCrop;
         if (canRemapCrop) {
+            /** Capture narrowed values explicitly; TypeScript cannot keep Partial<Crop>
+             * property narrowing through the canRemapCrop boolean. */
+            const cropX = artCrop.x as number;
+            const cropY = artCrop.y as number;
+            const cropWidth = artCrop.width as number;
+            const cropHeight = artCrop.height as number;
             const from = getArtCanvasCoordinate(isPendulum, opacity, undefined, pendulumSize);
             const to = getArtCanvasCoordinate(isPendulum, nextOpacity, undefined, pendulumSize);
             const fromHeight = from.artWidth / from.ratio;
             const toHeight = to.artWidth / to.ratio;
 
+            const rawWidth = cropWidth * to.artWidth / from.artWidth;
+            const rawHeight = cropHeight * toHeight / fromHeight;
+            /** Preserve aspect while keeping the remapped crop inside the source image.
+             * This avoids ImageCropper's overflow fallback, which otherwise recenters
+             * the crop to the maximum inscribed rectangle and causes a large jump. */
+            const fitScale = Math.min(1, 100 / rawWidth, 100 / rawHeight);
+            const nextWidth = rawWidth * fitScale;
+            const nextHeight = rawHeight * fitScale;
+            const rawX = cropX + (to.artX - from.artX) * cropWidth / from.artWidth;
+            const rawY = cropY + (to.artY - from.artY) * cropHeight / fromHeight;
+            const nextX = Math.min(Math.max(0, rawX), 100 - nextWidth);
+            const nextY = Math.min(Math.max(0, rawY), 100 - nextHeight);
+
             nextArtCrop = {
                 ...artCrop,
-                x: artCrop.x + (to.artX - from.artX) * artCrop.width / from.artWidth,
-                y: artCrop.y + (to.artY - from.artY) * artCrop.height / fromHeight,
-                width: artCrop.width * to.artWidth / from.artWidth,
-                height: artCrop.height * toHeight / fromHeight,
+                x: nextX,
+                y: nextY,
+                width: nextWidth,
+                height: nextHeight,
                 aspect: to.ratio,
             };
             imageInputGroupRef.current?.setCropInfo(nextArtCrop);
