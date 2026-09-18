@@ -8,6 +8,7 @@ import {
     FinishMap,
     CardFormatMode,
     getCardFormatMode,
+    getArtCanvasCoordinate,
 } from '../../model';
 import {
     Affiliation,
@@ -111,6 +112,7 @@ export const CardInputPanel = forwardRef<CardInputPanelRef, CardInputPanel>(({
         format,
         region,
         frame, foil, finish, opacity,
+        artCrop, artFit, isPendulum, pendulumSize,
         nameStyleType, nameStyle,
         getUpdater,
         setCard,
@@ -118,6 +120,7 @@ export const CardInputPanel = forwardRef<CardInputPanelRef, CardInputPanel>(({
         card: {
             format, region,
             frame, foil, finish, opacity,
+            artCrop, artFit, isPendulum, pendulumSize,
             nameStyleType, nameStyle,
             isLink,
         },
@@ -126,6 +129,7 @@ export const CardInputPanel = forwardRef<CardInputPanelRef, CardInputPanel>(({
     }) => ({
         format, region,
         frame, foil, finish, opacity,
+        artCrop, artFit, isPendulum, pendulumSize,
         nameStyleType, nameStyle,
         isLink,
         getUpdater,
@@ -174,7 +178,42 @@ export const CardInputPanel = forwardRef<CardInputPanelRef, CardInputPanel>(({
     };
     const changeFoil = useMemo(() => getUpdater('foil'), [getUpdater]);
     const onFinishChange = useMemo(() => getUpdater('finish'), [getUpdater]);
-    const changeOpacity = useCallback((opacity: CardOpacity) => setCard(curr => ({ ...curr, opacity })), [setCard]);
+    const changeOpacity = useCallback((nextOpacity: CardOpacity) => {
+        const frameBorderChanged = opacity.frameBorder !== nextOpacity.frameBorder;
+        const canRemapCrop = frameBorderChanged
+            && opacity.boundless
+            && nextOpacity.boundless
+            && !artFit
+            && artCrop?.unit === '%'
+            && typeof artCrop.x === 'number'
+            && typeof artCrop.y === 'number'
+            && typeof artCrop.width === 'number'
+            && typeof artCrop.height === 'number';
+
+        let nextArtCrop = artCrop;
+        if (canRemapCrop) {
+            const from = getArtCanvasCoordinate(isPendulum, opacity, undefined, pendulumSize);
+            const to = getArtCanvasCoordinate(isPendulum, nextOpacity, undefined, pendulumSize);
+            const fromHeight = from.artWidth / from.ratio;
+            const toHeight = to.artWidth / to.ratio;
+
+            nextArtCrop = {
+                ...artCrop,
+                x: artCrop.x + (to.artX - from.artX) * artCrop.width / from.artWidth,
+                y: artCrop.y + (to.artY - from.artY) * artCrop.height / fromHeight,
+                width: artCrop.width * to.artWidth / from.artWidth,
+                height: artCrop.height * toHeight / fromHeight,
+                aspect: to.ratio,
+            };
+            imageInputGroupRef.current?.setCropInfo(nextArtCrop);
+        }
+
+        setCard(curr => ({
+            ...curr,
+            opacity: nextOpacity,
+            ...(nextArtCrop ? { artCrop: nextArtCrop } : {}),
+        }));
+    }, [artCrop, artFit, isPendulum, opacity, pendulumSize, setCard]);
     const changeNameStyle = useCallback((type: NameStyleType, value: Partial<NameStyle>) => {
         setCard(currentCard => {
             return {

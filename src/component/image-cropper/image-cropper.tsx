@@ -106,6 +106,7 @@ export type ImageCropperRef = {
     isLoading: () => boolean,
     hasImage: () => boolean,
     forceSource: (type: ImageSourceType, artLinkOrData: string, cropInfo: Partial<ReactCrop.Crop>) => void,
+    setCropInfo: (cropInfo: Partial<ReactCrop.Crop>) => void,
     getSource: () => ({ type: ImageSourceType, image: string, imageData: string, crop: Partial<ReactCrop.Crop> }),
 };
 export type ImageCropper = {
@@ -431,6 +432,15 @@ export const ImageCropper = forwardRef<ImageCropperRef, ImageCropper>(({
                 image: sourceType === 'online' ? externalSource : '',
                 imageData: sourceType === 'offline' ? internalSource : '',
             };
+        },
+        setCropInfo: cropInfo => {
+            setInteracted(false);
+            const normalizedCrop = normalizeCrop(cropInfo, imgRef.current, ratio);
+            setCrop({
+                current: normalizedCrop,
+                completed: normalizedCrop as ReactCrop.Crop,
+            });
+            setMigrated(normalizedCrop.unit === '%');
         },
         forceSource: (type: ImageSourceType, source, cropInfo) => {
             const currentSource = sourceType === 'offline' ? internalSource : externalSource;

@@ -512,43 +512,33 @@ export const getArtCanvasCoordinate = (
         body,
         pendulum,
         text,
+        frameBorder,
     } = normalizedOpacity;
     const normalizedIsBoundless = backgroundType === 'fit' || backgroundType === 'strict'
         ? false
         : boundless;
+    const normalizedIsOverframe = normalizedIsBoundless
+        ? frameBorder
+        : false;
 
-    /**
-     * YU3DOH: Overframe Render controls compositing order only.
-     *
-     * Boundless artwork keeps one stable crop/coordinate system regardless of
-     * whether the outer frame is drawn above or below it. Previously
-     * `frameBorder` switched between fullCard (28px inset) and overframeCard
-     * (edge-to-edge), which caused the cropper ratio and final artwork geometry
-     * to change whenever Overframe Render was toggled.
-     */
     if (backgroundType === 'full') {
-        return normalizedIsBoundless
+        return normalizedIsOverframe
             ? CardArtCanvasCoordinateMap.overframeCard
             : CardArtCanvasCoordinateMap.fullCard;
     }
     let distributionMode: keyof typeof CardArtCanvasCoordinateMap = 'normal';
 
-    /**
-     * Boundless artwork always uses edge-to-edge geometry. Overframe Render no
-     * longer changes these coordinates; the frame compositor decides only which
-     * layer is on top. Transparent-body artwork that is not boundless keeps the
-     * historical full-card inset geometry.
-     */
+    /** The only different between boundless mode and transparent body is card art in boundless mode will be put higher than art frame */
     if (normalizedIsBoundless || body < 100) {
         distributionMode = isPendulum
-            ? normalizedIsBoundless
+            ? normalizedIsOverframe
                 ? pendulumSize === 'small'
                     ? 'overframePendulumSmall'
                     : 'overframePendulum'
                 : pendulumSize === 'small'
                     ? 'fullPendulumSmall'
                     : 'fullPendulum'
-            : normalizedIsBoundless
+            : normalizedIsOverframe
                 ? 'overframeCard'
                 : 'fullCard';
     } else {
