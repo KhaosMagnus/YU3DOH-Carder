@@ -30,7 +30,7 @@ export const drawFooterSerial = ({
     const slantWidth = 18;
 
     const textLeft = 50;
-    const textBaseline = 1148;
+    const textBaseline = 1144;
     const textRightPadding = 14;
     const fontSize = 31;
 
@@ -63,12 +63,10 @@ export const drawFooterSerial = ({
     ctx.fillStyle = '#000000';
     ctx.fill();
 
-    /** Warm frame seam visible around the black insert in the supplied reference. */
-    ctx.strokeStyle = '#d8cbb6';
-    ctx.lineWidth = 1.2;
-    ctx.lineJoin = 'miter';
-    ctx.stroke();
-
+    /**
+     * The supplied reference has no dedicated serial outline. The light edge
+     * touching the insert belongs to the surrounding card frame itself.
+     */
     ctx.fillStyle = '#f0df48';
     ctx.fillText(value, textLeft, textBaseline);
 
