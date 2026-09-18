@@ -683,6 +683,30 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
 
             /** Boundless art behavior here. If rigid frame is off, card image will be placed on top of the art border. The extended card image is still below name (text only), level, attribute, effect (both card and pendulum) and other predefined texts. */
             if (boundless) {
+                const {
+                    artX,
+                    artY,
+                    artWidth,
+                    ratio,
+                } = getArtCanvasCoordinate(isPendulum, opacity, 'full', pendulumSize);
+
+                /** Boundless/overframe artwork semantically replaces the frame beneath
+                 * its destination. Restore the pre-frame underlay first so transparent
+                 * pixels in CardArt reveal the base/background instead of the body/card
+                 * frame that was rendered earlier in the pipeline. */
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(
+                    globalScale * artX,
+                    globalScale * artY,
+                    globalScale * artWidth,
+                    globalScale * artWidth / ratio,
+                );
+                ctx.clip();
+                ctx.globalCompositeOperation = 'copy';
+                ctx.drawImage(combinedArtCanvas, 0, 0);
+                ctx.restore();
+
                 await drawNameBackground();
                 await drawNameFinish();
                 await drawNameBorder();
@@ -718,13 +742,6 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                         ctx.scale(1 / globalScale, 1 / globalScale);
                     }
                 }
-
-                const {
-                    artX,
-                    artY,
-                    artWidth,
-                    ratio,
-                } = getArtCanvasCoordinate(isPendulum, opacity, 'full', pendulumSize);
 
                 if (frameBorder) await drawFrameBorder();
                 ctx.drawImage(
