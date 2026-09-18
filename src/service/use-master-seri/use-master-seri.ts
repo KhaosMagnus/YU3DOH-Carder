@@ -22,6 +22,7 @@ import {
     drawLimitedEditionMark,
     baseDrawLinkArrowMap,
     baseDrawLinkMapFoil,
+    FooterSerialFrameBridge,
 } from 'src/draw';
 import {
     CanvasConst,
@@ -62,6 +63,7 @@ import {
     resolveNameStyle,
 } from 'src/util';
 import { useCard } from '../use-card';
+import { useSerial } from '../use-serial';
 import { prepareStyle } from './prepare-style';
 import { LanguageDataDictionary } from '../use-i18n';
 import { notification } from 'antd';
@@ -104,6 +106,9 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
     const {
         card,
     } = useCard();
+    const serialEnabled = useSerial(state => state.serialEnabled);
+    const serialNumber = useSerial(state => state.serialNumber);
+    const serialTotal = useSerial(state => state.serialTotal);
     const {
         artworkCanvasRef,
         attributeCanvasRef,
@@ -731,6 +736,20 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     globalScale * artWidth, globalScale * artWidth / ratio,
                 );
                 if (!frameBorder) await drawFrameBorder();
+
+                if (frameBorder && serialEnabled) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.rect(
+                        FooterSerialFrameBridge.left * globalScale,
+                        FooterSerialFrameBridge.top * globalScale,
+                        (FooterSerialFrameBridge.right - FooterSerialFrameBridge.left) * globalScale,
+                        (CanvasHeight - FooterSerialFrameBridge.top) * globalScale,
+                    );
+                    ctx.clip();
+                    await drawFrameBorder();
+                    ctx.restore();
+                }
                 /** Redraw various part here because the extended artwork may overlap with those */
                 if (isPendulum) {
                     if (keepEffectBox) {
@@ -855,6 +874,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         withBlueScale,
         getLinkLayer,
         withRedScale,
+        serialEnabled,
         imageChangeCount, // Special dependency, do not remove even though it is not used in the effect itself
     ]);
 
@@ -982,7 +1002,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 fontLevel: !isNumberPassword ? 1 : 0
             });
             const editionTextUseTopPosition = (isLegacyCard || !isNumberPassword) && !isPendulum;
-            if (isFirstEdition && typographyFormat !== 'sc') {
+            if (!serialEnabled && isFirstEdition && typographyFormat !== 'sc') {
                 const willDrawFirstEdition = isPendulum
                     ? isNumberPassword ? true : false
                     : true;
@@ -1087,6 +1107,9 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         requireShadow,
         resolvedOtherEffectTextStyle,
         typographyFormat,
+        serialEnabled,
+        serialNumber,
+        serialTotal,
     ]);
 
     /** DRAW CREATOR (COPYRIGHT) TEXT */
@@ -1120,7 +1143,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
             const compactThreshold = (format === 'tcg' ? 390 : 350) * globalScale;
             const compactOffset = (format === 'tcg' ? 30 : 40) * globalScale;
 
-            if (isLimitedEdition && creatorCanvasRef.current) {
+            if (!serialEnabled && isLimitedEdition && creatorCanvasRef.current) {
                 await drawLimitedEditionMark({
                     canvas: creatorCanvasRef.current,
                     ctx,
@@ -1153,6 +1176,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         opacity,
         requireShadow,
         resolvedOtherEffectTextStyle,
+        serialEnabled,
     ]);
 
     /** DRAW STICKER */
