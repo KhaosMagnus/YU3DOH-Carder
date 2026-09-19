@@ -627,6 +627,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
             await drawFrame();
             if (backgroundType !== 'frame' || keepEffectBox) await drawCardBorder();
             await drawCardBorderFinish();
+            await drawCustomOuterFoil();
 
             /** @summary Draw NON-PENDULUM non-boundless card layout */
             if (!isPendulum) {
@@ -823,7 +824,6 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 type: (lightFooter && !isPendulum) ? 'white' : 'black',
             });
             await drawOverlayFinish();
-            await drawCustomOuterFoil();
         };
     }, [
         readyToDraw,
