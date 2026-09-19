@@ -6,7 +6,7 @@ import {
     CanvasConst,
     CardOpacity,
     Foil,
-    GRAND_MASTER_RARE_FOIL,
+    getCustomOuterFoilAsset,
     normalizeStandardFoil,
     FrameDyeList,
     getArtCanvasCoordinate,
@@ -233,6 +233,7 @@ export const getLayoutDrawFunction = ({
     if (controlString) console.info('Control String', controlString);
 
     const standardFoil = normalizeStandardFoil(foil);
+    const customOuterFoilAsset = getCustomOuterFoilAsset(foil);
     const hasFoil = standardFoil !== 'normal';
     const frameBorderType = isXyz || isSpeedSkill
         ? frame
@@ -839,15 +840,16 @@ export const getLayoutDrawFunction = ({
             }
             ctx.resetTransform();
         },
-        /** Grand Master Rare is a full-card outer overlay. Unlike normal foil
-         * assets, it is intentionally drawn at the end of the frame pipeline so
-         * Boundless / Overframe artwork cannot erase the decorative perimeter. */
+        /** Custom outer foils reuse the normal internal foil components and
+         * only replace the full-card outer border asset. The caller places this
+         * draw in the outer-border phase so Boundless / Overframe keeps the
+         * stacking behavior validated for Grand Master Rare. */
         drawCustomOuterFoil: async () => {
-            if (!ctx || foil !== GRAND_MASTER_RARE_FOIL) return;
+            if (!ctx || !customOuterFoilAsset) return;
             ctx.scale(globalScale, globalScale);
             await drawAssetWithSize(
                 ctx,
-                'frame/card-border-grand-master-rare.png',
+                customOuterFoilAsset,
                 0, 0,
                 cardWidth, cardHeight,
             );
