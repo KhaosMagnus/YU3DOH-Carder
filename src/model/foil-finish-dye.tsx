@@ -357,6 +357,10 @@ export const getFoilList = (dictionary?: FoilDictionary) => [
 ];
 export type Foil = ReturnType<typeof getFoilList>[0]['name'];
 
+export const GRAND_MASTER_RARE_FOIL: Foil = 'grand-master-rare';
+export const normalizeStandardFoil = (foil: Foil): Exclude<Foil, 'grand-master-rare'> =>
+    foil === GRAND_MASTER_RARE_FOIL ? 'normal' : foil;
+
 export type FrameDyeList = [
     topLeft: string,
     topRight: string,
