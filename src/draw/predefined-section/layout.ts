@@ -890,7 +890,7 @@ export const getLayoutDrawFunction = ({
                 ? bottomLeftFrame === 'speed-skill'
                     ? 'speed-skill'
                     : 'normal'
-                : foil;
+                : standardFoil;
             await drawAsset(operateCtx, `frame/effect-border-${assetName}.png`, effectBoxX, effectBoxY);
             const operateCanvasAfterCustom = await blendCanvas({
                 canvas: operateCanvas,
