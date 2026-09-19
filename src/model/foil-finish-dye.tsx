@@ -277,6 +277,7 @@ export type FoilDictionary = {
     gold: string,
     platinum: string,
     rainbow: string,
+    grandMasterRare?: string,
 };
 const FoilPreview = styled.div`
     display: inline-block;
@@ -302,6 +303,15 @@ export const FoilMap = {
         name: 'platinum' as const,
         color: '#b1b1b1',
         preview: <FoilPreview style={{ backgroundColor: '#b1b1b1' }} />,
+        isOption: true,
+    },
+    grandMasterRare: {
+        name: 'grand-master-rare' as const,
+        color: '#f1f1f1',
+        preview: <FoilPreview style={{
+            background: 'linear-gradient(135deg, #0b0b0b 0%, #0b0b0b 42%, #f1f1f1 43%, #f1f1f1 57%, #0b0b0b 58%, #0b0b0b 100%)',
+            boxShadow: 'inset 0 0 0 1px #f1f1f1',
+        }} />,
         isOption: true,
     },
     rainbow: {
@@ -335,6 +345,10 @@ export const getFoilList = (dictionary?: FoilDictionary) => [
     {
         tooltip: dictionary?.platinum,
         ...FoilMap.platinum,
+    },
+    {
+        tooltip: dictionary?.grandMasterRare ?? 'Grand Master Rare',
+        ...FoilMap.grandMasterRare,
     },
     // {
     //     tooltip: dictionary?.rainbow,
