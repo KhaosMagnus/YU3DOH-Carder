@@ -6,6 +6,8 @@ import {
     CanvasConst,
     CardOpacity,
     Foil,
+    GRAND_MASTER_RARE_FOIL,
+    normalizeStandardFoil,
     FrameDyeList,
     getArtCanvasCoordinate,
     NO_ATTRIBUTE,
@@ -230,7 +232,8 @@ export const getLayoutDrawFunction = ({
     const willBlendBorder = hasOverlay && borderOverlayType !== 'none';
     if (controlString) console.info('Control String', controlString);
 
-    const hasFoil = foil !== 'normal';
+    const standardFoil = normalizeStandardFoil(foil);
+    const hasFoil = standardFoil !== 'normal';
     const frameBorderType = isXyz || isSpeedSkill
         ? frame
         : 'normal';
@@ -758,7 +761,7 @@ export const getLayoutDrawFunction = ({
             await drawAssetWithSize(
                 operateCtx,
                 `frame-pendulum/border-pendulum-${pendulumSize}`
-                + `-${foil}`
+                + `-${standardFoil}`
                 + '-artless'
                 + (pendulumFrameTypeMap.blue === 'scaleless' ? '-scaleless' : '')
                 + '.png',
@@ -770,7 +773,7 @@ export const getLayoutDrawFunction = ({
             await drawAssetWithSize(
                 operateCtx,
                 `frame-pendulum/border-pendulum-${pendulumSize}`
-                + `-${foil}`
+                + `-${standardFoil}`
                 + '-artless'
                 + (pendulumFrameTypeMap.red === 'scaleless' ? '-scaleless' : '')
                 + '.png',
@@ -783,7 +786,7 @@ export const getLayoutDrawFunction = ({
                 await drawAsset(
                     operateCtx,
                     `frame-pendulum/border-pendulum-${pendulumSize}`
-                    + `-${foil}`
+                    + `-${standardFoil}`
                     + '.png',
                     30, topToPendulumStructureFrame,
                 );
@@ -819,7 +822,7 @@ export const getLayoutDrawFunction = ({
             if (!ctx) return;
             ctx.scale(globalScale, globalScale);
             const { ctx: operateCtx, canvas: operateCanvas } = createCanvas();
-            await drawAsset(operateCtx, `frame/card-border-${foil}.png`, 0, 0);
+            await drawAsset(operateCtx, `frame/card-border-${standardFoil}.png`, 0, 0);
             ctx.drawImage(operateCanvas, 0, 0);
             const willMix = HexColorRegex.test(dyeList[6]) || willBlendBorder;
             if (willMix) {
@@ -836,6 +839,20 @@ export const getLayoutDrawFunction = ({
             }
             ctx.resetTransform();
         },
+        /** Grand Master Rare is a full-card outer overlay. Unlike normal foil
+         * assets, it is intentionally drawn at the end of the frame pipeline so
+         * Boundless / Overframe artwork cannot erase the decorative perimeter. */
+        drawCustomOuterFoil: async () => {
+            if (!ctx || foil !== GRAND_MASTER_RARE_FOIL) return;
+            ctx.scale(globalScale, globalScale);
+            await drawAssetWithSize(
+                ctx,
+                'frame/card-border-grand-master-rare.png',
+                0, 0,
+                cardWidth, cardHeight,
+            );
+            ctx.resetTransform();
+        },
 
         /** @summary FOIL section */
 
@@ -845,11 +862,11 @@ export const getLayoutDrawFunction = ({
             if (artBorder) {
                 const { ctx: operateCtx, canvas: operateCanvas } = createCanvas();
 
-                const assetName = foil === 'normal'
+                const assetName = standardFoil === 'normal'
                     ? bottomLeftFrame === 'speed-skill'
                         ? 'speed-skill'
                         : 'normal'
-                    : foil;
+                    : standardFoil;
                 await drawAsset(operateCtx, `frame/art-border-${assetName}.png`, artBoxX, artBoxY);
                 const operateCanvasAfterCustom = await blendCanvas({
                     canvas: operateCanvas,
@@ -869,7 +886,7 @@ export const getLayoutDrawFunction = ({
             ctx.scale(globalScale, globalScale);
             const { ctx: operateCtx, canvas: operateCanvas } = createCanvas();
 
-            const assetName = foil === 'normal'
+            const assetName = standardFoil === 'normal'
                 ? bottomLeftFrame === 'speed-skill'
                     ? 'speed-skill'
                     : 'normal'
