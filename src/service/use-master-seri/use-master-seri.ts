@@ -47,6 +47,7 @@ import {
     LINK_ON_TOP_ACTIVATED_ONLY,
     LINK_ON_TOP_NEVER,
     getCardFormatMode,
+    normalizeStandardFoil,
 } from 'src/model';
 import {
     checkDiplayLinkRating,
@@ -357,7 +358,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
             const { ctx: linkArrowCtx, canvas: linkArrowCanvas } = createCanvas(CanvasWidth, CanvasHeight);
             if (linkArrowCtx) {
                 await baseDrawLinkArrowMap(linkArrowCtx, 1, linkMap, isPendulum ? 'pendulum' : 'normal', boundless || !hasArtBorder);
-                await baseDrawLinkMapFoil(linkArrowCtx, 1, foil, false, isPendulum ? 'pendulum' : 'normal', foilDyeColor);
+                await baseDrawLinkMapFoil(linkArrowCtx, 1, normalizeStandardFoil(foil), false, isPendulum ? 'pendulum' : 'normal', foilDyeColor);
                 const removeMarkerList = ['1', '2', '3', '4', '5', '6', '7', '8', '9'].filter(entry => {
                     if (hideInactiveLinkMarker || hideMarker === 'inactive') return !linkMap.includes(entry);
                     if (hideMarker === 'active') return linkMap.includes(entry);
@@ -539,6 +540,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 drawBorderPendulumFinish,
                 drawEffectBorder,
                 drawCardBorder,
+                drawCustomOuterFoil,
                 drawStatBorder,
 
                 drawAttributeFinish,
@@ -821,6 +823,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 type: (lightFooter && !isPendulum) ? 'white' : 'black',
             });
             await drawOverlayFinish();
+            await drawCustomOuterFoil();
         };
     }, [
         readyToDraw,
