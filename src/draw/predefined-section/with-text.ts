@@ -1,5 +1,7 @@
 import { fillTextLeftWithSpacing, fillTextRightWithSpacing, setTextStyle } from '../canvas-util';
 import { CanvasTextStyle, DEFAULT_TEXT_COLOR, NB_WORD_CLOSE, NB_WORD_OPEN, RegionOffset } from 'src/model';
+import { useCard } from 'src/service/use-card';
+import { useSerial } from 'src/service/use-serial';
 
 export const drawScale = (
     ctx: CanvasRenderingContext2D | null | undefined,
@@ -101,6 +103,9 @@ export const drawOnFrameText = ({
     },
 }) => {
     if (!ctx) return;
+
+    /** Serial mode follows the reference layout: it replaces the first-edition footer notice. */
+    if (useSerial.getState().serialEnabled && txt === useCard.getState().card.firstEditionText) return;
 
     const {
         stroke = false,

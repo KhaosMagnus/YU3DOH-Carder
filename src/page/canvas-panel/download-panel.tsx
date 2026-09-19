@@ -1,7 +1,7 @@
 import { Button, Dropdown, notification, Tooltip } from 'antd';
 import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { CARD_CROPPER_NAME, MasterSeriesCanvas } from 'src/model';
-import { UseCardExport, useCardExport, useLanguage, useMasterSeriDrawer, useSetting } from 'src/service';
+import { UseCardExport, useCardExport, useLanguage, useSerialMasterSeriDrawer, useSetting } from 'src/service';
 import { GatewayOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useShallow } from 'zustand/react/shallow';
@@ -85,7 +85,7 @@ export const DownloadPanel = forwardRef<DownloadPanelRef, DownloadPanel>(({
     onDownloadError,
 }, ref) => {
     const language = useLanguage();
-    const { onExport } = useMasterSeriDrawer(
+    const { onExport } = useSerialMasterSeriDrawer(
         true,
         canvasMap,
         {

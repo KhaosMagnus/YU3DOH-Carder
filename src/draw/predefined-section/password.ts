@@ -1,10 +1,12 @@
 import { PasswordFontData, PasswordCoordinateMap, DefaultFontSizeData, CanvasTextStyle } from 'src/model';
+import { formatSerial, useSerial } from 'src/service/use-serial';
 import { condense, createFontGetter, scaleCoordinateData, scaleFontData, scaleFontSizeData } from 'src/util';
 import { tokenizeText } from '../text-util';
 import { drawLine } from '../line';
 import { createLineList } from '../line-list';
 import { normalizeCardText } from '../text-normalize';
 import { clearCanvas, setTextStyle } from '../canvas-util';
+import { drawFooterSerial } from './serial';
 
 export const drawPasswordText = async ({
     ctx,
@@ -34,6 +36,19 @@ export const drawPasswordText = async ({
     if (!clearCanvas(ctx)) return {
         rightEdge: 0,
     };
+
+    const {
+        serialEnabled,
+        serialNumber,
+        serialTotal,
+    } = useSerial.getState();
+    if (serialEnabled) {
+        return drawFooterSerial({
+            ctx,
+            globalScale,
+            value: formatSerial(serialNumber, serialTotal),
+        });
+    }
 
     const resetTextStyle = setTextStyle({
         ctx,
