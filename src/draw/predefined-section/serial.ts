@@ -47,9 +47,14 @@ export const drawFooterSerial = ({
     const textBaseline = 1146;
     const textRightPadding = 14;
     const fontSize = 31;
+    const finalOffsetX = 2;
+    const finalOffsetY = -2;
+    const internalOffsetX = finalOffsetX / globalScale;
+    const internalOffsetY = finalOffsetY / globalScale;
 
     ctx.save();
     ctx.scale(globalScale, globalScale);
+    ctx.translate(internalOffsetX, internalOffsetY);
 
     /**
      * Rodin is already bundled by YGO Carder for OCG creator text. Its numerals
@@ -87,6 +92,6 @@ export const drawFooterSerial = ({
     ctx.restore();
 
     return {
-        rightEdge: plateBottomRight * globalScale,
+        rightEdge: plateBottomRight * globalScale + finalOffsetX,
     };
 };
