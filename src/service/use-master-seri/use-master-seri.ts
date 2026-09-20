@@ -135,6 +135,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
     const {
         format, region,
         legacyTemplate,
+        art, artData, artSource,
         hasBackground, backgroundType,
         overlay, overlayData, overlaySource, overlayType,
         iconImage, iconImageData, iconImageSource,
@@ -164,6 +165,8 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
     } = card;
     const typographyFormat = getCardFormatMode(format, region);
     const textFuriganaHelper = typographyFormat === 'sc' ? false : furiganaHelper;
+    const hasArtSource = (artSource === 'online' && art.trim() !== '')
+        || (artSource === 'offline' && artData.trim() !== '');
     const hasOverlay = (overlaySource === 'online' && overlay.trim() !== '')
         || (overlaySource === 'offline' && overlayData.trim() !== '');
     const hasIconImage = (iconImageSource === 'online' && iconImage.trim() !== '')
@@ -694,11 +697,11 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 } = getArtCanvasCoordinate(isPendulum, opacity, 'full', pendulumSize);
 
                 /** Full-card boundless mode (Overframe Render OFF) replaces the frame
-                 * beneath its destination so transparent CardArt pixels reveal the
-                 * base/background. Overframe Render ON intentionally keeps the legacy
-                 * pipeline: the original frame stays underneath and the artwork is
-                 * painted over it. */
-                if (!frameBorder) {
+                 * beneath actual artwork so transparent CardArt pixels reveal the
+                 * base/background. Without artwork there is nothing to replace, so keep
+                 * the already-rendered frame and outer border intact. */
+                const replaceFrameUnderBoundlessArt = !frameBorder && hasArtSource && !!artworkCanvas;
+                if (replaceFrameUnderBoundlessArt) {
                     ctx.save();
                     ctx.beginPath();
                     ctx.rect(
@@ -760,6 +763,15 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 );
 
                 if (!frameBorder) await drawFrameBorder();
+
+                /** The destructive underlay replacement also clips through the physical
+                 * outer-border region. Restore that border only when replacement actually
+                 * occurred; Overframe ON intentionally keeps artwork above it. */
+                if (replaceFrameUnderBoundlessArt) {
+                    if (backgroundType !== 'frame' || keepEffectBox) await drawCardBorder();
+                    await drawCardBorderFinish();
+                    await drawCustomOuterFoil();
+                }
 
                 /** Redraw various part here because the extended artwork may overlap with those */
                 if (isPendulum) {
@@ -844,6 +856,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         format,
         frame,
         frameCanvasRef,
+        hasArtSource,
         hasBackground,
         hasIconImage,
         hasOverlay,
