@@ -696,25 +696,11 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     ratio,
                 } = getArtCanvasCoordinate(isPendulum, opacity, 'full', pendulumSize);
 
-                /** Full-card boundless mode (Overframe Render OFF) replaces the frame
-                 * beneath actual artwork so transparent CardArt pixels reveal the
-                 * base/background. Without artwork there is nothing to replace, so keep
-                 * the already-rendered frame and outer border intact. */
-                const replaceFrameUnderBoundlessArt = !frameBorder && hasArtSource && !!artworkCanvas;
-                if (replaceFrameUnderBoundlessArt) {
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.rect(
-                        globalScale * artX,
-                        globalScale * artY,
-                        globalScale * artWidth,
-                        globalScale * artWidth / ratio,
-                    );
-                    ctx.clip();
-                    ctx.globalCompositeOperation = 'copy';
-                    ctx.drawImage(combinedArtCanvas, 0, 0);
-                    ctx.restore();
-                }
+                /** Full-card boundless artwork is alpha-composited over the existing
+                 * frame. This preserves the frame beneath transparent artwork pixels.
+                 * Overframe OFF restores the physical outer border after the artwork,
+                 * while Overframe ON intentionally leaves artwork above that border. */
+                const restoreOuterBorderAfterBoundlessArt = !frameBorder && hasArtSource && !!artworkCanvas;
 
                 await drawNameBackground();
                 await drawNameFinish();
@@ -764,10 +750,10 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
 
                 if (!frameBorder) await drawFrameBorder();
 
-                /** The destructive underlay replacement also clips through the physical
-                 * outer-border region. Restore that border only when replacement actually
-                 * occurred; Overframe ON intentionally keeps artwork above it. */
-                if (replaceFrameUnderBoundlessArt) {
+                /** Overframe OFF keeps the physical outer border above boundless artwork.
+                 * Do not repaint it when no artwork was drawn, preserving the RUN 007
+                 * no-artwork path without introducing duplicate semi-transparent layers. */
+                if (restoreOuterBorderAfterBoundlessArt) {
                     if (backgroundType !== 'frame' || keepEffectBox) await drawCardBorder();
                     await drawCardBorderFinish();
                     await drawCustomOuterFoil();
