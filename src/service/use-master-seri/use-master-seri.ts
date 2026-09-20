@@ -19,6 +19,7 @@ import {
     drawPredefinedMark,
     setTextStyle,
     drawPasswordText,
+    resolveFooterSerialLayoutProfile,
     drawLimitedEditionMark,
     baseDrawLinkArrowMap,
     baseDrawLinkMapFoil,
@@ -1010,7 +1011,8 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 format,
                 hasShadow: bottomFrame === 'zarc' || requireShadow,
                 textStyle: resolvedOtherEffectTextStyle,
-                fontLevel: !isNumberPassword ? 1 : 0
+                fontLevel: !isNumberPassword ? 1 : 0,
+                serialLayoutProfile: resolveFooterSerialLayoutProfile(foil),
             });
             const editionTextUseTopPosition = (isLegacyCard || !isNumberPassword) && !isPendulum;
             if (!serialEnabled && isFirstEdition && typographyFormat !== 'sc') {
@@ -1104,6 +1106,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         bottomFrame,
         cornerText,
         firstEditionText,
+        foil,
         format,
         hasCornerText,
         isFirstEdition,

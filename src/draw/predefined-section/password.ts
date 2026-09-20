@@ -6,7 +6,7 @@ import { drawLine } from '../line';
 import { createLineList } from '../line-list';
 import { normalizeCardText } from '../text-normalize';
 import { clearCanvas, setTextStyle } from '../canvas-util';
-import { drawFooterSerial } from './serial';
+import { drawFooterSerial, type FooterSerialLayoutProfile } from './serial';
 
 export const drawPasswordText = async ({
     ctx,
@@ -20,6 +20,7 @@ export const drawPasswordText = async ({
     hasShadow,
     textStyle,
     fontLevel,
+    serialLayoutProfile,
 }: {
     ctx?: CanvasRenderingContext2D | null,
     globalScale: number,
@@ -32,6 +33,7 @@ export const drawPasswordText = async ({
     hasShadow?: boolean,
     textStyle?: CanvasTextStyle,
     fontLevel: number,
+    serialLayoutProfile?: FooterSerialLayoutProfile,
 }) => {
     if (!clearCanvas(ctx)) return {
         rightEdge: 0,
@@ -47,6 +49,7 @@ export const drawPasswordText = async ({
             ctx,
             globalScale,
             value: formatSerial(serialNumber, serialTotal),
+            layoutProfile: serialLayoutProfile,
         });
     }
 

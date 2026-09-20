@@ -1,7 +1,30 @@
+import type { Foil } from 'src/model';
+
+export type FooterSerialLayoutProfile = {
+    offsetX: number,
+    offsetY: number,
+};
+
+export const DEFAULT_FOOTER_SERIAL_LAYOUT_PROFILE: FooterSerialLayoutProfile = {
+    offsetX: 2,
+    offsetY: 0,
+};
+
+const FooterSerialLayoutProfileOverrideMap: Partial<Record<Foil, FooterSerialLayoutProfile>> = {
+    'grand-master-rare': {
+        offsetX: 3,
+        offsetY: -3,
+    },
+};
+
+export const resolveFooterSerialLayoutProfile = (foil: Foil): FooterSerialLayoutProfile =>
+    FooterSerialLayoutProfileOverrideMap[foil] ?? DEFAULT_FOOTER_SERIAL_LAYOUT_PROFILE;
+
 export type DrawFooterSerialProps = {
     ctx?: CanvasRenderingContext2D | null,
     globalScale: number,
     value: string,
+    layoutProfile?: FooterSerialLayoutProfile,
 };
 
 /**
@@ -28,6 +51,7 @@ export const drawFooterSerial = ({
     ctx,
     globalScale,
     value,
+    layoutProfile = DEFAULT_FOOTER_SERIAL_LAYOUT_PROFILE,
 }: DrawFooterSerialProps) => {
     if (!ctx) return { rightEdge: 0 };
 
@@ -47,8 +71,10 @@ export const drawFooterSerial = ({
     const textBaseline = 1146;
     const textRightPadding = 14;
     const fontSize = 31;
-    const finalOffsetX = 2;
-    const finalOffsetY = -2;
+    const {
+        offsetX: finalOffsetX,
+        offsetY: finalOffsetY,
+    } = layoutProfile;
     const internalOffsetX = finalOffsetX / globalScale;
     const internalOffsetY = finalOffsetY / globalScale;
 
