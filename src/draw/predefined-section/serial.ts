@@ -1,4 +1,4 @@
-import type { Foil } from 'src/model';
+import { SIMPLIFIED_CHINESE_FONT_FAMILY, type Foil } from 'src/model';
 
 export type FooterSerialLayoutProfile = {
     offsetX: number,
@@ -83,11 +83,10 @@ export const drawFooterSerial = ({
     ctx.translate(internalOffsetX, internalOffsetY);
 
     /**
-     * Rodin is already bundled by YGO Carder for OCG creator text. Its numerals
-     * have a substantially more uniform stroke than the high-contrast serif used
-     * in the first serial pass, while retaining the requested text height.
+     * Use the same DFKai family as Simplified Chinese effect text. Rodin remains
+     * only as a fallback after the loader has confirmed the primary family.
      */
-    ctx.font = `${fontSize}px "FOT-Rodin Pro M", MatrixBook, sans-serif`;
+    ctx.font = `${fontSize}px ${SIMPLIFIED_CHINESE_FONT_FAMILY}, "FOT-Rodin Pro M", MatrixBook, sans-serif`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
 

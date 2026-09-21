@@ -32,15 +32,17 @@ export const useOCGFont = ({
     const [styleContent, setStyleContent] = useState('');
 
     const readyMap = useRef<Record<'ocg' | 'sc', boolean>>({ ocg: false, sc: false });
+    const [serialFontReady, setSerialFontReady] = useState(false);
     const loadAttemptMap = useRef<Record<'ocg' | 'sc', number>>({ ocg: 0, sc: 0 });
     useEffect(() => {
         const cardMode = getCardFormatMode(format, region);
         const mode = font === 'SC' || cardMode === 'sc' ? 'sc' : 'ocg';
-        /** Serial uses FOT-Rodin Pro M regardless of the card format. */
+        /** Serial uses Simplified Chinese DFKai regardless of the card format. */
         const shouldLoad = format === 'ocg' || font === 'OCG' || font === 'SC' || serialEnabled;
+        const shouldLoadSerialFont = serialEnabled && serialFontReady === false;
         if (
             shouldLoad
-            && readyMap.current[mode] === false
+            && (readyMap.current[mode] === false || shouldLoadSerialFont)
             && loadAttemptMap.current[mode] <= 3
             && isLanguageInitiating === false
         ) {
@@ -56,12 +58,13 @@ export const useOCGFont = ({
                         'DFKakuTaiHiStd-W4',
                         'FOT-Rodin Pro M',
                         'Yu-Gi-Oh! DF Leisho 3',
-                        ...(mode === 'sc' ? ['Yu-Gi-Oh! DFKaiW5-A'] : []),
+                        ...(mode === 'sc' || serialEnabled ? ['Yu-Gi-Oh! DFKaiW5-A'] : []),
                     ],
                     urls: [`${PUBLIC_PATH}/asset/ocg-font.css`],
                 },
                 active: () => {
                     readyMap.current[mode] = true;
+                    if (mode === 'sc' || serialEnabled) setSerialFontReady(true);
                     onActive();
                 },
                 inactive: () => {
@@ -71,9 +74,10 @@ export const useOCGFont = ({
                 fontinactive: onFontInactive,
             });
         }
-    }, [format, font, region, serialEnabled, isLanguageInitiating, onActive, onBeforeLoad, onFontInactive, onInactive]);
+    }, [format, font, region, serialEnabled, serialFontReady, isLanguageInitiating, onActive, onBeforeLoad, onFontInactive, onInactive]);
 
     return {
         styleContent,
+        isSerialFontPending: serialEnabled && serialFontReady === false,
     };
 };
