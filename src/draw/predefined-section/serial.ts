@@ -70,7 +70,7 @@ export const drawFooterSerial = ({
     const textLeftPadding = 23;
     const textBaseline = 1146;
     const textRightPadding = 14;
-    const fontSize = 32;
+    const fontSize = 33;
     const {
         offsetX: finalOffsetX,
         offsetY: finalOffsetY,
