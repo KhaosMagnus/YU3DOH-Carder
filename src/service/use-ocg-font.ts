@@ -37,7 +37,7 @@ export const useOCGFont = ({
     useEffect(() => {
         const cardMode = getCardFormatMode(format, region);
         const mode = font === 'SC' || cardMode === 'sc' ? 'sc' : 'ocg';
-        /** Serial uses Simplified Chinese DFKai regardless of the card format. */
+        /** Serial uses the OCG UI Gothic family regardless of the card format. */
         const shouldLoad = format === 'ocg' || font === 'OCG' || font === 'SC' || serialEnabled;
         const shouldLoadSerialFont = serialEnabled && serialFontReady === false;
         if (
@@ -58,7 +58,7 @@ export const useOCGFont = ({
                         'DFKakuTaiHiStd-W4',
                         'FOT-Rodin Pro M',
                         'Yu-Gi-Oh! DF Leisho 3',
-                        ...(mode === 'sc' || serialEnabled ? ['Yu-Gi-Oh! DFKaiW5-A'] : []),
+                        ...(mode === 'sc' ? ['Yu-Gi-Oh! DFKaiW5-A'] : []),
                     ],
                     urls: [`${PUBLIC_PATH}/asset/ocg-font.css`],
                 },
@@ -71,7 +71,7 @@ export const useOCGFont = ({
                     onInactive();
                 },
                 fontactive: familyName => {
-                    if (familyName === 'Yu-Gi-Oh! DFKaiW5-A') setSerialFontReady(true);
+                    if (familyName === 'DFHSGothic-W3-WIN-RKSJ-H') setSerialFontReady(true);
                 },
                 fontinactive: onFontInactive,
             });

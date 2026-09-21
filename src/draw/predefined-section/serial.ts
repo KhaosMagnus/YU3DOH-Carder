@@ -1,4 +1,4 @@
-import { SIMPLIFIED_CHINESE_FONT_FAMILY, type Foil } from 'src/model';
+import type { Foil } from 'src/model';
 
 export type FooterSerialLayoutProfile = {
     offsetX: number,
@@ -83,10 +83,10 @@ export const drawFooterSerial = ({
     ctx.translate(internalOffsetX, internalOffsetY);
 
     /**
-     * Use the same DFKai family as Simplified Chinese effect text. Rodin remains
-     * only as a fallback after the loader has confirmed the primary family.
+     * Match the OCG input textarea family. Rodin remains only as a fallback after
+     * the loader has confirmed DFHSGothic as the primary serial font.
      */
-    ctx.font = `${fontSize}px ${SIMPLIFIED_CHINESE_FONT_FAMILY}, "FOT-Rodin Pro M", MatrixBook, sans-serif`;
+    ctx.font = `${fontSize}px "DFHSGothic-W3-WIN-RKSJ-H", "FOT-Rodin Pro M", MatrixBook, sans-serif`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
 
