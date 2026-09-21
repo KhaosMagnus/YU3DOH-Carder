@@ -67,10 +67,10 @@ export const drawFooterSerial = ({
         slantWidth,
     } = FooterSerialGeometry;
 
-    const textLeft = 50;
+    const textLeftPadding = 23;
     const textBaseline = 1146;
     const textRightPadding = 14;
-    const fontSize = 31;
+    const fontSize = 32;
     const {
         offsetX: finalOffsetX,
         offsetY: finalOffsetY,
@@ -93,9 +93,10 @@ export const drawFooterSerial = ({
     const measuredTextWidth = ctx.measureText(value).width;
     const plateTopRight = Math.max(
         minimumPlateTopRight,
-        textLeft + measuredTextWidth + textRightPadding,
+        plateLeft + textLeftPadding + measuredTextWidth + textRightPadding,
     );
     const plateBottomRight = plateTopRight + slantWidth;
+    const textLeft = plateLeft + (plateTopRight - plateLeft - measuredTextWidth) / 2;
 
     ctx.beginPath();
     ctx.moveTo(plateLeft, plateTop);
