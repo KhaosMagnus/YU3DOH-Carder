@@ -3,6 +3,7 @@ import WebFont from 'webfontloader';
 import { useCard } from './use-card';
 import { useShallow } from 'zustand/react/shallow';
 import { getCardFormatMode, PUBLIC_PATH } from 'src/model';
+import { useSerial } from './use-serial';
 
 export type UseOCGFont = {
     isLanguageInitiating: boolean,
@@ -27,17 +28,21 @@ export const useOCGFont = ({
         font: state.card.nameStyle.font,
         region: state.card.region,
     })));
+    const serialEnabled = useSerial(state => state.serialEnabled);
     const [styleContent, setStyleContent] = useState('');
 
     const readyMap = useRef<Record<'ocg' | 'sc', boolean>>({ ocg: false, sc: false });
+    const [serialFontReady, setSerialFontReady] = useState(false);
     const loadAttemptMap = useRef<Record<'ocg' | 'sc', number>>({ ocg: 0, sc: 0 });
     useEffect(() => {
         const cardMode = getCardFormatMode(format, region);
         const mode = font === 'SC' || cardMode === 'sc' ? 'sc' : 'ocg';
-        const shouldLoad = format === 'ocg' || font === 'OCG' || font === 'SC';
+        /** Serial uses the OCG UI Gothic family regardless of the card format. */
+        const shouldLoad = format === 'ocg' || font === 'OCG' || font === 'SC' || serialEnabled;
+        const shouldLoadSerialFont = serialEnabled && serialFontReady === false;
         if (
             shouldLoad
-            && readyMap.current[mode] === false
+            && (readyMap.current[mode] === false || shouldLoadSerialFont)
             && loadAttemptMap.current[mode] <= 3
             && isLanguageInitiating === false
         ) {
@@ -65,12 +70,16 @@ export const useOCGFont = ({
                     readyMap.current[mode] = true;
                     onInactive();
                 },
+                fontactive: familyName => {
+                    if (familyName === 'DFHSGothic-W3-WIN-RKSJ-H') setSerialFontReady(true);
+                },
                 fontinactive: onFontInactive,
             });
         }
-    }, [format, font, region, isLanguageInitiating, onActive, onBeforeLoad, onFontInactive, onInactive]);
+    }, [format, font, region, serialEnabled, serialFontReady, isLanguageInitiating, onActive, onBeforeLoad, onFontInactive, onInactive]);
 
     return {
         styleContent,
+        isSerialFontPending: serialEnabled && serialFontReady === false,
     };
 };

@@ -277,6 +277,8 @@ export type FoilDictionary = {
     gold: string,
     platinum: string,
     rainbow: string,
+    grandMasterRare?: string,
+    yu3doh?: string,
 };
 const FoilPreview = styled.div`
     display: inline-block;
@@ -304,6 +306,15 @@ export const FoilMap = {
         preview: <FoilPreview style={{ backgroundColor: '#b1b1b1' }} />,
         isOption: true,
     },
+    grandMasterRare: {
+        name: 'grand-master-rare' as const,
+        color: '#f1f1f1',
+        preview: <FoilPreview style={{
+            background: 'linear-gradient(135deg, #0b0b0b 0%, #0b0b0b 42%, #f1f1f1 43%, #f1f1f1 57%, #0b0b0b 58%, #0b0b0b 100%)',
+            boxShadow: 'inset 0 0 0 1px #f1f1f1',
+        }} />,
+        isOption: true,
+    },
     rainbow: {
         name: 'rainbow' as const,
         color: '#f3a486',
@@ -322,6 +333,15 @@ export const FoilMap = {
         )` }} />,
         isOption: true,
     },
+    yu3doh: {
+        name: 'yu3doh' as const,
+        color: '#111111',
+        preview: <FoilPreview style={{
+            backgroundColor: '#111111',
+            boxShadow: 'inset 0 0 0 1px #f1f1f1',
+        }} />,
+        isOption: true,
+    },
 };
 export const getFoilList = (dictionary?: FoilDictionary) => [
     {
@@ -336,12 +356,38 @@ export const getFoilList = (dictionary?: FoilDictionary) => [
         tooltip: dictionary?.platinum,
         ...FoilMap.platinum,
     },
-    // {
-    //     tooltip: dictionary?.rainbow,
-    //     ...FoilMap.rainbow,
-    // },
+    {
+        tooltip: dictionary?.grandMasterRare ?? 'Grand Master Rare',
+        ...FoilMap.grandMasterRare,
+    },
+    {
+        tooltip: dictionary?.rainbow,
+        ...FoilMap.rainbow,
+    },
+    {
+        tooltip: dictionary?.yu3doh ?? 'YU3DOH',
+        ...FoilMap.yu3doh,
+    },
 ];
 export type Foil = ReturnType<typeof getFoilList>[0]['name'];
+
+export const GRAND_MASTER_RARE_FOIL: Foil = 'grand-master-rare';
+
+export const CUSTOM_OUTER_FOIL_ASSET_MAP = {
+    [GRAND_MASTER_RARE_FOIL]: 'frame/card-border-grand-master-rare.png',
+    rainbow: 'frame/card-border-rainbow.png',
+    yu3doh: 'frame/card-border-yu3doh.png',
+} as const;
+export type CustomOuterFoil = keyof typeof CUSTOM_OUTER_FOIL_ASSET_MAP;
+
+export const isCustomOuterFoil = (foil: Foil): foil is CustomOuterFoil =>
+    Object.prototype.hasOwnProperty.call(CUSTOM_OUTER_FOIL_ASSET_MAP, foil);
+
+export const getCustomOuterFoilAsset = (foil: Foil) =>
+    isCustomOuterFoil(foil) ? CUSTOM_OUTER_FOIL_ASSET_MAP[foil] : undefined;
+
+export const normalizeStandardFoil = (foil: Foil): Exclude<Foil, CustomOuterFoil> =>
+    isCustomOuterFoil(foil) ? 'normal' : foil;
 
 export type FrameDyeList = [
     topLeft: string,

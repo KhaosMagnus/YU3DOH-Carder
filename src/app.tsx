@@ -369,6 +369,7 @@ function App() {
 
     const {
         styleContent: ocgStyleFile,
+        isSerialFontPending,
     } = useOCGFont({
         isLanguageInitiating,
         onBeforeLoad: () => {
@@ -676,7 +677,7 @@ function App() {
                                         isTainted={isTainted}
                                         onTainted={markTaintedImage}
                                         onExportSucess={onExportSuccess}
-                                        isInitializing={isInitializing}
+                                        isInitializing={isInitializing || isSerialFontPending}
                                         globalScale={globalScale}
                                         onDownloadError={alertDownloadError}
                                     />

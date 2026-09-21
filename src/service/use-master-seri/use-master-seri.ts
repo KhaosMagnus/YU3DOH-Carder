@@ -19,6 +19,7 @@ import {
     drawPredefinedMark,
     setTextStyle,
     drawPasswordText,
+    resolveFooterSerialLayoutProfile,
     drawLimitedEditionMark,
     baseDrawLinkArrowMap,
     baseDrawLinkMapFoil,
@@ -47,6 +48,7 @@ import {
     LINK_ON_TOP_ACTIVATED_ONLY,
     LINK_ON_TOP_NEVER,
     getCardFormatMode,
+    normalizeStandardFoil,
 } from 'src/model';
 import {
     checkDiplayLinkRating,
@@ -62,6 +64,7 @@ import {
     resolveNameStyle,
 } from 'src/util';
 import { useCard } from '../use-card';
+import { useSerial } from '../use-serial';
 import { prepareStyle } from './prepare-style';
 import { LanguageDataDictionary } from '../use-i18n';
 import { notification } from 'antd';
@@ -104,6 +107,9 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
     const {
         card,
     } = useCard();
+    const serialEnabled = useSerial(state => state.serialEnabled);
+    const serialNumber = useSerial(state => state.serialNumber);
+    const serialTotal = useSerial(state => state.serialTotal);
     const {
         artworkCanvasRef,
         attributeCanvasRef,
@@ -130,6 +136,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
     const {
         format, region,
         legacyTemplate,
+        art, artData, artSource,
         hasBackground, backgroundType,
         overlay, overlayData, overlaySource, overlayType,
         iconImage, iconImageData, iconImageSource,
@@ -159,6 +166,8 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
     } = card;
     const typographyFormat = getCardFormatMode(format, region);
     const textFuriganaHelper = typographyFormat === 'sc' ? false : furiganaHelper;
+    const hasArtSource = (artSource === 'online' && art.trim() !== '')
+        || (artSource === 'offline' && artData.trim() !== '');
     const hasOverlay = (overlaySource === 'online' && overlay.trim() !== '')
         || (overlaySource === 'offline' && overlayData.trim() !== '');
     const hasIconImage = (iconImageSource === 'online' && iconImage.trim() !== '')
@@ -353,7 +362,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
             const { ctx: linkArrowCtx, canvas: linkArrowCanvas } = createCanvas(CanvasWidth, CanvasHeight);
             if (linkArrowCtx) {
                 await baseDrawLinkArrowMap(linkArrowCtx, 1, linkMap, isPendulum ? 'pendulum' : 'normal', boundless || !hasArtBorder);
-                await baseDrawLinkMapFoil(linkArrowCtx, 1, foil, false, isPendulum ? 'pendulum' : 'normal', foilDyeColor);
+                await baseDrawLinkMapFoil(linkArrowCtx, 1, normalizeStandardFoil(foil), false, isPendulum ? 'pendulum' : 'normal', foilDyeColor);
                 const removeMarkerList = ['1', '2', '3', '4', '5', '6', '7', '8', '9'].filter(entry => {
                     if (hideInactiveLinkMarker || hideMarker === 'inactive') return !linkMap.includes(entry);
                     if (hideMarker === 'active') return linkMap.includes(entry);
@@ -535,6 +544,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 drawBorderPendulumFinish,
                 drawEffectBorder,
                 drawCardBorder,
+                drawCustomOuterFoil,
                 drawStatBorder,
 
                 drawAttributeFinish,
@@ -621,6 +631,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
             await drawFrame();
             if (backgroundType !== 'frame' || keepEffectBox) await drawCardBorder();
             await drawCardBorderFinish();
+            await drawCustomOuterFoil();
 
             /** @summary Draw NON-PENDULUM non-boundless card layout */
             if (!isPendulum) {
@@ -679,6 +690,19 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
 
             /** Boundless art behavior here. If rigid frame is off, card image will be placed on top of the art border. The extended card image is still below name (text only), level, attribute, effect (both card and pendulum) and other predefined texts. */
             if (boundless) {
+                const {
+                    artX,
+                    artY,
+                    artWidth,
+                    ratio,
+                } = getArtCanvasCoordinate(isPendulum, opacity, 'full', pendulumSize);
+
+                /** Full-card boundless artwork is alpha-composited over the existing
+                 * frame. This preserves the frame beneath transparent artwork pixels.
+                 * Overframe OFF restores the physical outer border after the artwork,
+                 * while Overframe ON intentionally leaves artwork above that border. */
+                const restoreOuterBorderAfterBoundlessArt = !frameBorder && hasArtSource && !!artworkCanvas;
+
                 await drawNameBackground();
                 await drawNameFinish();
                 await drawNameBorder();
@@ -715,14 +739,8 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     }
                 }
 
-                const {
-                    artX,
-                    artY,
-                    artWidth,
-                    ratio,
-                } = getArtCanvasCoordinate(isPendulum, opacity, 'full', pendulumSize);
-
                 if (frameBorder) await drawFrameBorder();
+
                 ctx.drawImage(
                     artOnCardCanvas,
                     globalScale * artX, globalScale * artY,
@@ -730,7 +748,18 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     globalScale * artX, globalScale * artY,
                     globalScale * artWidth, globalScale * artWidth / ratio,
                 );
+
                 if (!frameBorder) await drawFrameBorder();
+
+                /** Overframe OFF keeps the physical outer border above boundless artwork.
+                 * Do not repaint it when no artwork was drawn, preserving the RUN 007
+                 * no-artwork path without introducing duplicate semi-transparent layers. */
+                if (restoreOuterBorderAfterBoundlessArt) {
+                    if (backgroundType !== 'frame' || keepEffectBox) await drawCardBorder();
+                    await drawCardBorderFinish();
+                    await drawCustomOuterFoil();
+                }
+
                 /** Redraw various part here because the extended artwork may overlap with those */
                 if (isPendulum) {
                     if (keepEffectBox) {
@@ -748,6 +777,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                     await drawEffectBorderFoil();
                 }
                 await drawFrameFinish();
+
             }
 
             if (statInEffect) await drawStatBorder({
@@ -813,6 +843,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         format,
         frame,
         frameCanvasRef,
+        hasArtSource,
         hasBackground,
         hasIconImage,
         hasOverlay,
@@ -855,6 +886,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         withBlueScale,
         getLinkLayer,
         withRedScale,
+        serialEnabled,
         imageChangeCount, // Special dependency, do not remove even though it is not used in the effect itself
     ]);
 
@@ -979,10 +1011,11 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
                 format,
                 hasShadow: bottomFrame === 'zarc' || requireShadow,
                 textStyle: resolvedOtherEffectTextStyle,
-                fontLevel: !isNumberPassword ? 1 : 0
+                fontLevel: !isNumberPassword ? 1 : 0,
+                serialLayoutProfile: resolveFooterSerialLayoutProfile(foil),
             });
             const editionTextUseTopPosition = (isLegacyCard || !isNumberPassword) && !isPendulum;
-            if (isFirstEdition && typographyFormat !== 'sc') {
+            if (!serialEnabled && isFirstEdition && typographyFormat !== 'sc') {
                 const willDrawFirstEdition = isPendulum
                     ? isNumberPassword ? true : false
                     : true;
@@ -1073,6 +1106,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         bottomFrame,
         cornerText,
         firstEditionText,
+        foil,
         format,
         hasCornerText,
         isFirstEdition,
@@ -1087,6 +1121,9 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         requireShadow,
         resolvedOtherEffectTextStyle,
         typographyFormat,
+        serialEnabled,
+        serialNumber,
+        serialTotal,
     ]);
 
     /** DRAW CREATOR (COPYRIGHT) TEXT */
@@ -1120,7 +1157,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
             const compactThreshold = (format === 'tcg' ? 390 : 350) * globalScale;
             const compactOffset = (format === 'tcg' ? 30 : 40) * globalScale;
 
-            if (isLimitedEdition && creatorCanvasRef.current) {
+            if (!serialEnabled && isLimitedEdition && creatorCanvasRef.current) {
                 await drawLimitedEditionMark({
                     canvas: creatorCanvasRef.current,
                     ctx,
@@ -1153,6 +1190,7 @@ export const useMasterSeriDrawer = (active: boolean, canvasMap: MasterSeriesCanv
         opacity,
         requireShadow,
         resolvedOtherEffectTextStyle,
+        serialEnabled,
     ]);
 
     /** DRAW STICKER */

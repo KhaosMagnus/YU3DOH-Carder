@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
 import { CardTextInput, CardTextInputRef } from '../input-text';
-import { useCard, useLanguage } from 'src/service';
+import { useCard, useLanguage, useSerial } from 'src/service';
 import { IconButton, RadioTrain } from 'src/component';
 import { CardCheckboxGroup } from '../input-checkbox-group';
 import { checkDiplayLinkRating, randomPassword } from 'src/util';
@@ -8,7 +8,7 @@ import { CloseCircleOutlined, SyncOutlined, UnorderedListOutlined } from '@ant-d
 import { useShallow } from 'zustand/react/shallow';
 import styled from 'styled-components';
 import { StyledInputLabelWithButton } from '../input-panel.styled';
-import { Checkbox, Dropdown, Menu, Tooltip } from 'antd';
+import { Checkbox, Dropdown, InputNumber, Menu, Tooltip } from 'antd';
 import { Card, copyrightMap, editionList, FlagIndexMap, CheckboxChangeEvent, getCardFormatMode, NO_STICKER, PUBLIC_PATH, StickerList } from 'src/model';
 
 const StickerButtonList = StickerList.map(({ value }) => ({
@@ -28,7 +28,8 @@ const StyledFooterInputContainer = styled.div`
         }
     }
     .sticker-input,
-    .checkbox-input {
+    .checkbox-input,
+    .serial-input {
         grid-column: span 2;
     }
     .sticker-input .ant-radio-button-wrapper {
@@ -40,6 +41,24 @@ const StyledFooterInputContainer = styled.div`
         .input-label-with-button {
             gap: var(--spacing-xs);
         }
+    }
+    .serial-input {
+        display: grid;
+        grid-template-columns: auto auto minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: var(--spacing-sm);
+        align-items: center;
+    }
+    .serial-enabled,
+    .serial-field-label {
+        white-space: nowrap;
+    }
+    .serial-field-label {
+        font-size: var(--fs-sm);
+        opacity: 0.8;
+    }
+    .serial-input .ant-input-number {
+        width: 100%;
+        min-width: 0;
     }
 `;
 const StyledLinkRatingInputContainer = styled(StyledInputLabelWithButton)`
@@ -81,6 +100,14 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
     onTakePicker,
 }, ref) => {
     const language = useLanguage();
+    const {
+        serialEnabled,
+        serialNumber,
+        serialTotal,
+        setSerialEnabled,
+        setSerialNumber,
+        setSerialTotal,
+    } = useSerial();
     const {
         autoLinkRating,
         format,
@@ -304,6 +331,31 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
             onChange={changeCreator}
             onTakePicker={onTakePicker}
         />
+        <div className="serial-input">
+            <Checkbox
+                className="serial-enabled"
+                checked={serialEnabled}
+                onChange={e => setSerialEnabled(e.target.checked)}
+            >
+                Serial
+            </Checkbox>
+            <span className="serial-field-label">Number</span>
+            <InputNumber
+                min={1}
+                precision={0}
+                disabled={!serialEnabled}
+                value={serialNumber}
+                onChange={value => setSerialNumber(Number(value))}
+            />
+            <span className="serial-field-label">Total</span>
+            <InputNumber
+                min={1}
+                precision={0}
+                disabled={!serialEnabled}
+                value={serialTotal}
+                onChange={value => setSerialTotal(Number(value))}
+            />
+        </div>
         {formatMode !== 'sc' && <CardTextInput ref={firstEditionTextRef}
             id="firstEditionText"
             className="first-edition-text"
