@@ -86,7 +86,7 @@ export const drawFooterSerial = ({
      * Match the OCG input textarea family. Rodin remains only as a fallback after
      * the loader has confirmed DFHSGothic as the primary serial font.
      */
-    ctx.font = `${fontSize}px "DFHSGothic-W3-WIN-RKSJ-H", "FOT-Rodin Pro M", MatrixBook, sans-serif`;
+    ctx.font = `bold ${fontSize}px "DFHSGothic-W3-WIN-RKSJ-H", "FOT-Rodin Pro M", MatrixBook, sans-serif`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
 
