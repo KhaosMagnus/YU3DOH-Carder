@@ -64,12 +64,14 @@ export const useOCGFont = ({
                 },
                 active: () => {
                     readyMap.current[mode] = true;
-                    if (mode === 'sc' || serialEnabled) setSerialFontReady(true);
                     onActive();
                 },
                 inactive: () => {
                     readyMap.current[mode] = true;
                     onInactive();
+                },
+                fontactive: familyName => {
+                    if (familyName === 'Yu-Gi-Oh! DFKaiW5-A') setSerialFontReady(true);
                 },
                 fontinactive: onFontInactive,
             });
