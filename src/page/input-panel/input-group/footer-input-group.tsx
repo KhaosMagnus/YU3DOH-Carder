@@ -9,7 +9,7 @@ import { useShallow } from 'zustand/react/shallow';
 import styled from 'styled-components';
 import { StyledInputLabelWithButton } from '../input-panel.styled';
 import { Checkbox, Dropdown, InputNumber, Menu, Tooltip } from 'antd';
-import { Card, copyrightMap, editionList, FlagIndexMap, CheckboxChangeEvent, getCardFormatMode, NO_STICKER, PUBLIC_PATH, StickerList } from 'src/model';
+import { Card, copyrightMap, editionList, FlagIndexMap, CheckboxChangeEvent, getCardFormatMode, GRAND_MASTER_RARE_FOIL, NO_STICKER, PUBLIC_PATH, StickerList } from 'src/model';
 
 const StickerButtonList = StickerList.map(({ value }) => ({
     label: value === NO_STICKER
@@ -44,11 +44,10 @@ const StyledFooterInputContainer = styled.div`
     }
     .serial-input {
         display: grid;
-        grid-template-columns: auto auto minmax(0, 1fr) auto minmax(0, 1fr);
+        grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
         gap: var(--spacing-sm);
         align-items: center;
     }
-    .serial-enabled,
     .serial-field-label {
         white-space: nowrap;
     }
@@ -101,16 +100,15 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
 }, ref) => {
     const language = useLanguage();
     const {
-        serialEnabled,
         serialNumber,
         serialTotal,
-        setSerialEnabled,
         setSerialNumber,
         setSerialTotal,
     } = useSerial();
     const {
         autoLinkRating,
         format,
+        foil,
         region,
         hasCornerText,
         isFirstEdition,
@@ -127,6 +125,7 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
             isLegacyCard,
             sticker,
             format,
+            foil,
             region,
             flag,
             isLink,
@@ -140,6 +139,7 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
     }) => ({
         autoLinkRating: linkMap.length,
         format,
+        foil,
         region,
         hasCornerText,
         isFirstEdition,
@@ -331,19 +331,11 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
             onChange={changeCreator}
             onTakePicker={onTakePicker}
         />
-        <div className="serial-input">
-            <Checkbox
-                className="serial-enabled"
-                checked={serialEnabled}
-                onChange={e => setSerialEnabled(e.target.checked)}
-            >
-                Serial
-            </Checkbox>
+        {foil === GRAND_MASTER_RARE_FOIL && <div className="serial-input">
             <span className="serial-field-label">Number</span>
             <InputNumber
                 min={1}
                 precision={0}
-                disabled={!serialEnabled}
                 value={serialNumber}
                 onChange={value => setSerialNumber(Number(value))}
             />
@@ -351,11 +343,10 @@ export const FooterInputGroup = forwardRef<FooterInputGroupRef, FooterInputGroup
             <InputNumber
                 min={1}
                 precision={0}
-                disabled={!serialEnabled}
                 value={serialTotal}
                 onChange={value => setSerialTotal(Number(value))}
             />
-        </div>
+        </div>}
         {formatMode !== 'sc' && <CardTextInput ref={firstEditionTextRef}
             id="firstEditionText"
             className="first-edition-text"

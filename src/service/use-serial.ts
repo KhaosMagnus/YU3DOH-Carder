@@ -1,4 +1,6 @@
+import { GRAND_MASTER_RARE_FOIL, type Foil } from 'src/model';
 import { create } from 'zustand';
+import { useCard } from './use-card';
 
 export type SerialState = {
     serialEnabled: boolean,
@@ -53,3 +55,14 @@ export const useSerial = create<SerialStore>((set) => ({
     }),
     resetSerial: () => set(DEFAULT_SERIAL_STATE),
 }));
+
+const syncSerialEnabledWithFoil = (foil: Foil) => {
+    const shouldEnableSerial = foil === GRAND_MASTER_RARE_FOIL;
+    const serialStore = useSerial.getState();
+    if (serialStore.serialEnabled !== shouldEnableSerial) {
+        serialStore.setSerialEnabled(shouldEnableSerial);
+    }
+};
+
+syncSerialEnabledWithFoil(useCard.getState().card.foil);
+useCard.subscribe(state => syncSerialEnabledWithFoil(state.card.foil));

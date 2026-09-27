@@ -373,6 +373,12 @@ export type Foil = ReturnType<typeof getFoilList>[0]['name'];
 
 export const GRAND_MASTER_RARE_FOIL: Foil = 'grand-master-rare';
 
+export const BUILT_IN_BORDER_OVERLAY_ASSET_MAP: Partial<Record<Foil, string>> = {
+    [GRAND_MASTER_RARE_FOIL]: 'frame/grand-master-rare-proxy-border.png',
+};
+export const getBuiltInBorderOverlayAsset = (foil: Foil) =>
+    BUILT_IN_BORDER_OVERLAY_ASSET_MAP[foil];
+
 export const CUSTOM_OUTER_FOIL_ASSET_MAP = {
     [GRAND_MASTER_RARE_FOIL]: 'frame/card-border-grand-master-rare.png',
     rainbow: 'frame/card-border-rainbow.png',

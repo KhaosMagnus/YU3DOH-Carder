@@ -7,6 +7,7 @@ import {
     CardOpacity,
     Foil,
     getCustomOuterFoilAsset,
+    getBuiltInBorderOverlayAsset,
     normalizeStandardFoil,
     FrameDyeList,
     getArtCanvasCoordinate,
@@ -234,6 +235,7 @@ export const getLayoutDrawFunction = ({
 
     const standardFoil = normalizeStandardFoil(foil);
     const customOuterFoilAsset = getCustomOuterFoilAsset(foil);
+    const builtInBorderOverlayAsset = getBuiltInBorderOverlayAsset(foil);
     const hasFoil = standardFoil !== 'normal';
     const frameBorderType = isXyz || isSpeedSkill
         ? frame
@@ -244,6 +246,36 @@ export const getLayoutDrawFunction = ({
             : [frameBorderType]
         : [frameBorderType];
     const applyArtFinish = !boundless && artBorder;
+
+    let builtInBorderOverlayCanvasPromise: Promise<HTMLCanvasElement | undefined> | undefined;
+    const getBuiltInBorderOverlayCanvas = async () => {
+        if (!builtInBorderOverlayAsset) return undefined;
+        if (!builtInBorderOverlayCanvasPromise) {
+            builtInBorderOverlayCanvasPromise = (async () => {
+                const { ctx: builtInCtx, canvas: builtInCanvas } = createCanvas();
+                if (!builtInCtx) return undefined;
+                await drawAsset(builtInCtx, builtInBorderOverlayAsset, 0, 0);
+                return builtInCanvas;
+            })();
+        }
+        return builtInBorderOverlayCanvasPromise;
+    };
+    const blendBorderCanvas = async (baseCanvas: HTMLCanvasElement) => {
+        const builtInBorderOverlayCanvas = await getBuiltInBorderOverlayCanvas();
+        const canvasAfterBuiltIn = builtInBorderOverlayCanvas
+            ? await blendCanvas({
+                canvas: baseCanvas,
+                customFoilCanvas: builtInBorderOverlayCanvas,
+                method: 'source-in',
+            })
+            : baseCanvas;
+
+        return blendCanvas({
+            canvas: canvasAfterBuiltIn,
+            customFoilCanvas: overlayCanvas,
+            method: borderOverlayType,
+        });
+    };
 
     const resolvedLayoutStyle = resolveFrameStyle(
         {
@@ -792,11 +824,7 @@ export const getLayoutDrawFunction = ({
                     30, topToPendulumStructureFrame,
                 );
             }
-            const operateCanvasAfterCustom = await blendCanvas({
-                canvas: operateCanvas,
-                customFoilCanvas: overlayCanvas,
-                method: borderOverlayType,
-            });
+            const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
             const operateCanvasAfterDye = dyeCanvas(
                 operateCanvasAfterCustom,
                 dyeList[6],
@@ -825,13 +853,9 @@ export const getLayoutDrawFunction = ({
             const { ctx: operateCtx, canvas: operateCanvas } = createCanvas();
             await drawAsset(operateCtx, `frame/card-border-${standardFoil}.png`, 0, 0);
             ctx.drawImage(operateCanvas, 0, 0);
-            const willMix = HexColorRegex.test(dyeList[6]) || willBlendBorder;
+            const willMix = HexColorRegex.test(dyeList[6]) || willBlendBorder || !!builtInBorderOverlayAsset;
             if (willMix) {
-                const operateCanvasAfterCustom = await blendCanvas({
-                    canvas: operateCanvas,
-                    customFoilCanvas: overlayCanvas,
-                    method: borderOverlayType,
-                });
+                const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
                 const operateCanvasAfterDye = dyeCanvas(
                     operateCanvasAfterCustom,
                     dyeList[6],
@@ -870,11 +894,7 @@ export const getLayoutDrawFunction = ({
                         : 'normal'
                     : standardFoil;
                 await drawAsset(operateCtx, `frame/art-border-${assetName}.png`, artBoxX, artBoxY);
-                const operateCanvasAfterCustom = await blendCanvas({
-                    canvas: operateCanvas,
-                    customFoilCanvas: overlayCanvas,
-                    method: borderOverlayType,
-                });
+                const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
                 const operateCanvasAfterDye = dyeCanvas(
                     operateCanvasAfterCustom,
                     dyeList[6],
@@ -894,11 +914,7 @@ export const getLayoutDrawFunction = ({
                     : 'normal'
                 : standardFoil;
             await drawAsset(operateCtx, `frame/effect-border-${assetName}.png`, effectBoxX, effectBoxY);
-            const operateCanvasAfterCustom = await blendCanvas({
-                canvas: operateCanvas,
-                customFoilCanvas: overlayCanvas,
-                method: borderOverlayType,
-            });
+            const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
             const operateCanvasAfterDye = dyeCanvas(
                 operateCanvasAfterCustom,
                 dyeList[6],
