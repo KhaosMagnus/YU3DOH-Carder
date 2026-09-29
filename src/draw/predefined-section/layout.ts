@@ -5,6 +5,7 @@ import {
     CanvasConst,
     CardOpacity,
     Foil,
+    GRAND_MASTER_RARE_FOIL,
     getCustomOuterFoilAsset,
     getBuiltInBorderOverlayAsset,
     normalizeAttributeRegionForFoil,
@@ -554,6 +555,9 @@ export const getLayoutDrawFunction = ({
             iconImage?: HTMLCanvasElement | null,
         }) => {
             const normalizedCardIcon = cardIcon === 'auto' ? getCardIconFromFrame(frame) : cardIcon;
+            const starAssetOverride = foil === GRAND_MASTER_RARE_FOIL && normalizedCardIcon === 'level'
+                ? 'subfamily/subfamily-gmr-level.png'
+                : undefined;
 
             if (!ctx) return;
             ctx.scale(globalScale, globalScale);
@@ -563,6 +567,7 @@ export const getLayoutDrawFunction = ({
                 ctx,
                 iconImage,
                 cardIcon: normalizedCardIcon,
+                starAssetOverride,
                 text: typeof star === 'string' ? star : null,
                 star,
                 starList,

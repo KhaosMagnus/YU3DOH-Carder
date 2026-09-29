@@ -16,6 +16,7 @@ export const drawStarContent = async ({
     iconImage,
     globalScale,
     cardIcon,
+    starAssetOverride,
     text,
     star,
     starList,
@@ -29,6 +30,7 @@ export const drawStarContent = async ({
     iconImage: HTMLCanvasElement | null | undefined,
     globalScale: number,
     cardIcon: string,
+    starAssetOverride?: string,
     text: string | null,
     star: string | number,
     starList: string[],
@@ -119,7 +121,10 @@ export const drawStarContent = async ({
                     starWidth, starWidth,
                 );
             } else {
-                await drawAsset(starCtx, `subfamily/subfamily-${cardIconName}.png`, ...coordinate);
+                const starAsset = cardIcon === 'custom'
+                    ? `subfamily/subfamily-${cardIconName}.png`
+                    : starAssetOverride ?? `subfamily/subfamily-${cardIconName}.png`;
+                await drawAsset(starCtx, starAsset, ...coordinate);
             }
             return await onStarDraw(coordinate);
         })
