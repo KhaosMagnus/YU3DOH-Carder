@@ -1,14 +1,15 @@
 import {
     ArrowPositionMap,
     ArtFinishMap,
-    RegionMap,
     BackgroundType,
     CanvasConst,
     CardOpacity,
     Foil,
     getCustomOuterFoilAsset,
     getBuiltInBorderOverlayAsset,
+    normalizeAttributeRegionForFoil,
     normalizeStandardFoil,
+    resolveAttributeAsset,
     FrameDyeList,
     getArtCanvasCoordinate,
     NO_ATTRIBUTE,
@@ -18,7 +19,6 @@ import {
     PendulumSizeMapException,
     Card,
     AttributeOffsetMap,
-    ExtraAttributeMap,
     OverlayComposite,
     getDefaultCoordinateMap,
     parseCoordinate,
@@ -486,18 +486,22 @@ export const getLayoutDrawFunction = ({
                 ctx: operateCtx,
             } = createCanvas(cardWidth * globalScale, (attributeY + attributeSize) * globalScale);
             if (attributeImageSource === 'auto') {
-                const offsetX = AttributeOffsetMap[region]?.[attribute]?.offsetX ?? 0;
-                const isExtraAttribute = ExtraAttributeMap[attribute];
-                const attributeName = isExtraAttribute
-                    ? 'tcg'
-                    : RegionMap[region].fileKey;
+                const normalizedAttributeRegion = normalizeAttributeRegionForFoil(foil, region);
+                const offsetX = AttributeOffsetMap[normalizedAttributeRegion]?.[attribute]?.offsetX ?? 0;
+                const attributeAsset = resolveAttributeAsset({
+                    foil,
+                    region: normalizedAttributeRegion,
+                    attribute,
+                });
 
-                await drawAssetWithSize(
-                    operateCtx,
-                    `attribute/attr-${attributeName}-${attribute.toLowerCase()}.png`,
-                    attributeX + offsetX, attributeY,
-                    undefined, attributeSize,
-                );
+                if (attributeAsset) {
+                    await drawAssetWithSize(
+                        operateCtx,
+                        attributeAsset,
+                        attributeX + offsetX, attributeY,
+                        undefined, attributeSize,
+                    );
+                }
             } else {
                 if (attributeCanvas) {
                     const { width: attributeWidth, height: attributeHeight } = attributeCanvas;

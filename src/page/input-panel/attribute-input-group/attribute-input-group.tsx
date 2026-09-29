@@ -1,16 +1,20 @@
 import { IconButton, RadioTrain } from 'src/component';
 import { useCard, useGlobal, useSetting, WithLanguage } from 'src/service';
 import { UpOutlined, BookOutlined, EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import { forwardRef, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import {
     AttributeList,
     AttributeType,
     ExtraAttributeList,
     ExtraAttributeMap,
+    GRAND_MASTER_RARE_FOIL,
+    GRAND_MASTER_RARE_REGION_LIST,
     NO_ATTRIBUTE,
+    normalizeAttributeRegionForFoil,
     PUBLIC_PATH,
     RegionMap,
+    resolveAttributeAsset,
 } from 'src/model';
 import styled from 'styled-components';
 import { mergeClass } from 'src/util';
@@ -62,6 +66,7 @@ export const AttributeInputGroup = forwardRef<AttributeInputGroupRef, AttributeI
 }, ref) => {
     const {
         format,
+        foil,
         region,
         attribute,
         attributeImageSource,
@@ -69,6 +74,7 @@ export const AttributeInputGroup = forwardRef<AttributeInputGroupRef, AttributeI
     } = useCard(useShallow(({
         card: {
             format,
+            foil,
             region,
             isLink,
             attribute,
@@ -77,6 +83,7 @@ export const AttributeInputGroup = forwardRef<AttributeInputGroupRef, AttributeI
         getUpdater,
     }) => ({
         format,
+        foil,
         region,
         isLink,
         attribute,
@@ -93,22 +100,34 @@ export const AttributeInputGroup = forwardRef<AttributeInputGroupRef, AttributeI
     const changeAttribute = useMemo(() => getUpdater('attribute'), [getUpdater]);
     const changeAttributeType = useMemo(() => getUpdater('attributeImageSource'), [getUpdater]);
     const changeRegion = useMemo(() => getUpdater('region'), [getUpdater]);
+    const normalizedRegion = normalizeAttributeRegionForFoil(foil, region);
+
+    useEffect(() => {
+        if (normalizedRegion !== region) changeRegion(normalizedRegion);
+    }, [changeRegion, normalizedRegion, region]);
 
     const attributeList = useMemo(() => AttributeList
-        .map(({ name, nameKey, isCreative }) => ({
-            label: name === NO_ATTRIBUTE
-                ? <CloseCircleOutlined />
-                : <Tooltip overlay={language[nameKey]}>
-                    <img
-                        alt={language[nameKey]}
-                        src={`${PUBLIC_PATH}/asset/image/attribute/attr-${RegionMap[region]?.fileKey}-${name.toLowerCase()}.png`}
-                    />
-                </Tooltip>,
-            value: name,
-            isCreative,
-        }))
+        .map(({ name, nameKey, isCreative }) => {
+            const asset = resolveAttributeAsset({
+                foil,
+                region: normalizedRegion,
+                attribute: name,
+            });
+            return {
+                label: name === NO_ATTRIBUTE
+                    ? <CloseCircleOutlined />
+                    : <Tooltip overlay={language[nameKey]}>
+                        <img
+                            alt={language[nameKey]}
+                            src={`${PUBLIC_PATH}/asset/image/${asset}`}
+                        />
+                    </Tooltip>,
+                value: name,
+                isCreative,
+            };
+        })
         .filter(({ isCreative }) => isCreative === false || isCreative === showCreativeOption),
-        [region, language, showCreativeOption],
+        [foil, normalizedRegion, language, showCreativeOption],
     );
     const extraAttributeList = useMemo(
         () => ExtraAttributeList
@@ -141,14 +160,15 @@ export const AttributeInputGroup = forwardRef<AttributeInputGroupRef, AttributeI
         >
             <RadioTrain
                 className="attribute-region-picker"
-                optionList={Object
-                    .values(RegionMap)
+                optionList={(foil === GRAND_MASTER_RARE_FOIL
+                    ? GRAND_MASTER_RARE_REGION_LIST
+                    : Object.values(RegionMap))
                     .map(({ key }) => ({
                         value: key,
                         label: key.toUpperCase(),
                     }))
                 }
-                value={region}
+                value={normalizedRegion}
                 onChange={changeRegion}
             />
         </AttributeRegionTrain>}
