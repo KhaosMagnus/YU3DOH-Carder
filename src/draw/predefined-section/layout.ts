@@ -555,9 +555,12 @@ export const getLayoutDrawFunction = ({
             iconImage?: HTMLCanvasElement | null,
         }) => {
             const normalizedCardIcon = cardIcon === 'auto' ? getCardIconFromFrame(frame) : cardIcon;
-            const starAssetOverride = foil === GRAND_MASTER_RARE_FOIL && normalizedCardIcon === 'level'
-                ? 'subfamily/subfamily-gmr-level.png'
-                : undefined;
+            const resolveStarAsset = foil === GRAND_MASTER_RARE_FOIL && normalizedCardIcon === 'level'
+                ? () => 'subfamily/subfamily-gmr-level.png'
+                : foil === GRAND_MASTER_RARE_FOIL && normalizedCardIcon === 'rank'
+                    ? ({ visualIndex }: { visualIndex: number }) =>
+                        `subfamily/subfamily-gmr-rank-${(visualIndex % 4) + 1}.png`
+                    : undefined;
 
             if (!ctx) return;
             ctx.scale(globalScale, globalScale);
@@ -567,7 +570,7 @@ export const getLayoutDrawFunction = ({
                 ctx,
                 iconImage,
                 cardIcon: normalizedCardIcon,
-                starAssetOverride,
+                resolveStarAsset,
                 text: typeof star === 'string' ? star : null,
                 star,
                 starList,
