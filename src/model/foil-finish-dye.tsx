@@ -1,5 +1,6 @@
 import { CloseCircleOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import type { PendulumSize } from './pendulum';
 
 type FinishInstruction = { opacity?: number, blendMode?: GlobalCompositeOperation };
 const type3CommonInstruction: FinishInstruction[] = [{ blendMode: 'overlay', opacity: 1 }];
@@ -376,8 +377,27 @@ export const GRAND_MASTER_RARE_FOIL: Foil = 'grand-master-rare';
 export const BUILT_IN_BORDER_OVERLAY_ASSET_MAP: Partial<Record<Foil, string>> = {
     [GRAND_MASTER_RARE_FOIL]: 'frame/grand-master-rare-proxy-border.png',
 };
-export const getBuiltInBorderOverlayAsset = (foil: Foil) =>
-    BUILT_IN_BORDER_OVERLAY_ASSET_MAP[foil];
+export const RAINBOW_PENDULUM_PROXY_MAP: Record<PendulumSize, string> = {
+    small: 'frame/rainbow-proxy-border-pendulum-small.png',
+    medium: 'frame/rainbow-proxy-border-pendulum-medium.png',
+    large: 'frame/rainbow-proxy-border-pendulum-large.png',
+};
+export const getBuiltInBorderOverlayAsset = ({
+    foil,
+    isPendulum,
+    pendulumSize,
+}: {
+    foil: Foil,
+    isPendulum: boolean,
+    pendulumSize: PendulumSize,
+}) => {
+    const staticAsset = BUILT_IN_BORDER_OVERLAY_ASSET_MAP[foil];
+    if (staticAsset) return staticAsset;
+    if (foil !== 'rainbow') return undefined;
+    if (!isPendulum) return 'frame/rainbow-proxy-border.png';
+
+    return RAINBOW_PENDULUM_PROXY_MAP[pendulumSize];
+};
 
 export const CUSTOM_OUTER_FOIL_ASSET_MAP = {
     [GRAND_MASTER_RARE_FOIL]: 'frame/card-border-grand-master-rare.png',

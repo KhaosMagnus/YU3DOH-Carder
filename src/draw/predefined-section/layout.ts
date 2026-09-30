@@ -236,7 +236,11 @@ export const getLayoutDrawFunction = ({
 
     const standardFoil = normalizeStandardFoil(foil);
     const customOuterFoilAsset = getCustomOuterFoilAsset(foil);
-    const builtInBorderOverlayAsset = getBuiltInBorderOverlayAsset(foil);
+    const builtInBorderOverlayAsset = getBuiltInBorderOverlayAsset({
+        foil,
+        isPendulum,
+        pendulumSize,
+    });
     const hasFoil = standardFoil !== 'normal';
     const frameBorderType = isXyz || isSpeedSkill
         ? frame
