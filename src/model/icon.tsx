@@ -1,5 +1,6 @@
 import { SyncOutlined } from '@ant-design/icons';
 import { PUBLIC_PATH } from './app';
+import { GRAND_MASTER_RARE_FOIL, type Foil } from './foil-finish-dye';
 
 export type AttributeType = 'auto' | 'online' | 'offline';
 export const NO_ATTRIBUTE = 'NONE';
@@ -165,6 +166,38 @@ export const RegionMap: Record<string, { key: string, category: 'tcg' | 'ocg', f
 export const DefaultFormatAttribute: Record<string, string> = {
     tcg: RegionMap.en.key,
     ocg: RegionMap.jp.key,
+};
+
+export const GRAND_MASTER_RARE_REGION_LIST = [RegionMap.en, RegionMap.jp];
+
+export const normalizeAttributeRegionForFoil = (foil: Foil, region: string) =>
+    foil === GRAND_MASTER_RARE_FOIL && region !== RegionMap.en.key && region !== RegionMap.jp.key
+        ? RegionMap.en.key
+        : region;
+
+export const resolveAttributeAsset = ({
+    foil,
+    region,
+    attribute,
+}: {
+    foil: Foil,
+    region: string,
+    attribute: string,
+}) => {
+    if (attribute === NO_ATTRIBUTE) return undefined;
+
+    /** Extra attributes do not have GMR variants; preserve their existing TCG renderer assets. */
+    if (ExtraAttributeMap[attribute]) {
+        return `attribute/attr-tcg-${attribute.toLowerCase()}.png`;
+    }
+
+    if (foil === GRAND_MASTER_RARE_FOIL) {
+        const normalizedRegion = normalizeAttributeRegionForFoil(foil, region);
+        const fileKey = normalizedRegion === RegionMap.jp.key ? 'gmr-ocg' : 'gmr-tcg';
+        return `attribute/attr-${fileKey}-${attribute.toLowerCase()}.png`;
+    }
+
+    return `attribute/attr-${RegionMap[region].fileKey}-${attribute.toLowerCase()}.png`;
 };
 
 export const NO_ICON = 'NO ICON';

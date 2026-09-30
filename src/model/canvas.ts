@@ -215,6 +215,8 @@ export const getDefaultCardOpacity = () => ({
 });
 export type CardOpacity = ReturnType<typeof getDefaultCardOpacity>;
 export type CardArtCanvasCoordinate = typeof CardArtCanvasCoordinateMap[keyof typeof CardArtCanvasCoordinateMap];
+/** Full/boundless art stays inside the physical 28px card perimeter. */
+const FULL_CARD_ART_RATIO = 758 / (CanvasConst.height - CanvasConst.cardBorder * 2);
 export const CardArtCanvasCoordinateMap = {
     /**
      * NORMAL CARD FRAME
@@ -396,8 +398,8 @@ export const CardArtCanvasCoordinateMap = {
         artWidth: 758,
         artX: 28,
         artY: 28,
-        ratio: 0.670,
-        backgroundRatio: 0.670,
+        ratio: FULL_CARD_ART_RATIO,
+        backgroundRatio: FULL_CARD_ART_RATIO,
         artFrameWidth: 614,
         artFrameHeight: 614,
         artFrameY: 219,
@@ -412,8 +414,8 @@ export const CardArtCanvasCoordinateMap = {
         artWidth: 758,
         artX: 28,
         artY: 28,
-        ratio: 0.670,
-        backgroundRatio: 0.670,
+        ratio: FULL_CARD_ART_RATIO,
+        backgroundRatio: FULL_CARD_ART_RATIO,
         artFrameWidth: 702,
         artFrameHeight: 568,
         artFrameY: 213,
@@ -430,8 +432,8 @@ export const CardArtCanvasCoordinateMap = {
         artWidth: 758,
         artX: 28,
         artY: 28,
-        ratio: 0.670,
-        backgroundRatio: 0.670,
+        ratio: FULL_CARD_ART_RATIO,
+        backgroundRatio: FULL_CARD_ART_RATIO,
         artFrameWidth: 702,
         artFrameHeight: 568,
         artFrameY: 213,

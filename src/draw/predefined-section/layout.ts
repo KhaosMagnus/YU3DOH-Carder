@@ -1,11 +1,16 @@
 import {
     ArrowPositionMap,
     ArtFinishMap,
-    RegionMap,
     BackgroundType,
     CanvasConst,
     CardOpacity,
     Foil,
+    GRAND_MASTER_RARE_FOIL,
+    getCustomOuterFoilAsset,
+    getBuiltInBorderOverlayAsset,
+    normalizeAttributeRegionForFoil,
+    normalizeStandardFoil,
+    resolveAttributeAsset,
     FrameDyeList,
     getArtCanvasCoordinate,
     NO_ATTRIBUTE,
@@ -15,7 +20,6 @@ import {
     PendulumSizeMapException,
     Card,
     AttributeOffsetMap,
-    ExtraAttributeMap,
     OverlayComposite,
     getDefaultCoordinateMap,
     parseCoordinate,
@@ -230,7 +234,14 @@ export const getLayoutDrawFunction = ({
     const willBlendBorder = hasOverlay && borderOverlayType !== 'none';
     if (controlString) console.info('Control String', controlString);
 
-    const hasFoil = foil !== 'normal';
+    const standardFoil = normalizeStandardFoil(foil);
+    const customOuterFoilAsset = getCustomOuterFoilAsset(foil);
+    const builtInBorderOverlayAsset = getBuiltInBorderOverlayAsset({
+        foil,
+        isPendulum,
+        pendulumSize,
+    });
+    const hasFoil = standardFoil !== 'normal';
     const frameBorderType = isXyz || isSpeedSkill
         ? frame
         : 'normal';
@@ -240,6 +251,36 @@ export const getLayoutDrawFunction = ({
             : [frameBorderType]
         : [frameBorderType];
     const applyArtFinish = !boundless && artBorder;
+
+    let builtInBorderOverlayCanvasPromise: Promise<HTMLCanvasElement | undefined> | undefined;
+    const getBuiltInBorderOverlayCanvas = async () => {
+        if (!builtInBorderOverlayAsset) return undefined;
+        if (!builtInBorderOverlayCanvasPromise) {
+            builtInBorderOverlayCanvasPromise = (async () => {
+                const { ctx: builtInCtx, canvas: builtInCanvas } = createCanvas();
+                if (!builtInCtx) return undefined;
+                await drawAsset(builtInCtx, builtInBorderOverlayAsset, 0, 0);
+                return builtInCanvas;
+            })();
+        }
+        return builtInBorderOverlayCanvasPromise;
+    };
+    const blendBorderCanvas = async (baseCanvas: HTMLCanvasElement) => {
+        const builtInBorderOverlayCanvas = await getBuiltInBorderOverlayCanvas();
+        const canvasAfterBuiltIn = builtInBorderOverlayCanvas
+            ? await blendCanvas({
+                canvas: baseCanvas,
+                customFoilCanvas: builtInBorderOverlayCanvas,
+                method: 'source-in',
+            })
+            : baseCanvas;
+
+        return blendCanvas({
+            canvas: canvasAfterBuiltIn,
+            customFoilCanvas: overlayCanvas,
+            method: borderOverlayType,
+        });
+    };
 
     const resolvedLayoutStyle = resolveFrameStyle(
         {
@@ -450,18 +491,22 @@ export const getLayoutDrawFunction = ({
                 ctx: operateCtx,
             } = createCanvas(cardWidth * globalScale, (attributeY + attributeSize) * globalScale);
             if (attributeImageSource === 'auto') {
-                const offsetX = AttributeOffsetMap[region]?.[attribute]?.offsetX ?? 0;
-                const isExtraAttribute = ExtraAttributeMap[attribute];
-                const attributeName = isExtraAttribute
-                    ? 'tcg'
-                    : RegionMap[region].fileKey;
+                const normalizedAttributeRegion = normalizeAttributeRegionForFoil(foil, region);
+                const offsetX = AttributeOffsetMap[normalizedAttributeRegion]?.[attribute]?.offsetX ?? 0;
+                const attributeAsset = resolveAttributeAsset({
+                    foil,
+                    region: normalizedAttributeRegion,
+                    attribute,
+                });
 
-                await drawAssetWithSize(
-                    operateCtx,
-                    `attribute/attr-${attributeName}-${attribute.toLowerCase()}.png`,
-                    attributeX + offsetX, attributeY,
-                    undefined, attributeSize,
-                );
+                if (attributeAsset) {
+                    await drawAssetWithSize(
+                        operateCtx,
+                        attributeAsset,
+                        attributeX + offsetX, attributeY,
+                        undefined, attributeSize,
+                    );
+                }
             } else {
                 if (attributeCanvas) {
                     const { width: attributeWidth, height: attributeHeight } = attributeCanvas;
@@ -514,6 +559,12 @@ export const getLayoutDrawFunction = ({
             iconImage?: HTMLCanvasElement | null,
         }) => {
             const normalizedCardIcon = cardIcon === 'auto' ? getCardIconFromFrame(frame) : cardIcon;
+            const resolveStarAsset = foil === GRAND_MASTER_RARE_FOIL && normalizedCardIcon === 'level'
+                ? () => 'subfamily/subfamily-gmr-level.png'
+                : foil === GRAND_MASTER_RARE_FOIL && normalizedCardIcon === 'rank'
+                    ? ({ visualIndex }: { visualIndex: number }) =>
+                        `subfamily/subfamily-gmr-rank-${(visualIndex % 4) + 1}.png`
+                    : undefined;
 
             if (!ctx) return;
             ctx.scale(globalScale, globalScale);
@@ -523,6 +574,7 @@ export const getLayoutDrawFunction = ({
                 ctx,
                 iconImage,
                 cardIcon: normalizedCardIcon,
+                resolveStarAsset,
                 text: typeof star === 'string' ? star : null,
                 star,
                 starList,
@@ -758,7 +810,7 @@ export const getLayoutDrawFunction = ({
             await drawAssetWithSize(
                 operateCtx,
                 `frame-pendulum/border-pendulum-${pendulumSize}`
-                + `-${foil}`
+                + `-${standardFoil}`
                 + '-artless'
                 + (pendulumFrameTypeMap.blue === 'scaleless' ? '-scaleless' : '')
                 + '.png',
@@ -770,7 +822,7 @@ export const getLayoutDrawFunction = ({
             await drawAssetWithSize(
                 operateCtx,
                 `frame-pendulum/border-pendulum-${pendulumSize}`
-                + `-${foil}`
+                + `-${standardFoil}`
                 + '-artless'
                 + (pendulumFrameTypeMap.red === 'scaleless' ? '-scaleless' : '')
                 + '.png',
@@ -783,16 +835,12 @@ export const getLayoutDrawFunction = ({
                 await drawAsset(
                     operateCtx,
                     `frame-pendulum/border-pendulum-${pendulumSize}`
-                    + `-${foil}`
+                    + `-${standardFoil}`
                     + '.png',
                     30, topToPendulumStructureFrame,
                 );
             }
-            const operateCanvasAfterCustom = await blendCanvas({
-                canvas: operateCanvas,
-                customFoilCanvas: overlayCanvas,
-                method: borderOverlayType,
-            });
+            const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
             const operateCanvasAfterDye = dyeCanvas(
                 operateCanvasAfterCustom,
                 dyeList[6],
@@ -819,21 +867,32 @@ export const getLayoutDrawFunction = ({
             if (!ctx) return;
             ctx.scale(globalScale, globalScale);
             const { ctx: operateCtx, canvas: operateCanvas } = createCanvas();
-            await drawAsset(operateCtx, `frame/card-border-${foil}.png`, 0, 0);
+            await drawAsset(operateCtx, `frame/card-border-${standardFoil}.png`, 0, 0);
             ctx.drawImage(operateCanvas, 0, 0);
-            const willMix = HexColorRegex.test(dyeList[6]) || willBlendBorder;
+            const willMix = HexColorRegex.test(dyeList[6]) || willBlendBorder || !!builtInBorderOverlayAsset;
             if (willMix) {
-                const operateCanvasAfterCustom = await blendCanvas({
-                    canvas: operateCanvas,
-                    customFoilCanvas: overlayCanvas,
-                    method: borderOverlayType,
-                });
+                const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
                 const operateCanvasAfterDye = dyeCanvas(
                     operateCanvasAfterCustom,
                     dyeList[6],
                 ).canvas;
                 ctx.drawImage(operateCanvasAfterDye, 0, 0);
             }
+            ctx.resetTransform();
+        },
+        /** Custom outer foils reuse the normal internal foil components and
+         * only replace the full-card outer border asset. The caller places this
+         * draw in the outer-border phase so Boundless / Overframe keeps the
+         * stacking behavior validated for Grand Master Rare. */
+        drawCustomOuterFoil: async () => {
+            if (!ctx || !customOuterFoilAsset) return;
+            ctx.scale(globalScale, globalScale);
+            await drawAssetWithSize(
+                ctx,
+                customOuterFoilAsset,
+                0, 0,
+                cardWidth, cardHeight,
+            );
             ctx.resetTransform();
         },
 
@@ -845,17 +904,13 @@ export const getLayoutDrawFunction = ({
             if (artBorder) {
                 const { ctx: operateCtx, canvas: operateCanvas } = createCanvas();
 
-                const assetName = foil === 'normal'
+                const assetName = standardFoil === 'normal'
                     ? bottomLeftFrame === 'speed-skill'
                         ? 'speed-skill'
                         : 'normal'
-                    : foil;
+                    : standardFoil;
                 await drawAsset(operateCtx, `frame/art-border-${assetName}.png`, artBoxX, artBoxY);
-                const operateCanvasAfterCustom = await blendCanvas({
-                    canvas: operateCanvas,
-                    customFoilCanvas: overlayCanvas,
-                    method: borderOverlayType,
-                });
+                const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
                 const operateCanvasAfterDye = dyeCanvas(
                     operateCanvasAfterCustom,
                     dyeList[6],
@@ -869,17 +924,13 @@ export const getLayoutDrawFunction = ({
             ctx.scale(globalScale, globalScale);
             const { ctx: operateCtx, canvas: operateCanvas } = createCanvas();
 
-            const assetName = foil === 'normal'
+            const assetName = standardFoil === 'normal'
                 ? bottomLeftFrame === 'speed-skill'
                     ? 'speed-skill'
                     : 'normal'
-                : foil;
+                : standardFoil;
             await drawAsset(operateCtx, `frame/effect-border-${assetName}.png`, effectBoxX, effectBoxY);
-            const operateCanvasAfterCustom = await blendCanvas({
-                canvas: operateCanvas,
-                customFoilCanvas: overlayCanvas,
-                method: borderOverlayType,
-            });
+            const operateCanvasAfterCustom = await blendBorderCanvas(operateCanvas);
             const operateCanvasAfterDye = dyeCanvas(
                 operateCanvasAfterCustom,
                 dyeList[6],

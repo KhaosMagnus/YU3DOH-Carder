@@ -35,6 +35,7 @@ export type IconTypePicker = {
     className?: string,
     activeCardIcon: string,
     onChange: (value: string) => void,
+    resolveDisplayIcon?: (entry: IconTypeInfo) => React.ReactNode,
     onRemove?: () => void,
     showMixableOnly?: boolean,
     showRemove?: boolean,
@@ -45,6 +46,7 @@ export const IconTypePicker = forwardRef<IconTypePickerRef, IconTypePicker>(({
     className,
     language,
     activeCardIcon,
+    resolveDisplayIcon,
     showMixableOnly = false,
     showRemove = false,
     onChange,
@@ -68,12 +70,14 @@ export const IconTypePicker = forwardRef<IconTypePickerRef, IconTypePicker>(({
             >
                 <CloseCircleOutlined />&nbsp;{language['input.icon-type.remove.label']}
             </StyledDropdown.Option>}
-            {IconTypeList.filter(filterFunction).map(({ fullLabelKey, value, icon }) => {
+            {IconTypeList.filter(filterFunction).map((entry) => {
+                const { fullLabelKey, value, icon } = entry;
+                const displayIcon = resolveDisplayIcon?.(entry) ?? icon;
                 return <StyledDropdown.Option key={value}
                     className={value === activeCardIcon ? 'menu-active' : ''}
                     onClick={() => onChange(value)}
                 >
-                    {icon ? <>{icon}&nbsp;</> : null}{language[fullLabelKey]}
+                    {displayIcon ? <>{displayIcon}&nbsp;</> : null}{language[fullLabelKey]}
                 </StyledDropdown.Option>;
             })}
         </StyledIconDropdown>

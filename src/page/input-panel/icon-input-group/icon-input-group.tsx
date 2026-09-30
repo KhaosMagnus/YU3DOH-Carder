@@ -6,7 +6,7 @@ import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'r
 import { CaretDownOutlined, AlignCenterOutlined, AlignLeftOutlined, AlignRightOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { getCardIconFromFrame } from 'src/util';
 import styled from 'styled-components';
-import { IconList, IconTypeAttributeList, IconTypeList, IconTypeStList, NO_ICON, PUBLIC_PATH, TotalIconTypeMap } from 'src/model';
+import { GRAND_MASTER_RARE_FOIL, IconList, IconTypeAttributeList, IconTypeInfo, IconTypeList, IconTypeStList, NO_ICON, PUBLIC_PATH, TotalIconTypeMap } from 'src/model';
 import { IconPicker, IconPickerRef, IconTypePicker } from './icon-picker';
 import { IconImageInput, IconImageInputRef } from './icon-image-input';
 import { StyledIconDropdown } from './styled';
@@ -119,6 +119,7 @@ export const IconInputGroup = forwardRef<IconInputGroupRef, IconInputGroup>(({
     const language = useLanguage();
     const {
         frame,
+        foil,
         subFamily,
         cardIcon,
         star,
@@ -128,6 +129,7 @@ export const IconInputGroup = forwardRef<IconInputGroupRef, IconInputGroup>(({
     } = useCard(useShallow(({
         card: {
             frame,
+            foil,
             subFamily,
             cardIcon,
             star,
@@ -137,6 +139,7 @@ export const IconInputGroup = forwardRef<IconInputGroupRef, IconInputGroup>(({
         getUpdater,
     }) => ({
         frame,
+        foil,
         subFamily,
         cardIcon,
         star,
@@ -155,6 +158,24 @@ export const IconInputGroup = forwardRef<IconInputGroupRef, IconInputGroup>(({
     })));
 
     const changeCardIcon = useMemo(() => getUpdater('cardIcon'), [getUpdater]);
+    const resolveIconTypeDisplayIcon = useCallback(({ value, icon }: IconTypeInfo) => {
+        if (foil !== GRAND_MASTER_RARE_FOIL) return icon;
+        if (value === 'level') {
+            return <img
+                className="icon-image"
+                alt="Grand Master Rare Level"
+                src={`${PUBLIC_PATH}/asset/image/subfamily/subfamily-gmr-level.png`}
+            />;
+        }
+        if (value === 'rank') {
+            return <img
+                className="icon-image"
+                alt="Grand Master Rare Rank"
+                src={`${PUBLIC_PATH}/asset/image/subfamily/subfamily-gmr-rank-1.png`}
+            />;
+        }
+        return icon;
+    }, [foil]);
     const changeSubFamily = useMemo(() => getUpdater('subFamily'), [getUpdater]);
     const changeStar = useMemo(() => getUpdater('star'), [getUpdater]);
     const changeStarAlignment = useMemo(() => getUpdater('starAlignment'), [getUpdater]);
@@ -214,6 +235,7 @@ export const IconInputGroup = forwardRef<IconInputGroupRef, IconInputGroup>(({
         content={<IconTypePicker
             language={language}
             activeCardIcon={cardIcon}
+            resolveDisplayIcon={resolveIconTypeDisplayIcon}
             onChange={value => {
                 if (value === 'custom') {
                     triggerCustomIcon();
@@ -264,9 +286,10 @@ export const IconInputGroup = forwardRef<IconInputGroupRef, IconInputGroup>(({
                         className="fill-input-train"
                         value={cardIcon}
                         onChange={changeCardIcon}
-                        optionList={IconTypeList.map(({ icon, value, fullLabelKey }) => {
+                        optionList={IconTypeList.map((entry) => {
+                            const { value, fullLabelKey } = entry;
                             return {
-                                label: icon ?? <CloseCircleOutlined />,
+                                label: resolveIconTypeDisplayIcon(entry) ?? <CloseCircleOutlined />,
                                 value,
                                 tooltipProps: {
                                     title: language[fullLabelKey],

@@ -1,5 +1,6 @@
 
 import { CanvasConst, CanvasTextStyle, IconWithGlowMap, NO_STICKER, parseOffset, RegionOffset } from 'src/model';
+import { useSerial } from 'src/service/use-serial';
 import { drawAsset, drawWithStyle } from '../image';
 import { clearCanvas, getFinishIterator, setTextStyle } from '../canvas-util';
 import { createCanvas, scaleDrawCoordinate } from 'src/util';
@@ -15,6 +16,7 @@ export const drawStarContent = async ({
     iconImage,
     globalScale,
     cardIcon,
+    resolveStarAsset,
     text,
     star,
     starList,
@@ -28,6 +30,11 @@ export const drawStarContent = async ({
     iconImage: HTMLCanvasElement | null | undefined,
     globalScale: number,
     cardIcon: string,
+    resolveStarAsset?: (option: {
+        cardIconName: string,
+        visualIndex: number,
+        count: number,
+    }) => string | undefined,
     text: string | null,
     star: string | number,
     starList: string[],
@@ -118,7 +125,14 @@ export const drawStarContent = async ({
                     starWidth, starWidth,
                 );
             } else {
-                await drawAsset(starCtx, `subfamily/subfamily-${cardIconName}.png`, ...coordinate);
+                const starAsset = cardIcon === 'custom'
+                    ? `subfamily/subfamily-${cardIconName}.png`
+                    : resolveStarAsset?.({
+                        cardIconName,
+                        visualIndex: cardIconIndex,
+                        count: normalizedStarCount,
+                    }) ?? `subfamily/subfamily-${cardIconName}.png`;
+                await drawAsset(starCtx, starAsset, ...coordinate);
             }
             return await onStarDraw(coordinate);
         })
@@ -265,6 +279,9 @@ export const drawLimitedEditionMark = async ({
     bordered: boolean,
     textStyle?: CanvasTextStyle,
 }) => {
+    /** Serial mode follows the reference layout: the serial replaces edition marks. */
+    if (useSerial.getState().serialEnabled) return;
+
     const coordinate: [number, number, number, number] = !isLegacyCard || isPendulum
         ? (isLink && isPendulum)
             ? [220, 1123, 150 - widthOffset / globalScale, 37]
