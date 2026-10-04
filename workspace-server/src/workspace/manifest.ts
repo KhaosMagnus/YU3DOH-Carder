@@ -39,7 +39,11 @@ export const parseWorkspaceManifest = (raw: string): WorkspaceManifestParseResul
         return { ok: false, error: 'workspace_id is required and must be a non-empty string.' };
     }
 
-    if (!Number.isInteger(parsed.workspace_format_version) || Number(parsed.workspace_format_version) < 1) {
+    if (
+        typeof parsed.workspace_format_version !== 'number'
+        || !Number.isInteger(parsed.workspace_format_version)
+        || parsed.workspace_format_version < 1
+    ) {
         return { ok: false, error: 'workspace_format_version must be a positive integer.' };
     }
 
@@ -57,7 +61,7 @@ export const parseWorkspaceManifest = (raw: string): WorkspaceManifestParseResul
 
     const manifest: WorkspaceManifest = {
         workspace_id: parsed.workspace_id,
-        workspace_format_version: Number(parsed.workspace_format_version),
+        workspace_format_version: parsed.workspace_format_version,
         database_path: parsed.database_path,
         created_at: parsed.created_at,
     };

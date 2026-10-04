@@ -103,6 +103,15 @@ test('valid manifest parsing preserves identity fields and optional name', () =>
     assert.deepEqual(parsed.manifest, manifest());
 });
 
+test('manifest format version must be a positive integer number', () => {
+    for (const workspaceFormatVersion of ['1', 0, 1.5, null]) {
+        const parsed = parseWorkspaceManifest(JSON.stringify(manifest({
+            workspace_format_version: workspaceFormatVersion,
+        })));
+        assert.equal(parsed.ok, false, String(workspaceFormatVersion));
+    }
+});
+
 test('invalid JSON, missing identity, and unsafe database paths are rejected', () => {
     assert.equal(parseWorkspaceManifest('{').ok, false);
     assert.equal(parseWorkspaceManifest(JSON.stringify(manifest({ workspace_id: undefined }))).ok, false);
