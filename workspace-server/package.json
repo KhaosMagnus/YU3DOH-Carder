@@ -1,0 +1,23 @@
+{
+  "name": "@yu3doh/workspace-service",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local YU3DOH Workspace Service boundary",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "compile": "tsc -p tsconfig.json",
+    "test": "tsx --test test/workspace-service.test.ts",
+    "start": "node dist/src/main.js"
+  },
+  "dependencies": {
+    "fastify": "5.12.5"
+  },
+  "devDependencies": {
+    "@types/node": "25.8.0",
+    "tsx": "4.22.1",
+    "typescript": "6.0.2"
+  },
+  "packageManager": "yarn@1.22.22"
+}

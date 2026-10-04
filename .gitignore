@@ -53,3 +53,8 @@ yarn-error.log*
 
 # Experimental or one-time run
 test.html
+
+# YU3DOH Workspace local/runtime data
+/workspace-server/dist/
+/workspace-local/
+**/workspace.db
