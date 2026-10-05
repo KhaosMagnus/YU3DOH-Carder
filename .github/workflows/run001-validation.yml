@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   validate:
-    if: github.event.head_commit.message == 'chore(validation): run RUN 001 dependency-backed validation'
     runs-on: windows-latest
     defaults:
       run:
