@@ -55,8 +55,13 @@ export const openReadonlyDatabase = (databasePath: string) => {
         readonly: true,
         fileMustExist: true,
     });
-    assertReadableSqliteDatabase(database);
-    return database;
+    try {
+        assertReadableSqliteDatabase(database);
+        return database;
+    } catch (error) {
+        database.close();
+        throw error;
+    }
 };
 
 export const openOperationalDatabase = (databasePath: string) => {
