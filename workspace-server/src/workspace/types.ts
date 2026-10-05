@@ -24,6 +24,7 @@ export type WorkspaceStatus = {
     workspace_id: string | null;
     name: string | null;
     workspace_format_version: number | null;
+    database_schema_version: number | null;
     state: WorkspaceLifecycleState;
     read_only: boolean;
     health_summary: string;

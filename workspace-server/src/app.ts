@@ -22,6 +22,7 @@ export const workspaceStatusResponseSchema = {
         'workspace_id',
         'name',
         'workspace_format_version',
+        'database_schema_version',
         'state',
         'read_only',
         'health_summary',
@@ -30,6 +31,7 @@ export const workspaceStatusResponseSchema = {
         workspace_id: nullableStringSchema,
         name: nullableStringSchema,
         workspace_format_version: nullableIntegerSchema,
+        database_schema_version: nullableIntegerSchema,
         state: {
             type: 'string',
             enum: [...WORKSPACE_LIFECYCLE_STATES],

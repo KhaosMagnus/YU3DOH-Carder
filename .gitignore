@@ -58,3 +58,6 @@ test.html
 /workspace-server/dist/
 /workspace-local/
 **/workspace.db
+**/*.db-wal
+**/*.db-shm
+**/*.db-journal

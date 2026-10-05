@@ -1,12 +1,14 @@
 import type { FastifyInstance } from 'fastify';
 import { buildWorkspaceApp } from './app';
 import type { WorkspaceServiceConfig } from './config';
-import { inspectWorkspaceRoot } from './workspace/inspect';
+import type { WorkspacePersistence } from './persistence/database';
+import { inspectWorkspaceRootWithPersistence } from './workspace/inspect';
 import type { WorkspaceStatus } from './workspace/types';
 
 export type WorkspaceService = {
     app: FastifyInstance;
     status: WorkspaceStatus;
+    persistence: WorkspacePersistence | null;
     close: () => Promise<void>;
 };
 
@@ -14,17 +16,26 @@ export const createWorkspaceService = async (
     config: WorkspaceServiceConfig,
     { logger = false }: { logger?: boolean } = {},
 ): Promise<WorkspaceService> => {
-    const status = await inspectWorkspaceRoot(config.workspaceRoot);
+    const inspection = await inspectWorkspaceRootWithPersistence(config.workspaceRoot);
+    const { status, persistence } = inspection;
     const app = buildWorkspaceApp(status, { logger });
-    let closed = false;
+    let closePromise: Promise<void> | undefined;
+
+    const close = () => {
+        closePromise ??= (async () => {
+            try {
+                await app.close();
+            } finally {
+                persistence?.close();
+            }
+        })();
+        return closePromise;
+    };
 
     return {
         app,
         status,
-        close: async () => {
-            if (closed) return;
-            closed = true;
-            await app.close();
-        },
+        persistence,
+        close,
     };
 };
