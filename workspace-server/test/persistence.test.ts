@@ -58,7 +58,7 @@ test('safe database path resolution rejects escape attempts independently of man
         path.join(root, 'Data', 'workspace.db'),
     );
     for (const candidate of ['../outside.db', 'Data/../../outside.db', '/tmp/outside.db', 'C:\\outside.db']) {
-        assert.throws(() => resolveWorkspaceDatabasePath(root, candidate), undefined, candidate);
+        assert.throws(() => resolveWorkspaceDatabasePath(root, candidate), candidate);
     }
 });
 

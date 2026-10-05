@@ -96,7 +96,8 @@ export class WorkspacePersistence {
 
     transaction<T>(operation: (database: SqliteDatabase) => T): T {
         if (!this.isOpen) throw new Error('Workspace persistence is closed.');
-        return this.database.transaction(operation)();
+        const runTransaction = this.database.transaction(() => operation(this.database));
+        return runTransaction();
     }
 
     close() {
