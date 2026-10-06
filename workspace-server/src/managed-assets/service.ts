@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from 'node:crypto';
 import {
-    COPYFILE_EXCL,
+    constants as fsConstants,
     existsSync,
     lstatSync,
     renameSync,
@@ -325,7 +325,7 @@ export class ManagedAssetIngestService {
         let createdVariant = false;
 
         try {
-            await copyFile(resolvedSource, stagedPath, COPYFILE_EXCL);
+            await copyFile(resolvedSource, stagedPath, fsConstants.COPYFILE_EXCL);
             const stagedImage = await inspectAssetImage(stagedPath, role, extension);
             if (role === 'OF' && !stagedImage.hasTransparency) {
                 throw new ManagedAssetIngestError('INVALID_IMAGE', 'Staged OF lost required transparency.');
