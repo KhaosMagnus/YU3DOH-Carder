@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { inflateSync } from 'node:zlib';
+import { decode as decodeJpeg } from 'jpeg-js';
 import type { AssetRole, ImageInspection } from './types';
 
 const PNG_SIGNATURE = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
@@ -151,11 +152,18 @@ const inspectPng = (contents: Buffer) => {
     let transparency: Buffer | null = null;
     const idat: Buffer[] = [];
     let sawHeader = false;
+    let sawPalette = false;
+    let paletteEntries = 0;
+    let sawTransparency = false;
+    let sawIdat = false;
+    let idatEnded = false;
     let sawEnd = false;
+    let chunkIndex = 0;
 
     while (cursor + 12 <= contents.length) {
         const length = contents.readUInt32BE(cursor);
         const type = contents.toString('ascii', cursor + 4, cursor + 8);
+        if (!/^[A-Za-z]{4}$/.test(type)) throw new Error('PNG chunk type is invalid.');
         const dataStart = cursor + 8;
         const dataEnd = dataStart + length;
         const chunkEnd = dataEnd + 4;
@@ -165,8 +173,11 @@ const inspectPng = (contents: Buffer) => {
         const calculatedCrc = crc32(contents.subarray(cursor + 4, dataEnd));
         if (storedCrc !== calculatedCrc) throw new Error(`PNG chunk ${type} CRC mismatch.`);
 
+        if (chunkIndex === 0 && type !== 'IHDR') throw new Error('PNG IHDR must be the first chunk.');
+        if (type !== 'IHDR' && !sawHeader) throw new Error('PNG data appeared before IHDR.');
+
         if (type === 'IHDR') {
-            if (sawHeader || length !== 13) throw new Error('Invalid PNG IHDR.');
+            if (sawHeader || chunkIndex !== 0 || length !== 13) throw new Error('Invalid PNG IHDR.');
             sawHeader = true;
             width = data.readUInt32BE(0);
             height = data.readUInt32BE(4);
@@ -178,18 +189,54 @@ const inspectPng = (contents: Buffer) => {
             if (width <= 0 || height <= 0 || compression !== 0 || filterMethod !== 0 || ![0, 1].includes(interlace)) {
                 throw new Error('Unsupported or invalid PNG header.');
             }
+        } else if (type === 'PLTE') {
+            if (sawPalette || sawIdat) throw new Error('PNG PLTE is duplicated or appears after IDAT.');
+            if ([0, 4].includes(colorType)) throw new Error('PNG PLTE is not valid for grayscale color types.');
+            if (length === 0 || length % 3 !== 0 || length > 768) throw new Error('PNG PLTE length is invalid.');
+            paletteEntries = length / 3;
+            if (colorType === 3 && paletteEntries > (1 << bitDepth)) {
+                throw new Error('PNG PLTE has more entries than indexed bit depth permits.');
+            }
+            sawPalette = true;
         } else if (type === 'tRNS') {
+            if (sawTransparency || sawIdat) throw new Error('PNG tRNS is duplicated or appears after IDAT.');
+            if (colorType === 0) {
+                if (length !== 2) throw new Error('PNG grayscale tRNS length is invalid.');
+            } else if (colorType === 2) {
+                if (length !== 6) throw new Error('PNG truecolor tRNS length is invalid.');
+            } else if (colorType === 3) {
+                if (!sawPalette || length === 0 || length > paletteEntries) {
+                    throw new Error('PNG indexed tRNS requires a valid preceding PLTE.');
+                }
+            } else {
+                throw new Error('PNG tRNS is not valid for alpha-bearing color types.');
+            }
+            sawTransparency = true;
             transparency = Buffer.from(data);
         } else if (type === 'IDAT') {
+            if (idatEnded) throw new Error('PNG IDAT chunks must be consecutive.');
+            sawIdat = true;
             idat.push(Buffer.from(data));
         } else if (type === 'IEND') {
+            if (length !== 0 || !sawIdat) throw new Error('PNG IEND is invalid or appears before image data.');
             sawEnd = true;
+            cursor = chunkEnd;
+            if (cursor !== contents.length) throw new Error('PNG contains trailing data after IEND.');
             break;
+        } else {
+            if (sawIdat) idatEnded = true;
+            const firstTypeByte = type.charCodeAt(0);
+            const critical = firstTypeByte >= 65 && firstTypeByte <= 90;
+            if (critical) throw new Error(`Unsupported PNG critical chunk ${type}.`);
         }
+
         cursor = chunkEnd;
+        chunkIndex += 1;
     }
 
-    if (!sawHeader || !sawEnd || idat.length === 0) throw new Error('PNG is missing required chunks.');
+    if (!sawHeader || !sawEnd || !sawIdat || idat.length === 0) {
+        throw new Error('PNG is missing required chunks.');
+    }
 
     const validDepths: Record<number, number[]> = {
         0: [1, 2, 4, 8, 16],
@@ -199,6 +246,7 @@ const inspectPng = (contents: Buffer) => {
         6: [8, 16],
     };
     if (!validDepths[colorType]?.includes(bitDepth)) throw new Error('Unsupported PNG bit depth/color type combination.');
+    if (colorType === 3 && !sawPalette) throw new Error('Indexed PNG is missing required PLTE.');
 
     const channelsByColorType: Record<number, number> = { 0: 1, 2: 3, 3: 1, 4: 2, 6: 4 };
     const channels = channelsByColorType[colorType] ?? 0;
@@ -236,85 +284,27 @@ const inspectPng = (contents: Buffer) => {
 };
 
 const inspectJpeg = (contents: Buffer) => {
-    if (contents.length < 8 || contents[0] !== 0xff || contents[1] !== 0xd8) {
-        throw new Error('Invalid JPEG SOI marker.');
-    }
-    let width = 0;
-    let height = 0;
-    let cursor = 2;
-    let sawScan = false;
-    let sawEoi = false;
-
-    while (cursor < contents.length) {
-        if (contents[cursor] !== 0xff) throw new Error('Invalid JPEG marker framing.');
-        while (contents[cursor] === 0xff) cursor += 1;
-        const marker = contents[cursor] ?? -1;
-        cursor += 1;
-
-        if (marker === 0xd9) {
-            sawEoi = true;
-            break;
-        }
-        if (marker === 0x00 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) {
-            throw new Error('Unexpected standalone JPEG marker outside scan data.');
-        }
-        if (cursor + 2 > contents.length) throw new Error('Truncated JPEG marker.');
-        const length = contents.readUInt16BE(cursor);
-        if (length < 2 || cursor + length > contents.length) throw new Error('Invalid JPEG marker length.');
-
-        const isSof = [0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker);
-        if (isSof) {
-            if (length < 8) throw new Error('Invalid JPEG SOF marker.');
-            height = contents.readUInt16BE(cursor + 3);
-            width = contents.readUInt16BE(cursor + 5);
-            if (width <= 0 || height <= 0) throw new Error('Invalid JPEG dimensions.');
-        }
-
-        if (marker === 0xda) {
-            sawScan = true;
-            const scanStart = cursor + length;
-            let scanCursor = scanStart;
-            let entropyBytes = 0;
-            while (scanCursor < contents.length) {
-                const value = contents[scanCursor] ?? -1;
-                if (value !== 0xff) {
-                    entropyBytes += 1;
-                    scanCursor += 1;
-                    continue;
-                }
-                let markerCursor = scanCursor + 1;
-                while (contents[markerCursor] === 0xff) markerCursor += 1;
-                const next = contents[markerCursor] ?? -1;
-                if (next === 0x00) {
-                    entropyBytes += 1;
-                    scanCursor = markerCursor + 1;
-                    continue;
-                }
-                if (next >= 0xd0 && next <= 0xd7) {
-                    scanCursor = markerCursor + 1;
-                    continue;
-                }
-                if (next === 0xd9) {
-                    sawEoi = true;
-                    scanCursor = markerCursor + 1;
-                    break;
-                }
-                // Progressive/multi-scan JPEG: resume marker parsing at this marker.
-                cursor = scanCursor;
-                break;
-            }
-            if (entropyBytes === 0) throw new Error('JPEG scan contains no entropy-coded image data.');
-            if (sawEoi) break;
-            if (cursor === scanStart - length) throw new Error('JPEG scan ended unexpectedly.');
-            continue;
-        }
-        cursor += length;
+    if (
+        contents.length < 8
+        || contents[0] !== 0xff
+        || contents[1] !== 0xd8
+        || contents[contents.length - 2] !== 0xff
+        || contents[contents.length - 1] !== 0xd9
+    ) {
+        throw new Error('Invalid JPEG SOI/EOI framing.');
     }
 
-    if (width <= 0 || height <= 0) throw new Error('JPEG dimensions could not be decoded.');
-    if (!sawScan) throw new Error('JPEG scan data is missing.');
-    if (!sawEoi) throw new Error('JPEG EOI marker is missing.');
-    return { width, height, hasTransparency: false };
+    const decoded = decodeJpeg(contents, {
+        useTArray: true,
+        formatAsRGBA: false,
+        tolerantDecoding: false,
+        maxResolutionInMP: 100,
+        maxMemoryUsageInMB: 256,
+    });
+    if (decoded.width <= 0 || decoded.height <= 0 || decoded.data.length === 0) {
+        throw new Error('JPEG decoder produced no usable image payload.');
+    }
+    return { width: decoded.width, height: decoded.height, hasTransparency: false };
 };
 
 const inspectBmp = (contents: Buffer) => {
@@ -324,7 +314,9 @@ const inspectBmp = (contents: Buffer) => {
     const declaredSize = contents.readUInt32LE(2);
     const pixelOffset = contents.readUInt32LE(10);
     const dibSize = contents.readUInt32LE(14);
+    if (declaredSize !== contents.length) throw new Error('BMP declared file size does not match payload length.');
     if (dibSize < 40 || 14 + dibSize > contents.length) throw new Error('Unsupported or truncated BMP DIB header.');
+
     const width = contents.readInt32LE(18);
     const rawHeight = contents.readInt32LE(22);
     const planes = contents.readUInt16LE(26);
@@ -337,17 +329,29 @@ const inspectBmp = (contents: Buffer) => {
         || ![1, 4, 8, 16, 24, 32].includes(bitsPerPixel)
         || pixelOffset < 14 + dibSize
         || pixelOffset > contents.length
-        || declaredSize < pixelOffset
-        || declaredSize > contents.length
     ) {
         throw new Error('Invalid BMP dimensions or pixel metadata.');
     }
-    if (compression === 0) {
-        const rowStride = Math.floor((bitsPerPixel * width + 31) / 32) * 4;
-        const requiredBytes = rowStride * Math.abs(rawHeight);
-        if (pixelOffset + requiredBytes > contents.length) throw new Error('BMP pixel data is truncated.');
-    } else if (![1, 2, 3, 6].includes(compression)) {
-        throw new Error(`Unsupported BMP compression mode ${compression}.`);
+
+    // RUN 004 deliberately supports only BI_RGB. RLE/bitfield/JPEG/PNG-compressed
+    // BMP payloads are rejected until a decoder for those encodings exists.
+    if (compression !== 0) {
+        throw new Error(`Unsupported BMP compression mode ${compression}; only uncompressed BI_RGB is validated.`);
+    }
+
+    if (bitsPerPixel <= 8) {
+        const colorsUsed = contents.readUInt32LE(46);
+        const maximumPaletteEntries = 1 << bitsPerPixel;
+        if (colorsUsed > maximumPaletteEntries) throw new Error('BMP palette size exceeds bit depth.');
+        const paletteEntries = colorsUsed === 0 ? maximumPaletteEntries : colorsUsed;
+        const paletteEnd = 14 + dibSize + paletteEntries * 4;
+        if (pixelOffset < paletteEnd) throw new Error('BMP indexed-color palette is truncated.');
+    }
+
+    const rowStride = Math.floor((bitsPerPixel * width + 31) / 32) * 4;
+    const requiredBytes = rowStride * Math.abs(rawHeight);
+    if (!Number.isSafeInteger(requiredBytes) || pixelOffset + requiredBytes > contents.length) {
+        throw new Error('BMP pixel data is truncated.');
     }
     return { width, height: Math.abs(rawHeight), hasTransparency: false };
 };

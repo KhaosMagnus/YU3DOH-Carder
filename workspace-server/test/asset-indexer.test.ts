@@ -109,6 +109,51 @@ const bmp = () => {
     return output;
 };
 
+const compressedBmp = (payloadBytes: number, declaredImageBytes = payloadBytes) => {
+    const paletteBytes = 256 * 4;
+    const pixelOffset = 54 + paletteBytes;
+    const output = Buffer.alloc(pixelOffset + payloadBytes);
+    output.write('BM', 0, 'ascii');
+    output.writeUInt32LE(output.length, 2);
+    output.writeUInt32LE(pixelOffset, 10);
+    output.writeUInt32LE(40, 14);
+    output.writeInt32LE(1, 18);
+    output.writeInt32LE(1, 22);
+    output.writeUInt16LE(1, 26);
+    output.writeUInt16LE(8, 28);
+    output.writeUInt32LE(1, 30); // BI_RLE8: intentionally unsupported until decoded.
+    output.writeUInt32LE(declaredImageBytes, 34);
+    output.writeUInt32LE(256, 46);
+    return output;
+};
+
+const indexedPngWithoutPalette = () => {
+    const header = Buffer.alloc(13);
+    header.writeUInt32BE(1, 0);
+    header.writeUInt32BE(1, 4);
+    header[8] = 8;
+    header[9] = 3; // indexed-color PNG requires PLTE
+    header[10] = 0;
+    header[11] = 0;
+    header[12] = 0;
+    return Buffer.concat([
+        Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+        pngChunk('IHDR', header),
+        pngChunk('IDAT', deflateSync(Buffer.from([0, 0]))),
+        pngChunk('IEND', Buffer.alloc(0)),
+    ]);
+};
+
+const superficiallyFramedButUndecodableJpeg = () => Buffer.from([
+    0xff, 0xd8,
+    0xff, 0xc0, 0x00, 0x11, 0x08, 0x00, 0x01, 0x00, 0x01, 0x03,
+    0x01, 0x11, 0x00, 0x02, 0x11, 0x00, 0x03, 0x11, 0x00,
+    0xff, 0xda, 0x00, 0x0c, 0x03,
+    0x01, 0x00, 0x02, 0x11, 0x03, 0x11, 0x00, 0x3f, 0x00,
+    0x01,
+    0xff, 0xd9,
+]);
+
 const imageForExtension = (extension: string, transparent = false) => {
     if (extension.toLowerCase() === 'png') return png(transparent ? 0 : 255);
     if (['jpg', 'jpeg'].includes(extension.toLowerCase())) return jpeg();
@@ -550,6 +595,73 @@ test('failed reconciliation transaction preserves the previous consistent index 
         throw new Error('deliberate reconciliation rollback');
     }));
     assert.deepEqual(assets.listAssets(), before);
+    await service.close();
+});
+
+test('compressed BMP encodings are rejected while valid uncompressed BMP remains accepted and scan continues', async () => {
+    const { root, service, canonical, assets } = await readyService('qa compressed bmp');
+    canonical.createCard({ family: 'SPELL', password: '56000001' });
+    canonical.createCard({ family: 'SPELL', password: '56000002' });
+    canonical.createCard({ family: 'SPELL', password: '56000003' });
+
+    await writeAsset(root, '56000001-MissingPayload-BS-Default.bmp', compressedBmp(0, 4));
+    await writeAsset(root, '56000002-TruncatedPayload-BS-Default.bmp', compressedBmp(2, 12));
+    await writeAsset(root, '56000003-Valid-BS-Default.bmp', bmp());
+
+    const scan = await assets.scan();
+    const missing = scan.assets.find(item => item.parsedPassword === '56000001');
+    const truncated = scan.assets.find(item => item.parsedPassword === '56000002');
+    const valid = scan.assets.find(item => item.parsedPassword === '56000003');
+
+    assert.equal(missing?.validAsset, false);
+    assert.equal(truncated?.validAsset, false);
+    assert.equal(missing?.variantId, null);
+    assert.equal(truncated?.variantId, null);
+    assert.equal(valid?.validAsset, true);
+    assert.ok(valid?.variantId);
+    assert.equal(scan.diagnostics.filter(item => item.code === 'INVALID_IMAGE').length, 2);
+    await service.close();
+});
+
+test('malformed BMP cannot bind a role or make Standard/Overframe READY', async () => {
+    const { root, service, canonical, assets } = await readyService('qa malformed bmp readiness');
+    const card = canonical.createCard({ family: 'SPELL', password: '57000001' });
+    await writeAsset(root, '57000001-Name-OF-Default.png', png(0));
+    await writeAsset(root, '57000001-Name-BG-Default.bmp', compressedBmp(0, 8));
+
+    const scan = await assets.scan();
+    const malformed = scan.assets.find(item => item.role === 'BG');
+    const variant = scan.variants.find(item => item.cardId === card.cardId);
+    assert.ok(variant);
+    assert.equal(malformed?.validAsset, false);
+    assert.equal(malformed?.variantId, null);
+    assert.equal(variant.roles.BG, null);
+    assert.ok(variant.roles.OF);
+    assert.deepEqual(variant.standard, { state: 'INCOMPLETE', sources: [] });
+    assert.deepEqual(variant.overframe, { state: 'INCOMPLETE', sources: [] });
+    await service.close();
+});
+
+test('invalid required PNG metadata and superficially framed corrupt JPEG are rejected without stopping or touching sources', async () => {
+    const { root, service, canonical, assets } = await readyService('qa png jpeg corruption');
+    canonical.createCard({ family: 'SPELL', password: '58000001' });
+    canonical.createCard({ family: 'SPELL', password: '58000002' });
+    canonical.createCard({ family: 'SPELL', password: '58000003' });
+
+    await writeAsset(root, 'bad/58000001-IndexedNoPalette-BS-Default.png', indexedPngWithoutPalette());
+    await writeAsset(root, 'bad/58000002-Superficial-BS-Default.jpg', superficiallyFramedButUndecodableJpeg());
+    await writeAsset(root, 'good/58000003-Valid-BS-Default.png', png(255));
+
+    const before = await snapshotAssetsTree(root);
+    const scan = await assets.scan();
+    const after = await snapshotAssetsTree(root);
+
+    assert.deepEqual(after, before);
+    assert.equal(scan.assets.find(item => item.parsedPassword === '58000001')?.validAsset, false);
+    assert.equal(scan.assets.find(item => item.parsedPassword === '58000002')?.validAsset, false);
+    assert.equal(scan.assets.find(item => item.parsedPassword === '58000003')?.validAsset, true);
+    assert.equal(scan.diagnostics.filter(item => item.code === 'INVALID_IMAGE').length, 2);
+    assert.equal(scan.presentCount, 3);
     await service.close();
 });
 
