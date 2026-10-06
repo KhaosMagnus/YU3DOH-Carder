@@ -12,9 +12,9 @@ import {
     type SemanticBlockKey,
 } from './types';
 
-const fail = (message: string): never => {
+function fail(message: string): never {
     throw new CanonicalDomainError('DOMAIN_VALIDATION', message);
-};
+}
 
 const isNonBlank = (value: string | null) =>
     value !== null && value.trim().length > 0;
@@ -34,11 +34,11 @@ const assertPrintedStat = (value: number | '?' | null, field: string) => {
     }
 };
 
-export const assertSupportedFamily = (family: string): asserts family is CanonicalCardFamily => {
+export function assertSupportedFamily(family: string): asserts family is CanonicalCardFamily {
     if (!CANONICAL_CARD_FAMILIES.includes(family as CanonicalCardFamily)) {
         fail(`Unsupported Canonical card family: ${family}`);
     }
-};
+}
 
 export const assertNonBlankCode = (code: string, label: string) => {
     if (code.trim().length === 0) fail(`${label} code must not be empty.`);
