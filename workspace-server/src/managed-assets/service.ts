@@ -202,7 +202,14 @@ export class ManagedAssetIngestService {
         const destinationPath = path.resolve(this.workspaceRoot, ...asset.managedRelativePath.split('/'));
         await this.removePublishedFileIfOwned(destinationPath, asset.role, asset.extension, asset.contentHash);
         this.persistence.transaction(database => {
-            deleteManagedIngest(database, asset.managedAssetId, asset.variantId, idempotencyKey, createdVariant);
+            deleteManagedIngest(
+                database,
+                asset.managedAssetId,
+                asset.variantId,
+                idempotencyKey,
+                asset.managedRelativePath,
+                createdVariant,
+            );
         });
         try { await this.assets.scan(); } catch { /* preserve primary error */ }
     }

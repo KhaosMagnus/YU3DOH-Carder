@@ -348,6 +348,35 @@ test('post-publication index failure compensates file, ownership and created var
     await service.close();
 });
 
+test('successful post-publication scan followed by binding-verification failure compensates indexed state and orphan variant', async () => {
+    const { root, service, canonical, assets }=await readyService('verify compensation'); assert.ok(service.persistence);
+    const card=canonical.createCard({family:'SPELL',password:'64000004'}); const source=await sourceFile(root,'candidate.png',png(255));
+    class VerificationFailureIndexer {
+        private calls=0;
+        constructor(private readonly delegate: typeof assets) {}
+        async scan(){
+            this.calls+=1;
+            const result=await this.delegate.scan();
+            if(this.calls===2)return {...result,variants:[]};
+            return result;
+        }
+        listVariants(cardId?:string){return this.delegate.listVariants(cardId);}
+    }
+    const proxy=new VerificationFailureIndexer(assets);
+    const failing=new ManagedAssetIngestService(root,service.persistence,proxy as never);
+    await assert.rejects(
+        failing.ingest({cardId:card.cardId,variantKey:'Default',role:'BS',sourceFile:source,idempotencyKey:'verify-fail'}),
+        expectCode('INDEX_RECONCILIATION_FAILED'),
+    );
+    assert.equal(failing.listManagedAssets().length,0);
+    assert.equal(assets.listVariants(card.cardId).length,0);
+    assert.equal(existsSync(path.join(root,'Assets','Managed',card.cardId,'default','BS.png')),false);
+    const indexed=assets.listAssets().find(item=>item.relativePath===`Assets/Managed/${card.cardId}/default/BS.png`);
+    assert.equal(indexed?.present,false);
+    assert.equal(indexed?.variantId,null);
+    await service.close();
+});
+
 test('absolute source path is not persisted', async () => {
     const { root, service, canonical, managed }=await readyService('no absolute'); assert.ok(service.persistence);
     const card=canonical.createCard({family:'SPELL',password:'65000001'}); const source=await sourceFile(root,'private.png',png(255));

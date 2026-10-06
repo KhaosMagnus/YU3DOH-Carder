@@ -265,10 +265,22 @@ export const deleteManagedIngest = (
     managedAssetId: string,
     variantId: string,
     idempotencyKey: string,
+    managedRelativePath: string,
     deleteVariant: boolean,
 ) => {
     database.prepare('DELETE FROM managed_asset_ingest_requests WHERE idempotency_key = ?').run(idempotencyKey);
     database.prepare('DELETE FROM managed_assets WHERE managed_asset_id = ?').run(managedAssetId);
+    database.prepare(`
+        DELETE FROM variant_role_bindings
+        WHERE asset_id IN (
+            SELECT asset_id FROM indexed_asset_files WHERE relative_path = ?
+        )
+    `).run(managedRelativePath);
+    database.prepare(`
+        UPDATE indexed_asset_files
+        SET present = 0, variant_id = NULL
+        WHERE relative_path = ? AND variant_id = ?
+    `).run(managedRelativePath, variantId);
     if (deleteVariant) {
         database.prepare(`
             DELETE FROM art_variants
