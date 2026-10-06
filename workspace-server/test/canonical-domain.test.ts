@@ -121,7 +121,7 @@ test('explicit migration upgrades schema 1 through canonical schema to current s
 
     assert.equal(result.previousVersion, 1);
     assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
-    assert.deepEqual(result.appliedVersions, [2, 3]);
+    assert.deepEqual(result.appliedVersions, [2, 3, 4]);
 
     const database = new Database(databasePath, { readonly: true, fileMustExist: true });
     assert.equal(readDatabaseSchemaVersion(database), SUPPORTED_DATABASE_SCHEMA_VERSION);
@@ -131,6 +131,7 @@ test('explicit migration upgrades schema 1 through canonical schema to current s
             { version: 1, name: 'repository_foundation' },
             { version: 2, name: 'canonical_domain' },
             { version: 3, name: 'art_variants_asset_index' },
+            { version: 4, name: 'managed_asset_ingest' },
         ],
     );
     database.close();
@@ -145,7 +146,7 @@ test('fresh bootstrap preserves canonical migration ordering and reaches current
 
     assert.equal(result.previousVersion, 0);
     assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
-    assert.deepEqual(result.appliedVersions, [1, 2, 3]);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4]);
 });
 
 test('unsupported SKILL family is rejected and supported family identity is UUID-compatible', async () => {

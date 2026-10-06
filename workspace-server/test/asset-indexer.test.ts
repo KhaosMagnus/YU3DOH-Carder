@@ -222,7 +222,7 @@ test.after(async () => {
     await Promise.all(roots.map(root => rm(root, { recursive: true, force: true })));
 });
 
-test('schema 2 is NEEDS_MIGRATION without implicit migration and explicit 2->3 succeeds', async () => {
+test('schema 2 is NEEDS_MIGRATION without implicit migration and explicit upgrade to current succeeds', async () => {
     const root = await tempRoot('schema2 migration');
     const databasePath = await createSchema2Database(root);
     const before = await inspectWorkspaceRoot(root);
@@ -234,21 +234,22 @@ test('schema 2 is NEEDS_MIGRATION without implicit migration and explicit 2->3 s
 
     const migrated = migrateWorkspaceDatabase(root, manifest());
     assert.equal(migrated.previousVersion, 2);
-    assert.equal(migrated.currentVersion, 3);
-    assert.deepEqual(migrated.appliedVersions, [3]);
+    assert.equal(migrated.currentVersion, 4);
+    assert.deepEqual(migrated.appliedVersions, [3, 4]);
 });
 
-test('fresh bootstrap reaches schema 3 through migrations 001, 002, 003', async () => {
+test('fresh bootstrap reaches current schema through migrations 001, 002, 003, 004', async () => {
     const root = await tempRoot('fresh schema3');
     const result = bootstrapWorkspaceDatabase(root, manifest());
-    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 3);
-    assert.equal(result.currentVersion, 3);
-    assert.deepEqual(result.appliedVersions, [1, 2, 3]);
+    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 4);
+    assert.equal(result.currentVersion, 4);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4]);
     const database = new Database(result.databasePath, { readonly: true, fileMustExist: true });
     assert.deepEqual(database.prepare('SELECT version, name FROM _workspace_migrations ORDER BY version').all(), [
         { version: 1, name: 'repository_foundation' },
         { version: 2, name: 'canonical_domain' },
         { version: 3, name: 'art_variants_asset_index' },
+        { version: 4, name: 'managed_asset_ingest' },
     ]);
     database.close();
 });
@@ -665,11 +666,11 @@ test('invalid required PNG metadata and superficially framed corrupt JPEG are re
     await service.close();
 });
 
-test('schema-3 Workspace is READY and status endpoint reports database_schema_version 3', async () => {
-    const { service } = await readyService('schema3 ready');
-    assert.equal(service.status.database_schema_version, 3);
+test('current-schema Workspace is READY and status endpoint reports database_schema_version 4', async () => {
+    const { service } = await readyService('schema4 ready');
+    assert.equal(service.status.database_schema_version, 4);
     const response = await service.app.inject({ method: 'GET', url: '/api/v1/workspace/status' });
     assert.equal(response.statusCode, 200);
-    assert.equal(response.json().database_schema_version, 3);
+    assert.equal(response.json().database_schema_version, 4);
     await service.close();
 });
