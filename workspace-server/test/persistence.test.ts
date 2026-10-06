@@ -85,7 +85,7 @@ test('explicit bootstrap creates a fresh database at current schema', async () =
 
     assert.equal(result.previousVersion, 0);
     assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
-    assert.deepEqual(result.appliedVersions, [1]);
+    assert.deepEqual(result.appliedVersions, [1, 2]);
     assert.equal(existsSync(result.databasePath), true);
 
     const status = await inspectWorkspaceRoot(root);
@@ -105,12 +105,15 @@ test('migration operation brings an older schema to current and records ordered 
     assert.equal(before.database_schema_version, 0);
 
     const result = migrateWorkspaceDatabase(root, value);
-    assert.deepEqual(result.appliedVersions, [1]);
-    assert.equal(result.currentVersion, 1);
+    assert.deepEqual(result.appliedVersions, [1, 2]);
+    assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
 
     const database = new Database(databasePath, { readonly: true, fileMustExist: true });
     const history = database.prepare('SELECT version, name FROM _workspace_migrations ORDER BY version').all();
-    assert.deepEqual(history, [{ version: 1, name: 'repository_foundation' }]);
+    assert.deepEqual(history, [
+        { version: 1, name: 'repository_foundation' },
+        { version: 2, name: 'canonical_domain' },
+    ]);
     database.close();
 });
 
@@ -123,10 +126,10 @@ test('second migration run is idempotent and does not reapply applied versions',
     const first = migrateWorkspaceDatabase(root, value);
     const second = migrateWorkspaceDatabase(root, value);
 
-    assert.deepEqual(first.appliedVersions, [1]);
+    assert.deepEqual(first.appliedVersions, [1, 2]);
     assert.deepEqual(second.appliedVersions, []);
     assert.equal(second.previousVersion, 1);
-    assert.equal(second.currentVersion, 1);
+    assert.equal(second.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
 });
 
 test('older database inspection never performs implicit migration', async () => {
@@ -155,7 +158,7 @@ test('current schema is READY only after real persistence acquisition and config
     const service = await createWorkspaceService({ workspaceRoot: root, host: '127.0.0.1', port: 4312 });
 
     assert.equal(service.status.state, 'READY');
-    assert.equal(service.status.database_schema_version, 1);
+    assert.equal(service.status.database_schema_version, SUPPORTED_DATABASE_SCHEMA_VERSION);
     assert.equal(service.status.read_only, false);
     assert.equal(service.persistence?.isOpen, true);
     await service.close();
@@ -300,6 +303,6 @@ test('spaces and Japanese/Unicode Workspace paths operate with real SQLite', asy
 
     assert.equal(existsSync(bootstrap.databasePath), true);
     assert.equal(service.status.state, 'READY');
-    assert.equal(service.status.database_schema_version, 1);
+    assert.equal(service.status.database_schema_version, SUPPORTED_DATABASE_SCHEMA_VERSION);
     await service.close();
 });

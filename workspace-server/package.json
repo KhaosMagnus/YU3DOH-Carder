@@ -8,7 +8,7 @@
   },
   "scripts": {
     "compile": "tsc -p tsconfig.json",
-    "test": "tsx --test test/workspace-service.test.ts test/persistence.test.ts",
+    "test": "tsx --test test/workspace-service.test.ts test/persistence.test.ts test/canonical-domain.test.ts",
     "start": "node dist/src/main.js"
   },
   "dependencies": {

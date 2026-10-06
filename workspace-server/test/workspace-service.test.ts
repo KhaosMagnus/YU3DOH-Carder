@@ -12,6 +12,7 @@ import {
     type WorkspaceServiceConfig,
 } from '../src/config';
 import { bootstrapWorkspaceDatabase } from '../src/persistence/operations';
+import { SUPPORTED_DATABASE_SCHEMA_VERSION } from '../src/persistence/constants';
 import { createWorkspaceService } from '../src/service';
 import { inspectWorkspaceRoot } from '../src/workspace/inspect';
 import { isWorkspaceRelativePath, parseWorkspaceManifest } from '../src/workspace/manifest';
@@ -241,7 +242,7 @@ test('READY status endpoint reports real database_schema_version through Fastify
     assert.equal(response.statusCode, 200);
     assert.equal(body.state, 'READY');
     assert.equal(body.read_only, false);
-    assert.equal(body.database_schema_version, 1);
+    assert.equal(body.database_schema_version, SUPPORTED_DATABASE_SCHEMA_VERSION);
     await service.close();
 });
 
