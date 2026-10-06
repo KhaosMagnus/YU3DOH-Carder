@@ -27,6 +27,7 @@ import type {
     StructuralRegistryKind,
 } from './types';
 import {
+    assertConfirmedBlocksExplicitlyTransitioned,
     assertConfirmedBlocksValid,
     assertMutationShape,
     assertNonBlankCode,
@@ -111,6 +112,8 @@ export class CanonicalDomainService {
             }
 
             assertMutationShape(row.family, mutation);
+            const current = requireSnapshot(loadCanonicalCardSnapshot(database, cardId), cardId);
+            assertConfirmedBlocksExplicitlyTransitioned(current, mutation);
             const timestamp = now();
 
             if (mutation.password !== undefined) {

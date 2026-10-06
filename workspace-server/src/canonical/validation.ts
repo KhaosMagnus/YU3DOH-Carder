@@ -135,6 +135,55 @@ export const assertMutationShape = (
     }
 };
 
+export const assertConfirmedBlocksExplicitlyTransitioned = (
+    snapshot: CanonicalCardSnapshot,
+    mutation: CanonicalCardMutation,
+) => {
+    const confirmedBlocks = new Set(
+        snapshot.confirmations
+            .filter(confirmation => confirmation.state === 'CONFIRMED')
+            .map(confirmation => confirmation.block),
+    );
+    const explicitTransitions = new Set(
+        mutation.confirmations?.map(confirmation => confirmation.block) ?? [],
+    );
+    const impactedBlocks = new Set<SemanticBlockKey>();
+
+    if (mutation.password !== undefined || mutation.structure !== undefined) {
+        impactedBlocks.add('STRUCTURE');
+    }
+
+    mutation.localizations?.forEach(localized => {
+        impactedBlocks.add(`TEXT:${localized.language}` as SemanticBlockKey);
+    });
+
+    const classification = mutation.classification;
+    if (
+        classification
+        && (
+            classification.effectReviewed !== undefined
+            || classification.archetypeIds !== undefined
+            || classification.effectClassifierIds !== undefined
+            || classification.functionalTagIds !== undefined
+        )
+    ) {
+        impactedBlocks.add('CLASSIFICATION');
+    }
+
+    if (mutation.relations !== undefined) {
+        impactedBlocks.add('RELATIONS');
+    }
+
+    for (const block of impactedBlocks) {
+        if (confirmedBlocks.has(block) && !explicitTransitions.has(block)) {
+            fail(
+                `Mutation would silently overwrite confirmed block ${block}; `
+                + 'include an explicit confirmation transition in the same mutation.',
+            );
+        }
+    }
+};
+
 const assertPasswordForConfirmedStructure = (snapshot: CanonicalCardSnapshot) => {
     if (snapshot.family === 'TOKEN') {
         if (snapshot.password !== null) fail('Confirmed Token structure cannot carry a password.');

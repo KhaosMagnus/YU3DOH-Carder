@@ -516,6 +516,94 @@ test('unreviewed zero classifiers and reviewed-empty classifiers are distinguish
     await service.close();
 });
 
+test('confirmed blocks reject silent overwrites and accept explicit block transitions', async () => {
+    const { service, canonical } = await createReadyService('confirmed overwrite guard');
+    const card = canonical.createCard({ family: 'SPELL', password: '15151515' });
+    const token = canonical.createCard({ family: 'TOKEN' });
+    const tag = canonical.registerNamedEntity('FUNCTIONAL_TAG', 'RECOVERY_GUARD');
+
+    const confirmed = canonical.mutateCard(card.cardId, card.revision, {
+        structure: { kind: 'SPELL', subtypeCode: 'NORMAL' },
+        localizations: [{
+            language: 'EN',
+            name: 'Confirmed Name',
+            cardText: 'Confirmed text',
+            pendulumText: null,
+        }],
+        classification: {
+            effectReviewed: true,
+            functionalTagIds: [],
+        },
+        relations: [{
+            targetCardId: token.cardId,
+            relationTypeCode: 'CREATES_TOKEN',
+        }],
+        confirmations: [
+            { block: 'STRUCTURE', state: 'CONFIRMED', provenance: source },
+            { block: 'TEXT:EN', state: 'CONFIRMED', provenance: source },
+            { block: 'CLASSIFICATION', state: 'CONFIRMED', provenance: source },
+            { block: 'RELATIONS', state: 'CONFIRMED', provenance: source },
+        ],
+    });
+
+    const isSilentOverwriteError = (error: unknown) =>
+        error instanceof CanonicalDomainError
+        && error.code === 'DOMAIN_VALIDATION'
+        && error.message.includes('silently overwrite confirmed block');
+
+    assert.throws(
+        () => canonical.mutateCard(card.cardId, confirmed.revision, { password: '16161616' }),
+        isSilentOverwriteError,
+    );
+    assert.throws(
+        () => canonical.mutateCard(card.cardId, confirmed.revision, {
+            localizations: [{
+                language: 'EN',
+                name: 'Silent replacement',
+                cardText: 'Must not persist',
+                pendulumText: null,
+            }],
+        }),
+        isSilentOverwriteError,
+    );
+    assert.throws(
+        () => canonical.mutateCard(card.cardId, confirmed.revision, {
+            classification: { functionalTagIds: [tag.id] },
+        }),
+        isSilentOverwriteError,
+    );
+    assert.throws(
+        () => canonical.mutateCard(card.cardId, confirmed.revision, { relations: [] }),
+        isSilentOverwriteError,
+    );
+
+    const unchanged = canonical.getCard(card.cardId);
+    assert.ok(unchanged);
+    assert.equal(unchanged.revision, confirmed.revision);
+    assert.equal(unchanged.password, '15151515');
+    assert.equal(unchanged.localizations[0]?.name, 'Confirmed Name');
+    assert.deepEqual(unchanged.classification.functionalTags, []);
+    assert.equal(unchanged.relations.length, 1);
+
+    const explicitDraft = canonical.mutateCard(card.cardId, confirmed.revision, {
+        localizations: [{
+            language: 'EN',
+            name: 'Explicit replacement',
+            cardText: 'Allowed after explicit transition',
+            pendulumText: null,
+        }],
+        confirmations: [{ block: 'TEXT:EN', state: 'DRAFT' }],
+    });
+
+    assert.notEqual(explicitDraft.revision, confirmed.revision);
+    assert.equal(explicitDraft.localizations[0]?.name, 'Explicit replacement');
+    assert.equal(
+        explicitDraft.confirmations.find(block => block.block === 'TEXT:EN')?.state,
+        'DRAFT',
+    );
+    await service.close();
+});
+
 test('relations use internal IDs, support creator to Token, and preserve Token password absence', async () => {
     const { service, canonical } = await createReadyService('creator relation');
     const creator = canonical.createCard({ family: 'MONSTER', password: '12121212' });
