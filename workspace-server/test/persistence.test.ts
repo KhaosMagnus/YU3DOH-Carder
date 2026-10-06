@@ -128,7 +128,7 @@ test('second migration run is idempotent and does not reapply applied versions',
 
     assert.deepEqual(first.appliedVersions, [1, 2]);
     assert.deepEqual(second.appliedVersions, []);
-    assert.equal(second.previousVersion, 1);
+    assert.equal(second.previousVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
     assert.equal(second.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
 });
 
