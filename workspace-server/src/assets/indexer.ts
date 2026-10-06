@@ -4,6 +4,7 @@ import path from 'node:path';
 import type { WorkspacePersistence } from '../persistence/database';
 import { inspectAssetImage, isSupportedAssetFormat } from './image';
 import { parseAssetFilename } from './filename';
+import { findManagedOwnershipByRelativePath, type ManagedOwnership } from '../managed-assets/repository';
 import {
     findCanonicalCardIdsByPassword,
     findTokenCardIdsByNormalizedName,
@@ -179,7 +180,79 @@ export class AssetIndexerService {
         });
     }
 
+    private async inspectManagedFile(file: DiscoveredFile, ownership: ManagedOwnership): Promise<DiscoveredAsset> {
+        const baseDetails: Partial<DiscoveredAsset> = {
+            role: ownership.role,
+            variantLabel: ownership.displayLabel,
+            variantKey: ownership.variantKey,
+            associationState: 'RESOLVED',
+            cardId: ownership.cardId,
+        };
+        if (!isSupportedAssetFormat(ownership.role, ownership.extension)) {
+            return invalidDiscoveredAsset(file, ownership.extension, baseDetails, [diagnostic(
+                file.relativePath,
+                'UNSUPPORTED_FORMAT',
+                `Registered managed extension ${ownership.extension} is not supported for role ${ownership.role}.`,
+            )]);
+        }
+        let image;
+        try {
+            image = await inspectAssetImage(file.absolutePath, ownership.role, ownership.extension);
+        } catch (error) {
+            return invalidDiscoveredAsset(file, ownership.extension, baseDetails, [diagnostic(
+                file.relativePath,
+                'INVALID_IMAGE',
+                error instanceof Error ? error.message : 'Managed image could not be decoded.',
+            )]);
+        }
+        const inspectedDetails: Partial<DiscoveredAsset> = {
+            ...baseDetails,
+            contentHash: image.contentHash,
+            imageWidth: image.width,
+            imageHeight: image.height,
+            hasTransparency: image.hasTransparency,
+        };
+        if (ownership.role === 'OF' && !image.hasTransparency) {
+            return invalidDiscoveredAsset(file, ownership.extension, inspectedDetails, [diagnostic(
+                file.relativePath,
+                'INVALID_OF_TRANSPARENCY',
+                'Managed OF PNG is fully opaque and does not contain usable transparency.',
+            )]);
+        }
+        if (image.contentHash !== ownership.contentHash) {
+            return invalidDiscoveredAsset(file, ownership.extension, inspectedDetails, [diagnostic(
+                file.relativePath,
+                'INVALID_IMAGE',
+                'Managed asset content hash no longer matches committed ownership.',
+            )]);
+        }
+        return {
+            relativePath: file.relativePath,
+            fileName: file.fileName,
+            extension: ownership.extension,
+            sizeBytes: file.sizeBytes,
+            modifiedTimeMs: file.modifiedTimeMs,
+            contentHash: image.contentHash,
+            parsedCardName: null,
+            parsedPassword: null,
+            role: ownership.role,
+            variantLabel: ownership.displayLabel,
+            variantKey: ownership.variantKey,
+            associationState: 'RESOLVED',
+            cardId: ownership.cardId,
+            imageWidth: image.width,
+            imageHeight: image.height,
+            hasTransparency: image.hasTransparency,
+            validAsset: true,
+            diagnostics: [],
+        };
+    }
+
     private async inspectFile(file: DiscoveredFile): Promise<DiscoveredAsset> {
+        const managedOwnership = this.persistence.runRepositoryOperation(database =>
+            findManagedOwnershipByRelativePath(database, file.relativePath));
+        if (managedOwnership) return this.inspectManagedFile(file, managedOwnership);
+
         let parsed;
         try {
             parsed = parseAssetFilename(file.fileName);
