@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify';
+import { AssetIndexerService } from './assets/indexer';
 import { CanonicalDomainService } from './canonical/service';
 import { buildWorkspaceApp } from './app';
 import type { WorkspaceServiceConfig } from './config';
@@ -11,6 +12,7 @@ export type WorkspaceService = {
     status: WorkspaceStatus;
     persistence: WorkspacePersistence | null;
     canonical: CanonicalDomainService | null;
+    assets: AssetIndexerService | null;
     close: () => Promise<void>;
 };
 
@@ -22,6 +24,7 @@ export const createWorkspaceService = async (
     const { status, persistence } = inspection;
     const app = buildWorkspaceApp(status, { logger });
     const canonical = persistence ? new CanonicalDomainService(persistence) : null;
+    const assets = persistence ? new AssetIndexerService(config.workspaceRoot, persistence) : null;
     let closePromise: Promise<void> | undefined;
 
     const close = () => {
@@ -40,6 +43,7 @@ export const createWorkspaceService = async (
         status,
         persistence,
         canonical,
+        assets,
         close,
     };
 };

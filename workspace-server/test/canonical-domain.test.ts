@@ -111,7 +111,7 @@ test('schema 1 is NEEDS_MIGRATION and status inspection does not modify it', asy
     after.close();
 });
 
-test('explicit migration upgrades schema 1 to schema 2 with continuous history', async () => {
+test('explicit migration upgrades schema 1 through canonical schema to current schema with continuous history', async () => {
     const root = await createTempRoot('schema1 explicit migration');
     const value = manifest();
     await writeManifest(root, value);
@@ -120,22 +120,23 @@ test('explicit migration upgrades schema 1 to schema 2 with continuous history',
     const result = migrateWorkspaceDatabase(root, value);
 
     assert.equal(result.previousVersion, 1);
-    assert.equal(result.currentVersion, 2);
-    assert.deepEqual(result.appliedVersions, [2]);
+    assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
+    assert.deepEqual(result.appliedVersions, [2, 3]);
 
     const database = new Database(databasePath, { readonly: true, fileMustExist: true });
-    assert.equal(readDatabaseSchemaVersion(database), 2);
+    assert.equal(readDatabaseSchemaVersion(database), SUPPORTED_DATABASE_SCHEMA_VERSION);
     assert.deepEqual(
         database.prepare('SELECT version, name FROM _workspace_migrations ORDER BY version').all(),
         [
             { version: 1, name: 'repository_foundation' },
             { version: 2, name: 'canonical_domain' },
+            { version: 3, name: 'art_variants_asset_index' },
         ],
     );
     database.close();
 });
 
-test('fresh bootstrap applies migrations 001 and 002 in order and reaches schema 2', async () => {
+test('fresh bootstrap preserves canonical migration ordering and reaches current schema', async () => {
     const root = await createTempRoot('fresh schema2');
     const value = manifest();
     await writeManifest(root, value);
@@ -144,7 +145,7 @@ test('fresh bootstrap applies migrations 001 and 002 in order and reaches schema
 
     assert.equal(result.previousVersion, 0);
     assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
-    assert.deepEqual(result.appliedVersions, [1, 2]);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3]);
 });
 
 test('unsupported SKILL family is rejected and supported family identity is UUID-compatible', async () => {
@@ -727,12 +728,12 @@ test('multi-table Canonical mutation rolls back when confirmed-block validation 
     await service.close();
 });
 
-test('schema 2 Workspace is READY and status endpoint reports database_schema_version 2', async () => {
+test('current-schema Workspace is READY and status endpoint reports current database_schema_version', async () => {
     const { service } = await createReadyService('schema2 status');
-    assert.equal(service.status.database_schema_version, 2);
+    assert.equal(service.status.database_schema_version, SUPPORTED_DATABASE_SCHEMA_VERSION);
     const response = await service.app.inject({ method: 'GET', url: '/api/v1/workspace/status' });
     assert.equal(response.statusCode, 200);
-    assert.equal(response.json().database_schema_version, 2);
+    assert.equal(response.json().database_schema_version, SUPPORTED_DATABASE_SCHEMA_VERSION);
     await service.close();
 });
 
