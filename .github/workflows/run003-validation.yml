@@ -1,0 +1,90 @@
+name: RUN 003 validation
+
+on:
+  push:
+    branches:
+      - feature/workspace-run-003
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout RUN 003
+        uses: actions/checkout@v4
+        with:
+          ref: feature/workspace-run-003
+          fetch-depth: 0
+
+      - name: Configure Node and Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+
+      - name: Report runtime versions
+        run: |
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+          echo "Node: $(node --version)"
+          echo "Yarn: $(yarn --version)"
+
+      - name: Verify migration 001 immutable
+        run: |
+          actual="$(git hash-object workspace-server/migrations/001_repository_foundation.sql)"
+          echo "migration001 blob: $actual"
+          test "$actual" = "146b395716c51b0a8a8861876e4df2d47a05fd4d"
+
+      - name: Verify Workspace lockfile unchanged from RUN 002
+        run: git diff --exit-code 070b5ea002211a3bf26a34f80473201495d0b781 -- workspace-server/yarn.lock
+
+      - name: Install root dependencies frozen
+        run: yarn install --frozen-lockfile
+
+      - name: Compile existing Carder
+        run: yarn compile
+
+      - name: Build existing Carder
+        run: yarn build
+
+      - name: Install Workspace Service frozen
+        working-directory: workspace-server
+        run: yarn install --frozen-lockfile
+
+      - name: Report resolved Workspace dependency versions
+        working-directory: workspace-server
+        run: |
+          node -e "console.log('better-sqlite3:', require('./node_modules/better-sqlite3/package.json').version)"
+          node -e "console.log('fastify:', require('./node_modules/fastify/package.json').version)"
+
+      - name: Compile Workspace Service
+        working-directory: workspace-server
+        run: yarn compile
+
+      - name: Test Workspace Service
+        working-directory: workspace-server
+        run: yarn test
+
+      - name: Verify repository hygiene
+        run: |
+          echo "Repository status after validation:"
+          git status --short
+          git diff --exit-code
+          if git status --porcelain --untracked-files=all | grep -E '\.(db|db-wal|db-shm|db-journal)$'; then
+            echo "Unexpected persistence artifact found"
+            exit 1
+          fi
+
+      - name: Remove temporary RUN 003 validation workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm .github/workflows/run003-validation.yml
+          git add .github/workflows/run003-validation.yml
+          git commit -m "chore(validation): finalize RUN 003 recovery validation"
+          git push origin HEAD:feature/workspace-run-003
