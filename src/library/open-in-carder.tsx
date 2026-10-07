@@ -7,7 +7,8 @@ import {
     type LibraryLanguage,
     type LibraryVariantDetail,
 } from './model';
-import { buildWorkspaceIntentUrl } from '../service/workspace-bridge/intent';
+import { buildCarderLaunchUrl } from '../service/workspace-bridge/intent';
+import { PUBLIC_PATH } from '../model/app';
 
 type Composition = 'STANDARD' | 'OVERFRAME';
 
@@ -79,7 +80,7 @@ export const OpenInCarderPanel = ({ detail, variants, dirty }: Props) => {
                 content_language: language as LibraryLanguage,
                 expected_revision: detail.revision,
             });
-            const intentUrl = buildWorkspaceIntentUrl('/', {
+            const intentUrl = buildCarderLaunchUrl(`${PUBLIC_PATH}/`, {
                 cardId: detail.card_id,
                 variantId: selectedVariant.variant_id,
                 composition,

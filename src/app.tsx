@@ -41,11 +41,9 @@ import {
     RESET_CANVAS_BASE_COUNTER,
     retrieveSavedCard,
     fetchPrepareWorkingCard,
-    hasWorkspaceIntent,
-    parseWorkspaceIntent,
     prepareWorkingCard,
+    runCarderStartup,
     getWorkspaceBridgeSession,
-    WorkspaceBridgeError,
     useCard,
     useCardCanvas,
     useCarderDb,
@@ -356,38 +354,33 @@ function App() {
             active: async () => {
                 (async () => {
                     try {
-                        const search = window.location.search;
-                        if (hasWorkspaceIntent(search)) {
-                            try {
-                                const intent = parseWorkspaceIntent(search);
-                                const dto = await fetchPrepareWorkingCard(intent);
-                                const { card } = prepareWorkingCard(dto);
-                                setCard(card);
-                                useCardList.getState().setCardList([card], card.id);
-                                setBridgeError(null);
-                                setBridgeSessionVersion(value => value + 1);
-                                setInitializing(false);
-                                return;
-                            } catch (bridgeFailure) {
-                                const message = bridgeFailure instanceof WorkspaceBridgeError
-                                    ? `${bridgeFailure.code}: ${bridgeFailure.message}`
-                                    : bridgeFailure instanceof Error
-                                        ? bridgeFailure.message
-                                        : 'Workspace bridge failed.';
-                                setBridgeError(message);
-                                notification.error({
-                                    message: 'Workspace → Carder bridge failed',
-                                    description: message,
-                                });
-                                // Do NOT fall back to local/stale card as a successful open.
-                                setInitializing(false);
-                                return;
-                            }
+                        const outcome = await runCarderStartup({
+                            search: window.location.search,
+                            retrieveSavedCard,
+                            fetchPrepare: fetchPrepareWorkingCard,
+                            prepare: prepareWorkingCard,
+                        });
+                        if (outcome.kind === 'LEGACY') {
+                            setCard(outcome.card);
+                            useCardList.getState().setCardList([outcome.card], outcome.card.id);
+                            setInitializing(false);
+                            return;
                         }
-
-                        const retrievedCard = await retrieveSavedCard();
-                        setCard(retrievedCard);
-                        useCardList.getState().setCardList([retrievedCard], retrievedCard.id);
+                        if (outcome.kind === 'WORKSPACE') {
+                            setCard(outcome.card);
+                            useCardList.getState().setCardList([outcome.card], outcome.card.id);
+                            setBridgeError(null);
+                            setBridgeSessionVersion(value => value + 1);
+                            setInitializing(false);
+                            return;
+                        }
+                        const message = `${outcome.error.code}: ${outcome.error.message}`;
+                        setBridgeError(message);
+                        notification.error({
+                            message: 'Workspace → Carder bridge failed',
+                            description: message,
+                        });
+                        // Do NOT fall back to local/stale card as a successful open.
                         setInitializing(false);
                     } catch (e) {
                         console.error(e);

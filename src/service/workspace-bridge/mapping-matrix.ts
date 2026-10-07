@@ -1,3 +1,4 @@
+import type { BackgroundType } from 'src/model';
 import { WorkspaceBridgeError } from './errors';
 
 export type PrepareDtoStructure = {
@@ -99,6 +100,11 @@ const SUPPORTED_ATTRIBUTES = new Set([
     'DARK', 'EARTH', 'FIRE', 'LIGHT', 'WATER', 'WIND', 'DIVINE', 'SPELL', 'TRAP',
 ]);
 
+/** Abilities incompatible with NORMAL on MAIN_DECK (Design S-4). */
+const NORMAL_INCOMPATIBLE = new Set([
+    'FLIP', 'GEMINI', 'SPIRIT', 'TOON', 'UNION', 'SPECIAL_SUMMON',
+]);
+
 const unsupported = (message: string): never => {
     throw new WorkspaceBridgeError('CARDER_MAPPING_UNSUPPORTED', message);
 };
@@ -143,8 +149,27 @@ export const mapFrame = (structure: PrepareDtoStructure): string => {
     if (structure.family === 'TRAP') return 'trap';
     if (structure.family === 'TOKEN') return 'token';
     if (structure.family === 'MONSTER') {
+        const abilities = structure.abilities;
+        const hasNormal = abilities.includes('NORMAL');
+        const hasEffect = abilities.includes('EFFECT');
+
+        if (hasNormal && hasEffect) {
+            return unsupported('NORMAL and EFFECT abilities together are not mappable to Carder.');
+        }
+
         switch (structure.summon_kind) {
-            case 'MAIN_DECK': return 'effect';
+            case 'MAIN_DECK': {
+                if (hasNormal && !hasEffect) {
+                    if (abilities.some(ability => NORMAL_INCOMPATIBLE.has(ability))) {
+                        return unsupported('NORMAL with effect-style abilities is not mappable to Carder.');
+                    }
+                    return 'normal';
+                }
+                if (hasEffect && !hasNormal) {
+                    return 'effect';
+                }
+                return unsupported('MAIN_DECK monster requires exactly one of NORMAL or EFFECT.');
+            }
             case 'RITUAL': return 'ritual';
             case 'FUSION': return 'fusion';
             case 'SYNCHRO': return 'synchro';
@@ -179,8 +204,17 @@ export const titleCaseCode = (code: string): string =>
         .join(' ');
 
 export const mapTypeAbility = (structure: PrepareDtoStructure): string[] => {
-    if (structure.family === 'SPELL' || structure.family === 'TRAP') {
-        return [];
+    if (structure.family === 'SPELL') {
+        return ['Spell Card'];
+    }
+    if (structure.family === 'TRAP') {
+        return ['Trap Card'];
+    }
+    if (structure.family === 'TOKEN') {
+        if (!structure.race_code) {
+            return unsupported('Race code is required for token Carder mapping.');
+        }
+        return [titleCaseCode(structure.race_code), 'Token'];
     }
     const parts: string[] = [];
     if (!structure.race_code) {
@@ -208,44 +242,82 @@ export const mapPrintedStat = (value: number | '?' | null): string => {
     return String(value);
 };
 
-export const mapLanguageFormat = (language: 'EN' | 'ES' | 'JP'): { format: 'tcg' | 'ocg'; region: string } => {
-    if (language === 'EN') return { format: 'tcg', region: 'en' };
-    if (language === 'ES') return { format: 'tcg', region: 'sp' };
-    return { format: 'ocg', region: 'jp' };
+/**
+ * Require Canonical link_rating consistent with mapped markers. No linkMap.length fallback.
+ */
+export const mapLinkRating = (
+    structure: PrepareDtoStructure,
+    linkMap: string[],
+): string => {
+    const rating = structure.link_rating;
+    if (
+        rating == null
+        || !Number.isInteger(rating)
+        || rating < 1
+        || rating !== linkMap.length
+    ) {
+        return unsupported(
+            'LINK requires a consistent Canonical link_rating matching mapped marker count.',
+        );
+    }
+    return String(rating);
 };
 
-export type ArtworkLayers = {
+export type ArtworkComposition = {
     art: string;
-    background: string;
-    overlay: string;
+    artSource: 'online';
+    artFit: true;
     hasBackground: boolean;
+    background: string;
+    backgroundSource: 'online';
+    backgroundFit: boolean;
+    backgroundType: BackgroundType;
+    opacity: {
+        boundless: boolean;
+        frameBorder: boolean;
+    };
 };
 
-export const resolveArtworkLayers = (dto: PrepareWorkingCardDto): ArtworkLayers => {
+export const resolveArtworkComposition = (dto: PrepareWorkingCardDto): ArtworkComposition => {
     const byRole = new Map(dto.artwork.assets.map(asset => [asset.role, asset] as const));
     const sources = dto.artwork.sources;
     const sourceKey = sources.join('+');
 
+    // Every declared source must have a matching asset.
+    for (const role of sources) {
+        if (!byRole.get(role)) {
+            return unsupported(`Composition sources declare ${role} but asset is missing.`);
+        }
+    }
+
     if (dto.artwork.composition === 'STANDARD') {
         if (sourceKey === 'BS') {
-            const bs = byRole.get('BS');
-            if (!bs) return unsupported('STANDARD BS composition missing BS asset.');
+            const bs = byRole.get('BS')!;
             return {
                 art: bs.content_url,
-                background: '',
-                overlay: '',
+                artSource: 'online',
+                artFit: true,
                 hasBackground: false,
+                background: '',
+                backgroundSource: 'online',
+                backgroundFit: false,
+                backgroundType: 'fit',
+                opacity: { boundless: false, frameBorder: true },
             };
         }
         if (sourceKey === 'BG+OF') {
-            const bg = byRole.get('BG');
-            const of = byRole.get('OF');
-            if (!bg || !of) return unsupported('STANDARD BG+OF composition missing assets.');
+            const bg = byRole.get('BG')!;
+            const of = byRole.get('OF')!;
             return {
-                art: '',
-                background: bg.content_url,
-                overlay: of.content_url,
+                art: of.content_url,
+                artSource: 'online',
+                artFit: true,
                 hasBackground: true,
+                background: bg.content_url,
+                backgroundSource: 'online',
+                backgroundFit: true,
+                backgroundType: 'strict',
+                opacity: { boundless: false, frameBorder: true },
             };
         }
         return unsupported(`Unsupported STANDARD sources: ${sourceKey}`);
@@ -253,25 +325,33 @@ export const resolveArtworkLayers = (dto: PrepareWorkingCardDto): ArtworkLayers 
 
     // OVERFRAME
     if (sourceKey === 'BG+OF') {
-        const bg = byRole.get('BG');
-        const of = byRole.get('OF');
-        if (!bg || !of) return unsupported('OVERFRAME BG+OF composition missing assets.');
+        const bg = byRole.get('BG')!;
+        const of = byRole.get('OF')!;
         return {
-            art: '',
-            background: bg.content_url,
-            overlay: of.content_url,
+            art: of.content_url,
+            artSource: 'online',
+            artFit: true,
             hasBackground: true,
+            background: bg.content_url,
+            backgroundSource: 'online',
+            backgroundFit: true,
+            backgroundType: 'full',
+            opacity: { boundless: true, frameBorder: true },
         };
     }
     if (sourceKey === 'BS+OF') {
-        const bs = byRole.get('BS');
-        const of = byRole.get('OF');
-        if (!bs || !of) return unsupported('OVERFRAME BS+OF composition missing assets.');
+        const bs = byRole.get('BS')!;
+        const of = byRole.get('OF')!;
         return {
-            art: bs.content_url,
-            background: '',
-            overlay: of.content_url,
-            hasBackground: false,
+            art: of.content_url,
+            artSource: 'online',
+            artFit: true,
+            hasBackground: true,
+            background: bs.content_url,
+            backgroundSource: 'online',
+            backgroundFit: true,
+            backgroundType: 'full',
+            opacity: { boundless: true, frameBorder: true },
         };
     }
     return unsupported(`Unsupported OVERFRAME sources: ${sourceKey}`);

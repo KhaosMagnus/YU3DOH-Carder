@@ -1,5 +1,6 @@
 export { WorkspaceBridgeError } from './errors';
 export {
+    buildCarderLaunchUrl,
     buildWorkspaceIntentSearchParams,
     buildWorkspaceIntentUrl,
     hasWorkspaceIntent,
@@ -18,5 +19,10 @@ export {
     setWorkspaceBridgeSession,
     type WorkspaceBridgeSession,
 } from './session';
+export {
+    runCarderStartup,
+    type StartupDeps,
+    type StartupOutcome,
+} from './startup';
 
 export { fetchPrepareWorkingCard } from './fetch-prepare';

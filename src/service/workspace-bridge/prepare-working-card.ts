@@ -4,12 +4,12 @@ import { WorkspaceBridgeError } from './errors';
 import {
     mapAttribute,
     mapFrame,
-    mapLanguageFormat,
     mapLinkMarkers,
+    mapLinkRating,
     mapPrintedStat,
     mapSpellTrapSubFamily,
     mapTypeAbility,
-    resolveArtworkLayers,
+    resolveArtworkComposition,
     type PrepareWorkingCardDto,
 } from './mapping-matrix';
 import {
@@ -34,14 +34,12 @@ export const prepareWorkingCard = (dto: PrepareWorkingCardDto): PrepareWorkingCa
     const empty = getEmptyCard();
     const frame = mapFrame(dto.structure);
     const attribute = mapAttribute(dto.structure);
-    const { format, region } = mapLanguageFormat(dto.identity.content_language);
-    const artwork = resolveArtworkLayers(dto);
+    // QA-009-02: format/region stay getEmptyCard() defaults; language only selects text.
+    const artwork = resolveArtworkComposition(dto);
     const isLink = dto.structure.family === 'MONSTER' && dto.structure.summon_kind === 'LINK';
     const isPendulum = dto.structure.abilities.includes('PENDULUM');
     const linkMap = isLink ? mapLinkMarkers(dto.structure.link_markers) : [];
-    const linkRating = isLink
-        ? String(dto.structure.link_rating ?? linkMap.length)
-        : '';
+    const linkRating = isLink ? mapLinkRating(dto.structure, linkMap) : '';
 
     let star = empty.star;
     if (dto.structure.family === 'MONSTER' || dto.structure.family === 'TOKEN') {
@@ -63,12 +61,16 @@ export const prepareWorkingCard = (dto: PrepareWorkingCardDto): PrepareWorkingCa
     const atk = mapPrintedStat(dto.structure.atk);
     const def = isLink ? '' : mapPrintedStat(dto.structure.def);
 
+    // TOKEN password stays empty when Canonical is NULL (Design S-5).
+    const password = dto.structure.family === 'TOKEN'
+        ? ''
+        : (dto.structure.password ?? '');
+
     const internalId = uuid();
     const card: InternalCard = {
         ...empty,
         id: internalId,
-        format,
-        region,
+        // format / region inherited from empty (tcg / en)
         frame,
         attribute,
         subFamily,
@@ -77,7 +79,7 @@ export const prepareWorkingCard = (dto: PrepareWorkingCardDto): PrepareWorkingCa
         effect: dto.localized.card_text ?? '',
         atk,
         def,
-        password: dto.structure.password ?? '',
+        password,
         typeAbility,
         isLink: isLink ? true : null,
         linkMap,
@@ -90,15 +92,29 @@ export const prepareWorkingCard = (dto: PrepareWorkingCardDto): PrepareWorkingCa
         pendulumScaleBlue: isPendulum && dto.structure.pendulum_scale != null
             ? String(dto.structure.pendulum_scale)
             : empty.pendulumScaleBlue,
-        art: artwork.art || empty.art,
-        artSource: 'online',
+        art: artwork.art,
+        artSource: artwork.artSource,
+        artFit: artwork.artFit,
         hasBackground: artwork.hasBackground,
         background: artwork.background,
-        backgroundSource: 'online',
-        overlay: artwork.overlay,
-        overlaySource: 'online',
+        backgroundSource: artwork.backgroundSource,
+        backgroundFit: artwork.backgroundFit,
+        backgroundType: artwork.backgroundType,
+        opacity: {
+            ...empty.opacity,
+            boundless: artwork.opacity.boundless,
+            frameBorder: artwork.opacity.frameBorder,
+        },
+        // overlay / overlaySource / overlayFit / overlayType remain empty defaults.
         // Explicit NO automation: foil/Limited/SetID/serial remain getEmptyCard defaults.
     };
+
+    if (card.art === empty.art || card.art === '') {
+        throw new WorkspaceBridgeError(
+            'CARDER_MAPPING_UNSUPPORTED',
+            'Prepared composition must supply artwork; empty-card placeholder is forbidden.',
+        );
+    }
 
     const session = createWorkspaceBridgeSession({
         cardId: dto.identity.card_id,
