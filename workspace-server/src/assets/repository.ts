@@ -159,7 +159,7 @@ export const reconcileAssetIndex = (database: SqliteDatabase, input: ReconcileIn
 
     database.prepare(`
         UPDATE indexed_asset_files
-        SET present = 0, variant_id = NULL
+        SET present = 0
         WHERE present = 1
     `).run();
 
@@ -200,8 +200,9 @@ export const reconcileAssetIndex = (database: SqliteDatabase, input: ReconcileIn
 
     for (const asset of input.assets) {
         const existing = existingByPath.get(asset.relativePath);
-        const variantId = asset.validAsset
-            && asset.associationState === 'RESOLVED'
+        // Diagnostic association: persist variant_id when association is knowable,
+        // independent of validAsset. Bindings still require present+valid+RESOLVED.
+        const variantId = asset.associationState === 'RESOLVED'
             && asset.cardId
             && asset.variantKey
             && asset.variantLabel
@@ -547,6 +548,32 @@ export const countRoleCandidatesForVariant = (
           AND role = ?
     `).get(variantId, role) as { count: number };
     return row.count;
+};
+
+
+/** Problem (missing/invalid) indexed asset associated to a variant role — diagnostic, not authoritative binding. */
+export const findProblemIndexedAssetForVariantRole = (
+    database: SqliteDatabase,
+    variantId: string,
+    role: AssetRole,
+): IndexedAssetSnapshot | null => {
+    const row = database.prepare(`
+        SELECT
+            asset_id, relative_path, file_name, extension, size_bytes, modified_time_ms,
+            content_hash, parsed_card_name, parsed_password, role, variant_label, variant_key,
+            association_state, card_id, variant_id, image_width, image_height, has_transparency,
+            valid_asset, present
+        FROM indexed_asset_files
+        WHERE variant_id = ?
+          AND role = ?
+          AND (present = 0 OR valid_asset = 0)
+        ORDER BY
+            CASE WHEN present = 0 THEN 0 ELSE 1 END,
+            relative_path,
+            asset_id
+        LIMIT 1
+    `).get(variantId, role) as IndexedAssetRow | undefined;
+    return row ? toAssetSnapshot(row) : null;
 };
 
 export const findIndexedAssetByRelativePath = (

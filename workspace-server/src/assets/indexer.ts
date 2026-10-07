@@ -180,6 +180,21 @@ export class AssetIndexerService {
         });
     }
 
+    /** When filename parse already yielded role/variant/password, retain diagnostic association even if the asset is invalid. */
+    private withKnowableAssociation(
+        details: Partial<DiscoveredAsset>,
+        password: string | null,
+        cardName: string,
+    ): Partial<DiscoveredAsset> {
+        const association = this.resolveAssociation(password, cardName);
+        if (association.state !== 'RESOLVED') return details;
+        return {
+            ...details,
+            associationState: 'RESOLVED',
+            cardId: association.cardId,
+        };
+    }
+
     private async inspectManagedFile(file: DiscoveredFile, ownership: ManagedOwnership): Promise<DiscoveredAsset> {
         const baseDetails: Partial<DiscoveredAsset> = {
             role: ownership.role,
@@ -274,22 +289,32 @@ export class AssetIndexerService {
         };
 
         if (!isSupportedAssetFormat(parsed.role, parsed.extension)) {
-            return invalidDiscoveredAsset(file, parsed.extension, baseDetails, [diagnostic(
-                file.relativePath,
-                'UNSUPPORTED_FORMAT',
-                `Extension ${parsed.extension || '(none)'} is not supported for role ${parsed.role}.`,
-            )]);
+            return invalidDiscoveredAsset(
+                file,
+                parsed.extension,
+                this.withKnowableAssociation(baseDetails, parsed.password, parsed.cardName),
+                [diagnostic(
+                    file.relativePath,
+                    'UNSUPPORTED_FORMAT',
+                    `Extension ${parsed.extension || '(none)'} is not supported for role ${parsed.role}.`,
+                )],
+            );
         }
 
         let image;
         try {
             image = await inspectAssetImage(file.absolutePath, parsed.role, parsed.extension);
         } catch (error) {
-            return invalidDiscoveredAsset(file, parsed.extension, baseDetails, [diagnostic(
-                file.relativePath,
-                'INVALID_IMAGE',
-                error instanceof Error ? error.message : 'Image could not be decoded.',
-            )]);
+            return invalidDiscoveredAsset(
+                file,
+                parsed.extension,
+                this.withKnowableAssociation(baseDetails, parsed.password, parsed.cardName),
+                [diagnostic(
+                    file.relativePath,
+                    'INVALID_IMAGE',
+                    error instanceof Error ? error.message : 'Image could not be decoded.',
+                )],
+            );
         }
 
         const inspectedDetails: Partial<DiscoveredAsset> = {
@@ -301,11 +326,16 @@ export class AssetIndexerService {
         };
 
         if (parsed.role === 'OF' && !image.hasTransparency) {
-            return invalidDiscoveredAsset(file, parsed.extension, inspectedDetails, [diagnostic(
-                file.relativePath,
-                'INVALID_OF_TRANSPARENCY',
-                'OF PNG is fully opaque and does not contain usable transparency.',
-            )]);
+            return invalidDiscoveredAsset(
+                file,
+                parsed.extension,
+                this.withKnowableAssociation(inspectedDetails, parsed.password, parsed.cardName),
+                [diagnostic(
+                    file.relativePath,
+                    'INVALID_OF_TRANSPARENCY',
+                    'OF PNG is fully opaque and does not contain usable transparency.',
+                )],
+            );
         }
 
         const association = this.resolveAssociation(parsed.password, parsed.cardName);
