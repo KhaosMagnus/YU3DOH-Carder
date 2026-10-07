@@ -1,10 +1,18 @@
 import assert from 'node:assert/strict';
-import { buildLibraryCardsUrl } from '../src/library/api';
+import { buildLibraryCardsUrl, LibraryHttpError } from '../src/library/api';
+import {
+    buildPatchPayload,
+    detailToWorkingForm,
+    detectDirtySections,
+    impactedConfirmedBlocks,
+    isWorkingFormDirty,
+} from '../src/library/editor-state';
 import {
     getLibraryResultState,
     getWorkspaceShellState,
     hasBrowseCriteria,
     type LibraryBrowseFilters,
+    type LibraryCardDetail,
 } from '../src/library/model';
 
 const filters: LibraryBrowseFilters = {
@@ -36,8 +44,6 @@ assert.equal(getLibraryResultState({ loading: false, error: null, total: 0, hasC
 assert.equal(getLibraryResultState({ loading: false, error: null, total: 0, hasCriteria: true }), 'no-match');
 assert.equal(getLibraryResultState({ loading: false, error: null, total: 1, hasCriteria: false }), 'results');
 
-console.log('Library client contract checks PASS');
-
 assert.equal(getWorkspaceShellState(null, null), 'connecting');
 assert.equal(getWorkspaceShellState(null, 'offline'), 'unavailable');
 assert.equal(getWorkspaceShellState({
@@ -58,3 +64,64 @@ assert.equal(getWorkspaceShellState({
     read_only: false,
     health_summary: 'ready',
 }, null), 'ready');
+
+const sampleDetail: LibraryCardDetail = {
+    card_id: 'card-1',
+    revision: '3',
+    family: 'SPELL',
+    password: '11111111',
+    structure: { kind: 'SPELL', subtype_code: 'NORMAL' },
+    localizations: [{ language: 'EN', name: 'Sample', card_text: 'Text', pendulum_text: null }],
+    confirmations: [
+        { block: 'STRUCTURE', state: 'CONFIRMED', provenance_id: 1 },
+        { block: 'TEXT:EN', state: 'DRAFT', provenance_id: null },
+    ],
+    classification: {
+        effect_reviewed: false,
+        archetypes: [],
+        effect_classifiers: [],
+        functional_tags: [],
+    },
+    relations: [],
+    provenance: [],
+};
+
+const working = detailToWorkingForm(sampleDetail);
+assert.equal(isWorkingFormDirty(sampleDetail, working), false);
+working.structure = { kind: 'SPELL', subtype_code: 'CONTINUOUS' };
+assert.equal(isWorkingFormDirty(sampleDetail, working), true);
+assert.deepEqual(detectDirtySections(sampleDetail, working).structure, true);
+assert.deepEqual(impactedConfirmedBlocks(sampleDetail, working), ['STRUCTURE']);
+
+const cancelRestore = detailToWorkingForm(sampleDetail);
+assert.equal(isWorkingFormDirty(sampleDetail, cancelRestore), false);
+
+const payload = buildPatchPayload(sampleDetail, working, [
+    { block: 'STRUCTURE', state: 'DRAFT' },
+]);
+assert.equal(payload.expected_revision, '3');
+assert.deepEqual(payload.structure, { kind: 'SPELL', subtype_code: 'CONTINUOUS' });
+assert.ok(Array.isArray(payload.confirmations));
+
+const conflictPreserved = { ...working };
+assert.equal(isWorkingFormDirty(sampleDetail, conflictPreserved), true);
+
+const facetsError = 'facets failed';
+const browseError = null as string | null;
+assert.notEqual(facetsError, browseError);
+assert.equal(getLibraryResultState({
+    loading: false,
+    error: browseError,
+    total: 1,
+    hasCriteria: false,
+}), 'results');
+
+const typed = new LibraryHttpError({
+    status: 409,
+    code: 'REVISION_CONFLICT',
+    message: 'stale',
+});
+assert.equal(typed.status, 409);
+assert.equal(typed.code, 'REVISION_CONFLICT');
+
+console.log('Library client contract checks PASS');
