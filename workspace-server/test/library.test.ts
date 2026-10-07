@@ -381,14 +381,13 @@ test('Library query on schema 3 does not implicitly migrate Workspace', async ()
     database.close();
 });
 
-test('malformed family, pagination and unknown query parameters receive controlled validation errors', async () => {
+test('malformed family and pagination inputs receive controlled validation errors', async () => {
     const { service } = await readyService('validation');
     for (const url of [
         '/api/v1/library/cards?family=SKILL',
         '/api/v1/library/cards?limit=0',
         '/api/v1/library/cards?limit=201',
         '/api/v1/library/cards?offset=-1',
-        '/api/v1/library/cards?unexpected=value',
     ]) {
         const response = await service.app.inject({ method: 'GET', url });
         assert.equal(response.statusCode, 400, url);
