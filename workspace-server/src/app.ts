@@ -175,14 +175,20 @@ export const buildWorkspaceApp = (
             });
         }
         const input: LibraryBrowseInput = {
-            query: query.query,
-            preferredLanguage: query.preferred_language,
-            family: query.family,
-            archetype: query.archetype,
-            effectClassifier: query.effect_classifier,
-            functionalTag: query.functional_tag,
-            limit: query.limit,
-            offset: query.offset,
+            ...(query.query !== undefined ? { query: query.query } : {}),
+            ...(query.preferred_language !== undefined
+                ? { preferredLanguage: query.preferred_language }
+                : {}),
+            ...(query.family !== undefined ? { family: query.family } : {}),
+            ...(query.archetype !== undefined ? { archetype: query.archetype } : {}),
+            ...(query.effect_classifier !== undefined
+                ? { effectClassifier: query.effect_classifier }
+                : {}),
+            ...(query.functional_tag !== undefined
+                ? { functionalTag: query.functional_tag }
+                : {}),
+            ...(query.limit !== undefined ? { limit: query.limit } : {}),
+            ...(query.offset !== undefined ? { offset: query.offset } : {}),
         };
         return libraryService.browse(input);
     });
