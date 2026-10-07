@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash, randomUUID } from 'node:crypto';
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rename, rm, symlink, unlink, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -11,6 +11,8 @@ import { bootstrapWorkspaceDatabase } from '../src/persistence/operations';
 import { createWorkspaceService, type WorkspaceService } from '../src/service';
 import { SUPPORTED_WORKSPACE_FORMAT_VERSION, type WorkspaceManifest } from '../src/workspace/types';
 import { buildWorkspaceApp } from '../src/app';
+import { assertStructureMappable } from '../src/carder/mapping-precheck';
+import { CarderPrepareError } from '../src/carder/errors';
 
 const roots: string[] = [];
 
@@ -818,4 +820,323 @@ test('30 token family prepare supported', async () => {
     assert.equal(response.statusCode, 200, response.body);
     assert.equal(response.json().structure.family, 'TOKEN');
     await ctx.service.close();
+});
+
+// ---------- RUN 009 External QA correction: B-01..B-14 ----------
+
+const sha256 = (buffer: Buffer) => createHash('sha256').update(buffer).digest('hex');
+
+const externalDir = async (label: string) => {
+    const dir = await mkdtemp(path.join(os.tmpdir(), `yu3doh run009 ext ${label} `));
+    roots.push(dir);
+    return dir;
+};
+
+const dirLinkType = process.platform === 'win32' ? 'junction' : 'dir';
+
+const getContent = (ctx: Awaited<ReturnType<typeof readyService>>, assetId: string, hash: string) =>
+    ctx.service.app.inject({
+        method: 'GET',
+        url: `/api/v1/carder/assets/${assetId}/content?hash=${hash}`,
+    });
+
+const assertStale = (response: { statusCode: number; json: () => { code: string }; headers: Record<string, unknown> }) => {
+    assert.equal(response.statusCode, 409);
+    assert.equal(response.json().code, 'ASSET_STALE');
+    assert.doesNotMatch(String(response.headers['content-type'] ?? ''), /^image\//);
+};
+
+const updateIndexedRow = (
+    ctx: Awaited<ReturnType<typeof readyService>>,
+    assetId: string,
+    fields: { relative_path?: string; extension?: string; content_hash?: string },
+) => {
+    ctx.persistence.transaction(database => {
+        if (fields.relative_path !== undefined) {
+            database.prepare('UPDATE indexed_asset_files SET relative_path = ? WHERE asset_id = ?')
+                .run(fields.relative_path, assetId);
+        }
+        if (fields.extension !== undefined) {
+            database.prepare('UPDATE indexed_asset_files SET extension = ? WHERE asset_id = ?')
+                .run(fields.extension, assetId);
+        }
+        if (fields.content_hash !== undefined) {
+            database.prepare('UPDATE indexed_asset_files SET content_hash = ? WHERE asset_id = ?')
+                .run(fields.content_hash, assetId);
+        }
+    });
+};
+
+test('B-01 regression A→B without Rescan: old URL 409 ASSET_STALE and B bytes not served', async () => {
+    const ctx = await readyService('b01-stale-bytes');
+    const password = '90001001';
+    const card = confirmSpell(ctx.canonical, password, 'EN');
+    const assetA = png(255, [11, 22, 33]);
+    const assetB = png(255, [200, 100, 50]);
+    assert.notEqual(sha256(assetA), sha256(assetB));
+    const relative = path.join('Assets', `${password}-Spell-BS-Default.png`);
+    const absolute = path.join(ctx.root, relative);
+    await mkdir(path.dirname(absolute), { recursive: true });
+    await writeFile(absolute, assetA);
+    // (1) real index of asset A
+    await ctx.assets.scan();
+    const variantId = ctx.persistence.runRepositoryOperation(database =>
+        (database.prepare('SELECT variant_id FROM art_variants WHERE card_id = ?').get(card.cardId) as { variant_id: string }).variant_id);
+    assert.ok(variantId);
+    // (2) prepare → content_url with hash A
+    const prepared = await ctx.service.app.inject({
+        method: 'POST',
+        url: '/api/v1/carder/prepare-working-card',
+        payload: {
+            card_id: card.cardId,
+            variant_id: variantId,
+            composition: 'STANDARD',
+            content_language: 'EN',
+            expected_revision: card.revision,
+        },
+    });
+    assert.equal(prepared.statusCode, 200, prepared.body);
+    const contentUrl: string = prepared.json().artwork.assets[0].content_url;
+    assert.ok(contentUrl.endsWith(`hash=${sha256(assetA)}`));
+    const okA = await ctx.service.app.inject({ method: 'GET', url: contentUrl });
+    assert.equal(okA.statusCode, 200);
+    assert.equal(sha256(okA.rawPayload), sha256(assetA));
+
+    const scansBefore = ctx.persistence.runRepositoryOperation(database =>
+        (database.prepare('SELECT COUNT(*) AS count FROM asset_index_scans').get() as { count: number }).count);
+    const rowBefore = ctx.persistence.runRepositoryOperation(database =>
+        database.prepare('SELECT * FROM indexed_asset_files WHERE card_id = ?').get(card.cardId));
+
+    // (3) overwrite physically with valid different image B; (4) NO Rescan
+    await writeFile(absolute, assetB);
+    assert.equal(sha256(await readFile(absolute)), sha256(assetB));
+
+    // (5) GET old URL
+    const stale = await ctx.service.app.inject({ method: 'GET', url: contentUrl });
+    // (6) 409 ASSET_STALE
+    assertStale(stale);
+    // (7) bytes B were not served
+    assert.equal(stale.rawPayload.includes(assetB), false);
+    assert.notEqual(sha256(stale.rawPayload), sha256(assetB));
+
+    const scansAfter = ctx.persistence.runRepositoryOperation(database =>
+        (database.prepare('SELECT COUNT(*) AS count FROM asset_index_scans').get() as { count: number }).count);
+    const rowAfter = ctx.persistence.runRepositoryOperation(database =>
+        database.prepare('SELECT * FROM indexed_asset_files WHERE card_id = ?').get(card.cardId));
+    assert.equal(scansAfter, scansBefore);
+    assert.deepEqual(rowAfter, rowBefore);
+    await ctx.service.close();
+});
+
+test('B-02 hash matches but decode fails → 409', async () => {
+    const ctx = await readyService('b02-decode');
+    const card = confirmSpell(ctx.canonical, '90001002', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const asset = roleAssets.BS!;
+    const corrupt = Buffer.from('not-a-valid-png-but-hash-matches');
+    await writeFile(path.join(ctx.root, ...asset.relativePath.split('/')), corrupt);
+    updateIndexedRow(ctx, asset.assetId, { content_hash: sha256(corrupt) });
+    assertStale(await getContent(ctx, asset.assetId, sha256(corrupt)));
+    await ctx.service.close();
+});
+
+test('B-03 OF role with opaque PNG and matching hash → 409', async () => {
+    const ctx = await readyService('b03-of-opaque');
+    const card = confirmSpell(ctx.canonical, '90001003', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BG', 'OF']);
+    const asset = roleAssets.OF!;
+    const opaque = png(255, [1, 2, 3]);
+    await writeFile(path.join(ctx.root, ...asset.relativePath.split('/')), opaque);
+    updateIndexedRow(ctx, asset.assetId, { content_hash: sha256(opaque) });
+    assertStale(await getContent(ctx, asset.assetId, sha256(opaque)));
+    await ctx.service.close();
+});
+
+test('B-04 unsupported format for role (OF + .jpg/.bmp) with matching hash → 409', async () => {
+    const ctx = await readyService('b04-format');
+    const card = confirmSpell(ctx.canonical, '90001004', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BG', 'OF']);
+    const asset = roleAssets.OF!;
+    for (const ext of ['jpg', 'bmp']) {
+        const original = path.join(ctx.root, ...asset.relativePath.split('/'));
+        const nextRelative = asset.relativePath.replace(/\.[a-z]+$/i, `.${ext}`);
+        const next = path.join(ctx.root, ...nextRelative.split('/'));
+        await rename(original, next);
+        updateIndexedRow(ctx, asset.assetId, { relative_path: nextRelative, extension: ext });
+        assertStale(await getContent(ctx, asset.assetId, asset.hash));
+        await rename(next, original);
+        updateIndexedRow(ctx, asset.assetId, { relative_path: asset.relativePath, extension: 'png' });
+    }
+    await ctx.service.close();
+});
+
+test('B-05 file deleted after index → 409; happy path sha256 + Content-Length', async () => {
+    const ctx = await readyService('b05-deleted');
+    const card = confirmSpell(ctx.canonical, '90001005', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const asset = roleAssets.BS!;
+    const ok = await getContent(ctx, asset.assetId, asset.hash);
+    assert.equal(ok.statusCode, 200);
+    assert.equal(sha256(ok.rawPayload), asset.hash);
+    assert.equal(Number(ok.headers['content-length']), ok.rawPayload.length);
+    await unlink(path.join(ctx.root, ...asset.relativePath.split('/')));
+    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    await ctx.service.close();
+});
+
+test('B-06 intermediate dir symlink/junction to external identical bytes → 409', async () => {
+    const ctx = await readyService('b06-mid-link');
+    const card = confirmSpell(ctx.canonical, '90001006', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const asset = roleAssets.BS!;
+    // Assets/<cardId>/c/BS.png → move "c" outside root and link it back.
+    const variantDir = path.join(ctx.root, 'Assets', card.cardId, 'c');
+    const ext = await externalDir('b06');
+    const externalVariant = path.join(ext, 'c');
+    await rename(variantDir, externalVariant);
+    await symlink(externalVariant, variantDir, dirLinkType);
+    // Bytes reachable through the link are identical — the hash alone would pass.
+    assert.equal(sha256(await readFile(path.join(variantDir, 'BS.png'))), asset.hash);
+    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    await ctx.service.close();
+});
+
+test('B-07 final file symlink to external identical file → 409', async t => {
+    const ctx = await readyService('b07-file-link');
+    const card = confirmSpell(ctx.canonical, '90001007', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const asset = roleAssets.BS!;
+    const file = path.join(ctx.root, ...asset.relativePath.split('/'));
+    const ext = await externalDir('b07');
+    const externalFile = path.join(ext, 'BS.png');
+    await rename(file, externalFile);
+    try {
+        await symlink(externalFile, file, 'file');
+    } catch (error) {
+        const code = (error as { code?: string }).code;
+        if (process.platform === 'win32' && code === 'EPERM') {
+            await ctx.service.close();
+            t.skip('Windows lacks privilege for file symlinks (EPERM); junction coverage is B-10.');
+            return;
+        }
+        throw error;
+    }
+    assert.equal(sha256(await readFile(file)), asset.hash);
+    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    await ctx.service.close();
+});
+
+test('B-08 Assets ancestor is symlink/junction → 409', async () => {
+    const ctx = await readyService('b08-assets-link');
+    const card = confirmSpell(ctx.canonical, '90001008', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const asset = roleAssets.BS!;
+    const assetsDir = path.join(ctx.root, 'Assets');
+    const ext = await externalDir('b08');
+    const externalAssets = path.join(ext, 'Assets');
+    await rename(assetsDir, externalAssets);
+    await symlink(externalAssets, assetsDir, dirLinkType);
+    assert.equal(sha256(await readFile(path.join(ctx.root, ...asset.relativePath.split('/')))), asset.hash);
+    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    await ctx.service.close();
+});
+
+test('B-09 relative_path with .. segment → 409', async () => {
+    const ctx = await readyService('b09-dotdot');
+    const card = confirmSpell(ctx.canonical, '90001009', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const asset = roleAssets.BS!;
+    await mkdir(path.join(ctx.root, 'Assets', 'x'), { recursive: true });
+    // Lexically resolves to the real file, but contains '..'.
+    updateIndexedRow(ctx, asset.assetId, { relative_path: `Assets/x/../${card.cardId}/c/BS.png` });
+    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    // Escaping the root.
+    const ext = await externalDir('b09');
+    await writeFile(path.join(ext, 'BS.png'), await readFile(path.join(ctx.root, ...asset.relativePath.split('/'))));
+    updateIndexedRow(ctx, asset.assetId, { relative_path: `../${path.basename(ext)}/BS.png` });
+    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    await ctx.service.close();
+});
+
+test('B-10 Windows junction in a path component → 409 (runs on windows-latest)', async () => {
+    const ctx = await readyService('b10-junction');
+    const card = confirmSpell(ctx.canonical, '90001010', 'EN');
+    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const asset = roleAssets.BS!;
+    const cardDir = path.join(ctx.root, 'Assets', card.cardId);
+    const ext = await externalDir('b10');
+    const externalCard = path.join(ext, card.cardId);
+    await rename(cardDir, externalCard);
+    // 'junction' needs no privilege on Windows; on POSIX the type is ignored (dir symlink).
+    await symlink(externalCard, cardDir, 'junction');
+    assert.equal(sha256(await readFile(path.join(ctx.root, ...asset.relativePath.split('/')))), asset.hash);
+    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    console.log(`B-10 junction executed on platform=${process.platform}`);
+    await ctx.service.close();
+});
+
+const prepareMonster = async (
+    label: string,
+    password: string,
+    abilities: string[],
+) => {
+    const ctx = await readyService(label);
+    ctx.canonical.registerStructuralCode('ABILITY', 'NORMAL');
+    const card = confirmMonsterStandard(ctx.canonical, password, 'EN', { abilities });
+    const { variantId } = await insertVariantWithRoles(ctx, card.cardId, 'm', ['BS']);
+    const response = await ctx.service.app.inject({
+        method: 'POST',
+        url: '/api/v1/carder/prepare-working-card',
+        payload: {
+            card_id: card.cardId,
+            variant_id: variantId,
+            composition: 'STANDARD',
+            content_language: 'EN',
+            expected_revision: card.revision,
+        },
+    });
+    return { ctx, response };
+};
+
+test('B-11 MAIN_DECK NORMAL+EFFECT → 422 CARDER_MAPPING_UNSUPPORTED', async () => {
+    const { ctx, response } = await prepareMonster('b11-normal-effect', '90001011', ['NORMAL', 'EFFECT']);
+    assert.equal(response.statusCode, 422, response.body);
+    assert.equal(response.json().code, 'CARDER_MAPPING_UNSUPPORTED');
+    await ctx.service.close();
+});
+
+test('B-12 MAIN_DECK TUNER only (no NORMAL/EFFECT) → 422 CARDER_MAPPING_UNSUPPORTED', async () => {
+    const { ctx, response } = await prepareMonster('b12-tuner-only', '90001012', ['TUNER']);
+    assert.equal(response.statusCode, 422, response.body);
+    assert.equal(response.json().code, 'CARDER_MAPPING_UNSUPPORTED');
+    await ctx.service.close();
+});
+
+test('B-13 MAIN_DECK NORMAL → 200 with NORMAL in DTO abilities', async () => {
+    const { ctx, response } = await prepareMonster('b13-normal', '90001013', ['NORMAL']);
+    assert.equal(response.statusCode, 200, response.body);
+    assert.ok(response.json().structure.abilities.includes('NORMAL'));
+    await ctx.service.close();
+});
+
+test('B-14 assertStructureMappable LINK rating null / mismatch → CARDER_MAPPING_UNSUPPORTED', () => {
+    const base = {
+        kind: 'MONSTER' as const,
+        summonKind: 'LINK' as const,
+        attributeCode: 'DARK',
+        raceCode: 'DRAGON',
+        level: null,
+        rank: null,
+        atk: 1000,
+        def: null,
+        pendulumScale: null,
+        abilities: ['EFFECT'],
+        linkMarkers: ['TOP', 'LEFT'],
+    };
+    const isUnsupported = (error: unknown) =>
+        error instanceof CarderPrepareError && error.code === 'CARDER_MAPPING_UNSUPPORTED';
+    assert.throws(() => assertStructureMappable('MONSTER', { ...base, linkRating: null }), isUnsupported);
+    assert.throws(() => assertStructureMappable('MONSTER', { ...base, linkRating: 3 }), isUnsupported);
+    assert.throws(() => assertStructureMappable('MONSTER', { ...base, linkRating: 0, linkMarkers: [] }), isUnsupported);
+    assert.doesNotThrow(() => assertStructureMappable('MONSTER', { ...base, linkRating: 2 }));
 });

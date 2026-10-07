@@ -1002,7 +1002,7 @@ export const buildWorkspaceApp = (
             });
         }
         try {
-            const resolved = resolveAssetContent(
+            const resolved = await resolveAssetContent(
                 workspaceRoot,
                 readyPersistence,
                 request.params.asset_id,
@@ -1011,7 +1011,7 @@ export const buildWorkspaceApp = (
             reply.header('Cache-Control', 'no-store');
             reply.header('Content-Type', resolved.contentType);
             reply.header('Content-Length', String(resolved.sizeBytes));
-            return reply.send(resolved.openStream());
+            return reply.send(resolved.bytes);
         } catch (error) {
             if (error instanceof CarderPrepareError) {
                 return sendCarderError(reply, error);

@@ -1,7 +1,11 @@
-import { createReadStream, existsSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { inspectAssetImage, isSupportedAssetFormat } from '../assets/image';
+import type { AssetRole } from '../assets/types';
 import type { WorkspacePersistence } from '../persistence/database';
 import { CarderPrepareError } from './errors';
+import { resolveNoLinksFileUnderRoot } from './safe-path';
 
 type IndexedAssetContentRow = {
     asset_id: string;
@@ -10,6 +14,7 @@ type IndexedAssetContentRow = {
     extension: string;
     present: number;
     valid_asset: number;
+    role: string | null;
 };
 
 const mimeForExtension = (extension: string): string => {
@@ -28,31 +33,34 @@ const findIndexedAssetById = (
 ): IndexedAssetContentRow | null =>
     persistence.runRepositoryOperation(database => {
         const row = database.prepare(`
-            SELECT asset_id, relative_path, content_hash, extension, present, valid_asset
+            SELECT asset_id, relative_path, content_hash, extension, present, valid_asset, role
             FROM indexed_asset_files
             WHERE asset_id = ?
         `).get(assetId) as IndexedAssetContentRow | undefined;
         return row ?? null;
     });
 
+const SUPPORTED_ROLES = new Set(['BS', 'BG', 'OF']);
+
 export type ResolvedAssetContent = {
-    absolutePath: string;
+    bytes: Buffer;
     contentType: string;
     sizeBytes: number;
     hash: string;
-    openStream: () => NodeJS.ReadableStream;
 };
 
 /**
  * Resolve authoritative indexed asset bytes by asset_id + hash.
+ * Validates physical hash = indexed = requested; format; decode; role rules.
  * Path is taken only from DB under the workspace root — never from client input.
+ * No writes, no scan/Rescan.
  */
-export const resolveAssetContent = (
+export const resolveAssetContent = async (
     workspaceRoot: string,
     persistence: WorkspacePersistence,
     assetId: string,
     hash: string | undefined,
-): ResolvedAssetContent => {
+): Promise<ResolvedAssetContent> => {
     if (!hash || hash.trim().length === 0) {
         throw new CarderPrepareError(
             'ASSET_STALE',
@@ -61,7 +69,14 @@ export const resolveAssetContent = (
     }
 
     const row = findIndexedAssetById(persistence, assetId);
-    if (!row || !row.content_hash || row.present !== 1 || row.valid_asset !== 1) {
+    if (
+        !row
+        || !row.content_hash
+        || row.present !== 1
+        || row.valid_asset !== 1
+        || !row.role
+        || !SUPPORTED_ROLES.has(row.role)
+    ) {
         throw new CarderPrepareError(
             'ASSET_STALE',
             `Asset ${assetId} is missing, invalid, or not present for content serving.`,
@@ -75,32 +90,66 @@ export const resolveAssetContent = (
         );
     }
 
-    const rootResolved = path.resolve(workspaceRoot);
-    const absolutePath = path.resolve(rootResolved, ...row.relative_path.split(/[/\\]+/));
-    const relativeToRoot = path.relative(rootResolved, absolutePath);
+    const absolutePath = await resolveNoLinksFileUnderRoot(workspaceRoot, row.relative_path);
+
+    const pathExt = path.extname(row.relative_path).replace(/^\./, '').toLowerCase();
+    const rowExt = row.extension.toLowerCase();
+    if (pathExt !== rowExt) {
+        throw new CarderPrepareError(
+            'ASSET_STALE',
+            `Asset ${assetId} path extension does not match indexed extension.`,
+        );
+    }
+
+    const role = row.role as AssetRole;
+    if (!isSupportedAssetFormat(role, rowExt)) {
+        throw new CarderPrepareError(
+            'ASSET_STALE',
+            `Asset ${assetId} format is not supported for role ${role}.`,
+        );
+    }
+
+    let inspection;
+    try {
+        inspection = await inspectAssetImage(absolutePath, role, rowExt);
+    } catch {
+        throw new CarderPrepareError(
+            'ASSET_STALE',
+            `Asset ${assetId} image decode or role validation failed.`,
+        );
+    }
+
+    if (inspection.width <= 0 || inspection.height <= 0) {
+        throw new CarderPrepareError(
+            'ASSET_STALE',
+            `Asset ${assetId} image dimensions are invalid.`,
+        );
+    }
+
+    if (role === 'OF' && !inspection.hasTransparency) {
+        throw new CarderPrepareError(
+            'ASSET_STALE',
+            `Asset ${assetId} OF role requires transparency.`,
+        );
+    }
+
+    const bytes = await readFile(absolutePath);
+    const physical = createHash('sha256').update(bytes).digest('hex');
     if (
-        relativeToRoot.startsWith('..')
-        || path.isAbsolute(relativeToRoot)
+        physical !== inspection.contentHash
+        || physical !== row.content_hash
+        || physical !== hash
     ) {
         throw new CarderPrepareError(
             'ASSET_STALE',
-            `Asset ${assetId} path escaped the workspace root.`,
+            `Asset ${assetId} physical content hash does not match indexed/requested hash.`,
         );
     }
 
-    if (!existsSync(absolutePath) || !statSync(absolutePath).isFile()) {
-        throw new CarderPrepareError(
-            'ASSET_STALE',
-            `Asset ${assetId} file is not present on disk.`,
-        );
-    }
-
-    const sizeBytes = statSync(absolutePath).size;
     return {
-        absolutePath,
+        bytes,
         contentType: mimeForExtension(row.extension),
-        sizeBytes,
+        sizeBytes: bytes.length,
         hash: row.content_hash,
-        openStream: () => createReadStream(absolutePath),
     };
 };

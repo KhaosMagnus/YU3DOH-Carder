@@ -9,3 +9,4 @@ export {
 } from './prepare-dto';
 export { resolveAssetContent } from './asset-content';
 export { assertStructureMappable } from './mapping-precheck';
+export { resolveNoLinksFileUnderRoot } from './safe-path';

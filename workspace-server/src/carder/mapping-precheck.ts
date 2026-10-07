@@ -22,9 +22,61 @@ const SUPPORTED_ABILITIES = new Set([
 const SUPPORTED_SUMMON_KINDS = new Set([
     'MAIN_DECK', 'RITUAL', 'FUSION', 'SYNCHRO', 'XYZ', 'LINK',
 ]);
+/** Abilities incompatible with NORMAL on MAIN_DECK (Design S-4). */
+const NORMAL_INCOMPATIBLE = new Set([
+    'FLIP', 'GEMINI', 'SPIRIT', 'TOON', 'UNION', 'SPECIAL_SUMMON',
+]);
+
+const assertNormalEffectRules = (
+    summonKind: string | null,
+    abilities: string[],
+): void => {
+    const hasNormal = abilities.includes('NORMAL');
+    const hasEffect = abilities.includes('EFFECT');
+
+    if (hasNormal && hasEffect) {
+        throw new CarderPrepareError(
+            'CARDER_MAPPING_UNSUPPORTED',
+            'NORMAL and EFFECT abilities together are not mappable to Carder.',
+        );
+    }
+
+    if (summonKind === 'MAIN_DECK') {
+        if (!hasNormal && !hasEffect) {
+            throw new CarderPrepareError(
+                'CARDER_MAPPING_UNSUPPORTED',
+                'MAIN_DECK monster requires exactly one of NORMAL or EFFECT.',
+            );
+        }
+        if (hasNormal && abilities.some(ability => NORMAL_INCOMPATIBLE.has(ability))) {
+            throw new CarderPrepareError(
+                'CARDER_MAPPING_UNSUPPORTED',
+                'NORMAL with effect-style abilities is not mappable to Carder.',
+            );
+        }
+    }
+};
+
+const assertLinkRatingConsistent = (
+    structure: Extract<CanonicalStructureSnapshot, { kind: 'MONSTER' }>,
+): void => {
+    if (structure.summonKind !== 'LINK') return;
+    const rating = structure.linkRating;
+    if (
+        rating == null
+        || !Number.isInteger(rating)
+        || rating < 1
+        || rating !== structure.linkMarkers.length
+    ) {
+        throw new CarderPrepareError(
+            'CARDER_MAPPING_UNSUPPORTED',
+            'LINK requires a consistent Canonical link_rating matching mapped marker count.',
+        );
+    }
+};
 
 /**
- * Structural precheck shared with Carder adapter policy (Design §§28–35).
+ * Structural precheck shared with Carder adapter policy (Design §§28–35 + QA-009-07).
  * Throws CARDER_MAPPING_UNSUPPORTED when the snapshot cannot map into Carder.
  */
 export const assertStructureMappable = (
@@ -97,6 +149,8 @@ export const assertStructureMappable = (
                 );
             }
         }
+        assertNormalEffectRules(structure.summonKind, structure.abilities);
+        assertLinkRatingConsistent(structure);
         if (family !== 'MONSTER') {
             throw new CarderPrepareError(
                 'CARDER_MAPPING_UNSUPPORTED',
