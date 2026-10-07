@@ -14,3 +14,4 @@ export * from './use-ocg-font';
 export * from './use-preset-manager';
 export * from './use-serial';
 export * from './use-setting';
+export * from './workspace-bridge';

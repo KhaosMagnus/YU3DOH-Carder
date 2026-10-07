@@ -18,3 +18,4 @@ export * from './preset-option';
 export * from './setting';
 export * from './setting-panel';
 export * from './styled';
+export * from './workspace-bridge-status';

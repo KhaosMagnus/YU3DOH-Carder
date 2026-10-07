@@ -40,6 +40,12 @@ import {
     getLanguage,
     RESET_CANVAS_BASE_COUNTER,
     retrieveSavedCard,
+    fetchPrepareWorkingCard,
+    hasWorkspaceIntent,
+    parseWorkspaceIntent,
+    prepareWorkingCard,
+    getWorkspaceBridgeSession,
+    WorkspaceBridgeError,
     useCard,
     useCardCanvas,
     useCarderDb,
@@ -51,7 +57,7 @@ import {
     useSetting,
 } from './service';
 import { notification, Tooltip } from 'antd';
-import { ChunkErrorBoundary, CROPPER_WIDTH, TaintedCanvasWarning } from './component';
+import { ChunkErrorBoundary, CROPPER_WIDTH, TaintedCanvasWarning, WorkspaceBridgeStatus } from './component';
 import { clearCanvas } from './draw';
 import { ZoomInOutlined, ClearOutlined, FileImageOutlined } from '@ant-design/icons';
 import {
@@ -136,6 +142,8 @@ function App() {
     })));
     const windowSlidable = !IS_MOBILE && !isTouchDevice();
     const [isInitializing, setInitializing] = useState(true);
+    const [bridgeError, setBridgeError] = useState<string | null>(null);
+    const [bridgeSessionVersion, setBridgeSessionVersion] = useState(0);
     const [, setActiveDropzone] = useGlobal('activeDropzone');
     const [resetCanvasCounter] = useGlobal('resetCanvasCounter');
     const [error, setError] = useState('');
@@ -347,11 +355,44 @@ function App() {
             },
             active: async () => {
                 (async () => {
-                    const retrievedCard = await retrieveSavedCard();
+                    try {
+                        const search = window.location.search;
+                        if (hasWorkspaceIntent(search)) {
+                            try {
+                                const intent = parseWorkspaceIntent(search);
+                                const dto = await fetchPrepareWorkingCard(intent);
+                                const { card } = prepareWorkingCard(dto);
+                                setCard(card);
+                                useCardList.getState().setCardList([card], card.id);
+                                setBridgeError(null);
+                                setBridgeSessionVersion(value => value + 1);
+                                setInitializing(false);
+                                return;
+                            } catch (bridgeFailure) {
+                                const message = bridgeFailure instanceof WorkspaceBridgeError
+                                    ? `${bridgeFailure.code}: ${bridgeFailure.message}`
+                                    : bridgeFailure instanceof Error
+                                        ? bridgeFailure.message
+                                        : 'Workspace bridge failed.';
+                                setBridgeError(message);
+                                notification.error({
+                                    message: 'Workspace → Carder bridge failed',
+                                    description: message,
+                                });
+                                // Do NOT fall back to local/stale card as a successful open.
+                                setInitializing(false);
+                                return;
+                            }
+                        }
 
-                    setCard(retrievedCard);
-                    useCardList.getState().setCardList([retrievedCard], retrievedCard.id);
-                    setInitializing(false);
+                        const retrievedCard = await retrieveSavedCard();
+                        setCard(retrievedCard);
+                        useCardList.getState().setCardList([retrievedCard], retrievedCard.id);
+                        setInitializing(false);
+                    } catch (e) {
+                        console.error(e);
+                        setInitializing(false);
+                    }
                 })();
             },
             fontinactive(familyName, fvd) {
@@ -640,6 +681,11 @@ function App() {
                             backgroundImage: `url("${PUBLIC_PATH}/asset/image/texture/dark-denim-3.png")`,
                         }}
                     >
+                        <WorkspaceBridgeStatus
+                            key={bridgeSessionVersion}
+                            session={getWorkspaceBridgeSession()}
+                            error={bridgeError}
+                        />
                         {isLoading && <StyledAppLoading className="app-loading">
                             {error.length > 0
                                 ? <ErrorAlert>
