@@ -171,6 +171,8 @@ export type RoleSlotEnrichment = {
     candidateCount: number;
     managed: ManagedAssetSnapshot | null;
     managedIndexed: IndexedAssetSnapshot | null;
+    /** Unbound missing/invalid indexed asset with knowable association — diagnostic metadata only. */
+    problemAsset: IndexedAssetSnapshot | null;
     issues: Array<{ code: string; message: string }>;
 };
 
@@ -192,6 +194,21 @@ export const deriveSlotState = (
         // Managed target exists and is present/valid but not bound — treat as BOUND via managed.
         return 'BOUND';
     }
+    // Unmanaged problem association (retained diagnostic link; not authoritative binding).
+    if (enrichment.issues.some(issue => issue.code === 'MISSING_SOURCE' || issue.code.startsWith('MISSING_'))) {
+        return 'MISSING';
+    }
+    if (enrichment.issues.some(issue =>
+        issue.code === 'INVALID_IMAGE'
+        || issue.code === 'INVALID_OF_TRANSPARENCY'
+        || issue.code.startsWith('INVALID_')
+    )) {
+        return 'INVALID';
+    }
+    if (enrichment.problemAsset) {
+        if (!enrichment.problemAsset.present) return 'MISSING';
+        if (!enrichment.problemAsset.validAsset) return 'INVALID';
+    }
     return 'EMPTY';
 };
 
@@ -207,6 +224,9 @@ export const toRoleSlotDto = (
         asset = toBoundAssetDto(bound, ownership, managedId);
     } else if (enrichment.managed) {
         asset = toManagedOnlyBoundDto(enrichment.managed, enrichment.managedIndexed);
+    } else if (enrichment.problemAsset) {
+        // Surface problem asset metadata without implying authoritative role binding.
+        asset = toBoundAssetDto(enrichment.problemAsset, 'unmanaged', null);
     }
     return {
         slot_state: slotState,

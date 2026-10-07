@@ -3,6 +3,7 @@ import {
     countRoleCandidatesForVariant,
     findIndexedAssetByRelativePath,
     findLatestCompletedScan,
+    findProblemIndexedAssetForVariantRole,
     listEnrichedDiagnosticsForScan,
 } from '../assets/repository';
 import { ASSET_ROLES, type AssetRole } from '../assets/types';
@@ -76,9 +77,25 @@ export class LibraryAssetService {
                 const managedIndexed = ownershipManaged
                     ? findIndexedAssetByRelativePath(database, ownershipManaged.managedRelativePath)
                     : null;
+                const problemAsset = bound
+                    ? null
+                    : findProblemIndexedAssetForVariantRole(database, snapshot.variantId, role);
+                const problemCodes = new Set([
+                    'MISSING_SOURCE',
+                    'INVALID_IMAGE',
+                    'INVALID_OF_TRANSPARENCY',
+                    'SOURCE_READ_ERROR',
+                    'UNSUPPORTED_FORMAT',
+                ]);
                 const issues = diagnostics
                     .filter(item => {
-                        if (item.variantId === snapshot.variantId && item.role === role) return true;
+                        if (item.role === role) {
+                            if (item.variantId === snapshot.variantId) return true;
+                            if (
+                                item.cardId === snapshot.cardId
+                                && item.variantKey === snapshot.variantKey
+                            ) return true;
+                        }
                         if (
                             item.code === 'ROLE_CONFLICT'
                             && item.variantId === snapshot.variantId
@@ -87,10 +104,12 @@ export class LibraryAssetService {
                         if (
                             bound
                             && item.assetId === bound.assetId
-                            && (item.code === 'MISSING_SOURCE'
-                                || item.code === 'INVALID_IMAGE'
-                                || item.code === 'INVALID_OF_TRANSPARENCY'
-                                || item.code === 'SOURCE_READ_ERROR')
+                            && problemCodes.has(item.code)
+                        ) return true;
+                        if (
+                            problemAsset
+                            && item.assetId === problemAsset.assetId
+                            && problemCodes.has(item.code)
                         ) return true;
                         return false;
                     })
@@ -106,6 +125,7 @@ export class LibraryAssetService {
                     candidateCount,
                     managed: ownershipManaged,
                     managedIndexed,
+                    problemAsset,
                     issues,
                 };
             }
