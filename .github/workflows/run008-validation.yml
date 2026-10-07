@@ -1,0 +1,96 @@
+name: RUN 008 validation
+
+on:
+  push:
+    branches:
+      - feature/workspace-run-008
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout RUN 008
+        uses: actions/checkout@v4
+        with:
+          ref: feature/workspace-run-008
+          fetch-depth: 0
+
+      - name: Configure Node and Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+
+      - name: Report runtime versions
+        run: |
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+          echo "Node: $(node --version)"
+          echo "Yarn: $(yarn --version)"
+
+      - name: Verify migrations 001 through 004 immutable
+        run: |
+          test "$(git hash-object workspace-server/migrations/001_repository_foundation.sql)" = "146b395716c51b0a8a8861876e4df2d47a05fd4d"
+          test "$(git hash-object workspace-server/migrations/002_canonical_domain.sql)" = "253fe76054ce3f40d50d09ecd3e90bb1b322deea"
+          test "$(git hash-object workspace-server/migrations/003_art_variants_asset_index.sql)" = "7f1aa54649a4b4b73871a50177de492047fe4f83"
+          test "$(git hash-object workspace-server/migrations/004_managed_asset_ingest.sql)" = "2f2f58239d597d34d5608fcf022b9d2f4007da91"
+          test ! -e workspace-server/migrations/005_*.sql
+
+      - name: Verify dependency lockfiles unchanged from baseline
+        run: |
+          git diff --exit-code 45d85b6cfd4a28f1b4f241f540159fac076f3978 -- yarn.lock
+          git diff --exit-code 45d85b6cfd4a28f1b4f241f540159fac076f3978 -- workspace-server/yarn.lock
+
+      - name: Install root dependencies frozen
+        run: yarn install --frozen-lockfile
+
+      - name: Compile Carder and Library client
+        run: yarn compile
+
+      - name: Validate Library client contract
+        run: yarn test:library
+
+      - name: Build Carder and Library production entries
+        run: yarn build
+
+      - name: Verify production entry outputs
+        run: |
+          test -f dist/index.html
+          test -f dist/library/index.html
+          grep -q "YU3DOH Library" dist/library/index.html
+
+      - name: Install Workspace Service frozen
+        working-directory: workspace-server
+        run: yarn install --frozen-lockfile
+
+      - name: Compile Workspace Service
+        working-directory: workspace-server
+        run: yarn compile
+
+      - name: Test Workspace Service
+        working-directory: workspace-server
+        run: yarn test
+
+      - name: Verify repository hygiene
+        run: |
+          git status --short
+          git diff --exit-code
+          if git status --porcelain --untracked-files=all | grep -E '\.(db|db-wal|db-shm|db-journal)$'; then
+            exit 1
+          fi
+
+      - name: Remove temporary RUN 008 validation workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm .github/workflows/run008-validation.yml
+          git add .github/workflows/run008-validation.yml
+          git commit -m "chore(validation): finalize RUN 008 validation"
+          git push origin HEAD:feature/workspace-run-008
