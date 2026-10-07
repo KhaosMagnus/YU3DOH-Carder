@@ -14,6 +14,10 @@ export default defineConfig(({ mode }) => {
             sourcemap: true, // equivalent to webpack's devtool: 'source-map'
             chunkSizeWarningLimit: 1000, // increase chunk size warning limit to 1000kb, double the default of 500kb, since our chunks are often large due to the nature of the app
             rolldownOptions: {
+                input: {
+                    carder: path.resolve(__dirname, 'index.html'),
+                    library: path.resolve(__dirname, 'library/index.html'),
+                },
                 output: {
                     codeSplitting: {
                         groups: [
@@ -53,6 +57,12 @@ export default defineConfig(({ mode }) => {
             port: 3000, // matches CRA's default, optional
             host: true,
             open: false, // auto-open browser, like CRA
+            proxy: {
+                '/api/v1': {
+                    target: 'http://127.0.0.1:4312',
+                    changeOrigin: false,
+                },
+            },
         },
         preview: {
             allowedHosts: ['stress-snowfield-stinging.ngrok-free.dev'],
