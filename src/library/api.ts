@@ -1,27 +1,61 @@
 import type {
+    LibraryApiError,
     LibraryBrowseFilters,
     LibraryBrowseResult,
+    LibraryCardDetail,
+    LibraryEditorMetadata,
     LibraryFacets,
+    LibraryFamily,
     WorkspaceStatus,
 } from './model';
 
-const fetchJson = async <T>(url: string, signal?: AbortSignal): Promise<T> => {
+export class LibraryHttpError extends Error {
+    readonly status: number;
+    readonly code: string;
+
+    constructor({ status, code, message }: LibraryApiError) {
+        super(message);
+        this.name = 'LibraryHttpError';
+        this.status = status;
+        this.code = code;
+    }
+}
+
+const parseError = async (response: Response): Promise<LibraryHttpError> => {
+    const payload = await response.json().catch(() => null) as unknown;
+    const code = (
+        payload
+        && typeof payload === 'object'
+        && 'code' in payload
+        && typeof payload.code === 'string'
+    ) ? payload.code : `HTTP_${response.status}`;
+    const message = (
+        payload
+        && typeof payload === 'object'
+        && 'message' in payload
+        && typeof payload.message === 'string'
+    ) ? payload.message : `Request failed with HTTP ${response.status}.`;
+    return new LibraryHttpError({ status: response.status, code, message });
+};
+
+const fetchJson = async <T>(
+    url: string,
+    init?: RequestInit,
+    signal?: AbortSignal,
+): Promise<T> => {
     const response = await fetch(url, {
-        method: 'GET',
-        headers: { Accept: 'application/json' },
+        ...init,
+        headers: {
+            Accept: 'application/json',
+            ...(init?.body ? { 'Content-Type': 'application/json' } : {}),
+            ...(init?.headers ?? {}),
+        },
         signal,
     });
-    const payload = await response.json().catch(() => null) as unknown;
     if (!response.ok) {
-        const message = (
-            payload
-            && typeof payload === 'object'
-            && 'message' in payload
-            && typeof payload.message === 'string'
-        ) ? payload.message : `Request failed with HTTP ${response.status}.`;
-        throw new Error(message);
+        throw await parseError(response);
     }
-    return payload as T;
+    return await response.json() as T;
 };
 
 export const buildLibraryCardsUrl = (filters: LibraryBrowseFilters) => {
@@ -39,10 +73,33 @@ export const buildLibraryCardsUrl = (filters: LibraryBrowseFilters) => {
 };
 
 export const getWorkspaceStatus = (signal?: AbortSignal) =>
-    fetchJson<WorkspaceStatus>('/api/v1/workspace/status', signal);
+    fetchJson<WorkspaceStatus>('/api/v1/workspace/status', undefined, signal);
 
 export const getLibraryFacets = (signal?: AbortSignal) =>
-    fetchJson<LibraryFacets>('/api/v1/library/facets', signal);
+    fetchJson<LibraryFacets>('/api/v1/library/facets', undefined, signal);
 
 export const browseLibraryCards = (filters: LibraryBrowseFilters, signal?: AbortSignal) =>
-    fetchJson<LibraryBrowseResult>(buildLibraryCardsUrl(filters), signal);
+    fetchJson<LibraryBrowseResult>(buildLibraryCardsUrl(filters), undefined, signal);
+
+export const getLibraryCard = (cardId: string, signal?: AbortSignal) =>
+    fetchJson<LibraryCardDetail>(`/api/v1/library/cards/${encodeURIComponent(cardId)}`, undefined, signal);
+
+export const getLibraryEditorMetadata = (signal?: AbortSignal) =>
+    fetchJson<LibraryEditorMetadata>('/api/v1/library/editor-metadata', undefined, signal);
+
+export const createLibraryCard = (
+    input: { family: LibraryFamily; password?: string | null },
+    signal?: AbortSignal,
+) => fetchJson<LibraryCardDetail>('/api/v1/library/cards', {
+    method: 'POST',
+    body: JSON.stringify(input),
+}, signal);
+
+export const patchLibraryCard = (
+    cardId: string,
+    body: Record<string, unknown>,
+    signal?: AbortSignal,
+) => fetchJson<LibraryCardDetail>(`/api/v1/library/cards/${encodeURIComponent(cardId)}`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
+}, signal);

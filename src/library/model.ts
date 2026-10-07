@@ -3,6 +3,16 @@ export type LibraryLanguage = typeof LIBRARY_LANGUAGES[number];
 export const LIBRARY_FAMILIES = ['MONSTER', 'SPELL', 'TRAP', 'TOKEN'] as const;
 export type LibraryFamily = typeof LIBRARY_FAMILIES[number];
 
+export const SEMANTIC_BLOCKS = [
+    'STRUCTURE',
+    'TEXT:EN',
+    'TEXT:ES',
+    'TEXT:JP',
+    'CLASSIFICATION',
+    'RELATIONS',
+] as const;
+export type SemanticBlock = typeof SEMANTIC_BLOCKS[number];
+
 export type WorkspaceStatus = {
     workspace_id: string | null;
     name: string | null;
@@ -55,6 +65,70 @@ export type LibraryBrowseFilters = {
     offset: number;
 };
 
+export type PrintedStat = number | '?' | null;
+
+export type LibraryCardDetail = {
+    card_id: string;
+    revision: string;
+    family: LibraryFamily;
+    password: string | null;
+    structure: Record<string, unknown> | null;
+    localizations: Array<{
+        language: LibraryLanguage;
+        name: string | null;
+        card_text: string | null;
+        pendulum_text: string | null;
+    }>;
+    confirmations: Array<{
+        block: SemanticBlock;
+        state: 'DRAFT' | 'CONFIRMED';
+        provenance_id: number | null;
+    }>;
+    classification: {
+        effect_reviewed: boolean;
+        archetypes: Array<{ id: string; code: string }>;
+        effect_classifiers: Array<{ id: string; code: string }>;
+        functional_tags: Array<{ id: string; code: string }>;
+    };
+    relations: Array<{
+        relation_id: string;
+        source_card_id: string;
+        target_card_id: string;
+        relation_type_code: string;
+        note: string | null;
+    }>;
+    provenance: Array<{
+        provenance_id: number;
+        target_kind: string;
+        target_key: string;
+        source_kind: string;
+        source_ref: string | null;
+        note: string | null;
+        created_at: string;
+    }>;
+};
+
+export type LibraryEditorMetadata = {
+    languages: LibraryLanguage[];
+    summon_kinds: string[];
+    attributes: string[];
+    races: string[];
+    abilities: string[];
+    link_markers: string[];
+    spell_subtypes: string[];
+    trap_subtypes: string[];
+    archetypes: Array<{ id: string; code: string }>;
+    effect_classifiers: Array<{ id: string; code: string }>;
+    functional_tags: Array<{ id: string; code: string }>;
+    relation_types: string[];
+};
+
+export type LibraryApiError = {
+    status: number;
+    code: string;
+    message: string;
+};
+
 export type LibraryResultState = 'loading' | 'error' | 'empty-library' | 'no-match' | 'results';
 
 export const hasBrowseCriteria = (filters: LibraryBrowseFilters) =>
@@ -93,3 +167,14 @@ export const getWorkspaceShellState = (
     if (!status) return 'connecting';
     return status.state === 'READY' ? 'ready' : 'not-ready';
 };
+
+export const cloneLibraryCardDetail = (detail: LibraryCardDetail): LibraryCardDetail =>
+    JSON.parse(JSON.stringify(detail)) as LibraryCardDetail;
+
+export const getConfirmationState = (
+    detail: LibraryCardDetail,
+    block: SemanticBlock,
+): 'DRAFT' | 'CONFIRMED' =>
+    detail.confirmations.find(item => item.block === block)?.state === 'CONFIRMED'
+        ? 'CONFIRMED'
+        : 'DRAFT';

@@ -10,16 +10,22 @@ import {
 } from 'antd';
 import {
     browseLibraryCards,
+    createLibraryCard,
     getLibraryFacets,
     getWorkspaceStatus,
+    LibraryHttpError,
 } from './api';
+import { DetailPanel } from './detail-panel';
+import { NewDraftModal } from './new-draft-modal';
 import {
     getLibraryResultState,
     getWorkspaceShellState,
     hasBrowseCriteria,
     type LibraryBrowseFilters,
     type LibraryBrowseResult,
+    type LibraryCardDetail,
     type LibraryFacets,
+    type LibraryFamily,
     type LibraryLanguage,
     type WorkspaceStatus,
 } from './model';
@@ -53,7 +59,13 @@ export const LibraryApp = () => {
     const [result, setResult] = useState<LibraryBrowseResult>(emptyResult);
     const [loading, setLoading] = useState(true);
     const [browseError, setBrowseError] = useState<string | null>(null);
+    const [facetsError, setFacetsError] = useState<string | null>(null);
     const [retryNonce, setRetryNonce] = useState(0);
+    const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
+    const [detailOpen, setDetailOpen] = useState(false);
+    const [newDraftOpen, setNewDraftOpen] = useState(false);
+    const [creatingDraft, setCreatingDraft] = useState(false);
+    const [createError, setCreateError] = useState<string | null>(null);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -71,15 +83,17 @@ export const LibraryApp = () => {
     useEffect(() => {
         if (status?.state !== 'READY') {
             setFacets(null);
+            setFacetsError(null);
             setLoading(false);
             return;
         }
         const controller = new AbortController();
+        setFacetsError(null);
         getLibraryFacets(controller.signal)
             .then(setFacets)
             .catch(error => {
                 if (error instanceof Error && error.name === 'AbortError') return;
-                setBrowseError(error instanceof Error ? error.message : 'Could not load Library facets.');
+                setFacetsError(error instanceof Error ? error.message : 'Could not load Library facets.');
             });
         return () => controller.abort();
     }, [status, retryNonce]);
@@ -127,19 +141,57 @@ export const LibraryApp = () => {
     const workspaceShellState = getWorkspaceShellState(status, statusError);
     const workspaceReady = workspaceShellState === 'ready';
 
+    const openDetail = (cardId: string) => {
+        setSelectedCardId(cardId);
+        setDetailOpen(true);
+    };
+
+    const handleCreated = async (input: { family: LibraryFamily; password?: string | null }) => {
+        setCreatingDraft(true);
+        setCreateError(null);
+        try {
+            const detail = await createLibraryCard(input);
+            setNewDraftOpen(false);
+            setRetryNonce(value => value + 1);
+            openDetail(detail.card_id);
+        } catch (error) {
+            setCreateError(error instanceof LibraryHttpError
+                ? error.message
+                : error instanceof Error ? error.message : 'Could not create Draft.');
+        } finally {
+            setCreatingDraft(false);
+        }
+    };
+
+    const handleSaved = (_detail: LibraryCardDetail) => {
+        setRetryNonce(value => value + 1);
+    };
+
     return (
         <main className="library-shell">
             <header className="library-header">
                 <div>
                     <h1>YU3DOH Library</h1>
-                    <p>Canonical card browse/search</p>
+                    <p>Canonical card browse/search + detail editor</p>
                 </div>
-                <div className={`workspace-state workspace-state--${workspaceReady ? 'ready' : 'not-ready'}`}>
-                    {statusError
-                        ? 'Service unavailable'
-                        : status
-                            ? `Workspace: ${status.state}`
-                            : 'Workspace: loading'}
+                <div className="library-header__actions">
+                    <Button
+                        type="primary"
+                        disabled={!workspaceReady}
+                        onClick={() => {
+                            setCreateError(null);
+                            setNewDraftOpen(true);
+                        }}
+                    >
+                        New Draft
+                    </Button>
+                    <div className={`workspace-state workspace-state--${workspaceReady ? 'ready' : 'not-ready'}`}>
+                        {statusError
+                            ? 'Service unavailable'
+                            : status
+                                ? `Workspace: ${status.state}`
+                                : 'Workspace: loading'}
+                    </div>
                 </div>
             </header>
 
@@ -160,6 +212,19 @@ export const LibraryApp = () => {
                     message="Workspace is not ready"
                     description={status.health_summary}
                 />
+            )}
+
+            {facetsError && workspaceReady && (
+                <Alert
+                    type="warning"
+                    showIcon
+                    message="Facets unavailable"
+                    description={facetsError}
+                />
+            )}
+
+            {createError && (
+                <Alert type="error" showIcon message="New Draft failed" description={createError} />
             )}
 
             <section className="library-controls" aria-label="Library browse controls">
@@ -256,7 +321,19 @@ export const LibraryApp = () => {
                     <div className="library-state">No matching cards.</div>
                 )}
                 {workspaceReady && resultState === 'results' && result.items.map(card => (
-                    <article className="library-card" key={card.card_id}>
+                    <article
+                        className={`library-card${selectedCardId === card.card_id ? ' library-card--selected' : ''}`}
+                        key={card.card_id}
+                        onClick={() => openDetail(card.card_id)}
+                        onKeyDown={event => {
+                            if (event.key === 'Enter' || event.key === ' ') {
+                                event.preventDefault();
+                                openDetail(card.card_id);
+                            }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                    >
                         <div className="library-card__main">
                             <h2>{card.display_name}</h2>
                             <div className="library-card__identity">
@@ -295,6 +372,20 @@ export const LibraryApp = () => {
                     />
                 </footer>
             )}
+
+            <DetailPanel
+                cardId={selectedCardId}
+                open={detailOpen}
+                onClose={() => setDetailOpen(false)}
+                onSaved={handleSaved}
+            />
+
+            <NewDraftModal
+                open={newDraftOpen}
+                confirming={creatingDraft}
+                onCancel={() => setNewDraftOpen(false)}
+                onCreate={input => { void handleCreated(input); }}
+            />
         </main>
     );
 };
