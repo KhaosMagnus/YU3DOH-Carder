@@ -1,5 +1,5 @@
 import type { LibraryCardDetail, SemanticBlock } from './model';
-import { getConfirmationState } from './model';
+import { cloneLibraryCardDetail, getConfirmationState } from './model';
 
 export type WorkingCardForm = {
     password: string | null;
@@ -156,3 +156,26 @@ export const emptyStructureForFamily = (family: LibraryCardDetail['family']): Re
     }
     return null;
 };
+
+/**
+ * Adopt a server detail snapshot as both the authoritative detail and the
+ * complete working form. Prevents stale unedited fields from remaining dirty
+ * relative to a newer authoritative revision after conflict reload.
+ */
+export const adoptServerSnapshot = (detail: LibraryCardDetail): {
+    authoritative: LibraryCardDetail;
+    working: WorkingCardForm;
+} => ({
+    authoritative: cloneLibraryCardDetail(detail),
+    working: detailToWorkingForm(detail),
+});
+
+/**
+ * True when Reload Latest would discard local unsaved edits relative to the
+ * currently displayed authoritative snapshot. While a 409 is merely displayed,
+ * callers should keep working edits until the user confirms discard+reload.
+ */
+export const conflictReloadWouldDiscardEdits = (
+    authoritative: LibraryCardDetail,
+    working: WorkingCardForm,
+): boolean => isWorkingFormDirty(authoritative, working);

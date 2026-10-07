@@ -1,9 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Alert, Button, Drawer, Input, Modal, Spin, Tag } from 'antd';
 import { LibraryHttpError, getLibraryCard, getLibraryEditorMetadata, patchLibraryCard } from './api';
+import {
+    formatDetailLoadError,
+    formatMetadataLoadError,
+} from './detail-channels';
 import { EditorForm } from './editor-form';
 import {
+    adoptServerSnapshot,
     buildPatchPayload,
+    conflictReloadWouldDiscardEdits,
     detailToWorkingForm,
     impactedConfirmedBlocks,
     isWorkingFormDirty,
@@ -27,6 +33,7 @@ type Props = {
 export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
     const [loading, setLoading] = useState(false);
     const [detailError, setDetailError] = useState<string | null>(null);
+    const [metadataError, setMetadataError] = useState<string | null>(null);
     const [saveError, setSaveError] = useState<string | null>(null);
     const [conflict, setConflict] = useState(false);
     const [authoritative, setAuthoritative] = useState<LibraryCardDetail | null>(null);
@@ -45,39 +52,76 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
         [authoritative, working],
     );
 
-    const loadDetail = async (id: string, preserveWorking = false) => {
+    const loadMetadata = async () => {
+        setMetadataError(null);
+        try {
+            const editorMetadata = await getLibraryEditorMetadata();
+            setMetadata(editorMetadata);
+            setMetadataError(null);
+        } catch (error) {
+            setMetadataError(formatMetadataLoadError(error));
+        }
+    };
+
+    const loadDetail = async (id: string) => {
         setLoading(true);
         setDetailError(null);
         setSaveError(null);
         setConflict(false);
         try {
-            const [detail, editorMetadata] = await Promise.all([
-                getLibraryCard(id),
-                metadata ? Promise.resolve(metadata) : getLibraryEditorMetadata(),
-            ]);
-            setAuthoritative(detail);
-            if (!preserveWorking || !working) {
-                setWorking(detailToWorkingForm(detail));
-            }
-            setMetadata(editorMetadata);
+            const detail = await getLibraryCard(id);
+            const adopted = adoptServerSnapshot(detail);
+            setAuthoritative(adopted.authoritative);
+            setWorking(adopted.working);
+            setDetailError(null);
         } catch (error) {
-            if (error instanceof LibraryHttpError && error.status === 404) {
-                setDetailError('Canonical card not found.');
-            } else if (error instanceof LibraryHttpError && error.status === 503) {
-                setDetailError('Workspace is not READY.');
-            } else {
-                setDetailError(error instanceof Error ? error.message : 'Failed to load detail.');
-            }
+            setDetailError(formatDetailLoadError(error));
             setAuthoritative(null);
             setWorking(null);
         } finally {
             setLoading(false);
         }
+        // Metadata is an independent channel: failure must not clear detail.
+        await loadMetadata();
+    };
+
+    const applyConflictReload = async (cardIdToReload: string) => {
+        setLoading(true);
+        setSaveError(null);
+        try {
+            const detail = await getLibraryCard(cardIdToReload);
+            const adopted = adoptServerSnapshot(detail);
+            setAuthoritative(adopted.authoritative);
+            setWorking(adopted.working);
+            setConflict(false);
+            setDetailError(null);
+        } catch (error) {
+            setDetailError(formatDetailLoadError(error));
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const onReloadLatest = () => {
+        if (!authoritative || !working) return;
+        const cardIdToReload = authoritative.card_id;
+        if (conflictReloadWouldDiscardEdits(authoritative, working)) {
+            Modal.confirm({
+                title: 'Discard local edits and reload latest?',
+                content:
+                    'Reload Latest adopts the newest server snapshot as both the authoritative detail and the working form. Unsaved local edits will be discarded.',
+                okText: 'Discard and reload',
+                onOk: () => applyConflictReload(cardIdToReload),
+            });
+            return;
+        }
+        void applyConflictReload(cardIdToReload);
     };
 
     useEffect(() => {
         if (!open || !cardId) return;
         setEditing(false);
+        setMetadataError(null);
         void loadDetail(cardId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, cardId]);
@@ -121,8 +165,9 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
         try {
             const payload = buildPatchPayload(authoritative, working, confirmations);
             const updated = await patchLibraryCard(authoritative.card_id, payload);
-            setAuthoritative(updated);
-            setWorking(detailToWorkingForm(updated));
+            const adopted = adoptServerSnapshot(updated);
+            setAuthoritative(adopted.authoritative);
+            setWorking(adopted.working);
             setEditing(false);
             setPendingConfirmations(null);
             onSaved(updated);
@@ -191,9 +236,9 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
                             type="warning"
                             showIcon
                             message="Revision conflict"
-                            description="The server version changed. Local edits are preserved. Reload latest to replace the authoritative snapshot."
+                            description="The server version changed. Local edits are preserved while the conflict is displayed. Reload Latest adopts the newest server snapshot as both authoritative state and working form."
                             action={(
-                                <Button onClick={() => void loadDetail(authoritative.card_id, true)}>
+                                <Button onClick={onReloadLatest}>
                                     Reload latest
                                 </Button>
                             )}
@@ -201,6 +246,15 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
                     )}
                     {saveError && !conflict && (
                         <Alert type="error" showIcon message="Save failed" description={saveError} />
+                    )}
+                    {metadataError && (
+                        <Alert
+                            type="warning"
+                            showIcon
+                            message="Editor metadata unavailable"
+                            description={metadataError}
+                            action={<Button onClick={() => void loadMetadata()}>Retry metadata</Button>}
+                        />
                     )}
 
                     {!editing && (
