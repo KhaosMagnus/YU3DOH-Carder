@@ -59,7 +59,7 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org lauqerm --project ygo-carder ./dist && sentry-cli sourcemaps upload --org lauqerm --project ygo-carder ./dist",
     "start": "vite",
     "test:sc": "tsx scripts/test-simplified-chinese.ts",
-    "test:library": "tsx scripts/test-library-client.ts"
+    "test:library": "tsx scripts/test-library-client.ts && tsx scripts/test-workspace-bridge.ts"
   },
   "browserslist": {
     "production": [
