@@ -10,6 +10,23 @@ import {
     isWorkingFormDirty,
 } from '../src/library/editor-state';
 import {
+    formatIngestError,
+    formatNeedsAttentionError,
+    formatRescanError,
+    formatVariantLoadError,
+    isolateAssetDetailChannels,
+} from '../src/library/asset-channels';
+import {
+    createIngestKeyCycle,
+    filterDiagnosticsByCode,
+    ownershipLabel,
+    presentNeedsAttention,
+    readinessLabel,
+    slotStateLabel,
+    uniqueDiagnosticCodes,
+    variantReadinessTags,
+} from '../src/library/asset-state';
+import {
     formatDetailLoadError,
     formatMetadataLoadError,
     isolateDetailMetadataChannels,
@@ -20,6 +37,8 @@ import {
     hasBrowseCriteria,
     type LibraryBrowseFilters,
     type LibraryCardDetail,
+    type LibraryNeedsAttentionResponse,
+    type LibraryVariantDetail,
 } from '../src/library/model';
 
 const filters: LibraryBrowseFilters = {
@@ -231,3 +250,140 @@ assert.notEqual(
 );
 
 console.log('Library client contract checks PASS');
+
+// --- RUN 008: Variant / Asset client contracts ---
+const sampleVariant: LibraryVariantDetail = {
+    variant_id: 'v1',
+    card_id: 'card-1',
+    variant_key: 'default',
+    display_label: 'Default',
+    standard: { state: 'READY', sources: ['BS'] },
+    overframe: { state: 'INCOMPLETE', sources: [] },
+    roles: {
+        BS: {
+            slot_state: 'BOUND',
+            asset: {
+                asset_id: 'a1',
+                relative_path: 'Assets/Managed/x.png',
+                file_name: 'x.png',
+                extension: 'png',
+                image_width: 10,
+                image_height: 20,
+                has_transparency: false,
+                present: true,
+                valid_asset: true,
+                ownership: 'managed',
+                managed_asset_id: 'm1',
+            },
+            issues: [],
+        },
+        BG: { slot_state: 'EMPTY', asset: null, issues: [] },
+        OF: {
+            slot_state: 'CONFLICT',
+            asset: null,
+            issues: [{ code: 'ROLE_CONFLICT', message: 'conflict' }],
+        },
+    },
+};
+
+const tags = variantReadinessTags(sampleVariant);
+assert.equal(tags.standard, 'READY');
+assert.deepEqual(tags.standardSources, ['BS']);
+assert.equal(readinessLabel(tags.standard), 'READY');
+assert.equal(slotStateLabel('EMPTY'), 'Empty');
+assert.equal(slotStateLabel('CONFLICT'), 'Conflict');
+assert.equal(slotStateLabel('MISSING'), 'Missing source');
+assert.notEqual(slotStateLabel('EMPTY'), slotStateLabel('CONFLICT'));
+assert.equal(ownershipLabel('managed'), 'Managed');
+assert.equal(ownershipLabel('unmanaged'), 'Indexed / unmanaged');
+
+const notScanned = presentNeedsAttention({ latest_scan: null, items: [] });
+assert.equal(notScanned?.kind, 'not-scanned');
+const clean = presentNeedsAttention({
+    latest_scan: {
+        scan_id: 's1',
+        started_at: 't0',
+        completed_at: 't1',
+        discovered_count: 0,
+        present_count: 0,
+        diagnostic_count: 0,
+    },
+    items: [],
+});
+assert.equal(clean?.kind, 'clean');
+assert.notEqual(notScanned?.kind, clean?.kind);
+
+const issuesResponse: LibraryNeedsAttentionResponse = {
+    latest_scan: {
+        scan_id: 's2',
+        started_at: 't0',
+        completed_at: 't1',
+        discovered_count: 2,
+        present_count: 1,
+        diagnostic_count: 2,
+    },
+    items: [
+        {
+            diagnostic_id: 'd1',
+            code: 'ROLE_CONFLICT',
+            relative_path: 'Assets/a.png',
+            message: 'conflict',
+            asset_id: null,
+            card_id: 'c1',
+            variant_id: null,
+            variant_key: 'default',
+            role: 'BS',
+        },
+        {
+            diagnostic_id: 'd2',
+            code: 'INVALID_FILENAME',
+            relative_path: 'Assets/b.png',
+            message: 'bad name',
+            asset_id: null,
+            card_id: null,
+            variant_id: null,
+            variant_key: null,
+            role: null,
+        },
+    ],
+};
+const issues = presentNeedsAttention(issuesResponse);
+assert.equal(issues?.kind, 'issues');
+assert.deepEqual(uniqueDiagnosticCodes(issuesResponse.items), ['INVALID_FILENAME', 'ROLE_CONFLICT']);
+assert.equal(filterDiagnosticsByCode(issuesResponse.items, 'ROLE_CONFLICT').length, 1);
+
+const cycle = createIngestKeyCycle();
+const firstKey = cycle.current();
+assert.equal(cycle.current(), firstKey);
+const secondKey = cycle.refresh();
+assert.notEqual(firstKey, secondKey);
+
+assert.equal(
+    formatVariantLoadError(new LibraryHttpError({ status: 404, code: 'NOT_FOUND', message: 'missing' })),
+    'Canonical card not found for variants.',
+);
+assert.notEqual(
+    formatNeedsAttentionError(new LibraryHttpError({ status: 500, code: 'HTTP_500', message: 'diag boom' })),
+    'Canonical card not found.',
+);
+assert.equal(
+    formatRescanError(new LibraryHttpError({ status: 503, code: 'WORKSPACE_NOT_READY', message: 'nr' })),
+    'Workspace is not READY.',
+);
+assert.equal(
+    formatIngestError(new LibraryHttpError({ status: 409, code: 'TARGET_CONFLICT', message: 'occupied' })),
+    'TARGET_CONFLICT: occupied',
+);
+
+const isolation = isolateAssetDetailChannels({
+    authoritative: sampleDetail,
+    detailError: null,
+    variantError: 'variants failed',
+    needsAttentionError: null,
+    rescanError: null,
+    ingestError: null,
+});
+assert.equal(isolation.detailPreserved, true);
+assert.equal(isolation.assetFailureMislabelledAsCardNotFound, false);
+
+console.log('Library client RUN 008 asset checks PASS');
