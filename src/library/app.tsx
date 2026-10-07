@@ -12,10 +12,17 @@ import {
     browseLibraryCards,
     createLibraryCard,
     getLibraryFacets,
+    getLibraryNeedsAttention,
     getWorkspaceStatus,
     LibraryHttpError,
+    rescanLibraryAssets,
 } from './api';
+import {
+    formatNeedsAttentionError,
+    formatRescanError,
+} from './asset-channels';
 import { DetailPanel } from './detail-panel';
+import { NeedsAttentionPanel } from './needs-attention-panel';
 import { NewDraftModal } from './new-draft-modal';
 import {
     getLibraryResultState,
@@ -27,6 +34,7 @@ import {
     type LibraryFacets,
     type LibraryFamily,
     type LibraryLanguage,
+    type LibraryNeedsAttentionResponse,
     type WorkspaceStatus,
 } from './model';
 import './library.scss';
@@ -66,6 +74,12 @@ export const LibraryApp = () => {
     const [newDraftOpen, setNewDraftOpen] = useState(false);
     const [creatingDraft, setCreatingDraft] = useState(false);
     const [createError, setCreateError] = useState<string | null>(null);
+    const [needsAttentionOpen, setNeedsAttentionOpen] = useState(false);
+    const [needsAttention, setNeedsAttention] = useState<LibraryNeedsAttentionResponse | null>(null);
+    const [needsAttentionLoading, setNeedsAttentionLoading] = useState(false);
+    const [needsAttentionError, setNeedsAttentionError] = useState<string | null>(null);
+    const [rescanError, setRescanError] = useState<string | null>(null);
+    const [rescanning, setRescanning] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -167,6 +181,35 @@ export const LibraryApp = () => {
         setRetryNonce(value => value + 1);
     };
 
+    const loadNeedsAttention = async () => {
+        if (status?.state !== 'READY') return;
+        setNeedsAttentionLoading(true);
+        setNeedsAttentionError(null);
+        try {
+            const data = await getLibraryNeedsAttention();
+            setNeedsAttention(data);
+        } catch (error) {
+            if (error instanceof Error && error.name === 'AbortError') return;
+            setNeedsAttentionError(formatNeedsAttentionError(error));
+        } finally {
+            setNeedsAttentionLoading(false);
+        }
+    };
+
+    const handleRescan = async () => {
+        setRescanError(null);
+        setRescanning(true);
+        try {
+            await rescanLibraryAssets();
+            await loadNeedsAttention();
+            setRetryNonce(value => value + 1);
+        } catch (error) {
+            setRescanError(formatRescanError(error));
+        } finally {
+            setRescanning(false);
+        }
+    };
+
     return (
         <main className="library-shell">
             <header className="library-header">
@@ -175,6 +218,15 @@ export const LibraryApp = () => {
                     <p>Canonical card browse/search + detail editor</p>
                 </div>
                 <div className="library-header__actions">
+                    <Button
+                        disabled={!workspaceReady}
+                        onClick={() => {
+                            setNeedsAttentionOpen(true);
+                            void loadNeedsAttention();
+                        }}
+                    >
+                        Needs Attention
+                    </Button>
                     <Button
                         type="primary"
                         disabled={!workspaceReady}
@@ -378,6 +430,24 @@ export const LibraryApp = () => {
                 open={detailOpen}
                 onClose={() => setDetailOpen(false)}
                 onSaved={handleSaved}
+                onAssetsChanged={() => {
+                    setRetryNonce(value => value + 1);
+                    if (needsAttentionOpen) void loadNeedsAttention();
+                }}
+            />
+
+            <NeedsAttentionPanel
+                open={needsAttentionOpen}
+                data={needsAttention}
+                loading={needsAttentionLoading}
+                error={needsAttentionError}
+                rescanError={rescanError}
+                rescanning={rescanning}
+                onRescan={() => { void handleRescan(); }}
+                onClose={() => setNeedsAttentionOpen(false)}
+                onNavigateCard={cardId => {
+                    openDetail(cardId);
+                }}
             />
 
             <NewDraftModal

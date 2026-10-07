@@ -6,6 +6,11 @@ import type {
     LibraryEditorMetadata,
     LibraryFacets,
     LibraryFamily,
+    LibraryManagedIngestResponse,
+    LibraryNeedsAttentionResponse,
+    LibraryScanSummary,
+    LibraryVariantsResponse,
+    ManagedIngestBody,
     WorkspaceStatus,
 } from './model';
 
@@ -103,3 +108,37 @@ export const patchLibraryCard = (
     method: 'PATCH',
     body: JSON.stringify(body),
 }, signal);
+
+export const getLibraryVariants = (cardId: string, signal?: AbortSignal) =>
+    fetchJson<LibraryVariantsResponse>(
+        `/api/v1/library/cards/${encodeURIComponent(cardId)}/variants`,
+        undefined,
+        signal,
+    );
+
+export const getLibraryNeedsAttention = (signal?: AbortSignal) =>
+    fetchJson<LibraryNeedsAttentionResponse>(
+        '/api/v1/library/needs-attention',
+        undefined,
+        signal,
+    );
+
+export const rescanLibraryAssets = (signal?: AbortSignal) =>
+    fetchJson<LibraryScanSummary>(
+        '/api/v1/library/assets/rescan',
+        { method: 'POST', body: '{}' },
+        signal,
+    );
+
+export const ingestManagedLibraryAsset = (
+    cardId: string,
+    body: ManagedIngestBody,
+    signal?: AbortSignal,
+) => fetchJson<LibraryManagedIngestResponse>(
+    `/api/v1/library/cards/${encodeURIComponent(cardId)}/managed-assets`,
+    {
+        method: 'POST',
+        body: JSON.stringify(body),
+    },
+    signal,
+);

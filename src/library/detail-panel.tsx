@@ -1,6 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Alert, Button, Drawer, Input, Modal, Spin, Tag } from 'antd';
-import { LibraryHttpError, getLibraryCard, getLibraryEditorMetadata, patchLibraryCard } from './api';
+import {
+    LibraryHttpError,
+    getLibraryCard,
+    getLibraryEditorMetadata,
+    getLibraryVariants,
+    patchLibraryCard,
+} from './api';
+import { formatVariantLoadError } from './asset-channels';
 import {
     formatDetailLoadError,
     formatMetadataLoadError,
@@ -20,17 +27,20 @@ import {
     getConfirmationState,
     type LibraryCardDetail,
     type LibraryEditorMetadata,
+    type LibraryVariantDetail,
     type SemanticBlock,
 } from './model';
+import { VariantsPanel } from './variants-panel';
 
 type Props = {
     cardId: string | null;
     open: boolean;
     onClose: () => void;
     onSaved: (detail: LibraryCardDetail) => void;
+    onAssetsChanged?: () => void;
 };
 
-export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
+export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged }: Props) => {
     const [loading, setLoading] = useState(false);
     const [detailError, setDetailError] = useState<string | null>(null);
     const [metadataError, setMetadataError] = useState<string | null>(null);
@@ -46,6 +56,11 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
     const [confirmSourceKind, setConfirmSourceKind] = useState('MANUAL');
     const [confirmSourceRef, setConfirmSourceRef] = useState('');
     const [confirmNote, setConfirmNote] = useState('');
+    const [variants, setVariants] = useState<LibraryVariantDetail[]>([]);
+    const [variantsLoading, setVariantsLoading] = useState(false);
+    const [variantError, setVariantError] = useState<string | null>(null);
+    const [ingestError, setIngestError] = useState<string | null>(null);
+    const [detailSection, setDetailSection] = useState<'canonical' | 'variants'>('canonical');
 
     const dirty = useMemo(
         () => Boolean(authoritative && working && isWorkingFormDirty(authoritative, working)),
@@ -60,6 +75,21 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
             setMetadataError(null);
         } catch (error) {
             setMetadataError(formatMetadataLoadError(error));
+        }
+    };
+
+    const loadVariants = async (id: string) => {
+        setVariantsLoading(true);
+        setVariantError(null);
+        try {
+            const response = await getLibraryVariants(id);
+            setVariants(response.variants);
+            setVariantError(null);
+        } catch (error) {
+            // Do not clear authoritative Canonical detail on variant failure.
+            setVariantError(formatVariantLoadError(error));
+        } finally {
+            setVariantsLoading(false);
         }
     };
 
@@ -81,8 +111,9 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
         } finally {
             setLoading(false);
         }
-        // Metadata is an independent channel: failure must not clear detail.
+        // Metadata / variants are independent channels: failure must not clear detail.
         await loadMetadata();
+        await loadVariants(id);
     };
 
     const applyConflictReload = async (cardIdToReload: string) => {
@@ -122,6 +153,9 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
         if (!open || !cardId) return;
         setEditing(false);
         setMetadataError(null);
+        setVariantError(null);
+        setIngestError(null);
+        setDetailSection('canonical');
         void loadDetail(cardId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, cardId]);
@@ -257,7 +291,22 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
                         />
                     )}
 
-                    {!editing && (
+                    <div className="library-detail__sections">
+                        <Button
+                            type={detailSection === 'canonical' ? 'primary' : 'default'}
+                            onClick={() => setDetailSection('canonical')}
+                        >
+                            Canonical
+                        </Button>
+                        <Button
+                            type={detailSection === 'variants' ? 'primary' : 'default'}
+                            onClick={() => setDetailSection('variants')}
+                        >
+                            Variants / Assets
+                        </Button>
+                    </div>
+
+                    {detailSection === 'canonical' && !editing && (
                         <div className="library-detail__readonly">
                             <section>
                                 <h3>Identity</h3>
@@ -296,12 +345,28 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved }: Props) => {
                         </div>
                     )}
 
-                    {editing && (
+                    {detailSection === 'canonical' && editing && (
                         <EditorForm
                             family={authoritative.family}
                             working={working}
                             metadata={metadata}
                             onChange={setWorking}
+                        />
+                    )}
+
+                    {detailSection === 'variants' && (
+                        <VariantsPanel
+                            cardId={authoritative.card_id}
+                            variants={variants}
+                            loading={variantsLoading}
+                            error={variantError}
+                            ingestError={ingestError}
+                            onIngestError={setIngestError}
+                            onIngestSuccess={() => {
+                                setIngestError(null);
+                                void loadVariants(authoritative.card_id);
+                                onAssetsChanged?.();
+                            }}
                         />
                     )}
                 </div>

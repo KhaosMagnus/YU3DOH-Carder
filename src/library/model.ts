@@ -178,3 +178,96 @@ export const getConfirmationState = (
     detail.confirmations.find(item => item.block === block)?.state === 'CONFIRMED'
         ? 'CONFIRMED'
         : 'DRAFT';
+
+export const ASSET_ROLES = ['BS', 'BG', 'OF'] as const;
+export type AssetRole = typeof ASSET_ROLES[number];
+
+export type SlotState = 'EMPTY' | 'BOUND' | 'CONFLICT' | 'MISSING' | 'INVALID';
+
+export type LibraryBoundAsset = {
+    asset_id: string | null;
+    relative_path: string;
+    file_name: string;
+    extension: string;
+    image_width: number | null;
+    image_height: number | null;
+    has_transparency: boolean | null;
+    present: boolean;
+    valid_asset: boolean;
+    ownership: 'managed' | 'unmanaged';
+    managed_asset_id: string | null;
+};
+
+export type LibraryRoleSlot = {
+    slot_state: SlotState;
+    asset: LibraryBoundAsset | null;
+    issues: Array<{ code: string; message: string }>;
+};
+
+export type LibraryVariantDetail = {
+    variant_id: string;
+    card_id: string;
+    variant_key: string;
+    display_label: string;
+    standard: { state: 'READY' | 'INCOMPLETE'; sources: AssetRole[] };
+    overframe: { state: 'READY' | 'INCOMPLETE'; sources: AssetRole[] };
+    roles: Record<AssetRole, LibraryRoleSlot>;
+};
+
+export type LibraryVariantsResponse = {
+    card_id: string;
+    variants: LibraryVariantDetail[];
+};
+
+export type LibraryScanSummary = {
+    scan_id: string;
+    started_at: string;
+    completed_at: string;
+    discovered_count: number;
+    present_count: number;
+    diagnostic_count: number;
+};
+
+export type LibraryNeedsAttentionItem = {
+    diagnostic_id: string;
+    code: string;
+    relative_path: string;
+    message: string;
+    asset_id: string | null;
+    card_id: string | null;
+    variant_id: string | null;
+    variant_key: string | null;
+    role: string | null;
+};
+
+export type LibraryNeedsAttentionResponse = {
+    latest_scan: LibraryScanSummary | null;
+    items: LibraryNeedsAttentionItem[];
+};
+
+export type LibraryManagedAsset = {
+    managed_asset_id: string;
+    variant_id: string;
+    card_id: string;
+    variant_key: string;
+    display_label: string;
+    role: AssetRole;
+    managed_relative_path: string;
+    content_hash: string;
+    original_file_name: string;
+    extension: string;
+    created_at: string;
+};
+
+export type LibraryManagedIngestResponse = {
+    managed_asset: LibraryManagedAsset;
+    variant: LibraryVariantDetail | null;
+    idempotent: boolean;
+};
+
+export type ManagedIngestBody = {
+    variant_key: string;
+    role: AssetRole;
+    source_file: string;
+    idempotency_key: string;
+};
