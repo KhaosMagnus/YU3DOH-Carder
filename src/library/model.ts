@@ -271,3 +271,37 @@ export type ManagedIngestBody = {
     source_file: string;
     idempotency_key: string;
 };
+
+export type PrepareWorkingCardBody = {
+    card_id: string;
+    variant_id: string;
+    composition: 'STANDARD' | 'OVERFRAME';
+    content_language: LibraryLanguage;
+    expected_revision: string;
+};
+
+export type PrepareWorkingCardDto = {
+    identity: {
+        card_id: string;
+        revision: string;
+        variant_id: string;
+        composition: 'STANDARD' | 'OVERFRAME';
+        content_language: LibraryLanguage;
+    };
+    localized: {
+        name: string | null;
+        card_text: string | null;
+        pendulum_text: string | null;
+    };
+    structure: Record<string, unknown>;
+    artwork: {
+        composition: 'STANDARD' | 'OVERFRAME';
+        sources: AssetRole[];
+        assets: Array<{
+            role: AssetRole;
+            asset_id: string;
+            hash: string;
+            content_url: string;
+        }>;
+    };
+};

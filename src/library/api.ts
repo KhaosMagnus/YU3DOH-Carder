@@ -11,6 +11,8 @@ import type {
     LibraryScanSummary,
     LibraryVariantsResponse,
     ManagedIngestBody,
+    PrepareWorkingCardBody,
+    PrepareWorkingCardDto,
     WorkspaceStatus,
 } from './model';
 
@@ -136,6 +138,18 @@ export const ingestManagedLibraryAsset = (
     signal?: AbortSignal,
 ) => fetchJson<LibraryManagedIngestResponse>(
     `/api/v1/library/cards/${encodeURIComponent(cardId)}/managed-assets`,
+    {
+        method: 'POST',
+        body: JSON.stringify(body),
+    },
+    signal,
+);
+
+export const prepareWorkingCardRequest = (
+    body: PrepareWorkingCardBody,
+    signal?: AbortSignal,
+) => fetchJson<PrepareWorkingCardDto>(
+    '/api/v1/carder/prepare-working-card',
     {
         method: 'POST',
         body: JSON.stringify(body),

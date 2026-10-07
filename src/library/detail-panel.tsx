@@ -30,6 +30,7 @@ import {
     type LibraryVariantDetail,
     type SemanticBlock,
 } from './model';
+import { OpenInCarderPanel } from './open-in-carder';
 import { VariantsPanel } from './variants-panel';
 
 type Props = {
@@ -355,19 +356,26 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged }:
                     )}
 
                     {detailSection === 'variants' && (
-                        <VariantsPanel
-                            cardId={authoritative.card_id}
-                            variants={variants}
-                            loading={variantsLoading}
-                            error={variantError}
-                            ingestError={ingestError}
-                            onIngestError={setIngestError}
-                            onIngestSuccess={() => {
-                                setIngestError(null);
-                                void loadVariants(authoritative.card_id);
-                                onAssetsChanged?.();
-                            }}
-                        />
+                        <>
+                            <OpenInCarderPanel
+                                detail={authoritative}
+                                variants={variants}
+                                dirty={dirty}
+                            />
+                            <VariantsPanel
+                                cardId={authoritative.card_id}
+                                variants={variants}
+                                loading={variantsLoading}
+                                error={variantError}
+                                ingestError={ingestError}
+                                onIngestError={setIngestError}
+                                onIngestSuccess={() => {
+                                    setIngestError(null);
+                                    void loadVariants(authoritative.card_id);
+                                    onAssetsChanged?.();
+                                }}
+                            />
+                        </>
                     )}
                 </div>
             )}
