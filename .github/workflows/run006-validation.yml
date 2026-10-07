@@ -31,6 +31,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare yarn@1.22.22 --activate
+          yarn config set network-timeout 600000
           echo "Node: $(node --version)"
           echo "Yarn: $(yarn --version)"
 
