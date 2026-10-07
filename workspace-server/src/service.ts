@@ -32,7 +32,7 @@ export const createWorkspaceService = async (
         ? new ManagedAssetIngestService(config.workspaceRoot, persistence, assets)
         : null;
     const library = persistence ? new LibraryQueryService(persistence) : null;
-    const app = buildWorkspaceApp(status, { logger, library });
+    const app = buildWorkspaceApp(status, { logger, library, canonical, persistence });
     let closePromise: Promise<void> | undefined;
 
     const close = () => {

@@ -1,7 +1,23 @@
-import Fastify, { type FastifyInstance } from 'fastify';
-import { CANONICAL_CARD_FAMILIES, CANONICAL_LANGUAGES } from './canonical/types';
+import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
+import { CanonicalDomainError } from './canonical/errors';
+import type { CanonicalDomainService } from './canonical/service';
+import {
+    CANONICAL_CARD_FAMILIES,
+    CANONICAL_LANGUAGES,
+    SEMANTIC_BLOCK_KEYS,
+    SUMMON_KINDS,
+} from './canonical/types';
+import {
+    toCanonicalCardMutation,
+    toCreateCanonicalCardInput,
+    toLibraryCardDetailDto,
+    type CreateLibraryCardBody,
+    type PatchLibraryCardBody,
+} from './library/canonical-dto';
+import { loadLibraryEditorMetadata } from './library/editor-metadata';
 import type { LibraryQueryService } from './library/service';
 import type { LibraryBrowseInput } from './library/types';
+import type { WorkspacePersistence } from './persistence/database';
 import { WORKSPACE_LIFECYCLE_STATES, type WorkspaceStatus } from './workspace/types';
 
 const nullableStringSchema = {
@@ -15,6 +31,145 @@ const nullableIntegerSchema = {
     anyOf: [
         { type: 'integer' },
         { type: 'null' },
+    ],
+} as const;
+
+const printedStatSchema = {
+    anyOf: [
+        { type: 'integer' },
+        { type: 'string', const: '?' },
+        { type: 'null' },
+    ],
+} as const;
+
+const sourceProvenanceSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['source_kind'],
+    properties: {
+        source_kind: { type: 'string', minLength: 1 },
+        source_ref: nullableStringSchema,
+        note: nullableStringSchema,
+    },
+} as const;
+
+const registryEntitySchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['id', 'code'],
+    properties: {
+        id: { type: 'string' },
+        code: { type: 'string' },
+    },
+} as const;
+
+const monsterStructureResponseSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: [
+        'kind', 'summon_kind', 'attribute_code', 'race_code',
+        'level', 'rank', 'atk', 'def', 'pendulum_scale',
+        'abilities', 'link_markers', 'link_rating',
+    ],
+    properties: {
+        kind: { type: 'string', const: 'MONSTER' },
+        summon_kind: {
+            anyOf: [
+                { type: 'string', enum: [...SUMMON_KINDS] },
+                { type: 'null' },
+            ],
+        },
+        attribute_code: nullableStringSchema,
+        race_code: nullableStringSchema,
+        level: nullableIntegerSchema,
+        rank: nullableIntegerSchema,
+        atk: printedStatSchema,
+        def: printedStatSchema,
+        pendulum_scale: nullableIntegerSchema,
+        abilities: { type: 'array', items: { type: 'string' } },
+        link_markers: { type: 'array', items: { type: 'string' } },
+        link_rating: nullableIntegerSchema,
+    },
+} as const;
+
+const tokenStructureSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['kind', 'attribute_code', 'race_code', 'level', 'atk', 'def'],
+    properties: {
+        kind: { type: 'string', const: 'TOKEN' },
+        attribute_code: nullableStringSchema,
+        race_code: nullableStringSchema,
+        level: nullableIntegerSchema,
+        atk: printedStatSchema,
+        def: printedStatSchema,
+    },
+} as const;
+
+const spellStructureSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['kind', 'subtype_code'],
+    properties: {
+        kind: { type: 'string', const: 'SPELL' },
+        subtype_code: nullableStringSchema,
+    },
+} as const;
+
+const trapStructureSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['kind', 'subtype_code'],
+    properties: {
+        kind: { type: 'string', const: 'TRAP' },
+        subtype_code: nullableStringSchema,
+    },
+} as const;
+
+const structureResponseSchema = {
+    anyOf: [
+        monsterStructureResponseSchema,
+        tokenStructureSchema,
+        spellStructureSchema,
+        trapStructureSchema,
+        { type: 'null' },
+    ],
+} as const;
+
+const monsterStructureInputSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: [
+        'kind', 'summon_kind', 'attribute_code', 'race_code',
+        'level', 'rank', 'atk', 'def', 'pendulum_scale',
+        'abilities', 'link_markers',
+    ],
+    properties: {
+        kind: { type: 'string', const: 'MONSTER' },
+        summon_kind: {
+            anyOf: [
+                { type: 'string', enum: [...SUMMON_KINDS] },
+                { type: 'null' },
+            ],
+        },
+        attribute_code: nullableStringSchema,
+        race_code: nullableStringSchema,
+        level: nullableIntegerSchema,
+        rank: nullableIntegerSchema,
+        atk: printedStatSchema,
+        def: printedStatSchema,
+        pendulum_scale: nullableIntegerSchema,
+        abilities: { type: 'array', items: { type: 'string' } },
+        link_markers: { type: 'array', items: { type: 'string' } },
+    },
+} as const;
+
+const structureInputSchema = {
+    anyOf: [
+        monsterStructureInputSchema,
+        tokenStructureSchema,
+        spellStructureSchema,
+        trapStructureSchema,
     ],
 } as const;
 
@@ -43,7 +198,6 @@ export const workspaceStatusResponseSchema = {
         health_summary: { type: 'string' },
     },
 } as const;
-
 
 const libraryCardSummarySchema = {
     type: 'object',
@@ -114,6 +268,210 @@ const libraryErrorResponseSchema = {
     },
 } as const;
 
+const libraryCardDetailResponseSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: [
+        'card_id', 'revision', 'family', 'password',
+        'structure', 'localizations', 'confirmations',
+        'classification', 'relations', 'provenance',
+    ],
+    properties: {
+        card_id: { type: 'string' },
+        revision: { type: 'string' },
+        family: { type: 'string', enum: [...CANONICAL_CARD_FAMILIES] },
+        password: nullableStringSchema,
+        structure: structureResponseSchema,
+        localizations: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['language', 'name', 'card_text', 'pendulum_text'],
+                properties: {
+                    language: { type: 'string', enum: [...CANONICAL_LANGUAGES] },
+                    name: nullableStringSchema,
+                    card_text: nullableStringSchema,
+                    pendulum_text: nullableStringSchema,
+                },
+            },
+        },
+        confirmations: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['block', 'state', 'provenance_id'],
+                properties: {
+                    block: { type: 'string', enum: [...SEMANTIC_BLOCK_KEYS] },
+                    state: { type: 'string', enum: ['DRAFT', 'CONFIRMED'] },
+                    provenance_id: nullableIntegerSchema,
+                },
+            },
+        },
+        classification: {
+            type: 'object',
+            additionalProperties: false,
+            required: ['effect_reviewed', 'archetypes', 'effect_classifiers', 'functional_tags'],
+            properties: {
+                effect_reviewed: { type: 'boolean' },
+                archetypes: { type: 'array', items: registryEntitySchema },
+                effect_classifiers: { type: 'array', items: registryEntitySchema },
+                functional_tags: { type: 'array', items: registryEntitySchema },
+            },
+        },
+        relations: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: [
+                    'relation_id', 'source_card_id', 'target_card_id',
+                    'relation_type_code', 'note',
+                ],
+                properties: {
+                    relation_id: { type: 'string' },
+                    source_card_id: { type: 'string' },
+                    target_card_id: { type: 'string' },
+                    relation_type_code: { type: 'string' },
+                    note: nullableStringSchema,
+                },
+            },
+        },
+        provenance: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: [
+                    'provenance_id', 'target_kind', 'target_key',
+                    'source_kind', 'source_ref', 'note', 'created_at',
+                ],
+                properties: {
+                    provenance_id: { type: 'integer' },
+                    target_kind: { type: 'string' },
+                    target_key: { type: 'string' },
+                    source_kind: { type: 'string' },
+                    source_ref: nullableStringSchema,
+                    note: nullableStringSchema,
+                    created_at: { type: 'string' },
+                },
+            },
+        },
+    },
+} as const;
+
+const libraryEditorMetadataResponseSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: [
+        'languages', 'summon_kinds', 'attributes', 'races', 'abilities',
+        'link_markers', 'spell_subtypes', 'trap_subtypes',
+        'archetypes', 'effect_classifiers', 'functional_tags', 'relation_types',
+    ],
+    properties: {
+        languages: { type: 'array', items: { type: 'string', enum: [...CANONICAL_LANGUAGES] } },
+        summon_kinds: { type: 'array', items: { type: 'string' } },
+        attributes: { type: 'array', items: { type: 'string' } },
+        races: { type: 'array', items: { type: 'string' } },
+        abilities: { type: 'array', items: { type: 'string' } },
+        link_markers: { type: 'array', items: { type: 'string' } },
+        spell_subtypes: { type: 'array', items: { type: 'string' } },
+        trap_subtypes: { type: 'array', items: { type: 'string' } },
+        archetypes: { type: 'array', items: registryEntitySchema },
+        effect_classifiers: { type: 'array', items: registryEntitySchema },
+        functional_tags: { type: 'array', items: registryEntitySchema },
+        relation_types: { type: 'array', items: { type: 'string' } },
+    },
+} as const;
+
+const createCardBodySchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['family'],
+    properties: {
+        family: { type: 'string', enum: [...CANONICAL_CARD_FAMILIES] },
+        password: nullableStringSchema,
+    },
+} as const;
+
+const patchCardBodySchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['expected_revision'],
+    properties: {
+        expected_revision: { type: 'string', minLength: 1 },
+        password: nullableStringSchema,
+        structure: structureInputSchema,
+        localizations: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['language', 'name', 'card_text', 'pendulum_text'],
+                properties: {
+                    language: { type: 'string', enum: [...CANONICAL_LANGUAGES] },
+                    name: nullableStringSchema,
+                    card_text: nullableStringSchema,
+                    pendulum_text: nullableStringSchema,
+                },
+            },
+        },
+        classification: {
+            type: 'object',
+            additionalProperties: false,
+            properties: {
+                effect_reviewed: { type: 'boolean' },
+                archetype_ids: { type: 'array', items: { type: 'string' } },
+                effect_classifier_ids: { type: 'array', items: { type: 'string' } },
+                functional_tag_ids: { type: 'array', items: { type: 'string' } },
+            },
+        },
+        relations: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['target_card_id', 'relation_type_code'],
+                properties: {
+                    target_card_id: { type: 'string', minLength: 1 },
+                    relation_type_code: { type: 'string', minLength: 1 },
+                    note: nullableStringSchema,
+                    provenance: sourceProvenanceSchema,
+                },
+            },
+        },
+        confirmations: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['block', 'state'],
+                properties: {
+                    block: { type: 'string', enum: [...SEMANTIC_BLOCK_KEYS] },
+                    state: { type: 'string', enum: ['DRAFT', 'CONFIRMED'] },
+                    provenance: sourceProvenanceSchema,
+                },
+            },
+        },
+        provenance: {
+            type: 'array',
+            items: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['target_kind', 'target_key', 'source_kind'],
+                properties: {
+                    target_kind: { type: 'string', minLength: 1 },
+                    target_key: { type: 'string', minLength: 1 },
+                    source_kind: { type: 'string', minLength: 1 },
+                    source_ref: nullableStringSchema,
+                    note: nullableStringSchema,
+                },
+            },
+        },
+    },
+} as const;
+
 type LibraryHttpQuery = {
     query?: string;
     preferred_language?: 'EN' | 'ES' | 'JP';
@@ -125,16 +483,76 @@ type LibraryHttpQuery = {
     offset?: number;
 };
 
+const isSqliteConstraintError = (error: unknown): error is Error =>
+    error instanceof Error
+    && (
+        error.message.includes('FOREIGN KEY constraint failed')
+        || error.message.includes('CHECK constraint failed')
+        || error.message.includes('UNIQUE constraint failed')
+        || error.message.includes('NOT NULL constraint failed')
+    );
+
+const sendDomainError = (reply: FastifyReply, error: CanonicalDomainError) => {
+    if (error.code === 'NOT_FOUND') {
+        return reply.code(404).send({ code: 'NOT_FOUND', message: error.message });
+    }
+    if (error.code === 'REVISION_CONFLICT') {
+        return reply.code(409).send({ code: 'REVISION_CONFLICT', message: error.message });
+    }
+    return reply.code(422).send({ code: 'DOMAIN_VALIDATION', message: error.message });
+};
+
+const sendMutationFailure = (reply: FastifyReply, error: unknown) => {
+    if (error instanceof CanonicalDomainError) {
+        return sendDomainError(reply, error);
+    }
+    if (isSqliteConstraintError(error)) {
+        return reply.code(422).send({
+            code: 'DOMAIN_VALIDATION',
+            message: error.message,
+        });
+    }
+    throw error;
+};
+
+const workspaceNotReady = (reply: FastifyReply, status: WorkspaceStatus) =>
+    reply.code(503).send({
+        code: 'WORKSPACE_NOT_READY',
+        message: `Workspace is not READY (state: ${status.state}).`,
+    });
+
 export const buildWorkspaceApp = (
     status: WorkspaceStatus,
     {
         logger = false,
         library = null,
-    }: { logger?: boolean; library?: LibraryQueryService | null } = {},
+        canonical = null,
+        persistence = null,
+    }: {
+        logger?: boolean;
+        library?: LibraryQueryService | null;
+        canonical?: CanonicalDomainService | null;
+        persistence?: WorkspacePersistence | null;
+    } = {},
 ): FastifyInstance => {
-    const app = Fastify({ logger });
+    const app = Fastify({
+        logger,
+        ajv: {
+            customOptions: {
+                // Reject undeclared body/query properties (do not silently strip family/link_rating).
+                removeAdditional: false,
+            },
+        },
+    });
 
-    const requireLibrary = () => library;
+    const requireReadyLibrary = () =>
+        library && status.state === 'READY' ? library : null;
+
+    const requireReadyCanonical = () =>
+        canonical && status.state === 'READY' ? canonical : null;
+
+    const requireReadyPersistence = () =>
+        persistence && status.state === 'READY' ? persistence : null;
 
     app.get('/api/v1/workspace/status', {
         schema: {
@@ -167,12 +585,9 @@ export const buildWorkspaceApp = (
         },
     }, async (request, reply) => {
         const query = request.query;
-        const libraryService = requireLibrary();
-        if (!libraryService || status.state !== 'READY') {
-            return reply.code(503).send({
-                code: 'WORKSPACE_NOT_READY',
-                message: `Workspace is not READY (state: ${status.state}).`,
-            });
+        const libraryService = requireReadyLibrary();
+        if (!libraryService) {
+            return workspaceNotReady(reply, status);
         }
         const input: LibraryBrowseInput = {
             ...(query.query !== undefined ? { query: query.query } : {}),
@@ -201,15 +616,128 @@ export const buildWorkspaceApp = (
             },
         },
     }, async (_request, reply) => {
-        const libraryService = requireLibrary();
-        if (!libraryService || status.state !== 'READY') {
-            return reply.code(503).send({
-                code: 'WORKSPACE_NOT_READY',
-                message: `Workspace is not READY (state: ${status.state}).`,
-            });
+        const libraryService = requireReadyLibrary();
+        if (!libraryService) {
+            return workspaceNotReady(reply, status);
         }
         return libraryService.facets();
     });
+
+    app.get('/api/v1/library/editor-metadata', {
+        schema: {
+            response: {
+                200: libraryEditorMetadataResponseSchema,
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (_request, reply) => {
+        const readyPersistence = requireReadyPersistence();
+        if (!readyPersistence) {
+            return workspaceNotReady(reply, status);
+        }
+        return loadLibraryEditorMetadata(readyPersistence);
+    });
+
+    app.get<{ Params: { card_id: string } }>('/api/v1/library/cards/:card_id', {
+        schema: {
+            params: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['card_id'],
+                properties: {
+                    card_id: { type: 'string', minLength: 1 },
+                },
+            },
+            response: {
+                200: libraryCardDetailResponseSchema,
+                404: libraryErrorResponseSchema,
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (request, reply) => {
+        const domain = requireReadyCanonical();
+        if (!domain) {
+            return workspaceNotReady(reply, status);
+        }
+        try {
+            const snapshot = domain.getCard(request.params.card_id);
+            if (!snapshot) {
+                return reply.code(404).send({
+                    code: 'NOT_FOUND',
+                    message: `Canonical card ${request.params.card_id} was not found.`,
+                });
+            }
+            return toLibraryCardDetailDto(snapshot);
+        } catch (error) {
+            if (error instanceof CanonicalDomainError) {
+                return sendDomainError(reply, error);
+            }
+            throw error;
+        }
+    });
+
+    app.post<{ Body: CreateLibraryCardBody }>('/api/v1/library/cards', {
+        schema: {
+            body: createCardBodySchema,
+            response: {
+                200: libraryCardDetailResponseSchema,
+                422: libraryErrorResponseSchema,
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (request, reply) => {
+        const domain = requireReadyCanonical();
+        if (!domain) {
+            return workspaceNotReady(reply, status);
+        }
+        try {
+            const snapshot = domain.createCard(toCreateCanonicalCardInput(request.body));
+            return toLibraryCardDetailDto(snapshot);
+        } catch (error) {
+            return sendMutationFailure(reply, error);
+        }
+    });
+
+    app.patch<{ Params: { card_id: string }; Body: PatchLibraryCardBody }>(
+        '/api/v1/library/cards/:card_id',
+        {
+            schema: {
+                params: {
+                    type: 'object',
+                    additionalProperties: false,
+                    required: ['card_id'],
+                    properties: {
+                        card_id: { type: 'string', minLength: 1 },
+                    },
+                },
+                body: patchCardBodySchema,
+                response: {
+                    200: libraryCardDetailResponseSchema,
+                    404: libraryErrorResponseSchema,
+                    409: libraryErrorResponseSchema,
+                    422: libraryErrorResponseSchema,
+                    503: libraryErrorResponseSchema,
+                },
+            },
+        },
+        async (request, reply) => {
+            const domain = requireReadyCanonical();
+            if (!domain) {
+                return workspaceNotReady(reply, status);
+            }
+            try {
+                const { expectedRevision, mutation } = toCanonicalCardMutation(request.body);
+                const snapshot = domain.mutateCard(
+                    request.params.card_id,
+                    expectedRevision,
+                    mutation,
+                );
+                return toLibraryCardDetailDto(snapshot);
+            } catch (error) {
+                return sendMutationFailure(reply, error);
+            }
+        },
+    );
 
     return app;
 };
