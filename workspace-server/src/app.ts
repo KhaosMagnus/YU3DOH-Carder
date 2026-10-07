@@ -1,5 +1,12 @@
 import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
 import type { AssetIndexerService } from './assets/indexer';
+import {
+    CarderPrepareError,
+    CarderPrepareService,
+    resolveAssetContent,
+    toPrepareWorkingCardRequest,
+    type PrepareWorkingCardHttpBody,
+} from './carder';
 import { CanonicalDomainError } from './canonical/errors';
 import type { CanonicalDomainService } from './canonical/service';
 import {
@@ -557,6 +564,8 @@ export const buildWorkspaceApp = (
         assets = null,
         managedAssets = null,
         libraryAssets = null,
+        carderPrepare = null,
+        workspaceRoot = '',
     }: {
         logger?: boolean;
         library?: LibraryQueryService | null;
@@ -565,6 +574,8 @@ export const buildWorkspaceApp = (
         assets?: AssetIndexerService | null;
         managedAssets?: ManagedAssetIngestService | null;
         libraryAssets?: LibraryAssetService | null;
+        carderPrepare?: CarderPrepareService | null;
+        workspaceRoot?: string;
     } = {},
 ): FastifyInstance => {
     const app = Fastify({
@@ -589,9 +600,44 @@ export const buildWorkspaceApp = (
     const requireReadyLibraryAssets = () =>
         libraryAssets && status.state === 'READY' ? libraryAssets : null;
 
+    const requireReadyCarderPrepare = () =>
+        carderPrepare && status.state === 'READY' ? carderPrepare : null;
+
+    const requireReadyPersistenceForCarder = () =>
+        persistence && status.state === 'READY' ? persistence : null;
+
     // Keep references so callers/tests can assert injection without unused-binding elision.
     void assets;
     void managedAssets;
+
+    const sendCarderError = (reply: FastifyReply, error: CarderPrepareError) => {
+        if (error.code === 'NOT_FOUND') {
+            return reply.code(404).send({ code: 'NOT_FOUND', message: error.message });
+        }
+        if (error.code === 'REVISION_CONFLICT') {
+            return reply.code(409).send({ code: 'REVISION_CONFLICT', message: error.message });
+        }
+        if (error.code === 'ASSET_STALE') {
+            return reply.code(409).send({ code: 'ASSET_STALE', message: error.message });
+        }
+        if (error.code === 'CARDER_MAPPING_UNSUPPORTED') {
+            return reply.code(422).send({ code: 'CARDER_MAPPING_UNSUPPORTED', message: error.message });
+        }
+        return reply.code(422).send({ code: 'CARDER_PREPARATION_NOT_READY', message: error.message });
+    };
+
+    const prepareWorkingCardBodySchema = {
+        type: 'object',
+        additionalProperties: false,
+        required: ['card_id', 'variant_id', 'composition', 'content_language', 'expected_revision'],
+        properties: {
+            card_id: { type: 'string', minLength: 1 },
+            variant_id: { type: 'string', minLength: 1 },
+            composition: { type: 'string', enum: ['STANDARD', 'OVERFRAME'] },
+            content_language: { type: 'string', enum: [...CANONICAL_LANGUAGES] },
+            expected_revision: { type: 'string', minLength: 1 },
+        },
+    } as const;
 
     app.get('/api/v1/workspace/status', {
         schema: {
@@ -891,6 +937,88 @@ export const buildWorkspaceApp = (
         }
     });
 
+
+    app.post<{ Body: PrepareWorkingCardHttpBody }>('/api/v1/carder/prepare-working-card', {
+        schema: {
+            body: prepareWorkingCardBodySchema,
+            response: {
+                404: libraryErrorResponseSchema,
+                409: libraryErrorResponseSchema,
+                422: libraryErrorResponseSchema,
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (request, reply) => {
+        const service = requireReadyCarderPrepare();
+        if (!service) {
+            return workspaceNotReady(reply, status);
+        }
+        try {
+            return service.prepareWorkingCard(toPrepareWorkingCardRequest(request.body));
+        } catch (error) {
+            if (error instanceof CarderPrepareError) {
+                return sendCarderError(reply, error);
+            }
+            throw error;
+        }
+    });
+
+    app.get<{
+        Params: { asset_id: string };
+        Querystring: { hash?: string; path?: string };
+    }>('/api/v1/carder/assets/:asset_id/content', {
+        schema: {
+            params: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['asset_id'],
+                properties: {
+                    asset_id: { type: 'string', minLength: 1 },
+                },
+            },
+            querystring: {
+                type: 'object',
+                additionalProperties: false,
+                properties: {
+                    hash: { type: 'string' },
+                    path: { type: 'string' },
+                },
+            },
+            response: {
+                409: libraryErrorResponseSchema,
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (request, reply) => {
+        const readyPersistence = requireReadyPersistenceForCarder();
+        if (!readyPersistence || status.state !== 'READY') {
+            return workspaceNotReady(reply, status);
+        }
+        // Reject path-like client inputs as a content source (Design §43).
+        if (typeof request.query.path === 'string' && request.query.path.length > 0) {
+            return reply.code(409).send({
+                code: 'ASSET_STALE',
+                message: 'Filesystem path query is not accepted for asset content.',
+            });
+        }
+        try {
+            const resolved = resolveAssetContent(
+                workspaceRoot,
+                readyPersistence,
+                request.params.asset_id,
+                request.query.hash,
+            );
+            reply.header('Cache-Control', 'no-store');
+            reply.header('Content-Type', resolved.contentType);
+            reply.header('Content-Length', String(resolved.sizeBytes));
+            return reply.send(resolved.openStream());
+        } catch (error) {
+            if (error instanceof CarderPrepareError) {
+                return sendCarderError(reply, error);
+            }
+            throw error;
+        }
+    });
 
     return app;
 };

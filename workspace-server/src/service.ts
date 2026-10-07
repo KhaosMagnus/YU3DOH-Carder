@@ -4,6 +4,7 @@ import { CanonicalDomainService } from './canonical/service';
 import { ManagedAssetIngestService } from './managed-assets/service';
 import { LibraryAssetService } from './library/asset-service';
 import { LibraryQueryService } from './library/service';
+import { CarderPrepareService } from './carder/prepare-service';
 import { buildWorkspaceApp } from './app';
 import type { WorkspaceServiceConfig } from './config';
 import type { WorkspacePersistence } from './persistence/database';
@@ -19,6 +20,7 @@ export type WorkspaceService = {
     managedAssets: ManagedAssetIngestService | null;
     library: LibraryQueryService | null;
     libraryAssets: LibraryAssetService | null;
+    carderPrepare: CarderPrepareService | null;
     close: () => Promise<void>;
 };
 
@@ -37,6 +39,9 @@ export const createWorkspaceService = async (
     const libraryAssets = persistence && assets && managedAssets && canonical
         ? new LibraryAssetService(persistence, assets, managedAssets, canonical)
         : null;
+    const carderPrepare = persistence && assets && canonical
+        ? new CarderPrepareService(canonical, assets)
+        : null;
     const app = buildWorkspaceApp(status, {
         logger,
         library,
@@ -45,6 +50,8 @@ export const createWorkspaceService = async (
         assets,
         managedAssets,
         libraryAssets,
+        carderPrepare,
+        workspaceRoot: config.workspaceRoot,
     });
     let closePromise: Promise<void> | undefined;
 
@@ -68,6 +75,7 @@ export const createWorkspaceService = async (
         managedAssets,
         library,
         libraryAssets,
+        carderPrepare,
         close,
     };
 };
