@@ -293,7 +293,11 @@ assert.equal(readinessLabel(tags.standard), 'READY');
 assert.equal(slotStateLabel('EMPTY'), 'Empty');
 assert.equal(slotStateLabel('CONFLICT'), 'Conflict');
 assert.equal(slotStateLabel('MISSING'), 'Missing source');
+assert.equal(slotStateLabel('INVALID'), 'Invalid');
 assert.notEqual(slotStateLabel('EMPTY'), slotStateLabel('CONFLICT'));
+assert.notEqual(slotStateLabel('EMPTY'), slotStateLabel('MISSING'));
+assert.notEqual(slotStateLabel('EMPTY'), slotStateLabel('INVALID'));
+assert.notEqual(slotStateLabel('MISSING'), slotStateLabel('INVALID'));
 assert.equal(ownershipLabel('managed'), 'Managed');
 assert.equal(ownershipLabel('unmanaged'), 'Indexed / unmanaged');
 

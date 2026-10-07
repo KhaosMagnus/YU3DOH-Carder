@@ -489,9 +489,12 @@ test('missing source is retained as missing while Canonical card and Art Variant
     const assetPath = await writeAsset(root, '51000001-Name-BS-Default.png');
     const first = await assets.scan();
     assert.equal(first.variants.length, 1);
+    const firstVariantId = first.assets[0]?.variantId;
+    assert.ok(firstVariantId);
     await unlink(assetPath);
     const second = await assets.scan();
     assert.equal(second.assets[0]?.present, false);
+    assert.equal(second.assets[0]?.variantId, firstVariantId);
     assert.equal(second.diagnostics.some(item => item.code === 'MISSING_SOURCE'), true);
     assert.ok(canonical.getCard(card.cardId));
     assert.equal(assets.listVariants(card.cardId).length, 1);
@@ -616,11 +619,17 @@ test('compressed BMP encodings are rejected while valid uncompressed BMP remains
 
     assert.equal(missing?.validAsset, false);
     assert.equal(truncated?.validAsset, false);
-    assert.equal(missing?.variantId, null);
-    assert.equal(truncated?.variantId, null);
+    // Diagnostic association retained when filename is knowable — not authoritative binding.
+    assert.ok(missing?.variantId);
+    assert.ok(truncated?.variantId);
+    assert.equal(missing?.cardId != null, true);
+    assert.equal(truncated?.cardId != null, true);
     assert.equal(valid?.validAsset, true);
     assert.ok(valid?.variantId);
     assert.equal(scan.diagnostics.filter(item => item.code === 'INVALID_IMAGE').length, 2);
+    // Invalid assets must not contribute bindings / readiness.
+    assert.equal(scan.variants.find(item => item.cardId === missing?.cardId)?.roles.BS, null);
+    assert.equal(scan.variants.find(item => item.cardId === truncated?.cardId)?.roles.BS, null);
     await service.close();
 });
 
@@ -635,7 +644,8 @@ test('malformed BMP cannot bind a role or make Standard/Overframe READY', async 
     const variant = scan.variants.find(item => item.cardId === card.cardId);
     assert.ok(variant);
     assert.equal(malformed?.validAsset, false);
-    assert.equal(malformed?.variantId, null);
+    assert.ok(malformed?.variantId);
+    assert.equal(malformed?.cardId, card.cardId);
     assert.equal(variant.roles.BG, null);
     assert.ok(variant.roles.OF);
     assert.deepEqual(variant.standard, { state: 'INCOMPLETE', sources: [] });
@@ -672,5 +682,31 @@ test('current-schema Workspace is READY and status endpoint reports database_sch
     const response = await service.app.inject({ method: 'GET', url: '/api/v1/workspace/status' });
     assert.equal(response.statusCode, 200);
     assert.equal(response.json().database_schema_version, 4);
+    await service.close();
+});
+
+
+test('QA-008-01 invalid knowable unmanaged persists diagnostic association without binding', async () => {
+    const { root, service, canonical, assets } = await readyService('qa invalid knowable');
+    const card = canonical.createCard({ family: 'SPELL', password: '59000001' });
+    const assetPath = await writeAsset(root, '59000001-Name-BS-Default.png', png(255));
+    const first = await assets.scan();
+    assert.equal(first.variants.find(item => item.cardId === card.cardId)?.roles.BS?.validAsset, true);
+    const variantId = first.assets[0]?.variantId;
+    assert.ok(variantId);
+    await writeFile(assetPath, Buffer.from('corrupt-bytes'));
+    const second = await assets.scan();
+    const invalid = second.assets.find(item => item.relativePath.endsWith('59000001-Name-BS-Default.png'));
+    assert.ok(invalid);
+    assert.equal(invalid.validAsset, false);
+    assert.equal(invalid.present, true);
+    assert.equal(invalid.variantId, variantId);
+    assert.equal(invalid.cardId, card.cardId);
+    assert.equal(invalid.associationState, 'RESOLVED');
+    const variant = second.variants.find(item => item.cardId === card.cardId);
+    assert.ok(variant);
+    assert.equal(variant.roles.BS, null);
+    assert.deepEqual(variant.standard, { state: 'INCOMPLETE', sources: [] });
+    assert.equal(second.diagnostics.some(item => item.code === 'INVALID_IMAGE'), true);
     await service.close();
 });

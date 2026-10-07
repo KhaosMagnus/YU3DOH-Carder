@@ -641,7 +641,7 @@ test('unknown card ingest returns 404 NOT_FOUND', async () => {
     await service.close();
 });
 
-test('MISSING and INVALID slot states are distinguishable from EMPTY', async () => {
+test('synthetic MISSING/INVALID projection remains distinguishable from EMPTY (DTO auxiliary)', async () => {
     const { service } = await readyService('slot-states');
     const card = createCard(service, '80000012');
     insertVariantState(service, card.cardId, 'missing', ['BS'], { missingRole: 'BS' });
@@ -654,5 +654,101 @@ test('MISSING and INVALID slot states are distinguishable from EMPTY', async () 
     assert.equal(byKey.empty.roles.BS.slot_state, 'EMPTY');
     assert.equal(byKey.empty.roles.BG.slot_state, 'EMPTY');
     assert.equal(byKey.empty.roles.OF.slot_state, 'EMPTY');
+    await service.close();
+});
+
+
+test('QA-008-01 real MISSING unmanaged: delete+Rescan yields MISSING not EMPTY', async () => {
+    const { service, root } = await readyService('real-missing');
+    const card = createCard(service, '80000091');
+    const relative = `${card.password}-Name-BS-Default.png`;
+    const absolute = await writeAsset(root, relative, png(255));
+    const rescan1 = await service.app.inject({ method: 'POST', url: '/api/v1/library/assets/rescan' });
+    assert.equal(rescan1.statusCode, 200);
+    const before = JSON.parse((await service.app.inject({
+        method: 'GET',
+        url: `/api/v1/library/cards/${card.cardId}/variants`,
+    })).body);
+    assert.equal(before.variants.length, 1);
+    const variantId = before.variants[0].variant_id;
+    assert.equal(before.variants[0].roles.BS.slot_state, 'BOUND');
+    assert.equal(before.variants[0].standard.state, 'READY');
+
+    await rm(absolute);
+    const rescan2 = await service.app.inject({ method: 'POST', url: '/api/v1/library/assets/rescan' });
+    assert.equal(rescan2.statusCode, 200);
+    const after = JSON.parse((await service.app.inject({
+        method: 'GET',
+        url: `/api/v1/library/cards/${card.cardId}/variants`,
+    })).body);
+    assert.equal(after.variants.length, 1);
+    assert.equal(after.variants[0].variant_id, variantId);
+    assert.equal(after.variants[0].variant_key, 'default');
+    assert.equal(after.variants[0].roles.BS.slot_state, 'MISSING');
+    assert.notEqual(after.variants[0].roles.BS.slot_state, 'EMPTY');
+    assert.ok(after.variants[0].roles.BS.issues.some((issue: { code: string }) => issue.code === 'MISSING_SOURCE'));
+    assert.equal(after.variants[0].standard.state, 'INCOMPLETE');
+    assert.equal(after.variants[0].roles.BG.slot_state, 'EMPTY');
+    assert.equal(after.variants[0].roles.OF.slot_state, 'EMPTY');
+    // Problem asset metadata may surface without authoritative binding.
+    if (after.variants[0].roles.BS.asset) {
+        assert.equal(after.variants[0].roles.BS.asset.present, false);
+        assert.equal(after.variants[0].roles.BS.asset.ownership, 'unmanaged');
+    }
+    const needs = JSON.parse((await service.app.inject({
+        method: 'GET',
+        url: '/api/v1/library/needs-attention',
+    })).body);
+    const missingItem = needs.items.find((item: { code: string }) => item.code === 'MISSING_SOURCE');
+    assert.ok(missingItem);
+    assert.equal(missingItem.variant_id, variantId);
+    assert.equal(missingItem.role, 'BS');
+    assert.equal(missingItem.card_id, card.cardId);
+    await service.close();
+});
+
+test('QA-008-01 real INVALID unmanaged: corrupt+Rescan yields INVALID not EMPTY', async () => {
+    const { service, root } = await readyService('real-invalid');
+    const card = createCard(service, '80000092');
+    const relative = `${card.password}-Name-BS-Default.png`;
+    const absolute = await writeAsset(root, relative, png(255));
+    const rescan1 = await service.app.inject({ method: 'POST', url: '/api/v1/library/assets/rescan' });
+    assert.equal(rescan1.statusCode, 200);
+    const before = JSON.parse((await service.app.inject({
+        method: 'GET',
+        url: `/api/v1/library/cards/${card.cardId}/variants`,
+    })).body);
+    assert.equal(before.variants[0].roles.BS.slot_state, 'BOUND');
+    assert.equal(before.variants[0].standard.state, 'READY');
+    const variantId = before.variants[0].variant_id;
+
+    await writeFile(absolute, Buffer.from('not-a-png-corrupt'));
+    const rescan2 = await service.app.inject({ method: 'POST', url: '/api/v1/library/assets/rescan' });
+    assert.equal(rescan2.statusCode, 200);
+    const after = JSON.parse((await service.app.inject({
+        method: 'GET',
+        url: `/api/v1/library/cards/${card.cardId}/variants`,
+    })).body);
+    assert.equal(after.variants.length, 1);
+    assert.equal(after.variants[0].variant_id, variantId);
+    assert.equal(after.variants[0].roles.BS.slot_state, 'INVALID');
+    assert.notEqual(after.variants[0].roles.BS.slot_state, 'EMPTY');
+    assert.ok(after.variants[0].roles.BS.issues.some((issue: { code: string }) => issue.code === 'INVALID_IMAGE'));
+    assert.equal(after.variants[0].standard.state, 'INCOMPLETE');
+    assert.equal(after.variants[0].overframe.state, 'INCOMPLETE');
+    // No authoritative binding contribution: asset present but invalid may show metadata.
+    if (after.variants[0].roles.BS.asset) {
+        assert.equal(after.variants[0].roles.BS.asset.valid_asset, false);
+        assert.equal(after.variants[0].roles.BS.asset.ownership, 'unmanaged');
+    }
+    const needs = JSON.parse((await service.app.inject({
+        method: 'GET',
+        url: '/api/v1/library/needs-attention',
+    })).body);
+    const invalidItem = needs.items.find((item: { code: string; role: string | null }) =>
+        item.code === 'INVALID_IMAGE' && item.role === 'BS');
+    assert.ok(invalidItem);
+    assert.equal(invalidItem.variant_id, variantId);
+    assert.equal(invalidItem.card_id, card.cardId);
     await service.close();
 });
