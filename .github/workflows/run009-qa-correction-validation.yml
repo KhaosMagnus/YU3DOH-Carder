@@ -58,7 +58,8 @@ jobs:
         run: |
           test "$(git hash-object yarn.lock)" = "a5003d51b712a08b0997f252e6a1db264be54cc3"
           test "$(git hash-object workspace-server/yarn.lock)" = "d5bb84eb4f32267e3854838385fdcbb83591f9e0"
-          git diff --exit-code e54800629e46f8fccd653b0bef637dd71e9b97a3 -- yarn.lock workspace-server/yarn.lock package.json workspace-server/package.json
+          git diff --exit-code e54800629e46f8fccd653b0bef637dd71e9b97a3 -- yarn.lock workspace-server/yarn.lock
+          git diff --exit-code 16ffdd724e523a6caafcc6a679cdf4c61ebf08c2 -- package.json workspace-server/package.json
 
       - name: Install root dependencies frozen
         run: yarn install --frozen-lockfile
