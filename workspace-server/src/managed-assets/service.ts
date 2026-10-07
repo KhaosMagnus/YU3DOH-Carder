@@ -264,6 +264,23 @@ export class ManagedAssetIngestService {
         const requestFingerprint = fingerprintFor(
             input.cardId, variantKey, role, sourceImage.contentHash, extension,
         );
+
+        try {
+            await this.assets.scan();
+        } catch (error) {
+            throw new ManagedAssetIngestError('INDEX_RECONCILIATION_FAILED', 'Pre-ingest asset reconciliation failed.', { cause: error });
+        }
+
+        const existingVariant = this.getVariant(input.cardId, variantKey);
+        const occupied = existingVariant
+            ? this.persistence.runRepositoryOperation(database =>
+                countCurrentRoleCandidates(database, input.cardId, variantKey, role))
+            : 0;
+        const existingManaged = existingVariant
+            ? this.persistence.runRepositoryOperation(database =>
+                findManagedAssetByTarget(database, existingVariant.variant_id, role))
+            : null;
+
         const priorRequest = this.persistence.runRepositoryOperation(database =>
             findIngestRequest(database, idempotencyKey));
         if (priorRequest) {
@@ -275,21 +292,24 @@ export class ManagedAssetIngestService {
             if (!existing) {
                 throw new ManagedAssetIngestError('PERSISTENCE_FAILED', 'Idempotency record points to a missing managed asset.');
             }
+            if (occupied > 1) {
+                throw new ManagedAssetIngestError(
+                    'TARGET_CONFLICT',
+                    'Target role has multiple current candidates; resolve the RUN 004 role conflict before ingest.',
+                );
+            }
             await this.verifyExistingManagedFile(existing, sourceImage.contentHash);
             return this.resultFor(existing, true);
         }
 
-        try {
-            await this.assets.scan();
-        } catch (error) {
-            throw new ManagedAssetIngestError('INDEX_RECONCILIATION_FAILED', 'Pre-ingest asset reconciliation failed.', { cause: error });
-        }
-
-        const existingVariant = this.getVariant(input.cardId, variantKey);
         if (existingVariant) {
-            const existingManaged = this.persistence.runRepositoryOperation(database =>
-                findManagedAssetByTarget(database, existingVariant.variant_id, role));
             if (existingManaged) {
+                if (occupied > 1) {
+                    throw new ManagedAssetIngestError(
+                        'TARGET_CONFLICT',
+                        'Target role has multiple current candidates; resolve the RUN 004 role conflict before ingest.',
+                    );
+                }
                 if (existingManaged.contentHash !== sourceImage.contentHash) {
                     throw new ManagedAssetIngestError('TARGET_CONFLICT', 'Managed target already contains different content; replacement is not implemented.');
                 }
@@ -310,8 +330,6 @@ export class ManagedAssetIngestService {
                 return this.resultFor(existingManaged, true);
             }
 
-            const occupied = this.persistence.runRepositoryOperation(database =>
-                countCurrentRoleCandidates(database, input.cardId, variantKey, role));
             if (occupied > 0) {
                 throw new ManagedAssetIngestError('TARGET_CONFLICT', 'Target role is occupied by current unmanaged/conflicting asset state.');
             }

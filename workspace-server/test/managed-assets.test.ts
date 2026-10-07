@@ -439,6 +439,53 @@ test('manual unmanaged duplicate later produces ROLE_CONFLICT without managed pr
     await service.close();
 });
 
+test('existing managed same-hash target rejects retry when a later unmanaged duplicate creates ROLE_CONFLICT', async () => {
+    const { root, service, canonical, managed, assets }=await readyService('managed conflict retry');
+    const card=canonical.createCard({family:'SPELL',password:'66000004'});
+    const source=await sourceFile(root,'source.png',png(255));
+    const first=await managed.ingest({
+        cardId:card.cardId,
+        variantKey:'Default',
+        role:'BS',
+        sourceFile:source,
+        idempotencyKey:'managed-conflict-original',
+    });
+
+    const duplicateDir=path.join(root,'Assets','User');
+    await mkdir(duplicateDir,{recursive:true});
+    await writeFile(path.join(duplicateDir,'66000004-Name-BS-Default.png'),png(255));
+    const conflicted=await assets.scan();
+    assert.equal(conflicted.diagnostics.some(item=>item.code==='ROLE_CONFLICT'),true);
+    assert.equal(assets.listVariants(card.cardId)[0]?.roles.BS,null);
+
+    await assert.rejects(
+        managed.ingest({
+            cardId:card.cardId,
+            variantKey:'Default',
+            role:'BS',
+            sourceFile:source,
+            idempotencyKey:'managed-conflict-new-key',
+        }),
+        expectCode('TARGET_CONFLICT'),
+    );
+
+    await assert.rejects(
+        managed.ingest({
+            cardId:card.cardId,
+            variantKey:'Default',
+            role:'BS',
+            sourceFile:source,
+            idempotencyKey:'managed-conflict-original',
+        }),
+        expectCode('TARGET_CONFLICT'),
+    );
+
+    assert.equal(managed.listManagedAssets().length,1);
+    assert.equal(first.managedAsset.managedAssetId,managed.listManagedAssets()[0]?.managedAssetId);
+    assert.equal(assets.listVariants(card.cardId)[0]?.roles.BS,null);
+    await service.close();
+});
+
 test('unmanaged RUN 004 filename parsing remains intact beside managed ownership', async () => {
     const { root, service, canonical, managed, assets }=await readyService('unmanaged regression');
     const managedCard=canonical.createCard({family:'SPELL',password:'67000001'}); const unmanagedCard=canonical.createCard({family:'SPELL',password:'67000002'});
