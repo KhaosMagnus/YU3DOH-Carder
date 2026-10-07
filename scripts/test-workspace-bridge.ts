@@ -311,37 +311,70 @@ checkSync('15 QUICK_PLAY → QUICK-PLAY', () => {
     assert.equal(mapSpellTrapSubFamily('SPELL', 'QUICK_PLAY'), 'QUICK-PLAY');
 });
 
-// T-C6 changed — language does NOT change renderer profile
-checkSync('16 language → region map', () => {
+// T-C6 changed — language does NOT change renderer profile (QA-009-08 hardening: renamed;
+// compares every non-localized stable field EN/ES/JP, excluding only id + localized text).
+checkSync('16 content_language does not change Carder profile — all non-localized stable fields equal (EN/ES/JP)', () => {
     const empty = getEmptyCard();
-    const en = prepareWorkingCard(baseDto({
-        identity: { ...baseDto().identity, content_language: 'EN' },
-        localized: { name: 'Dragon', card_text: 'EN text', pendulum_text: null },
-    })).card;
-    const es = prepareWorkingCard(baseDto({
-        identity: { ...baseDto().identity, content_language: 'ES' },
-        localized: { name: 'Dragón', card_text: 'ES text', pendulum_text: null },
-    })).card;
-    const jp = prepareWorkingCard(baseDto({
-        identity: { ...baseDto().identity, content_language: 'JP' },
-        localized: { name: 'ドラゴン', card_text: 'JP text', pendulum_text: null },
-    })).card;
-    assert.equal(en.format, empty.format);
-    assert.equal(en.region, empty.region);
-    assert.equal(es.format, empty.format);
-    assert.equal(es.region, empty.region);
-    assert.equal(jp.format, empty.format);
-    assert.equal(jp.region, empty.region);
-    assert.equal(en.format, es.format);
-    assert.equal(en.region, es.region);
-    assert.equal(en.format, jp.format);
-    assert.equal(en.region, jp.region);
-    assert.equal(en.frame, es.frame);
-    assert.equal(en.frame, jp.frame);
-    assert.equal(en.art, es.art);
-    assert.equal(en.art, jp.art);
-    assert.notEqual(en.name, es.name);
-    assert.notEqual(en.effect, jp.effect);
+    const localizedText: Record<'EN' | 'ES' | 'JP', PrepareWorkingCardDto['localized']> = {
+        EN: { name: 'Dragon', card_text: 'EN text', pendulum_text: 'EN pendulum' },
+        ES: { name: 'Dragón', card_text: 'Texto ES', pendulum_text: 'Péndulo ES' },
+        JP: { name: 'ドラゴン', card_text: 'JPテキスト', pendulum_text: 'ペンデュラムJP' },
+    };
+    const mapFor = (language: 'EN' | 'ES' | 'JP') => prepareWorkingCard(baseDto({
+        identity: { ...baseDto().identity, content_language: language },
+        localized: localizedText[language],
+        structure: {
+            ...baseDto().structure,
+            abilities: ['EFFECT', 'PENDULUM'],
+            pendulum_scale: 7,
+        },
+    }));
+    const en = mapFor('EN');
+    const es = mapFor('ES');
+    const jp = mapFor('JP');
+
+    // Excluded ONLY: InternalCard.id (fresh uuid) and localized name/effect/pendulum text.
+    const localizedCardFields = ['id', 'name', 'effect', 'pendulumEffect'] as const;
+    const stableCard = (card: InternalCard) => {
+        const copy: Record<string, unknown> = { ...card };
+        for (const key of localizedCardFields) delete copy[key];
+        return copy;
+    };
+    assert.deepEqual(stableCard(en.card), stableCard(es.card));
+    assert.deepEqual(stableCard(en.card), stableCard(jp.card));
+    // Sanity: the comparison covers every other field of InternalCard.
+    assert.equal(
+        Object.keys(stableCard(en.card)).length,
+        Object.keys(en.card).length - localizedCardFields.length,
+    );
+    assert.equal(en.card.isPendulum, true);
+    assert.equal(en.card.pendulumScaleRed, '7');
+
+    // P-4/P-5 not reopened: format/region stay getEmptyCard() defaults for every language.
+    for (const { card } of [en, es, jp]) {
+        assert.equal(card.format, empty.format);
+        assert.equal(card.region, empty.region);
+    }
+
+    // Localized fields DO follow the requested language.
+    for (const [language, { card }] of [['EN', en], ['ES', es], ['JP', jp]] as const) {
+        assert.equal(card.name, localizedText[language].name);
+        assert.equal(card.effect, localizedText[language].card_text);
+        assert.equal(card.pendulumEffect, localizedText[language].pendulum_text);
+    }
+    assert.notEqual(en.card.id, es.card.id);
+    assert.notEqual(en.card.id, jp.card.id);
+
+    // Session: only the language-bearing contentLanguage and transient preparedAt may differ.
+    const stableSession = (session: typeof en.session) => {
+        const { contentLanguage: _language, preparedAt: _preparedAt, ...rest } = session;
+        return rest;
+    };
+    assert.deepEqual(stableSession(en.session), stableSession(es.session));
+    assert.deepEqual(stableSession(en.session), stableSession(jp.session));
+    assert.equal(en.session.contentLanguage, 'EN');
+    assert.equal(es.session.contentLanguage, 'ES');
+    assert.equal(jp.session.contentLanguage, 'JP');
 });
 
 checkSync('17 ritual/fusion/synchro/xyz frames', () => {
