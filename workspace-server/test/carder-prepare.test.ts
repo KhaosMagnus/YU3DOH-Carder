@@ -13,6 +13,12 @@ import { SUPPORTED_WORKSPACE_FORMAT_VERSION, type WorkspaceManifest } from '../s
 import { buildWorkspaceApp } from '../src/app';
 import { assertStructureMappable } from '../src/carder/mapping-precheck';
 import { CarderPrepareError } from '../src/carder/errors';
+import {
+    CARDER_ASSET_GRANT_MAX_ENTRIES,
+    CARDER_ASSET_GRANT_TTL_MS,
+    CarderAssetGrantRegistry,
+    type CarderAssetGrantScope,
+} from '../src/carder/asset-grants';
 
 const roots: string[] = [];
 
@@ -31,10 +37,16 @@ const tempRoot = async (label: string) => {
     return root;
 };
 
-const readyService = async (label: string) => {
+const readyService = async (
+    label: string,
+    options: { carderAssetGrants?: CarderAssetGrantRegistry } = {},
+) => {
     const root = await tempRoot(label);
     bootstrapWorkspaceDatabase(root, manifest());
-    const service = await createWorkspaceService({ workspaceRoot: root, host: '127.0.0.1', port: 4312 });
+    const service = await createWorkspaceService(
+        { workspaceRoot: root, host: '127.0.0.1', port: 4312 },
+        options,
+    );
     assert.equal(service.status.state, 'READY');
     assert.ok(service.canonical);
     assert.ok(service.assets);
@@ -222,6 +234,118 @@ const confirmSpell = (
     });
 };
 
+// ---------- RUN 009 QA-009-08 helpers (prepared-composition grants) ----------
+
+type Ctx = Awaited<ReturnType<typeof readyService>>;
+type CardRef = { cardId: string; revision: string };
+type Composition = 'STANDARD' | 'OVERFRAME';
+type PreparedAsset = { role: AssetRole; asset_id: string; hash: string; content_url: string };
+
+const GRANT_TOKEN_PATTERN = /^[A-Za-z0-9_-]{22}\.[A-Za-z0-9_-]{43}$/;
+
+const preparePost = (
+    ctx: Ctx,
+    card: CardRef,
+    variantId: string,
+    composition: Composition,
+    language: 'EN' | 'ES' | 'JP' = 'EN',
+    expectedRevision: string = card.revision,
+) => ctx.service.app.inject({
+    method: 'POST',
+    url: '/api/v1/carder/prepare-working-card',
+    payload: {
+        card_id: card.cardId,
+        variant_id: variantId,
+        composition,
+        content_language: language,
+        expected_revision: expectedRevision,
+    },
+});
+
+const prepareFor = async (
+    ctx: Ctx,
+    card: CardRef,
+    variantId: string,
+    composition: Composition,
+    language: 'EN' | 'ES' | 'JP' = 'EN',
+) => {
+    const response = await preparePost(ctx, card, variantId, composition, language);
+    assert.equal(response.statusCode, 200, response.body);
+    return response.json() as { artwork: { sources: AssetRole[]; assets: PreparedAsset[] } } & Record<string, unknown>;
+};
+
+const emittedAsset = (body: { artwork: { assets: PreparedAsset[] } }, role: AssetRole) => {
+    const asset = body.artwork.assets.find(item => item.role === role);
+    assert.ok(asset, `prepare did not emit role ${role}`);
+    return asset;
+};
+
+const getUrl = (ctx: Ctx, url: string) => ctx.service.app.inject({ method: 'GET', url });
+
+/** Rewrite asset_id / hash / grant of a content URL via URL + searchParams (never string suffixes). */
+const withQuery = (
+    url: string,
+    patch: { asset_id?: string; hash?: string | null; grant?: string | null },
+) => {
+    const parsed = new URL(url, 'http://x');
+    if (patch.asset_id !== undefined) {
+        parsed.pathname = `/api/v1/carder/assets/${encodeURIComponent(patch.asset_id)}/content`;
+    }
+    for (const key of ['hash', 'grant'] as const) {
+        const value = patch[key];
+        if (value === null) parsed.searchParams.delete(key);
+        else if (value !== undefined) parsed.searchParams.set(key, value);
+    }
+    return `${parsed.pathname}${parsed.search}`;
+};
+
+const grantOf = (url: string) => new URL(url, 'http://x').searchParams.get('grant') ?? '';
+
+/** Prepare and return the emitted content_url for one role. */
+const grantedUrl = async (
+    ctx: Ctx,
+    card: CardRef,
+    variantId: string,
+    composition: Composition,
+    role: AssetRole,
+) => emittedAsset(await prepareFor(ctx, card, variantId, composition), role).content_url;
+
+/** Replaces the former ungranted content helper: prepare, then GET the emitted URL for that role. */
+const getGranted = async (
+    ctx: Ctx,
+    card: CardRef,
+    variantId: string,
+    composition: Composition,
+    role: AssetRole,
+) => getUrl(ctx, await grantedUrl(ctx, card, variantId, composition, role));
+
+/** Direct asset_id + hash without any grant (only for 403 tests). */
+const getUngranted = (ctx: Ctx, assetId: string, hash: string) =>
+    getUrl(ctx, `/api/v1/carder/assets/${encodeURIComponent(assetId)}/content?hash=${encodeURIComponent(hash)}`);
+
+const assertNotPrepared = (response: { statusCode: number; json: () => { code: string; message: string }; headers: Record<string, unknown>; rawPayload: Buffer }) => {
+    assert.equal(response.statusCode, 403, String(response.rawPayload));
+    assert.equal(response.json().code, 'CARDER_ASSET_NOT_PREPARED');
+    assert.equal(response.json().message, 'Asset content is not authorized by a prepared composition.');
+    assert.match(String(response.headers['content-type'] ?? ''), /^application\/json/);
+    assert.doesNotMatch(String(response.headers['content-type'] ?? ''), /^image\//);
+    assert.equal(response.headers['cache-control'], 'no-store');
+};
+
+const snapshotDb = (ctx: Ctx) => ctx.persistence.runRepositoryOperation(database => {
+    const tables = (database.prepare(
+        "SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%' ORDER BY name",
+    ).all() as Array<{ name: string }>).map(row => row.name);
+    const snapshot: Record<string, unknown[]> = {};
+    for (const table of tables) {
+        snapshot[table] = database.prepare(`SELECT * FROM "${table}" ORDER BY 1`).all();
+    }
+    return snapshot;
+});
+
+const countScans = (ctx: Ctx) => ctx.persistence.runRepositoryOperation(database =>
+    (database.prepare('SELECT COUNT(*) AS count FROM asset_index_scans').get() as { count: number }).count);
+
 test('1 happy STANDARD + EN prepare returns semantic DTO with relative URLs', async () => {
     const ctx = await readyService('happy-standard-en');
     const card = confirmMonsterStandard(ctx.canonical, '90000001', 'EN');
@@ -247,7 +371,13 @@ test('1 happy STANDARD + EN prepare returns semantic DTO with relative URLs', as
     assert.deepEqual(body.artwork.sources, ['BS']);
     assert.ok(roleAssets.BS);
     assert.equal(body.artwork.assets[0].asset_id, roleAssets.BS.assetId);
-    assert.equal(body.artwork.assets[0].content_url, `/api/v1/carder/assets/${roleAssets.BS.assetId}/content?hash=${roleAssets.BS.hash}`);
+    // QA-009-08: content_url = /api/v1/carder/assets/<BS id>/content?hash=<BS hash>&grant=<opaque token>
+    const contentUrl = new URL(body.artwork.assets[0].content_url, 'http://x');
+    assert.equal(body.artwork.assets[0].content_url.startsWith('/api/v1/carder/assets/'), true);
+    assert.equal(contentUrl.pathname, `/api/v1/carder/assets/${roleAssets.BS.assetId}/content`);
+    assert.equal(contentUrl.searchParams.get('hash'), roleAssets.BS.hash);
+    assert.match(contentUrl.searchParams.get('grant') ?? '', GRANT_TOKEN_PATTERN);
+    assert.deepEqual([...contentUrl.searchParams.keys()].sort(), ['grant', 'hash']);
     assert.equal(body.artwork.assets[0].content_url.includes('file:'), false);
     assert.equal(body.artwork.assets[0].content_url.includes('\\'), false);
     assert.equal(JSON.stringify(body).includes(ctx.root), false);
@@ -510,13 +640,12 @@ test('13/14 DTO relative URLs only and excludes filesystem paths', async () => {
 test('15 asset content 200 with matching hash + 18 no-store', async () => {
     const ctx = await readyService('asset-content-200');
     const card = confirmSpell(ctx.canonical, '90000015', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS'], { unicodePath: true });
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS'], { unicodePath: true });
     const asset = roleAssets.BS;
     assert.ok(asset);
-    const response = await ctx.service.app.inject({
-        method: 'GET',
-        url: `/api/v1/carder/assets/${asset.assetId}/content?hash=${asset.hash}`,
-    });
+    // QA-009-08: the URL is obtained from the prepare (content_url carries the grant).
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    const response = await getUrl(ctx, contentUrl);
     assert.equal(response.statusCode, 200, response.body);
     assert.equal(response.headers['cache-control'], 'no-store');
     assert.match(String(response.headers['content-type']), /image\/png/);
@@ -524,17 +653,19 @@ test('15 asset content 200 with matching hash + 18 no-store', async () => {
     await ctx.service.close();
 });
 
-test('16 asset content 409 ASSET_STALE on hash mismatch', async () => {
+test('16 asset content 409 ASSET_STALE when indexed hash changes after a valid grant', async () => {
     const ctx = await readyService('asset-stale');
     const card = confirmSpell(ctx.canonical, '90000016', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     assert.ok(roleAssets.BS);
-    const response = await ctx.service.app.inject({
-        method: 'GET',
-        url: `/api/v1/carder/assets/${roleAssets.BS.assetId}/content?hash=deadbeef`,
-    });
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    // Requesting the grant's own hash, but the indexed hash moved on after the grant.
+    assert.equal(new URL(contentUrl, 'http://x').searchParams.get('hash'), roleAssets.BS.hash);
+    updateIndexedRow(ctx, roleAssets.BS.assetId, { content_hash: 'deadbeef'.repeat(8) });
+    const response = await getUrl(ctx, contentUrl);
     assert.equal(response.statusCode, 409);
     assert.equal(response.json().code, 'ASSET_STALE');
+    assert.doesNotMatch(String(response.headers['content-type'] ?? ''), /^image\//);
     await ctx.service.close();
 });
 
@@ -834,12 +965,6 @@ const externalDir = async (label: string) => {
 
 const dirLinkType = process.platform === 'win32' ? 'junction' : 'dir';
 
-const getContent = (ctx: Awaited<ReturnType<typeof readyService>>, assetId: string, hash: string) =>
-    ctx.service.app.inject({
-        method: 'GET',
-        url: `/api/v1/carder/assets/${assetId}/content?hash=${hash}`,
-    });
-
 const assertStale = (response: { statusCode: number; json: () => { code: string }; headers: Record<string, unknown> }) => {
     assert.equal(response.statusCode, 409);
     assert.equal(response.json().code, 'ASSET_STALE');
@@ -849,9 +974,28 @@ const assertStale = (response: { statusCode: number; json: () => { code: string 
 const updateIndexedRow = (
     ctx: Awaited<ReturnType<typeof readyService>>,
     assetId: string,
-    fields: { relative_path?: string; extension?: string; content_hash?: string },
+    fields: {
+        relative_path?: string;
+        extension?: string;
+        content_hash?: string;
+        variant_id?: string;
+        card_id?: string;
+        role?: AssetRole;
+    },
 ) => {
     ctx.persistence.transaction(database => {
+        if (fields.variant_id !== undefined) {
+            database.prepare('UPDATE indexed_asset_files SET variant_id = ? WHERE asset_id = ?')
+                .run(fields.variant_id, assetId);
+        }
+        if (fields.card_id !== undefined) {
+            database.prepare('UPDATE indexed_asset_files SET card_id = ? WHERE asset_id = ?')
+                .run(fields.card_id, assetId);
+        }
+        if (fields.role !== undefined) {
+            database.prepare('UPDATE indexed_asset_files SET role = ? WHERE asset_id = ?')
+                .run(fields.role, assetId);
+        }
         if (fields.relative_path !== undefined) {
             database.prepare('UPDATE indexed_asset_files SET relative_path = ? WHERE asset_id = ?')
                 .run(fields.relative_path, assetId);
@@ -897,7 +1041,8 @@ test('B-01 regression A→B without Rescan: old URL 409 ASSET_STALE and B bytes 
     });
     assert.equal(prepared.statusCode, 200, prepared.body);
     const contentUrl: string = prepared.json().artwork.assets[0].content_url;
-    assert.ok(contentUrl.endsWith(`hash=${sha256(assetA)}`));
+    assert.equal(new URL(contentUrl, 'http://x').searchParams.get('hash'), sha256(assetA));
+    assert.match(grantOf(contentUrl), GRANT_TOKEN_PATTERN);
     const okA = await ctx.service.app.inject({ method: 'GET', url: contentUrl });
     assert.equal(okA.statusCode, 200);
     assert.equal(sha256(okA.rawPayload), sha256(assetA));
@@ -931,31 +1076,36 @@ test('B-01 regression A→B without Rescan: old URL 409 ASSET_STALE and B bytes 
 test('B-02 hash matches but decode fails → 409', async () => {
     const ctx = await readyService('b02-decode');
     const card = confirmSpell(ctx.canonical, '90001002', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     const asset = roleAssets.BS!;
     const corrupt = Buffer.from('not-a-valid-png-but-hash-matches');
     await writeFile(path.join(ctx.root, ...asset.relativePath.split('/')), corrupt);
     updateIndexedRow(ctx, asset.assetId, { content_hash: sha256(corrupt) });
-    assertStale(await getContent(ctx, asset.assetId, sha256(corrupt)));
+    // Mutation leaves the asset "ready" in the index → prepare emits a grant for sha256(corrupt).
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    assert.equal(new URL(contentUrl, 'http://x').searchParams.get('hash'), sha256(corrupt));
+    assertStale(await getUrl(ctx, contentUrl));
     await ctx.service.close();
 });
 
 test('B-03 OF role with opaque PNG and matching hash → 409', async () => {
     const ctx = await readyService('b03-of-opaque');
     const card = confirmSpell(ctx.canonical, '90001003', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BG', 'OF']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BG', 'OF']);
     const asset = roleAssets.OF!;
     const opaque = png(255, [1, 2, 3]);
     await writeFile(path.join(ctx.root, ...asset.relativePath.split('/')), opaque);
     updateIndexedRow(ctx, asset.assetId, { content_hash: sha256(opaque) });
-    assertStale(await getContent(ctx, asset.assetId, sha256(opaque)));
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'OVERFRAME', 'OF');
+    assert.equal(new URL(contentUrl, 'http://x').searchParams.get('hash'), sha256(opaque));
+    assertStale(await getUrl(ctx, contentUrl));
     await ctx.service.close();
 });
 
 test('B-04 unsupported format for role (OF + .jpg/.bmp) with matching hash → 409', async () => {
     const ctx = await readyService('b04-format');
     const card = confirmSpell(ctx.canonical, '90001004', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BG', 'OF']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BG', 'OF']);
     const asset = roleAssets.OF!;
     for (const ext of ['jpg', 'bmp']) {
         const original = path.join(ctx.root, ...asset.relativePath.split('/'));
@@ -963,7 +1113,8 @@ test('B-04 unsupported format for role (OF + .jpg/.bmp) with matching hash → 4
         const next = path.join(ctx.root, ...nextRelative.split('/'));
         await rename(original, next);
         updateIndexedRow(ctx, asset.assetId, { relative_path: nextRelative, extension: ext });
-        assertStale(await getContent(ctx, asset.assetId, asset.hash));
+        // Row stays "ready" in the index → prepare still emits OF; use the emitted URL.
+        assertStale(await getGranted(ctx, card, variantId, 'OVERFRAME', 'OF'));
         await rename(next, original);
         updateIndexedRow(ctx, asset.assetId, { relative_path: asset.relativePath, extension: 'png' });
     }
@@ -973,22 +1124,25 @@ test('B-04 unsupported format for role (OF + .jpg/.bmp) with matching hash → 4
 test('B-05 file deleted after index → 409; happy path sha256 + Content-Length', async () => {
     const ctx = await readyService('b05-deleted');
     const card = confirmSpell(ctx.canonical, '90001005', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     const asset = roleAssets.BS!;
-    const ok = await getContent(ctx, asset.assetId, asset.hash);
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    const ok = await getUrl(ctx, contentUrl);
     assert.equal(ok.statusCode, 200);
     assert.equal(sha256(ok.rawPayload), asset.hash);
     assert.equal(Number(ok.headers['content-length']), ok.rawPayload.length);
     await unlink(path.join(ctx.root, ...asset.relativePath.split('/')));
-    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    assertStale(await getUrl(ctx, contentUrl));
     await ctx.service.close();
 });
 
 test('B-06 intermediate dir symlink/junction to external identical bytes → 409', async () => {
     const ctx = await readyService('b06-mid-link');
     const card = confirmSpell(ctx.canonical, '90001006', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     const asset = roleAssets.BS!;
+    // Valid grant first, then the filesystem manipulation.
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
     // Assets/<cardId>/c/BS.png → move "c" outside root and link it back.
     const variantDir = path.join(ctx.root, 'Assets', card.cardId, 'c');
     const ext = await externalDir('b06');
@@ -997,15 +1151,16 @@ test('B-06 intermediate dir symlink/junction to external identical bytes → 409
     await symlink(externalVariant, variantDir, dirLinkType);
     // Bytes reachable through the link are identical — the hash alone would pass.
     assert.equal(sha256(await readFile(path.join(variantDir, 'BS.png'))), asset.hash);
-    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    assertStale(await getUrl(ctx, contentUrl));
     await ctx.service.close();
 });
 
 test('B-07 final file symlink to external identical file → 409', async t => {
     const ctx = await readyService('b07-file-link');
     const card = confirmSpell(ctx.canonical, '90001007', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     const asset = roleAssets.BS!;
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
     const file = path.join(ctx.root, ...asset.relativePath.split('/'));
     const ext = await externalDir('b07');
     const externalFile = path.join(ext, 'BS.png');
@@ -1022,47 +1177,50 @@ test('B-07 final file symlink to external identical file → 409', async t => {
         throw error;
     }
     assert.equal(sha256(await readFile(file)), asset.hash);
-    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    assertStale(await getUrl(ctx, contentUrl));
     await ctx.service.close();
 });
 
 test('B-08 Assets ancestor is symlink/junction → 409', async () => {
     const ctx = await readyService('b08-assets-link');
     const card = confirmSpell(ctx.canonical, '90001008', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     const asset = roleAssets.BS!;
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
     const assetsDir = path.join(ctx.root, 'Assets');
     const ext = await externalDir('b08');
     const externalAssets = path.join(ext, 'Assets');
     await rename(assetsDir, externalAssets);
     await symlink(externalAssets, assetsDir, dirLinkType);
     assert.equal(sha256(await readFile(path.join(ctx.root, ...asset.relativePath.split('/')))), asset.hash);
-    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    assertStale(await getUrl(ctx, contentUrl));
     await ctx.service.close();
 });
 
 test('B-09 relative_path with .. segment → 409', async () => {
     const ctx = await readyService('b09-dotdot');
     const card = confirmSpell(ctx.canonical, '90001009', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     const asset = roleAssets.BS!;
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
     await mkdir(path.join(ctx.root, 'Assets', 'x'), { recursive: true });
     // Lexically resolves to the real file, but contains '..'.
     updateIndexedRow(ctx, asset.assetId, { relative_path: `Assets/x/../${card.cardId}/c/BS.png` });
-    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    assertStale(await getUrl(ctx, contentUrl));
     // Escaping the root.
     const ext = await externalDir('b09');
     await writeFile(path.join(ext, 'BS.png'), await readFile(path.join(ctx.root, ...asset.relativePath.split('/'))));
     updateIndexedRow(ctx, asset.assetId, { relative_path: `../${path.basename(ext)}/BS.png` });
-    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    assertStale(await getUrl(ctx, contentUrl));
     await ctx.service.close();
 });
 
 test('B-10 Windows junction in a path component → 409 (runs on windows-latest)', async () => {
     const ctx = await readyService('b10-junction');
     const card = confirmSpell(ctx.canonical, '90001010', 'EN');
-    const { roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'c', ['BS']);
     const asset = roleAssets.BS!;
+    const contentUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
     const cardDir = path.join(ctx.root, 'Assets', card.cardId);
     const ext = await externalDir('b10');
     const externalCard = path.join(ext, card.cardId);
@@ -1070,7 +1228,7 @@ test('B-10 Windows junction in a path component → 409 (runs on windows-latest)
     // 'junction' needs no privilege on Windows; on POSIX the type is ignored (dir symlink).
     await symlink(externalCard, cardDir, 'junction');
     assert.equal(sha256(await readFile(path.join(ctx.root, ...asset.relativePath.split('/')))), asset.hash);
-    assertStale(await getContent(ctx, asset.assetId, asset.hash));
+    assertStale(await getUrl(ctx, contentUrl));
     console.log(`B-10 junction executed on platform=${process.platform}`);
     await ctx.service.close();
 });
@@ -1139,4 +1297,413 @@ test('B-14 assertStructureMappable LINK rating null / mismatch → CARDER_MAPPIN
     assert.throws(() => assertStructureMappable('MONSTER', { ...base, linkRating: 3 }), isUnsupported);
     assert.throws(() => assertStructureMappable('MONSTER', { ...base, linkRating: 0, linkMarkers: [] }), isUnsupported);
     assert.doesNotThrow(() => assertStructureMappable('MONSTER', { ...base, linkRating: 2 }));
+});
+
+// ---------- RUN 009 QA-009-08: prepared-composition asset authorization G-01..G-15 ----------
+
+const randomHex64 = () => createHash('sha256').update(randomUUID()).digest('hex');
+
+test('G-01 principal regression: BS+BG+OF variant — STANDARD grant serves only BS; OVERFRAME grant serves only BG+OF', async () => {
+    const ctx = await readyService('g01-cross-composition');
+    const card = confirmSpell(ctx.canonical, '90009001', 'EN');
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'all', ['BS', 'BG', 'OF']);
+    const bs = roleAssets.BS!;
+    const bg = roleAssets.BG!;
+    const of = roleAssets.OF!;
+
+    // STANDARD → authorized set exactly {BS}.
+    const standard = await prepareFor(ctx, card, variantId, 'STANDARD');
+    assert.deepEqual(standard.artwork.sources, ['BS']);
+    assert.deepEqual(standard.artwork.assets.map(item => item.role), ['BS']);
+    assert.equal(standard.artwork.assets.some(item => item.asset_id === bg.assetId || item.asset_id === of.assetId), false);
+    const standardBsUrl = emittedAsset(standard, 'BS').content_url;
+    const okBs = await getUrl(ctx, standardBsUrl);
+    assert.equal(okBs.statusCode, 200, okBs.body);
+    assert.equal(sha256(okBs.rawPayload), bs.hash);
+    // Same STANDARD grant cannot reach BG or OF (physically valid, indexed, hash known).
+    assertNotPrepared(await getUrl(ctx, withQuery(standardBsUrl, { asset_id: bg.assetId, hash: bg.hash })));
+    assertNotPrepared(await getUrl(ctx, withQuery(standardBsUrl, { asset_id: of.assetId, hash: of.hash })));
+
+    // OVERFRAME → authorized set exactly {BG, OF}.
+    const overframe = await prepareFor(ctx, card, variantId, 'OVERFRAME');
+    assert.deepEqual(overframe.artwork.sources, ['BG', 'OF']);
+    assert.deepEqual(overframe.artwork.assets.map(item => item.role), ['BG', 'OF']);
+    assert.equal(overframe.artwork.assets.some(item => item.asset_id === bs.assetId), false);
+    const overframeBgUrl = emittedAsset(overframe, 'BG').content_url;
+    const overframeOfUrl = emittedAsset(overframe, 'OF').content_url;
+    const okBg = await getUrl(ctx, overframeBgUrl);
+    const okOf = await getUrl(ctx, overframeOfUrl);
+    assert.equal(okBg.statusCode, 200, okBg.body);
+    assert.equal(okOf.statusCode, 200, okOf.body);
+    assert.equal(sha256(okBg.rawPayload), bg.hash);
+    assert.equal(sha256(okOf.rawPayload), of.hash);
+    // OVERFRAME grants cannot reach BS.
+    assertNotPrepared(await getUrl(ctx, withQuery(overframeBgUrl, { asset_id: bs.assetId, hash: bs.hash })));
+    assertNotPrepared(await getUrl(ctx, withQuery(overframeOfUrl, { asset_id: bs.assetId, hash: bs.hash })));
+    // One grant = one asset: BG grant cannot fetch OF and vice versa.
+    assertNotPrepared(await getUrl(ctx, withQuery(overframeBgUrl, { asset_id: of.assetId, hash: of.hash })));
+    assertNotPrepared(await getUrl(ctx, withQuery(overframeOfUrl, { asset_id: bg.assetId, hash: bg.hash })));
+    // STANDARD grant still cannot be widened after the OVERFRAME prepare.
+    assertNotPrepared(await getUrl(ctx, withQuery(standardBsUrl, { asset_id: bg.assetId, hash: bg.hash })));
+    // Ungranted direct access to any of the three fails.
+    for (const asset of [bs, bg, of]) {
+        assertNotPrepared(await getUngranted(ctx, asset.assetId, asset.hash));
+    }
+    await ctx.service.close();
+});
+
+test('G-02 positive: every emitted content_url serves for STANDARD-BS, STANDARD-BG+OF, OVERFRAME-BG+OF, OVERFRAME-BS+OF', async () => {
+    const ctx = await readyService('g02-positive');
+    const card = confirmSpell(ctx.canonical, '90009002', 'EN');
+    const bsOnly = await insertVariantWithRoles(ctx, card.cardId, 'bs', ['BS']);
+    const bgOf = await insertVariantWithRoles(ctx, card.cardId, 'bgof', ['BG', 'OF']);
+    const bsOf = await insertVariantWithRoles(ctx, card.cardId, 'bsof', ['BS', 'OF']);
+    const cases: Array<{ variant: typeof bsOnly; composition: Composition; roles: AssetRole[] }> = [
+        { variant: bsOnly, composition: 'STANDARD', roles: ['BS'] },
+        { variant: bgOf, composition: 'STANDARD', roles: ['BG', 'OF'] },
+        { variant: bgOf, composition: 'OVERFRAME', roles: ['BG', 'OF'] },
+        { variant: bsOf, composition: 'OVERFRAME', roles: ['BS', 'OF'] },
+    ];
+    for (const { variant, composition, roles } of cases) {
+        const body = await prepareFor(ctx, card, variant.variantId, composition);
+        assert.deepEqual(body.artwork.sources, roles);
+        assert.deepEqual(body.artwork.assets.map(item => item.role), roles);
+        for (const role of roles) {
+            const expected = variant.roleAssets[role]!;
+            const emitted = emittedAsset(body, role);
+            assert.equal(emitted.asset_id, expected.assetId);
+            assert.equal(emitted.hash, expected.hash);
+            const url = new URL(emitted.content_url, 'http://x');
+            assert.equal(url.pathname, `/api/v1/carder/assets/${expected.assetId}/content`);
+            assert.equal(url.searchParams.get('hash'), expected.hash);
+            assert.match(url.searchParams.get('grant') ?? '', GRANT_TOKEN_PATTERN);
+            assert.equal(emitted.content_url.includes('file:'), false);
+            assert.equal(emitted.content_url.includes('\\'), false);
+            assert.equal(emitted.content_url.includes(ctx.root), false);
+            assert.equal(emitted.content_url.includes(expected.relativePath), false);
+            const response = await getUrl(ctx, emitted.content_url);
+            assert.equal(response.statusCode, 200, `${composition} ${role}: ${response.body}`);
+            const fileBytes = await readFile(path.join(ctx.root, ...expected.relativePath.split('/')));
+            assert.deepEqual(response.rawPayload, fileBytes);
+            assert.match(String(response.headers['content-type']), /^image\/png/);
+            assert.equal(response.headers['cache-control'], 'no-store');
+            assert.equal(Number(response.headers['content-length']), fileBytes.length);
+        }
+    }
+    await ctx.service.close();
+});
+
+test('G-03 no grant: direct asset_id + correct hash → 403 whether prepared or not; empty grant → 403', async () => {
+    const ctx = await readyService('g03-no-grant');
+    const card = confirmSpell(ctx.canonical, '90009003', 'EN');
+    const prepared = await insertVariantWithRoles(ctx, card.cardId, 'p', ['BS']);
+    const neverPrepared = await insertVariantWithRoles(ctx, card.cardId, 'n', ['BS']);
+    const url = await grantedUrl(ctx, card, prepared.variantId, 'STANDARD', 'BS');
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+    // Prepared asset, grant stripped / empty.
+    assertNotPrepared(await getUrl(ctx, withQuery(url, { grant: null })));
+    assertNotPrepared(await getUrl(ctx, withQuery(url, { grant: '' })));
+    assertNotPrepared(await getUngranted(ctx, prepared.roleAssets.BS!.assetId, prepared.roleAssets.BS!.hash));
+    // Physically valid indexed asset that was never prepared.
+    const other = neverPrepared.roleAssets.BS!;
+    assertNotPrepared(await getUngranted(ctx, other.assetId, other.hash));
+    assertNotPrepared(await getUrl(ctx, `/api/v1/carder/assets/${other.assetId}/content?hash=${other.hash}&grant=`));
+    // Unknown asset id without grant: identical response (no existence oracle).
+    assertNotPrepared(await getUngranted(ctx, randomUUID(), randomHex64()));
+    await ctx.service.close();
+});
+
+test('G-04 tampered grant (secret/id char, truncated, suffixed, no dot, bad alphabet, 4096 chars) → 403', async () => {
+    const ctx = await readyService('g04-tampered');
+    const card = confirmSpell(ctx.canonical, '90009004', 'EN');
+    const { variantId } = await insertVariantWithRoles(ctx, card.cardId, 't', ['BS']);
+    const url = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    const token = grantOf(url);
+    assert.match(token, GRANT_TOKEN_PATTERN);
+    const swap = (value: string, index: number) => {
+        const current = value[index]!;
+        const next = current === 'A' ? 'B' : 'A';
+        return `${value.slice(0, index)}${next}${value.slice(index + 1)}`;
+    };
+    const tampered = [
+        swap(token, 23 + 10), // one secret char changed
+        swap(token, token.length - 1), // last secret char changed (incl. non-canonical alias)
+        swap(token, 5), // one grant-id char changed
+        token.slice(0, -1), // truncated
+        `${token}A`, // suffixed
+        token.replace('.', ''), // no separator
+        `${token.slice(0, 30)}+${token.slice(31)}`, // invalid alphabet
+        `${token.slice(0, 30)}!${token.slice(31)}`, // invalid alphabet
+        'A'.repeat(4096), // oversized
+        `${token}.${token}`, // duplicated
+    ];
+    for (const candidate of tampered) {
+        assert.notEqual(candidate, token);
+        assertNotPrepared(await getUrl(ctx, withQuery(url, { grant: candidate })));
+    }
+    // Original remains valid (tampering attempts do not consume or alter it).
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+    await ctx.service.close();
+});
+
+test('G-05 grant for asset X + asset_id Y (same variant; other card) with Y hash → 403', async () => {
+    const ctx = await readyService('g05-other-asset');
+    const card = confirmSpell(ctx.canonical, '90009005', 'EN');
+    const otherCard = confirmSpell(ctx.canonical, '90009055', 'EN');
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'x', ['BG', 'OF']);
+    const other = await insertVariantWithRoles(ctx, otherCard.cardId, 'y', ['BS']);
+    const bgUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BG');
+    // Y in the same variant (also prepared, but under its own grant).
+    assertNotPrepared(await getUrl(ctx, withQuery(bgUrl, { asset_id: roleAssets.OF!.assetId, hash: roleAssets.OF!.hash })));
+    // Y belonging to another card.
+    const y = other.roleAssets.BS!;
+    assertNotPrepared(await getUrl(ctx, withQuery(bgUrl, { asset_id: y.assetId, hash: y.hash })));
+    // Y's own prepared grant still works, X's grant still works.
+    assert.equal((await getGranted(ctx, otherCard, other.variantId, 'STANDARD', 'BS')).statusCode, 200);
+    assert.equal((await getUrl(ctx, bgUrl)).statusCode, 200);
+    await ctx.service.close();
+});
+
+test('G-06 valid grant + different hash → 403 (not 409)', async () => {
+    const ctx = await readyService('g06-other-hash');
+    const card = confirmSpell(ctx.canonical, '90009006', 'EN');
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'h', ['BS', 'OF']);
+    const url = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    assertNotPrepared(await getUrl(ctx, withQuery(url, { hash: roleAssets.OF!.hash })));
+    assertNotPrepared(await getUrl(ctx, withQuery(url, { hash: randomHex64() })));
+    assertNotPrepared(await getUrl(ctx, withQuery(url, { hash: 'deadbeef' })));
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+    await ctx.service.close();
+});
+
+test('G-07 no scan: prepare + GET 200/403/409 never call scan and add no asset_index_scans rows', async () => {
+    const ctx = await readyService('g07-no-scan');
+    const card = confirmSpell(ctx.canonical, '90009007', 'EN');
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 's', ['BS']);
+    const scansBefore = countScans(ctx);
+    let scanCalls = 0;
+    const originalScan = ctx.assets.scan.bind(ctx.assets);
+    ctx.assets.scan = async () => {
+        scanCalls += 1;
+        return originalScan();
+    };
+    const url = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+    assertNotPrepared(await getUngranted(ctx, roleAssets.BS!.assetId, roleAssets.BS!.hash));
+    await writeFile(path.join(ctx.root, ...roleAssets.BS!.relativePath.split('/')), png(255, [99, 98, 97]));
+    assertStale(await getUrl(ctx, url));
+    assert.equal(scanCalls, 0);
+    assert.equal(countScans(ctx), scansBefore);
+    await ctx.service.close();
+});
+
+test('G-08 no DB/domain mutation: full DB snapshot unchanged across prepare ×2 and GET 200/403/409', async () => {
+    const ctx = await readyService('g08-no-mutation');
+    const card = confirmSpell(ctx.canonical, '90009008', 'EN');
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'm', ['BS', 'BG', 'OF']);
+    const before = snapshotDb(ctx);
+    const revisionBefore = ctx.canonical.getCard(card.cardId)!.revision;
+    const standardUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    const overframeUrl = await grantedUrl(ctx, card, variantId, 'OVERFRAME', 'OF');
+    assert.equal((await getUrl(ctx, standardUrl)).statusCode, 200);
+    assert.equal((await getUrl(ctx, overframeUrl)).statusCode, 200);
+    assertNotPrepared(await getUrl(ctx, withQuery(standardUrl, { asset_id: roleAssets.BG!.assetId, hash: roleAssets.BG!.hash })));
+    await writeFile(path.join(ctx.root, ...roleAssets.BS!.relativePath.split('/')), png(255, [7, 7, 7]));
+    assertStale(await getUrl(ctx, standardUrl));
+    assert.deepEqual(snapshotDb(ctx), before);
+    assert.equal(ctx.canonical.getCard(card.cardId)!.revision, revisionBefore);
+    await ctx.service.close();
+});
+
+test('G-09 TTL: grant valid within 12 h, 403 after expiry (injected clock)', async () => {
+    let clock = 1_700_000_000_000;
+    const grants = new CarderAssetGrantRegistry({ now: () => clock });
+    const ctx = await readyService('g09-ttl', { carderAssetGrants: grants });
+    assert.equal(ctx.service.carderAssetGrants, grants);
+    assert.equal(CARDER_ASSET_GRANT_TTL_MS, 12 * 60 * 60 * 1000);
+    const card = confirmSpell(ctx.canonical, '90009009', 'EN');
+    const { variantId } = await insertVariantWithRoles(ctx, card.cardId, 't', ['BS']);
+    const url = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    assert.equal(grants.size(), 1);
+    clock += CARDER_ASSET_GRANT_TTL_MS - 1;
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+    clock += 2; // TTL + 1 since issue
+    assertNotPrepared(await getUrl(ctx, url));
+    assert.equal(grants.size(), 0);
+    // Re-prepare (Carder reload with intent) yields a fresh working grant.
+    assert.equal((await getGranted(ctx, card, variantId, 'STANDARD', 'BS')).statusCode, 200);
+    await ctx.service.close();
+});
+
+test('G-10 restart: old URL 403 on a new process/service; re-prepare → new URL 200', async () => {
+    const ctx = await readyService('g10-restart');
+    const card = confirmSpell(ctx.canonical, '90009010', 'EN');
+    const { variantId } = await insertVariantWithRoles(ctx, card.cardId, 'r', ['BS']);
+    const oldUrl = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    assert.equal((await getUrl(ctx, oldUrl)).statusCode, 200);
+    await ctx.service.close();
+
+    const service = await createWorkspaceService({ workspaceRoot: ctx.root, host: '127.0.0.1', port: 4312 });
+    assert.equal(service.status.state, 'READY');
+    assert.equal(service.carderAssetGrants.size(), 0);
+    const restarted = { ...ctx, service, canonical: service.canonical!, assets: service.assets!, persistence: service.persistence! };
+    assertNotPrepared(await getUrl(restarted, oldUrl));
+    const newUrl = await grantedUrl(restarted, card, variantId, 'STANDARD', 'BS');
+    assert.notEqual(grantOf(newUrl), grantOf(oldUrl));
+    assert.equal((await getUrl(restarted, newUrl)).statusCode, 200);
+    assertNotPrepared(await getUrl(restarted, oldUrl));
+    await service.close();
+});
+
+test('G-11 double prepare (Library + Carder pattern): independent grants, both serve', async () => {
+    const ctx = await readyService('g11-double');
+    const card = confirmSpell(ctx.canonical, '90009011', 'EN');
+    const { variantId } = await insertVariantWithRoles(ctx, card.cardId, 'd', ['BG', 'OF']);
+    const first = await prepareFor(ctx, card, variantId, 'OVERFRAME');
+    const second = await prepareFor(ctx, card, variantId, 'OVERFRAME');
+    assert.equal(ctx.service.carderAssetGrants.size(), 4);
+    const tokens = new Set([...first.artwork.assets, ...second.artwork.assets].map(item => grantOf(item.content_url)));
+    assert.equal(tokens.size, 4);
+    for (const asset of [...first.artwork.assets, ...second.artwork.assets]) {
+        assert.equal((await getUrl(ctx, asset.content_url)).statusCode, 200);
+    }
+    // Same identity both times; only the opaque grant differs.
+    assert.deepEqual(first.identity, second.identity);
+    assert.deepEqual(
+        first.artwork.assets.map(item => withQuery(item.content_url, { grant: null })),
+        second.artwork.assets.map(item => withQuery(item.content_url, { grant: null })),
+    );
+    await ctx.service.close();
+});
+
+const unitScope = (index: number): CarderAssetGrantScope => ({
+    cardId: `card-${index}`,
+    variantId: `variant-${index}`,
+    composition: 'STANDARD',
+    revision: '1',
+    assetId: `asset-${index}`,
+    hash: `${index}`.padStart(64, '0'),
+    role: 'BS',
+});
+
+test('G-12 registry cap: oldest evicted (FIFO); expired purged before evicting', () => {
+    assert.equal(CARDER_ASSET_GRANT_MAX_ENTRIES, 4096);
+    const registry = new CarderAssetGrantRegistry({ maxEntries: 3 });
+    const tokens = [0, 1, 2, 3, 4].map(index => registry.issue(unitScope(index)));
+    assert.ok(registry.size() <= 3);
+    assert.equal(registry.size(), 3);
+    assert.equal(registry.verify(tokens[0], 'asset-0', unitScope(0).hash), null);
+    assert.equal(registry.verify(tokens[1], 'asset-1', unitScope(1).hash), null);
+    for (const index of [2, 3, 4]) {
+        assert.deepEqual(registry.verify(tokens[index], `asset-${index}`, unitScope(index).hash), unitScope(index));
+    }
+
+    // Expired entries are purged first: two expired + one live, cap 3 → issuing one more
+    // leaves 2 entries (FIFO alone would evict only one and leave 3).
+    let clock = 0;
+    const timed = new CarderAssetGrantRegistry({ maxEntries: 3, ttlMs: 100, now: () => clock });
+    timed.issue(unitScope(10));
+    clock = 1;
+    timed.issue(unitScope(11));
+    clock = 200;
+    const live = timed.issue(unitScope(12));
+    assert.equal(timed.size(), 3);
+    clock = 201;
+    const fresh = timed.issue(unitScope(13));
+    assert.equal(timed.size(), 2);
+    assert.deepEqual(timed.verify(live, 'asset-12', unitScope(12).hash), unitScope(12));
+    assert.deepEqual(timed.verify(fresh, 'asset-13', unitScope(13).hash), unitScope(13));
+});
+
+test('G-13 verify: malformed / wrong-length / undefined / empty → null without throwing', () => {
+    const registry = new CarderAssetGrantRegistry();
+    const scope = unitScope(1);
+    const token = registry.issue(scope);
+    assert.match(token, GRANT_TOKEN_PATTERN);
+    const [id, secret] = token.split('.') as [string, string];
+    const candidates: Array<string | undefined> = [
+        undefined,
+        '',
+        '.',
+        id,
+        `${id}.`,
+        `.${secret}`,
+        `${id}.${secret.slice(0, 42)}`, // secret decodes to < 32 bytes
+        `${id}.${secret}AA`, // secret decodes to > 32 bytes
+        `${id}.${Buffer.alloc(16).toString('base64url')}`, // 16-byte secret
+        `${id}.${Buffer.alloc(64).toString('base64url')}`, // 64-byte secret
+        `${id.slice(0, 21)}.${secret}`, // id 21 chars
+        `${id}A.${secret}`, // id 23 chars
+        `${id}.${Buffer.alloc(32, 7).toString('base64url')}`, // right length, wrong secret
+        `${'A'.repeat(22)}.${secret}`, // unknown id
+        `${id}.${secret.slice(0, 42)}${secret.at(-1) === 'A' ? 'B' : 'A'}`, // last char changed
+        'x'.repeat(129),
+    ];
+    for (const candidate of candidates) {
+        assert.doesNotThrow(() => registry.verify(candidate, scope.assetId, scope.hash));
+        assert.equal(registry.verify(candidate, scope.assetId, scope.hash), null, String(candidate));
+    }
+    // Wrong asset / hash for a genuine token.
+    assert.equal(registry.verify(token, 'asset-2', scope.hash), null);
+    assert.equal(registry.verify(token, scope.assetId, unitScope(2).hash), null);
+    // Genuine token still verifies and returns a copy of the full scope.
+    assert.deepEqual(registry.verify(token, scope.assetId, scope.hash), scope);
+});
+
+test('G-14 scope drift after grant: row re-associated to other variant/card or role changed → 409 ASSET_STALE', async () => {
+    const ctx = await readyService('g14-scope-drift');
+    const card = confirmSpell(ctx.canonical, '90009014', 'EN');
+    const otherCard = confirmSpell(ctx.canonical, '90009144', 'EN');
+    const { variantId, roleAssets } = await insertVariantWithRoles(ctx, card.cardId, 'a', ['BS']);
+    const otherVariant = await insertVariantWithRoles(ctx, card.cardId, 'b', ['OF']);
+    const asset = roleAssets.BS!;
+    const url = await grantedUrl(ctx, card, variantId, 'STANDARD', 'BS');
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+
+    updateIndexedRow(ctx, asset.assetId, { variant_id: otherVariant.variantId });
+    assertStale(await getUrl(ctx, url));
+    updateIndexedRow(ctx, asset.assetId, { variant_id: variantId });
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+
+    updateIndexedRow(ctx, asset.assetId, { role: 'BG' });
+    assertStale(await getUrl(ctx, url));
+    updateIndexedRow(ctx, asset.assetId, { role: 'BS' });
+    assert.equal((await getUrl(ctx, url)).statusCode, 200);
+
+    updateIndexedRow(ctx, asset.assetId, { card_id: otherCard.cardId });
+    assertStale(await getUrl(ctx, url));
+    await ctx.service.close();
+});
+
+test('G-15 failed prepare issues no grant; success issues exactly one per emitted asset', async () => {
+    const ctx = await readyService('g15-failed-prepare');
+    const grants = ctx.service.carderAssetGrants;
+    const card = confirmSpell(ctx.canonical, '90009015', 'EN');
+    const bsOnly = await insertVariantWithRoles(ctx, card.cardId, 'bs', ['BS']);
+    const bgOf = await insertVariantWithRoles(ctx, card.cardId, 'bgof', ['BG', 'OF']);
+    assert.equal(grants.size(), 0);
+
+    const notReady = await preparePost(ctx, card, bsOnly.variantId, 'OVERFRAME');
+    assert.equal(notReady.statusCode, 422);
+    assert.equal(notReady.json().code, 'CARDER_PREPARATION_NOT_READY');
+    assert.equal(grants.size(), 0);
+
+    const conflict = await preparePost(ctx, card, bsOnly.variantId, 'STANDARD', 'EN', '999');
+    assert.equal(conflict.statusCode, 409);
+    assert.equal(conflict.json().code, 'REVISION_CONFLICT');
+    assert.equal(grants.size(), 0);
+
+    const missingVariant = await preparePost(ctx, card, randomUUID(), 'STANDARD');
+    assert.equal(missingVariant.statusCode, 404);
+    assert.equal(grants.size(), 0);
+
+    const missingText = await preparePost(ctx, card, bsOnly.variantId, 'STANDARD', 'JP');
+    assert.equal(missingText.statusCode, 422);
+    assert.equal(grants.size(), 0);
+
+    await prepareFor(ctx, card, bsOnly.variantId, 'STANDARD');
+    assert.equal(grants.size(), 1);
+    await prepareFor(ctx, card, bgOf.variantId, 'OVERFRAME');
+    assert.equal(grants.size(), 3);
+    await ctx.service.close();
 });

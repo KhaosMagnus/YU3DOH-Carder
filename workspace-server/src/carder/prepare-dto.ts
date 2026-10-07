@@ -54,8 +54,12 @@ export type PrepareWorkingCardDto = {
     };
 };
 
-export const buildAssetContentUrl = (assetId: string, hash: string) =>
-    `/api/v1/carder/assets/${encodeURIComponent(assetId)}/content?hash=${encodeURIComponent(hash)}`;
+/**
+ * QA-009-08: content URLs carry an opaque prepared-composition grant. The URL stays
+ * relative and path-free (asset_id + hash + random token only).
+ */
+export const buildAssetContentUrl = (assetId: string, hash: string, grant: string) =>
+    `/api/v1/carder/assets/${encodeURIComponent(assetId)}/content?hash=${encodeURIComponent(hash)}&grant=${encodeURIComponent(grant)}`;
 
 export type PrepareWorkingCardHttpBody = {
     card_id: string;

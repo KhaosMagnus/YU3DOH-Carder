@@ -2,6 +2,7 @@ import type { AssetIndexerService } from '../assets/indexer';
 import type { ArtVariantSnapshot, AssetRole } from '../assets/types';
 import type { CanonicalDomainService } from '../canonical/service';
 import type { CanonicalCardSnapshot, CanonicalLanguage } from '../canonical/types';
+import type { CarderAssetGrantRegistry } from './asset-grants';
 import { CarderPrepareError } from './errors';
 import { assertStructureMappable } from './mapping-precheck';
 import {
@@ -40,7 +41,9 @@ const compositionReadiness = (
     composition: PrepareWorkingCardRequest['composition'],
 ) => (composition === 'STANDARD' ? variant.standard : variant.overframe);
 
-const buildArtworkAssets = (
+// Validates and selects the emitted assets; URLs (with grants) are composed only
+// after every prepare gate has passed (QA-009-08, Design D-5).
+const selectArtworkAssets = (
     variant: ArtVariantSnapshot,
     sources: AssetRole[],
 ) => sources.map(role => {
@@ -61,7 +64,6 @@ const buildArtworkAssets = (
         role,
         asset_id: asset.assetId,
         hash: asset.contentHash,
-        content_url: buildAssetContentUrl(asset.assetId, asset.contentHash),
     };
 });
 
@@ -153,6 +155,7 @@ export class CarderPrepareService {
     constructor(
         private readonly canonical: CanonicalDomainService,
         private readonly assets: AssetIndexerService,
+        private readonly grants: CarderAssetGrantRegistry,
     ) {}
 
     prepareWorkingCard(input: PrepareWorkingCardRequest): PrepareWorkingCardDto {
@@ -196,12 +199,34 @@ export class CarderPrepareService {
             );
         }
 
-        const artworkAssets = buildArtworkAssets(variant, readiness.sources);
+        const selectedAssets = selectArtworkAssets(variant, readiness.sources);
+        const structure = toStructureDto(card);
+        const revision = String(card.revision);
+
+        // QA-009-08: issue grants only at the very end of a successful prepare, one per
+        // emitted asset, scoped to {card, variant, composition, revision, asset, hash}.
+        // In-memory only — prepare stays read-only (no DB/domain/index/FS writes, no scan).
+        const artworkAssets = selectedAssets.map(asset => ({
+            ...asset,
+            content_url: buildAssetContentUrl(
+                asset.asset_id,
+                asset.hash,
+                this.grants.issue({
+                    cardId: card.cardId,
+                    variantId: variant.variantId,
+                    composition: input.composition,
+                    revision,
+                    assetId: asset.asset_id,
+                    hash: asset.hash,
+                    role: asset.role,
+                }),
+            ),
+        }));
 
         return {
             identity: {
                 card_id: card.cardId,
-                revision: String(card.revision),
+                revision,
                 variant_id: variant.variantId,
                 composition: input.composition,
                 content_language: input.contentLanguage,
@@ -211,7 +236,7 @@ export class CarderPrepareService {
                 card_text: localization.cardText,
                 pendulum_text: localization.pendulumText,
             },
-            structure: toStructureDto(card),
+            structure,
             artwork: {
                 composition: input.composition,
                 sources: [...readiness.sources],

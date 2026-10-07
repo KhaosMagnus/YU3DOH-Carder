@@ -1,3 +1,9 @@
+export {
+    CARDER_ASSET_GRANT_MAX_ENTRIES,
+    CARDER_ASSET_GRANT_TTL_MS,
+    CarderAssetGrantRegistry,
+    type CarderAssetGrantScope,
+} from './asset-grants';
 export { CarderPrepareError } from './errors';
 export { CarderPrepareService } from './prepare-service';
 export {

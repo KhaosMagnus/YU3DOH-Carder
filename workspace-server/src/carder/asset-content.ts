@@ -4,6 +4,7 @@ import path from 'node:path';
 import { inspectAssetImage, isSupportedAssetFormat } from '../assets/image';
 import type { AssetRole } from '../assets/types';
 import type { WorkspacePersistence } from '../persistence/database';
+import type { CarderAssetGrantScope } from './asset-grants';
 import { CarderPrepareError } from './errors';
 import { resolveNoLinksFileUnderRoot } from './safe-path';
 
@@ -15,6 +16,8 @@ type IndexedAssetContentRow = {
     present: number;
     valid_asset: number;
     role: string | null;
+    card_id: string | null;
+    variant_id: string | null;
 };
 
 const mimeForExtension = (extension: string): string => {
@@ -33,7 +36,8 @@ const findIndexedAssetById = (
 ): IndexedAssetContentRow | null =>
     persistence.runRepositoryOperation(database => {
         const row = database.prepare(`
-            SELECT asset_id, relative_path, content_hash, extension, present, valid_asset, role
+            SELECT asset_id, relative_path, content_hash, extension, present, valid_asset, role,
+                card_id, variant_id
             FROM indexed_asset_files
             WHERE asset_id = ?
         `).get(assetId) as IndexedAssetContentRow | undefined;
@@ -50,8 +54,11 @@ export type ResolvedAssetContent = {
 };
 
 /**
- * Resolve authoritative indexed asset bytes by asset_id + hash.
- * Validates physical hash = indexed = requested; format; decode; role rules.
+ * Resolve authoritative indexed asset bytes by asset_id + hash for an already
+ * verified prepared-composition grant scope (QA-009-08; authorization happens in
+ * the handler before this function is called).
+ * Validates row ↔ grant scope (card/variant/role); physical hash = indexed =
+ * requested; format; decode; role rules.
  * Path is taken only from DB under the workspace root — never from client input.
  * No writes, no scan/Rescan.
  */
@@ -60,6 +67,7 @@ export const resolveAssetContent = async (
     persistence: WorkspacePersistence,
     assetId: string,
     hash: string | undefined,
+    scope: CarderAssetGrantScope,
 ): Promise<ResolvedAssetContent> => {
     if (!hash || hash.trim().length === 0) {
         throw new CarderPrepareError(
@@ -80,6 +88,20 @@ export const resolveAssetContent = async (
         throw new CarderPrepareError(
             'ASSET_STALE',
             `Asset ${assetId} is missing, invalid, or not present for content serving.`,
+        );
+    }
+
+    // QA-009-08 (Design D-4 step 4): the indexed row must still belong to the
+    // prepared card/variant/role the grant was issued for.
+    if (
+        scope.assetId !== row.asset_id
+        || row.card_id !== scope.cardId
+        || row.variant_id !== scope.variantId
+        || row.role !== scope.role
+    ) {
+        throw new CarderPrepareError(
+            'ASSET_STALE',
+            `Asset ${assetId} no longer matches the prepared composition scope.`,
         );
     }
 

@@ -3,6 +3,7 @@ import type { AssetIndexerService } from './assets/indexer';
 import {
     CarderPrepareError,
     CarderPrepareService,
+    type CarderAssetGrantRegistry,
     resolveAssetContent,
     toPrepareWorkingCardRequest,
     type PrepareWorkingCardHttpBody,
@@ -565,6 +566,7 @@ export const buildWorkspaceApp = (
         managedAssets = null,
         libraryAssets = null,
         carderPrepare = null,
+        carderAssetGrants = null,
         workspaceRoot = '',
     }: {
         logger?: boolean;
@@ -575,6 +577,7 @@ export const buildWorkspaceApp = (
         managedAssets?: ManagedAssetIngestService | null;
         libraryAssets?: LibraryAssetService | null;
         carderPrepare?: CarderPrepareService | null;
+        carderAssetGrants?: CarderAssetGrantRegistry | null;
         workspaceRoot?: string;
     } = {},
 ): FastifyInstance => {
@@ -619,6 +622,10 @@ export const buildWorkspaceApp = (
         }
         if (error.code === 'ASSET_STALE') {
             return reply.code(409).send({ code: 'ASSET_STALE', message: error.message });
+        }
+        // QA-009-08: explicit 403 (never falls through to the 422 default).
+        if (error.code === 'CARDER_ASSET_NOT_PREPARED') {
+            return reply.code(403).send({ code: 'CARDER_ASSET_NOT_PREPARED', message: error.message });
         }
         if (error.code === 'CARDER_MAPPING_UNSUPPORTED') {
             return reply.code(422).send({ code: 'CARDER_MAPPING_UNSUPPORTED', message: error.message });
@@ -965,7 +972,7 @@ export const buildWorkspaceApp = (
 
     app.get<{
         Params: { asset_id: string };
-        Querystring: { hash?: string; path?: string };
+        Querystring: { hash?: string; path?: string; grant?: string };
     }>('/api/v1/carder/assets/:asset_id/content', {
         schema: {
             params: {
@@ -982,18 +989,27 @@ export const buildWorkspaceApp = (
                 properties: {
                     hash: { type: 'string' },
                     path: { type: 'string' },
+                    // QA-009-08: opaque prepared-composition grant. Declared (ajv runs with
+                    // removeAdditional:false) and without maxLength so any malformed/oversized
+                    // token yields a uniform 403, not a 400.
+                    grant: { type: 'string' },
                 },
             },
             response: {
+                403: libraryErrorResponseSchema,
                 409: libraryErrorResponseSchema,
                 503: libraryErrorResponseSchema,
             },
         },
     }, async (request, reply) => {
+        // Never cache content or its errors (authorization is per-grant and transient).
+        reply.header('Cache-Control', 'no-store');
+        // D-4 step 0: readiness.
         const readyPersistence = requireReadyPersistenceForCarder();
         if (!readyPersistence || status.state !== 'READY') {
             return workspaceNotReady(reply, status);
         }
+        // D-4 step 2: existing syntactic guards (no DB / FS).
         // Reject path-like client inputs as a content source (Design §43).
         if (typeof request.query.path === 'string' && request.query.path.length > 0) {
             return reply.code(409).send({
@@ -1001,14 +1017,33 @@ export const buildWorkspaceApp = (
                 message: 'Filesystem path query is not accepted for asset content.',
             });
         }
+        const hash = request.query.hash;
+        if (typeof hash !== 'string' || hash.trim().length === 0) {
+            return reply.code(409).send({
+                code: 'ASSET_STALE',
+                message: 'Asset content hash query parameter is required.',
+            });
+        }
         try {
+            // D-4 step 3: prepared-composition authorization — memory only, before any
+            // DB row or filesystem access. Missing registry → fail closed.
+            const scope = carderAssetGrants
+                ? carderAssetGrants.verify(request.query.grant, request.params.asset_id, hash)
+                : null;
+            if (!scope) {
+                throw new CarderPrepareError(
+                    'CARDER_ASSET_NOT_PREPARED',
+                    'Asset content is not authorized by a prepared composition.',
+                );
+            }
+            // D-4 steps 4–5: indexed row + scope consistency, then physical checks.
             const resolved = await resolveAssetContent(
                 workspaceRoot,
                 readyPersistence,
                 request.params.asset_id,
-                request.query.hash,
+                hash,
+                scope,
             );
-            reply.header('Cache-Control', 'no-store');
             reply.header('Content-Type', resolved.contentType);
             reply.header('Content-Length', String(resolved.sizeBytes));
             return reply.send(resolved.bytes);

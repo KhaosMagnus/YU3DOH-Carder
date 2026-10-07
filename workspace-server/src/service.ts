@@ -4,6 +4,7 @@ import { CanonicalDomainService } from './canonical/service';
 import { ManagedAssetIngestService } from './managed-assets/service';
 import { LibraryAssetService } from './library/asset-service';
 import { LibraryQueryService } from './library/service';
+import { CarderAssetGrantRegistry } from './carder/asset-grants';
 import { CarderPrepareService } from './carder/prepare-service';
 import { buildWorkspaceApp } from './app';
 import type { WorkspaceServiceConfig } from './config';
@@ -21,12 +22,21 @@ export type WorkspaceService = {
     library: LibraryQueryService | null;
     libraryAssets: LibraryAssetService | null;
     carderPrepare: CarderPrepareService | null;
+    /** In-memory, per-process prepared-composition grants (QA-009-08). Exposed for tests. */
+    carderAssetGrants: CarderAssetGrantRegistry;
     close: () => Promise<void>;
 };
 
 export const createWorkspaceService = async (
     config: WorkspaceServiceConfig,
-    { logger = false }: { logger?: boolean } = {},
+    {
+        logger = false,
+        carderAssetGrants = new CarderAssetGrantRegistry(),
+    }: {
+        logger?: boolean;
+        /** Test hook only (e.g. a registry with an injected clock). Never persisted. */
+        carderAssetGrants?: CarderAssetGrantRegistry;
+    } = {},
 ): Promise<WorkspaceService> => {
     const inspection = await inspectWorkspaceRootWithPersistence(config.workspaceRoot);
     const { status, persistence } = inspection;
@@ -40,7 +50,7 @@ export const createWorkspaceService = async (
         ? new LibraryAssetService(persistence, assets, managedAssets, canonical)
         : null;
     const carderPrepare = persistence && assets && canonical
-        ? new CarderPrepareService(canonical, assets)
+        ? new CarderPrepareService(canonical, assets, carderAssetGrants)
         : null;
     const app = buildWorkspaceApp(status, {
         logger,
@@ -51,6 +61,7 @@ export const createWorkspaceService = async (
         managedAssets,
         libraryAssets,
         carderPrepare,
+        carderAssetGrants,
         workspaceRoot: config.workspaceRoot,
     });
     let closePromise: Promise<void> | undefined;
@@ -76,6 +87,7 @@ export const createWorkspaceService = async (
         library,
         libraryAssets,
         carderPrepare,
+        carderAssetGrants,
         close,
     };
 };
