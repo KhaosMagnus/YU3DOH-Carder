@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { buildLibraryCardsUrl } from '../src/library/api';
 import {
     getLibraryResultState,
+    getWorkspaceShellState,
     hasBrowseCriteria,
     type LibraryBrowseFilters,
 } from '../src/library/model';
@@ -36,3 +37,24 @@ assert.equal(getLibraryResultState({ loading: false, error: null, total: 0, hasC
 assert.equal(getLibraryResultState({ loading: false, error: null, total: 1, hasCriteria: false }), 'results');
 
 console.log('Library client contract checks PASS');
+
+assert.equal(getWorkspaceShellState(null, null), 'connecting');
+assert.equal(getWorkspaceShellState(null, 'offline'), 'unavailable');
+assert.equal(getWorkspaceShellState({
+    workspace_id: 'workspace',
+    name: 'Workspace',
+    workspace_format_version: 1,
+    database_schema_version: 4,
+    state: 'NEEDS_MIGRATION',
+    read_only: true,
+    health_summary: 'needs migration',
+}, null), 'not-ready');
+assert.equal(getWorkspaceShellState({
+    workspace_id: 'workspace',
+    name: 'Workspace',
+    workspace_format_version: 1,
+    database_schema_version: 4,
+    state: 'READY',
+    read_only: false,
+    health_summary: 'ready',
+}, null), 'ready');

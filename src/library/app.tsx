@@ -15,6 +15,7 @@ import {
 } from './api';
 import {
     getLibraryResultState,
+    getWorkspaceShellState,
     hasBrowseCriteria,
     type LibraryBrowseFilters,
     type LibraryBrowseResult,
@@ -56,6 +57,7 @@ export const LibraryApp = () => {
 
     useEffect(() => {
         const controller = new AbortController();
+        setStatus(null);
         setStatusError(null);
         getWorkspaceStatus(controller.signal)
             .then(setStatus)
@@ -122,7 +124,8 @@ export const LibraryApp = () => {
         offset: key === 'offset' ? value as number : 0,
     }));
 
-    const workspaceReady = status?.state === 'READY';
+    const workspaceShellState = getWorkspaceShellState(status, statusError);
+    const workspaceReady = workspaceShellState === 'ready';
 
     return (
         <main className="library-shell">
@@ -225,10 +228,19 @@ export const LibraryApp = () => {
             </section>
 
             <section className="library-results" aria-live="polite">
-                {resultState === 'loading' && (
+                {workspaceShellState === 'connecting' && (
+                    <div className="library-state"><Spin tip="Connecting to Workspace…" /></div>
+                )}
+                {workspaceShellState === 'unavailable' && (
+                    <div className="library-state">Library API unavailable.</div>
+                )}
+                {workspaceShellState === 'not-ready' && (
+                    <div className="library-state">Library browse is unavailable until the Workspace is READY.</div>
+                )}
+                {workspaceReady && resultState === 'loading' && (
                     <div className="library-state"><Spin tip="Loading Library…" /></div>
                 )}
-                {resultState === 'error' && (
+                {workspaceReady && resultState === 'error' && (
                     <Alert
                         type="error"
                         showIcon
@@ -237,13 +249,13 @@ export const LibraryApp = () => {
                         action={<Button onClick={() => setRetryNonce(value => value + 1)}>Retry</Button>}
                     />
                 )}
-                {resultState === 'empty-library' && (
+                {workspaceReady && resultState === 'empty-library' && (
                     <div className="library-state">Library is empty.</div>
                 )}
-                {resultState === 'no-match' && (
+                {workspaceReady && resultState === 'no-match' && (
                     <div className="library-state">No matching cards.</div>
                 )}
-                {resultState === 'results' && result.items.map(card => (
+                {workspaceReady && resultState === 'results' && result.items.map(card => (
                     <article className="library-card" key={card.card_id}>
                         <div className="library-card__main">
                             <h2>{card.display_name}</h2>

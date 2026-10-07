@@ -82,3 +82,14 @@ export const getLibraryResultState = ({
     if (total === 0) return hasCriteria ? 'no-match' : 'empty-library';
     return 'results';
 };
+
+export type WorkspaceShellState = 'connecting' | 'unavailable' | 'not-ready' | 'ready';
+
+export const getWorkspaceShellState = (
+    status: WorkspaceStatus | null,
+    error: string | null,
+): WorkspaceShellState => {
+    if (error) return 'unavailable';
+    if (!status) return 'connecting';
+    return status.state === 'READY' ? 'ready' : 'not-ready';
+};
