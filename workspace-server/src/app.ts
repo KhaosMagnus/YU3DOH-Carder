@@ -1,4 +1,5 @@
 import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
+import type { AssetIndexerService } from './assets/indexer';
 import { CanonicalDomainError } from './canonical/errors';
 import type { CanonicalDomainService } from './canonical/service';
 import {
@@ -15,8 +16,14 @@ import {
     type PatchLibraryCardBody,
 } from './library/canonical-dto';
 import { loadLibraryEditorMetadata } from './library/editor-metadata';
+import {
+    LibraryAssetNotFoundError,
+    type LibraryAssetService,
+} from './library/asset-service';
 import type { LibraryQueryService } from './library/service';
 import type { LibraryBrowseInput } from './library/types';
+import type { ManagedAssetIngestService } from './managed-assets/service';
+import { ManagedAssetIngestError } from './managed-assets/types';
 import type { WorkspacePersistence } from './persistence/database';
 import { WORKSPACE_LIFECYCLE_STATES, type WorkspaceStatus } from './workspace/types';
 
@@ -521,6 +528,25 @@ const workspaceNotReady = (reply: FastifyReply, status: WorkspaceStatus) =>
         message: `Workspace is not READY (state: ${status.state}).`,
     });
 
+const sendManagedIngestError = (reply: FastifyReply, error: ManagedAssetIngestError) => {
+    const map: Record<string, number> = {
+        NOT_FOUND: 404,
+        IDEMPOTENCY_CONFLICT: 409,
+        TARGET_CONFLICT: 409,
+        DESTINATION_CONFLICT: 409,
+        INVALID_ROLE: 422,
+        INVALID_VARIANT: 422,
+        INVALID_SOURCE: 422,
+        INVALID_IMAGE: 422,
+        UNSAFE_PATH: 422,
+        PUBLISH_FAILED: 500,
+        PERSISTENCE_FAILED: 500,
+        INDEX_RECONCILIATION_FAILED: 500,
+    };
+    const statusCode = map[error.code] ?? 500;
+    return reply.code(statusCode).send({ code: error.code, message: error.message });
+};
+
 export const buildWorkspaceApp = (
     status: WorkspaceStatus,
     {
@@ -528,11 +554,17 @@ export const buildWorkspaceApp = (
         library = null,
         canonical = null,
         persistence = null,
+        assets = null,
+        managedAssets = null,
+        libraryAssets = null,
     }: {
         logger?: boolean;
         library?: LibraryQueryService | null;
         canonical?: CanonicalDomainService | null;
         persistence?: WorkspacePersistence | null;
+        assets?: AssetIndexerService | null;
+        managedAssets?: ManagedAssetIngestService | null;
+        libraryAssets?: LibraryAssetService | null;
     } = {},
 ): FastifyInstance => {
     const app = Fastify({
@@ -553,6 +585,13 @@ export const buildWorkspaceApp = (
 
     const requireReadyPersistence = () =>
         persistence && status.state === 'READY' ? persistence : null;
+
+    const requireReadyLibraryAssets = () =>
+        libraryAssets && status.state === 'READY' ? libraryAssets : null;
+
+    // Keep references so callers/tests can assert injection without unused-binding elision.
+    void assets;
+    void managedAssets;
 
     app.get('/api/v1/workspace/status', {
         schema: {
@@ -738,6 +777,120 @@ export const buildWorkspaceApp = (
             }
         },
     );
+
+    app.get<{ Params: { card_id: string } }>('/api/v1/library/cards/:card_id/variants', {
+        schema: {
+            params: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['card_id'],
+                properties: {
+                    card_id: { type: 'string', minLength: 1 },
+                },
+            },
+            response: {
+                404: libraryErrorResponseSchema,
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (request, reply) => {
+        const service = requireReadyLibraryAssets();
+        if (!service) {
+            return workspaceNotReady(reply, status);
+        }
+        try {
+            return service.getVariants(request.params.card_id);
+        } catch (error) {
+            if (error instanceof LibraryAssetNotFoundError) {
+                return reply.code(404).send({ code: 'NOT_FOUND', message: error.message });
+            }
+            throw error;
+        }
+    });
+
+    app.get('/api/v1/library/needs-attention', {
+        schema: {
+            response: {
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (_request, reply) => {
+        const service = requireReadyLibraryAssets();
+        if (!service) {
+            return workspaceNotReady(reply, status);
+        }
+        return service.getNeedsAttention();
+    });
+
+    app.post('/api/v1/library/assets/rescan', {
+        schema: {
+            response: {
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (_request, reply) => {
+        const service = requireReadyLibraryAssets();
+        if (!service) {
+            return workspaceNotReady(reply, status);
+        }
+        return service.rescan();
+    });
+
+    app.post<{
+        Params: { card_id: string };
+        Body: {
+            variant_key: string;
+            role: string;
+            source_file: string;
+            idempotency_key: string;
+        };
+    }>('/api/v1/library/cards/:card_id/managed-assets', {
+        schema: {
+            params: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['card_id'],
+                properties: {
+                    card_id: { type: 'string', minLength: 1 },
+                },
+            },
+            body: {
+                type: 'object',
+                additionalProperties: false,
+                required: ['variant_key', 'role', 'source_file', 'idempotency_key'],
+                properties: {
+                    variant_key: { type: 'string', minLength: 1 },
+                    role: { type: 'string', minLength: 1 },
+                    source_file: { type: 'string', minLength: 1 },
+                    idempotency_key: { type: 'string', minLength: 1 },
+                },
+            },
+            response: {
+                404: libraryErrorResponseSchema,
+                409: libraryErrorResponseSchema,
+                422: libraryErrorResponseSchema,
+                500: libraryErrorResponseSchema,
+                503: libraryErrorResponseSchema,
+            },
+        },
+    }, async (request, reply) => {
+        const service = requireReadyLibraryAssets();
+        if (!service) {
+            return workspaceNotReady(reply, status);
+        }
+        try {
+            return await service.ingestManaged(request.params.card_id, request.body);
+        } catch (error) {
+            if (error instanceof LibraryAssetNotFoundError) {
+                return reply.code(404).send({ code: 'NOT_FOUND', message: error.message });
+            }
+            if (error instanceof ManagedAssetIngestError) {
+                return sendManagedIngestError(reply, error);
+            }
+            throw error;
+        }
+    });
+
 
     return app;
 };

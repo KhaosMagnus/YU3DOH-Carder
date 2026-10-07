@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { AssetIndexerService } from './assets/indexer';
 import { CanonicalDomainService } from './canonical/service';
 import { ManagedAssetIngestService } from './managed-assets/service';
+import { LibraryAssetService } from './library/asset-service';
 import { LibraryQueryService } from './library/service';
 import { buildWorkspaceApp } from './app';
 import type { WorkspaceServiceConfig } from './config';
@@ -17,6 +18,7 @@ export type WorkspaceService = {
     assets: AssetIndexerService | null;
     managedAssets: ManagedAssetIngestService | null;
     library: LibraryQueryService | null;
+    libraryAssets: LibraryAssetService | null;
     close: () => Promise<void>;
 };
 
@@ -32,7 +34,18 @@ export const createWorkspaceService = async (
         ? new ManagedAssetIngestService(config.workspaceRoot, persistence, assets)
         : null;
     const library = persistence ? new LibraryQueryService(persistence) : null;
-    const app = buildWorkspaceApp(status, { logger, library, canonical, persistence });
+    const libraryAssets = persistence && assets && managedAssets && canonical
+        ? new LibraryAssetService(persistence, assets, managedAssets, canonical)
+        : null;
+    const app = buildWorkspaceApp(status, {
+        logger,
+        library,
+        canonical,
+        persistence,
+        assets,
+        managedAssets,
+        libraryAssets,
+    });
     let closePromise: Promise<void> | undefined;
 
     const close = () => {
@@ -54,6 +67,7 @@ export const createWorkspaceService = async (
         assets,
         managedAssets,
         library,
+        libraryAssets,
         close,
     };
 };

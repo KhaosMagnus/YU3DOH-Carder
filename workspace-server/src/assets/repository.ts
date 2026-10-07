@@ -440,3 +440,127 @@ export const listArtVariants = (
         };
     });
 };
+export type LatestCompletedScanRow = {
+    scanId: string;
+    startedAt: string;
+    completedAt: string;
+    discoveredCount: number;
+    presentCount: number;
+    diagnosticCount: number;
+};
+
+/** Latest COMPLETE scan only. Ordering: completed_at DESC, started_at DESC, scan_id DESC. */
+export const findLatestCompletedScan = (
+    database: SqliteDatabase,
+): LatestCompletedScanRow | null => {
+    const row = database.prepare(`
+        SELECT
+            scan_id, started_at, completed_at,
+            discovered_count, present_count, diagnostic_count
+        FROM asset_index_scans
+        WHERE status = 'COMPLETE' AND completed_at IS NOT NULL
+        ORDER BY completed_at DESC, started_at DESC, scan_id DESC
+        LIMIT 1
+    `).get() as {
+        scan_id: string;
+        started_at: string;
+        completed_at: string;
+        discovered_count: number;
+        present_count: number;
+        diagnostic_count: number;
+    } | undefined;
+    if (!row) return null;
+    return {
+        scanId: row.scan_id,
+        startedAt: row.started_at,
+        completedAt: row.completed_at,
+        discoveredCount: row.discovered_count,
+        presentCount: row.present_count,
+        diagnosticCount: row.diagnostic_count,
+    };
+};
+
+export type EnrichedDiagnosticRow = {
+    diagnosticId: string;
+    scanId: string;
+    assetId: string | null;
+    relativePath: string;
+    code: AssetDiagnosticCode;
+    message: string;
+    cardId: string | null;
+    variantId: string | null;
+    variantKey: string | null;
+    role: AssetRole | null;
+};
+
+/** Diagnostics for one scan, enriched with indexed asset association fields when available. */
+export const listEnrichedDiagnosticsForScan = (
+    database: SqliteDatabase,
+    scanId: string,
+): EnrichedDiagnosticRow[] => {
+    const rows = database.prepare(`
+        SELECT
+            d.diagnostic_id, d.scan_id, d.asset_id, d.relative_path, d.code, d.message,
+            files.card_id, files.variant_id, files.variant_key, files.role
+        FROM asset_index_diagnostics d
+        LEFT JOIN indexed_asset_files files ON files.asset_id = d.asset_id
+        WHERE d.scan_id = ?
+        ORDER BY d.relative_path, d.code, d.diagnostic_id
+    `).all(scanId) as Array<{
+        diagnostic_id: string;
+        scan_id: string;
+        asset_id: string | null;
+        relative_path: string;
+        code: AssetDiagnosticCode;
+        message: string;
+        card_id: string | null;
+        variant_id: string | null;
+        variant_key: string | null;
+        role: AssetRole | null;
+    }>;
+    return rows.map(row => ({
+        diagnosticId: row.diagnostic_id,
+        scanId: row.scan_id,
+        assetId: row.asset_id,
+        relativePath: row.relative_path,
+        code: row.code,
+        message: row.message,
+        cardId: row.card_id,
+        variantId: row.variant_id,
+        variantKey: row.variant_key,
+        role: row.role,
+    }));
+};
+
+export const countRoleCandidatesForVariant = (
+    database: SqliteDatabase,
+    variantId: string,
+    role: AssetRole,
+): number => {
+    const row = database.prepare(`
+        SELECT count(*) AS count
+        FROM indexed_asset_files
+        WHERE present = 1
+          AND valid_asset = 1
+          AND association_state = 'RESOLVED'
+          AND variant_id = ?
+          AND role = ?
+    `).get(variantId, role) as { count: number };
+    return row.count;
+};
+
+export const findIndexedAssetByRelativePath = (
+    database: SqliteDatabase,
+    relativePath: string,
+): IndexedAssetSnapshot | null => {
+    const row = database.prepare(`
+        SELECT
+            asset_id, relative_path, file_name, extension, size_bytes, modified_time_ms,
+            content_hash, parsed_card_name, parsed_password, role, variant_label, variant_key,
+            association_state, card_id, variant_id, image_width, image_height, has_transparency,
+            valid_asset, present
+        FROM indexed_asset_files
+        WHERE relative_path = ?
+    `).get(relativePath) as IndexedAssetRow | undefined;
+    return row ? toAssetSnapshot(row) : null;
+};
