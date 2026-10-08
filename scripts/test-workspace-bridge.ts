@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { getEmptyCard } from '../src/model/card';
 import {
+    PROXY_BASE,
+    isWorkspaceCarderAssetUrl,
+    resolveOnlineImageErrorRecovery,
+} from '../src/model/image';
+import {
     buildCarderLaunchUrl,
     buildWorkspaceIntentUrl,
     hasWorkspaceIntent,
@@ -567,6 +572,47 @@ checkSync('29 unknown spell subtype unsupported', () => {
 
 checkSync('30 numeric link markers identity', () => {
     assert.deepEqual(mapLinkMarkers(['1', '9']), ['1', '9']);
+});
+
+
+checkSync('QA-009-09-01 Workspace Carder asset URL with grant is protected', () => {
+    const relative = '/api/v1/carder/assets/asset-bs/content?hash=abc&grant=opaque-secret';
+    const absolute = 'https://workspace.example/api/v1/carder/assets/asset-bs/content?grant=opaque-secret&hash=abc';
+    assert.equal(isWorkspaceCarderAssetUrl(relative), true);
+    assert.equal(isWorkspaceCarderAssetUrl(absolute), true);
+    assert.equal(isWorkspaceCarderAssetUrl('/api/v1/carder/assets/asset-bs/content?hash=abc'), false);
+});
+
+checkSync('QA-009-09-02 protected Workspace asset fails closed instead of proxying', () => {
+    const protectedUrl = '/api/v1/carder/assets/asset-bs/content?hash=abc&grant=opaque-secret';
+    const recovery = resolveOnlineImageErrorRecovery(protectedUrl, true);
+    assert.deepEqual(recovery, { action: 'WORKSPACE_FAIL_CLOSED' });
+});
+
+checkSync('QA-009-09-03 protected Workspace asset exposes no telemetry source', () => {
+    const protectedUrl = '/api/v1/carder/assets/asset-bs/content?hash=abc&grant=opaque-secret';
+    const recovery = resolveOnlineImageErrorRecovery(protectedUrl, false);
+    assert.equal(recovery.action, 'WORKSPACE_FAIL_CLOSED');
+    assert.equal('telemetrySource' in recovery, false);
+    assert.equal('source' in recovery, false);
+});
+
+checkSync('QA-009-09-04 ordinary external HTTPS image retains legacy proxy fallback', () => {
+    const external = 'https://images.example/card.png?x=1';
+    const recovery = resolveOnlineImageErrorRecovery(external, true);
+    assert.equal(recovery.action, 'PROXY');
+    if (recovery.action !== 'PROXY') return;
+    assert.equal(recovery.source, `${PROXY_BASE}/?url=${encodeURIComponent(external)}`);
+});
+
+checkSync('QA-009-09-05 ordinary external image retains legacy unproxy and telemetry behavior', () => {
+    const external = 'https://images.example/card.png';
+    const proxied = `${PROXY_BASE}/?url=${encodeURIComponent(external)}`;
+    const unproxy = resolveOnlineImageErrorRecovery(proxied, true);
+    assert.deepEqual(unproxy, { action: 'UNPROXY', source: external });
+
+    const terminal = resolveOnlineImageErrorRecovery(external, false);
+    assert.deepEqual(terminal, { action: 'TAINTED', telemetrySource: external });
 });
 
 // ---------- A-01..A-20 added Design tests ----------

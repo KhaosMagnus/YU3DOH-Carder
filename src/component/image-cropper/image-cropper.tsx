@@ -7,7 +7,7 @@ import { IconButton } from '../icon-button';
 import { useGlobal, useLanguage } from 'src/service';
 import { captureException, mergeClass } from 'src/util';
 import { DropZone } from '../atom';
-import { ImageSourceType, ImageStyle, isUsingProxy, PUBLIC_PATH, toBaseUrl, toProxiedUrl } from 'src/model';
+import { ImageSourceType, ImageStyle, PUBLIC_PATH, resolveOnlineImageErrorRecovery } from 'src/model';
 import { CROPPER_WIDTH } from './model';
 import 'react-image-crop/dist/ReactCrop.css';
 import './image-cropper.scss';
@@ -751,16 +751,32 @@ export const ImageCropper = forwardRef<ImageCropperRef, ImageCropper>(({
                             onSourceLoaded(cropperName, crossorigin, interacted);
                             setLoading(false);
                             setError('Image not found');
-                        } else if (isUsingProxy(externalSource) && isProxyAvailable) {
-                            setExternalSource(toBaseUrl(externalSource));
-                            setProxyAvailable(false);
-                        } else if (isProxyAvailable) {
-                            setCrossOrigin('anonymous');
-                            setExternalSource(toProxiedUrl(externalSource));
                         } else {
-                            captureException('Failed proxy', { extra: { externalSource } });
-                            setCrossOrigin(undefined);
-                            onTainted(cropperName);
+                            const recovery = resolveOnlineImageErrorRecovery(
+                                externalSource,
+                                isProxyAvailable,
+                            );
+                            if (recovery.action === 'WORKSPACE_FAIL_CLOSED') {
+                                pendingCrop.current = {
+                                    source: '',
+                                    crop: null,
+                                };
+                                setCrossOrigin(undefined);
+                                setLoading(false);
+                                setError('Workspace asset unavailable');
+                            } else if (recovery.action === 'UNPROXY') {
+                                setExternalSource(recovery.source);
+                                setProxyAvailable(false);
+                            } else if (recovery.action === 'PROXY') {
+                                setCrossOrigin('anonymous');
+                                setExternalSource(recovery.source);
+                            } else {
+                                captureException('Failed proxy', {
+                                    extra: { externalSource: recovery.telemetrySource },
+                                });
+                                setCrossOrigin(undefined);
+                                onTainted(cropperName);
+                            }
                         }
                         if (crossorigin === undefined) {
                             setLoading(false);
