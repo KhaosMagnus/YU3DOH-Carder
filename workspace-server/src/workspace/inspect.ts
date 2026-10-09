@@ -1,3 +1,5 @@
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { noLinks, under } from '../recovery/filesystem';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { inspectWorkspacePersistence } from '../persistence/inspect';
@@ -47,7 +49,7 @@ const withoutPersistence = (status: WorkspaceStatus): WorkspaceInspection => ({
     persistence: null,
 });
 
-export const inspectWorkspaceRootWithPersistence = async (workspaceRoot: string): Promise<WorkspaceInspection> => {
+export const inspectWorkspaceRootWithPersistence = async (workspaceRoot: string, ignoreRestoreMarkers = false): Promise<WorkspaceInspection> => {
     let rootStat;
     try {
         rootStat = await stat(workspaceRoot);
@@ -136,6 +138,29 @@ export const inspectWorkspaceRootWithPersistence = async (workspaceRoot: string)
             healthSummary: `Workspace format ${manifest.workspace_format_version} requires migration to format ${SUPPORTED_WORKSPACE_FORMAT_VERSION}.`,
             manifest,
         }));
+    }
+
+    if (!ignoreRestoreMarkers) {
+        try {
+            noLinks(workspaceRoot);
+            const restoreRoot = under(workspaceRoot, 'Temp/Restore');
+            if (existsSync(restoreRoot)) {
+                for (const id of readdirSync(restoreRoot)) {
+                    const marker = under(restoreRoot, `${id}/restore-state.json`);
+                    if (!existsSync(marker)) continue;
+                    const value: unknown = JSON.parse(readFileSync(marker, 'utf8'));
+                    if (!value || typeof value !== 'object' || !('state' in value)
+                        || !['SUCCESS', 'ROLLED_BACK', 'RESOLVED'].includes(String(value.state))) {
+                        return withoutPersistence(createStatus({ state: 'RECOVERY_REQUIRED', manifest,
+                            healthSummary: 'Interrupted restore requires explicit validated recovery.' }));
+                    }
+                }
+            }
+            noLinks(under(workspaceRoot, manifest.database_path));
+        } catch {
+            return withoutPersistence(createStatus({ state: 'RECOVERY_REQUIRED', manifest,
+                healthSummary: 'Recovery paths or restore markers could not be verified safely.' }));
+        }
     }
 
     const persistenceInspection = await inspectWorkspacePersistence(workspaceRoot, manifest);

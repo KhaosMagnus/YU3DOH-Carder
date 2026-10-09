@@ -7,6 +7,7 @@ export type WorkspaceServiceConfig = {
     workspaceRoot: string;
     host: string;
     port: number;
+    automaticRecoveryPointRetention?: number;
 };
 
 export type WorkspaceConfigOverrides = Partial<WorkspaceServiceConfig>;
@@ -48,7 +49,12 @@ export const loadWorkspaceConfig = ({
     );
     const port = parsePort(overrides.port ?? env.YU3DOH_WORKSPACE_PORT ?? DEFAULT_WORKSPACE_PORT);
 
+    const retention = Number(overrides.automaticRecoveryPointRetention ?? env.YU3DOH_AUTOMATIC_RECOVERY_POINT_RETENTION ?? 10);
+    if (!Number.isSafeInteger(retention) || retention < 0) {
+        throw new WorkspaceConfigurationError('Automatic recovery point retention must be a non-negative integer.');
+    }
     return {
+        automaticRecoveryPointRetention: retention,
         workspaceRoot,
         host,
         port,

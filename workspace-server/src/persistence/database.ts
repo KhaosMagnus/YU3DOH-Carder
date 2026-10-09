@@ -1,4 +1,5 @@
 import Database from 'better-sqlite3';
+import type { WorkspaceMaintenanceCoordinator } from '../workspace/maintenance';
 import { SQLITE_BUSY_TIMEOUT_MS } from './constants';
 
 export type SqliteDatabase = Database.Database;
@@ -80,6 +81,18 @@ export const openOperationalDatabase = (databasePath: string) => {
 
 export class WorkspacePersistence {
     private closed = false;
+    private maintenance: WorkspaceMaintenanceCoordinator | undefined;
+
+    attachMaintenance(maintenance: WorkspaceMaintenanceCoordinator) { this.maintenance = maintenance; }
+
+    async backupTo(destination: string): Promise<void> {
+        if (!this.isOpen) throw new Error('Workspace persistence is closed.');
+        await this.database.backup(destination);
+        // The published file is independent of WAL/SHM files, including during validation.
+        const snapshot = new Database(destination, { fileMustExist: true });
+        try { snapshot.pragma('journal_mode = DELETE'); }
+        finally { snapshot.close(); }
+    }
 
     constructor(
         private readonly database: SqliteDatabase,
@@ -96,11 +109,18 @@ export class WorkspacePersistence {
 
     runRepositoryOperation<T>(operation: (database: SqliteDatabase) => T): T {
         if (!this.isOpen) throw new Error('Workspace persistence is closed.');
-        return operation(this.database);
+        this.maintenance?.assertReadable();
+        if (this.maintenance?.mode !== 'BACKUP') return operation(this.database);
+        // Even raw repository callbacks cannot accidentally write during an asynchronous checkpoint.
+        const previous = this.database.pragma('query_only', { simple: true });
+        this.database.pragma('query_only = ON');
+        try { return operation(this.database); }
+        finally { this.database.pragma(`query_only = ${previous ? 'ON' : 'OFF'}`); }
     }
 
     transaction<T>(operation: (database: SqliteDatabase) => T): T {
         if (!this.isOpen) throw new Error('Workspace persistence is closed.');
+        this.maintenance?.assertMutable();
         const runTransaction = this.database.transaction(() => operation(this.database));
         return runTransaction();
     }

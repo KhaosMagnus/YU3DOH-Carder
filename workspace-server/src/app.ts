@@ -1,3 +1,6 @@
+import type { WorkspaceRuntimeManager } from './workspace/runtime';
+import type { WorkspaceRecoveryService } from './recovery/service';
+import { WorkspaceRecoveryError } from './recovery/errors';
 import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
 import type { AssetIndexerService } from './assets/indexer';
 import {
@@ -568,6 +571,8 @@ export const buildWorkspaceApp = (
         carderPrepare = null,
         carderAssetGrants = null,
         workspaceRoot = '',
+        runtimeManager,
+        recovery,
     }: {
         logger?: boolean;
         library?: LibraryQueryService | null;
@@ -579,6 +584,8 @@ export const buildWorkspaceApp = (
         carderPrepare?: CarderPrepareService | null;
         carderAssetGrants?: CarderAssetGrantRegistry | null;
         workspaceRoot?: string;
+        runtimeManager?: WorkspaceRuntimeManager;
+        recovery?: WorkspaceRecoveryService;
     } = {},
 ): FastifyInstance => {
     const app = Fastify({
@@ -591,27 +598,45 @@ export const buildWorkspaceApp = (
         },
     });
 
-    const requireReadyLibrary = () =>
-        library && status.state === 'READY' ? library : null;
+    const current = () => runtimeManager?.current ?? { status, library, canonical, persistence, assets,
+        managedAssets, libraryAssets, carderPrepare, carderAssetGrants };
+    const requireReadyLibrary = () => current().status.state === 'READY' ? current().library : null;
+    const requireReadyCanonical = () => current().status.state === 'READY' ? current().canonical : null;
+    const requireReadyPersistence = () => current().status.state === 'READY' ? current().persistence : null;
+    const requireReadyLibraryAssets = () => current().status.state === 'READY' ? current().libraryAssets : null;
+    const requireReadyCarderPrepare = () => current().status.state === 'READY' ? current().carderPrepare : null;
+    const requireReadyPersistenceForCarder = requireReadyPersistence;
 
-    const requireReadyCanonical = () =>
-        canonical && status.state === 'READY' ? canonical : null;
+    const leases = new WeakMap<object, () => void>();
+    app.addHook('preHandler', async request => {
+        const url = request.routeOptions.url ?? '';
+        if (runtimeManager && !url.startsWith('/api/v1/workspace/')) leases.set(request, runtimeManager.maintenance.acquireRead());
+    });
+    app.addHook('onResponse', async request => { leases.get(request)?.(); leases.delete(request); });
+    app.setErrorHandler((error, _request, reply) => {
+        if (error instanceof WorkspaceRecoveryError) {
+            const code = error.code === 'BACKUP_NOT_FOUND' ? 404
+                : ['WORKSPACE_MAINTENANCE_ACTIVE', 'WORKSPACE_ID_MISMATCH'].includes(error.code) ? 409
+                : ['BACKUP_INVALID', 'BACKUP_INCOMPATIBLE', 'BACKUP_INCOMPLETE', 'BACKUP_SOURCE_UNSAFE'].includes(error.code) ? 422 : 503;
+            return reply.code(code).send({ code: error.code, message: error.message });
+        }
+        return reply.send(error);
+    });
 
-    const requireReadyPersistence = () =>
-        persistence && status.state === 'READY' ? persistence : null;
-
-    const requireReadyLibraryAssets = () =>
-        libraryAssets && status.state === 'READY' ? libraryAssets : null;
-
-    const requireReadyCarderPrepare = () =>
-        carderPrepare && status.state === 'READY' ? carderPrepare : null;
-
-    const requireReadyPersistenceForCarder = () =>
-        persistence && status.state === 'READY' ? persistence : null;
-
-    // Keep references so callers/tests can assert injection without unused-binding elision.
-    void assets;
-    void managedAssets;
+    if (recovery) {
+        app.get('/api/v1/workspace/backups', async () => ({ backups: await recovery.list() }));
+        app.post<{ Body: { kind: 'RECOVERY_POINT' | 'FULL'; include_output?: boolean } }>('/api/v1/workspace/backups', {
+            schema: { body: { type: 'object', additionalProperties: false, required: ['kind'], properties: {
+                kind: { type: 'string', enum: ['RECOVERY_POINT', 'FULL'] }, include_output: { type: 'boolean' },
+            } } },
+        }, async request => recovery.create(request.body.kind, request.body.include_output ?? false));
+        app.post<{ Params: { backup_id: string } }>('/api/v1/workspace/backups/:backup_id/restore', {
+            schema: { params: { type: 'object', additionalProperties: false, required: ['backup_id'], properties: {
+                backup_id: { type: 'string', pattern: '^[a-zA-Z0-9_-]+$' },
+            } } },
+        }, async request => recovery.restore(request.params.backup_id));
+        app.post('/api/v1/workspace/migrate', async () => recovery.migrate());
+    }
 
     const sendCarderError = (reply: FastifyReply, error: CarderPrepareError) => {
         if (error.code === 'NOT_FOUND') {
@@ -652,7 +677,7 @@ export const buildWorkspaceApp = (
                 200: workspaceStatusResponseSchema,
             },
         },
-    }, async () => status);
+    }, async () => current().status);
 
     app.get<{ Querystring: LibraryHttpQuery }>('/api/v1/library/cards', {
         schema: {
@@ -679,7 +704,7 @@ export const buildWorkspaceApp = (
         const query = request.query;
         const libraryService = requireReadyLibrary();
         if (!libraryService) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         const input: LibraryBrowseInput = {
             ...(query.query !== undefined ? { query: query.query } : {}),
@@ -710,7 +735,7 @@ export const buildWorkspaceApp = (
     }, async (_request, reply) => {
         const libraryService = requireReadyLibrary();
         if (!libraryService) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         return libraryService.facets();
     });
@@ -725,7 +750,7 @@ export const buildWorkspaceApp = (
     }, async (_request, reply) => {
         const readyPersistence = requireReadyPersistence();
         if (!readyPersistence) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         return loadLibraryEditorMetadata(readyPersistence);
     });
@@ -749,7 +774,7 @@ export const buildWorkspaceApp = (
     }, async (request, reply) => {
         const domain = requireReadyCanonical();
         if (!domain) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         try {
             const snapshot = domain.getCard(request.params.card_id);
@@ -780,7 +805,7 @@ export const buildWorkspaceApp = (
     }, async (request, reply) => {
         const domain = requireReadyCanonical();
         if (!domain) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         try {
             const snapshot = domain.createCard(toCreateCanonicalCardInput(request.body));
@@ -815,7 +840,7 @@ export const buildWorkspaceApp = (
         async (request, reply) => {
             const domain = requireReadyCanonical();
             if (!domain) {
-                return workspaceNotReady(reply, status);
+                return workspaceNotReady(reply, current().status);
             }
             try {
                 const { expectedRevision, mutation } = toCanonicalCardMutation(request.body);
@@ -849,7 +874,7 @@ export const buildWorkspaceApp = (
     }, async (request, reply) => {
         const service = requireReadyLibraryAssets();
         if (!service) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         try {
             return service.getVariants(request.params.card_id);
@@ -870,7 +895,7 @@ export const buildWorkspaceApp = (
     }, async (_request, reply) => {
         const service = requireReadyLibraryAssets();
         if (!service) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         return service.getNeedsAttention();
     });
@@ -884,7 +909,7 @@ export const buildWorkspaceApp = (
     }, async (_request, reply) => {
         const service = requireReadyLibraryAssets();
         if (!service) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         return service.rescan();
     });
@@ -929,7 +954,7 @@ export const buildWorkspaceApp = (
     }, async (request, reply) => {
         const service = requireReadyLibraryAssets();
         if (!service) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         try {
             return await service.ingestManaged(request.params.card_id, request.body);
@@ -958,7 +983,7 @@ export const buildWorkspaceApp = (
     }, async (request, reply) => {
         const service = requireReadyCarderPrepare();
         if (!service) {
-            return workspaceNotReady(reply, status);
+            return workspaceNotReady(reply, current().status);
         }
         try {
             return service.prepareWorkingCard(toPrepareWorkingCardRequest(request.body));
@@ -1006,8 +1031,8 @@ export const buildWorkspaceApp = (
         reply.header('Cache-Control', 'no-store');
         // D-4 step 0: readiness.
         const readyPersistence = requireReadyPersistenceForCarder();
-        if (!readyPersistence || status.state !== 'READY') {
-            return workspaceNotReady(reply, status);
+        if (!readyPersistence || current().status.state !== 'READY') {
+            return workspaceNotReady(reply, current().status);
         }
         // D-4 step 2: existing syntactic guards (no DB / FS).
         // Reject path-like client inputs as a content source (Design §43).
@@ -1027,8 +1052,8 @@ export const buildWorkspaceApp = (
         try {
             // D-4 step 3: prepared-composition authorization — memory only, before any
             // DB row or filesystem access. Missing registry → fail closed.
-            const scope = carderAssetGrants
-                ? carderAssetGrants.verify(request.query.grant, request.params.asset_id, hash)
+            const scope = current().carderAssetGrants
+                ? current().carderAssetGrants!.verify(request.query.grant, request.params.asset_id, hash)
                 : null;
             if (!scope) {
                 throw new CarderPrepareError(

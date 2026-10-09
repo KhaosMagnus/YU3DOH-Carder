@@ -1,11 +1,14 @@
+import { WorkspaceRuntimeManager } from './workspace/runtime';
+import { WorkspaceRecoveryService } from './recovery/service';
+import type { RecoveryHooks } from './recovery/types';
 import type { FastifyInstance } from 'fastify';
-import { AssetIndexerService } from './assets/indexer';
-import { CanonicalDomainService } from './canonical/service';
-import { ManagedAssetIngestService } from './managed-assets/service';
-import { LibraryAssetService } from './library/asset-service';
-import { LibraryQueryService } from './library/service';
+import type { AssetIndexerService } from './assets/indexer';
+import type { CanonicalDomainService } from './canonical/service';
+import type { ManagedAssetIngestService } from './managed-assets/service';
+import type { LibraryAssetService } from './library/asset-service';
+import type { LibraryQueryService } from './library/service';
 import { CarderAssetGrantRegistry } from './carder/asset-grants';
-import { CarderPrepareService } from './carder/prepare-service';
+import type { CarderPrepareService } from './carder/prepare-service';
 import { buildWorkspaceApp } from './app';
 import type { WorkspaceServiceConfig } from './config';
 import type { WorkspacePersistence } from './persistence/database';
@@ -14,6 +17,8 @@ import type { WorkspaceStatus } from './workspace/types';
 
 export type WorkspaceService = {
     app: FastifyInstance;
+    runtime: WorkspaceRuntimeManager;
+    recovery: WorkspaceRecoveryService;
     status: WorkspaceStatus;
     persistence: WorkspacePersistence | null;
     canonical: CanonicalDomainService | null;
@@ -31,38 +36,20 @@ export const createWorkspaceService = async (
     config: WorkspaceServiceConfig,
     {
         logger = false,
+        recoveryHooks = {},
         carderAssetGrants = new CarderAssetGrantRegistry(),
     }: {
         logger?: boolean;
+        recoveryHooks?: RecoveryHooks;
         /** Test hook only (e.g. a registry with an injected clock). Never persisted. */
         carderAssetGrants?: CarderAssetGrantRegistry;
     } = {},
 ): Promise<WorkspaceService> => {
     const inspection = await inspectWorkspaceRootWithPersistence(config.workspaceRoot);
-    const { status, persistence } = inspection;
-    const canonical = persistence ? new CanonicalDomainService(persistence) : null;
-    const assets = persistence ? new AssetIndexerService(config.workspaceRoot, persistence) : null;
-    const managedAssets = persistence && assets
-        ? new ManagedAssetIngestService(config.workspaceRoot, persistence, assets)
-        : null;
-    const library = persistence ? new LibraryQueryService(persistence) : null;
-    const libraryAssets = persistence && assets && managedAssets && canonical
-        ? new LibraryAssetService(persistence, assets, managedAssets, canonical)
-        : null;
-    const carderPrepare = persistence && assets && canonical
-        ? new CarderPrepareService(canonical, assets, carderAssetGrants)
-        : null;
-    const app = buildWorkspaceApp(status, {
-        logger,
-        library,
-        canonical,
-        persistence,
-        assets,
-        managedAssets,
-        libraryAssets,
-        carderPrepare,
-        carderAssetGrants,
-        workspaceRoot: config.workspaceRoot,
+    const runtime = new WorkspaceRuntimeManager(config.workspaceRoot, inspection, carderAssetGrants);
+    const recovery = new WorkspaceRecoveryService(runtime, config.automaticRecoveryPointRetention ?? 10, recoveryHooks);
+    const app = buildWorkspaceApp(runtime.current.status, {
+        logger, runtimeManager: runtime, recovery, workspaceRoot: config.workspaceRoot,
     });
     let closePromise: Promise<void> | undefined;
 
@@ -71,23 +58,23 @@ export const createWorkspaceService = async (
             try {
                 await app.close();
             } finally {
-                persistence?.close();
+                runtime.closePersistence();
             }
         })();
         return closePromise;
     };
 
     return {
-        app,
-        status,
-        persistence,
-        canonical,
-        assets,
-        managedAssets,
-        library,
-        libraryAssets,
-        carderPrepare,
-        carderAssetGrants,
+        app, runtime, recovery,
+        get status() { return runtime.current.status; },
+        get persistence() { return runtime.current.persistence; },
+        get canonical() { return runtime.current.canonical; },
+        get assets() { return runtime.current.assets; },
+        get managedAssets() { return runtime.current.managedAssets; },
+        get library() { return runtime.current.library; },
+        get libraryAssets() { return runtime.current.libraryAssets; },
+        get carderPrepare() { return runtime.current.carderPrepare; },
+        get carderAssetGrants() { return runtime.current.carderAssetGrants; },
         close,
     };
 };
