@@ -10,7 +10,7 @@ or Library UI is introduced.
 | --- | --- | --- |
 | `GET /api/v1/workspace/backups` | none | `{ backups: BackupMetadata[] }`, newest first; fully validated COMPLETE containers only |
 | `POST /api/v1/workspace/backups` | `{ kind: "RECOVERY_POINT" \| "FULL", include_output?: boolean }` | completed metadata |
-| `POST /api/v1/workspace/backups/:backup_id/restore` | none | `{ restored: true, backup_id, status }` after final inspection |
+| `POST /api/v1/workspace/backups/:backup_id/restore` | none | `{ operation: "RESTORE", restored: true, backup_id, restored_at, workspace_id, database_schema_version, status }` after final inspection |
 | `POST /api/v1/workspace/migrate` | none | `{ migrated, backup_id, status, ...migrationResult }`; current schema is a no-op |
 
 `include_output` defaults to false and is only valid for FULL. Management routes
@@ -35,6 +35,11 @@ Backups/<uuid>/payload/Config/...
 Backups/<uuid>/payload/Assets/...  # FULL only
 Backups/<uuid>/payload/Output/...  # FULL, explicitly requested
 ```
+
+The restore HTTP success response has an explicit schema requiring operation,
+restored, backup_id, restored_at (ISO date-time generated after final inspection),
+workspace_id, database_schema_version and the final runtime status. This operation
+observability does not add database persistence.
 
 The manifest retains its database_path. Inventory paths use portable `/` separators.
 The metadata includes format and backup IDs, kind, logical Workspace identity,
@@ -115,7 +120,14 @@ migration function. It requires NEEDS_MIGRATION, creates and publishes a coheren
 RECOVERY_POINT with PRE_MIGRATION origin and MIGRATION_PENDING protection before
 calling ordered migrations, then inspects schema/history and rebuilds runtime.
 A checkpoint failure prevents any schema mutation. Success makes protection NONE;
-failure retains MIGRATION_FAILED (or pending if the metadata update itself fails).
+failure of migration or its correctness validation retains MIGRATION_FAILED
+(or pending if the failure metadata update itself fails). Once schema/history and
+READY are proven, later checkpoint-protection/retention maintenance cannot change
+migration success or require recovery. Successful migration responses include
+`maintenance_warnings`, an empty array on clean maintenance or visible
+`CHECKPOINT_PROTECTION_UPDATE_FAILED` / `RETENTION_CLEANUP_FAILED` warnings.
+A failed protection update leaves its checkpoint protected; pruning failures do
+not falsely mark a completed migration's checkpoint MIGRATION_FAILED.
 The lower-level migration/bootstrap primitives remain internal building blocks
 and preserve their existing tests.
 

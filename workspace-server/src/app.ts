@@ -36,6 +36,7 @@ import type { LibraryBrowseInput } from './library/types';
 import type { ManagedAssetIngestService } from './managed-assets/service';
 import { ManagedAssetIngestError } from './managed-assets/types';
 import type { WorkspacePersistence } from './persistence/database';
+import { SUPPORTED_DATABASE_SCHEMA_VERSION } from './persistence/constants';
 import { WORKSPACE_LIFECYCLE_STATES, type WorkspaceStatus } from './workspace/types';
 
 const nullableStringSchema = {
@@ -214,6 +215,21 @@ export const workspaceStatusResponseSchema = {
         },
         read_only: { type: 'boolean' },
         health_summary: { type: 'string' },
+    },
+} as const;
+
+export const workspaceRestoreResponseSchema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['operation', 'restored', 'backup_id', 'restored_at', 'workspace_id', 'database_schema_version', 'status'],
+    properties: {
+        operation: { type: 'string', const: 'RESTORE' },
+        restored: { type: 'boolean', const: true },
+        backup_id: { type: 'string', minLength: 1 },
+        restored_at: { type: 'string', format: 'date-time' },
+        workspace_id: { type: 'string', minLength: 1 },
+        database_schema_version: { type: 'integer', minimum: 0, maximum: SUPPORTED_DATABASE_SCHEMA_VERSION },
+        status: workspaceStatusResponseSchema,
     },
 } as const;
 
@@ -633,7 +649,7 @@ export const buildWorkspaceApp = (
         app.post<{ Params: { backup_id: string } }>('/api/v1/workspace/backups/:backup_id/restore', {
             schema: { params: { type: 'object', additionalProperties: false, required: ['backup_id'], properties: {
                 backup_id: { type: 'string', pattern: '^[a-zA-Z0-9_-]+$' },
-            } } },
+            } }, response: { 200: workspaceRestoreResponseSchema } },
         }, async request => recovery.restore(request.params.backup_id));
         app.post('/api/v1/workspace/migrate', async () => recovery.migrate());
     }

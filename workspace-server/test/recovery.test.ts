@@ -445,3 +445,86 @@ test('a backup format failure and unknown backup id return stable API errors', a
     const invalid = await service.app.inject({ method: 'POST', url: `/api/v1/workspace/backups/${backup.backup_id}/restore` });
     assert.equal(invalid.statusCode, 422); assert.equal(invalid.json().code, 'BACKUP_INCOMPATIBLE');
 });
+
+test('QA-010-01: retention failure after real migration leaves schema 4/READY and reports successful migration', async () => {
+    let retentionAttempted = false;
+    const { root, service } = await setup({ old: true, retention: 0, hooks: { atBoundary: boundary => {
+        if (boundary === 'retention_cleanup') {
+            retentionAttempted = true;
+            assert.equal(service.status.state, 'READY');
+            assert.equal(service.status.database_schema_version, 4);
+            throw new Error('injected post-success retention failure');
+        }
+    } } });
+    assert.equal(service.status.state, 'NEEDS_MIGRATION');
+    const response = await service.app.inject({ method: 'POST', url: '/api/v1/workspace/migrate' });
+    assert.equal(response.statusCode, 200, response.body);
+    const result = response.json();
+    assert.equal(retentionAttempted, true);
+    assert.equal(result.migrated, true);
+    assert.equal(result.currentVersion, 4);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4]);
+    assert.equal(result.status.state, 'READY');
+    assert.equal(service.status.state, 'READY');
+    assert.equal(service.persistence!.isOpen, true);
+    const database = new Database(path.join(root, 'Data/workspace.db'), { readonly: true, fileMustExist: true });
+    try {
+        assert.equal(database.pragma('user_version', { simple: true }), 4);
+        assert.deepEqual(database.prepare('SELECT version FROM _workspace_migrations ORDER BY version').all(),
+            [1, 2, 3, 4].map(version => ({ version })));
+    } finally { database.close(); }
+    assert.deepEqual(result.maintenance_warnings, [{ code: 'RETENTION_CLEANUP_FAILED',
+        message: 'Migration completed, but automatic recovery point retention cleanup failed.' }]);
+    const checkpoint: BackupMetadata = JSON.parse(readFileSync(path.join(root, 'Backups', result.backup_id, 'backup.json'), 'utf8'));
+    assert.equal(checkpoint.database_schema_version, 0);
+    assert.equal(checkpoint.protection_state, 'NONE');
+    assert.notEqual(checkpoint.protection_state, 'MIGRATION_FAILED');
+    assert.ok(existsSync(path.join(root, 'Backups', result.backup_id, 'payload', 'Data', 'workspace.db')));
+    assert.equal((await service.recovery.list()).length, 1);
+    assert.equal((await inspectWorkspaceRoot(root)).state, 'READY');
+});
+
+test('QA-010-01: post-success protection metadata failure does not reclassify a proven migration', async () => {
+    const { root, service } = await setup({ old: true, hooks: { atBoundary: boundary => {
+        if (boundary === 'migration') {
+            const id = readdirSync(path.join(root, 'Backups')).find(entry => !entry.startsWith('.'))!;
+            writeFileSync(path.join(root, 'Backups', id, 'backup.json.pending'), 'block metadata update');
+        }
+    } } });
+    const response = await service.app.inject({ method: 'POST', url: '/api/v1/workspace/migrate' });
+    assert.equal(response.statusCode, 200, response.body);
+    const result = response.json();
+    assert.equal(result.migrated, true);
+    assert.equal(result.status.state, 'READY');
+    assert.equal(service.status.database_schema_version, 4);
+    assert.equal(result.maintenance_warnings[0].code, 'CHECKPOINT_PROTECTION_UPDATE_FAILED');
+    const checkpoint: BackupMetadata = JSON.parse(readFileSync(path.join(root, 'Backups', result.backup_id, 'backup.json'), 'utf8'));
+    assert.equal(checkpoint.protection_state, 'MIGRATION_PENDING');
+    assert.equal((await service.recovery.list()).length, 1);
+});
+
+for (const oldSchema of [false, true]) {
+    test(`QA-010-02: HTTP restore observability contract reports actual schema ${oldSchema ? 0 : 4} and completion timestamp`, async () => {
+        const { service } = await setup({ old: oldSchema });
+        const backup = await service.recovery.create('RECOVERY_POINT');
+        const before = Date.now();
+        const response = await service.app.inject({ method: 'POST', url: `/api/v1/workspace/backups/${backup.backup_id}/restore` });
+        const after = Date.now();
+        assert.equal(response.statusCode, 200, response.body);
+        const result = response.json();
+        assert.deepEqual(Object.keys(result).sort(), ['operation', 'restored', 'backup_id', 'restored_at',
+            'workspace_id', 'database_schema_version', 'status'].sort());
+        assert.equal(result.operation, 'RESTORE');
+        assert.equal(result.restored, true);
+        assert.equal(result.backup_id, backup.backup_id);
+        assert.equal(result.workspace_id, value().workspace_id);
+        assert.equal(result.database_schema_version, oldSchema ? 0 : 4);
+        assert.equal(result.status.state, oldSchema ? 'NEEDS_MIGRATION' : 'READY');
+        assert.equal(result.status.workspace_id, result.workspace_id);
+        assert.equal(result.status.database_schema_version, result.database_schema_version);
+        assert.deepEqual(result.status, service.status);
+        assert.equal(typeof result.restored_at, 'string');
+        assert.equal(new Date(result.restored_at).toISOString(), result.restored_at);
+        assert.ok(Date.parse(result.restored_at) >= before && Date.parse(result.restored_at) <= after);
+    });
+}

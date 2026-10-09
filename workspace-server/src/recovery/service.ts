@@ -2,11 +2,11 @@ import { randomUUID } from 'node:crypto';
 import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { WorkspacePersistence, openReadonlyDatabase, readDatabaseSchemaVersion } from '../persistence/database';
-import { migrateWorkspaceDatabase } from '../persistence/operations';
+import { migrateWorkspaceDatabase, type PersistenceOperationResult } from '../persistence/operations';
 import { SUPPORTED_DATABASE_SCHEMA_VERSION } from '../persistence/constants';
 import { verifyCurrentMigrationHistory } from '../persistence/migrations';
 import { parseWorkspaceManifest } from '../workspace/manifest';
-import { SUPPORTED_WORKSPACE_FORMAT_VERSION, type WorkspaceManifest } from '../workspace/types';
+import { SUPPORTED_WORKSPACE_FORMAT_VERSION, type WorkspaceManifest, type WorkspaceStatus } from '../workspace/types';
 import type { WorkspaceRuntimeManager } from '../workspace/runtime';
 import { WorkspaceRecoveryError } from './errors';
 import { atomicJson, copyTree, directory, fileIntegrity, noLinks, under, walk, type Tree } from './filesystem';
@@ -165,17 +165,16 @@ export class WorkspaceRecoveryService {
             let checkpoint: BackupMetadata;
             try { checkpoint = await this.createOwned('RECOVERY_POINT', false, 'PRE_MIGRATION'); }
             catch (error) { throw new WorkspaceRecoveryError('MIGRATION_BACKUP_FAILED', 'Migration was not started because its checkpoint failed.', { cause: error }); }
+            let result: PersistenceOperationResult;
+            let status: WorkspaceStatus;
             try {
                 this.runtime.closePersistence();
                 await this.boundary('migration');
-                const result = migrateWorkspaceDatabase(this.root, manifest);
-                const status = await this.runtime.reload();
+                result = migrateWorkspaceDatabase(this.root, manifest);
+                status = await this.runtime.reload();
                 if (status.state !== 'READY' || status.database_schema_version !== SUPPORTED_DATABASE_SCHEMA_VERSION) {
                     throw new Error('Post-migration Workspace inspection did not prove READY.');
                 }
-                this.protection(checkpoint.backup_id, 'NONE');
-                await this.prune();
-                return { migrated: true, backup_id: checkpoint.backup_id, ...result, status };
             } catch (error) {
                 // Keep pending protection even if updating the failure metadata itself fails.
                 try { this.protection(checkpoint.backup_id, 'MIGRATION_FAILED'); } catch { /* pending remains protected */ }
@@ -183,6 +182,20 @@ export class WorkspaceRecoveryService {
                 catch { this.runtime.recoveryRequired('Migration failed and Workspace could not be re-inspected.'); }
                 throw new WorkspaceRecoveryError('RECOVERY_REQUIRED', 'Migration did not complete; its checkpoint is preserved.', { cause: error });
             }
+            // READY proves migration correctness. Later maintenance cannot invalidate that result.
+            const maintenanceWarnings: Array<{ code: string; message: string }> = [];
+            try { this.protection(checkpoint.backup_id, 'NONE'); }
+            catch {
+                maintenanceWarnings.push({ code: 'CHECKPOINT_PROTECTION_UPDATE_FAILED',
+                    message: 'Migration completed, but its checkpoint protection metadata could not be updated.' });
+            }
+            try { await this.prune(); }
+            catch {
+                maintenanceWarnings.push({ code: 'RETENTION_CLEANUP_FAILED',
+                    message: 'Migration completed, but automatic recovery point retention cleanup failed.' });
+            }
+            return { migrated: true, backup_id: checkpoint.backup_id, ...result, status,
+                maintenance_warnings: maintenanceWarnings };
         });
     }
 
@@ -267,7 +280,9 @@ export class WorkspaceRecoveryService {
                 this.resolveOlderMarkers(operationId);
                 const verified = await this.runtime.reload();
                 if (verified.state !== expectedState) throw new Error('Final restore inspection failed.');
-                return { restored: true, backup_id: id, status };
+                return { operation: 'RESTORE' as const, restored: true, backup_id: id,
+                    restored_at: new Date().toISOString(), workspace_id: verified.workspace_id,
+                    database_schema_version: verified.database_schema_version, status: verified };
             } catch (error) {
                 if (closed && operationRoot && marker) {
                     try {
