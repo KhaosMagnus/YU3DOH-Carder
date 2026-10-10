@@ -663,11 +663,11 @@ export const buildWorkspaceApp = (
                         required: ['card_id', 'variant_key'], properties: { card_id: token, variant_key: token, display_label: token } },
                 } } },
         }, async request => mutationService().resolve(request.body));
-        app.post<{ Params: { managed_asset_id: string }; Body: { operation: 'REPLACE' | 'REMOVE' | 'RELINK' } }>(
+        app.post<{ Params: { managed_asset_id: string }; Body: { operation: 'REPLACE' | 'REMOVE' | 'RELINK'; source_file?: string; asset_id?: string } }>(
             '/api/v1/library/managed-assets/:managed_asset_id/preview', {
                 schema: { body: { type: 'object', additionalProperties: false, required: ['operation'],
-                    properties: { operation: { type: 'string', enum: ['REPLACE', 'REMOVE', 'RELINK'] } } } },
-            }, async request => mutationService().preview(request.params.managed_asset_id, request.body.operation));
+                    properties: { operation: { type: 'string', enum: ['REPLACE', 'REMOVE', 'RELINK'] }, source_file: token, asset_id: token } } },
+            }, async request => mutationService().preview(request.params.managed_asset_id, request.body.operation, request.body));
         app.post<{ Body: ManagedMutationRequest }>('/api/v1/library/managed-assets/mutate', {
             schema: { body: { type: 'object', additionalProperties: false,
                 required: ['operation', 'expected_state_token'], properties: {

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync, readdirSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, symlink, unlink, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -200,7 +200,7 @@ test('LEAVE changes neither overrides, scans nor physical files', async () => {
 
 test('opaque stale tokens detect changed bytes before Rescan and reject HTTP mutation with 409', async () => {
     const { root, service, managed, source } = await managedSlot();
-    const preview = await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE');
+    const preview = await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source });
     await writeFile(path.join(root, managed.managedRelativePath), png(255, [8,8,8]));
     const response = await service.app.inject({ method: 'POST', url: '/api/v1/library/managed-assets/mutate', payload: {
         operation: 'REPLACE', managed_asset_id: managed.managedAssetId, source_file: source, expected_state_token: preview.expected_state_token,
@@ -395,7 +395,9 @@ test('conflict loser prepared grant fails after UNASSIGN even with unchanged sou
 test('replace/remove HTTP previews identify affected slot and success preserves operation recovery path', async () => {
     const { root, service, managed, source } = await managedSlot();
     for (const operation of ['REPLACE', 'REMOVE'] as const) {
-        const preview = await service.app.inject({ method: 'POST', url: `/api/v1/library/managed-assets/${managed.managedAssetId}/preview`, payload: { operation } });
+        const preview = await service.app.inject({ method: 'POST', url: `/api/v1/library/managed-assets/${managed.managedAssetId}/preview`, payload: {
+            operation, ...(operation === 'REPLACE' ? { source_file: source } : {}),
+        } });
         assert.equal(preview.statusCode, 200, preview.body);
         assert.deepEqual(preview.json().affected_slot, { card_id: managed.cardId, variant_id: managed.variantId, role: managed.role });
         const result = await service.app.inject({ method: 'POST', url: '/api/v1/library/managed-assets/mutate', payload: {
@@ -443,4 +445,251 @@ test('CHOOSE handles every current loser in an A/B/C conflict and prevents all f
     await service.assets!.scan(); assert.ok(existsSync(thirdFile));
     assert.equal(service.assets!.listVariants()[0]!.roles.BS!.assetId, winner.assetId);
     assert.equal(service.libraryAssets!.getNeedsAttention().items.some(d => d.code === 'ROLE_CONFLICT'), false);
+});
+
+// QA-011-01: preview is a read-only persisted-state simulation.
+const assetDomainSnapshot = (service: WorkspaceService) => service.persistence!.runRepositoryOperation(db =>
+    Object.fromEntries(['art_variants', 'asset_index_scans', 'indexed_asset_files', 'managed_assets',
+        'managed_asset_ingest_requests', 'asset_resolution_overrides', 'variant_role_bindings', 'asset_index_diagnostics']
+        .map(table => [table, db.prepare(`SELECT * FROM ${table}`).all()])));
+const scanCount = (service: WorkspaceService) => service.persistence!.runRepositoryOperation(db =>
+    (db.prepare('SELECT count(*) n FROM asset_index_scans').get() as { n: number }).n);
+const previewFiles = (root: string) => {
+    const files: Record<string, unknown> = {};
+    const visit = (relative: string) => {
+        const absolute = path.join(root, relative);
+        if (!existsSync(absolute)) return;
+        const info = lstatSync(absolute);
+        files[relative] = info.isDirectory() ? 'directory' : { bytes: readFileSync(absolute).toString('hex'), mtime: info.mtimeMs };
+        if (info.isDirectory()) for (const child of readdirSync(absolute).sort()) visit(path.join(relative, child));
+    };
+    visit('Assets'); visit('Temp');
+    return files;
+};
+const roleSlots = async (roles: Array<'BS' | 'BG' | 'OF'>) => {
+    const { root, service } = await setup();
+    const card = service.canonical!.createCard({ family: 'SPELL', password: '11000010' });
+    const slots: Partial<Record<'BS' | 'BG' | 'OF', { id: string; source: string }>> = {};
+    for (const role of roles) {
+        const source = await sourceFile(root, `${role}.png`, png(role === 'OF' ? 10 : 255));
+        const { managedAsset } = await service.managedAssets!.ingest({ cardId: card.cardId, variantKey: 'Default',
+            role, sourceFile: source, idempotencyKey: `slot-${role}` });
+        slots[role] = { id: managedAsset.managedAssetId, source };
+    }
+    return { root, service, slots };
+};
+const ready = (sources: Array<'BS' | 'BG' | 'OF'>) => ({ state: 'READY', sources });
+const incomplete = () => ({ state: 'INCOMPLETE', sources: [] });
+
+test('PREVIEW-01: REMOVE preview does not increase asset_index_scans', async () => {
+    const { service, managed } = await managedSlot(); const before = scanCount(service);
+    await service.assetMutations!.preview(managed.managedAssetId, 'REMOVE');
+    assert.equal(scanCount(service), before);
+});
+
+test('PREVIEW-02: REPLACE preview does not increase asset_index_scans', async () => {
+    const { service, managed, source } = await managedSlot(); const before = scanCount(service);
+    await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source });
+    assert.equal(scanCount(service), before);
+});
+
+test('PREVIEW-03: every relevant Asset-domain table stays byte-equivalent across previews', async () => {
+    const { service, managed, source } = await managedSlot(); const before = assetDomainSnapshot(service);
+    await service.assetMutations!.preview(managed.managedAssetId, 'REMOVE');
+    assert.deepEqual(assetDomainSnapshot(service), before);
+    await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source });
+    assert.deepEqual(assetDomainSnapshot(service), before);
+    await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REPLACE'), code('ASSET_SOURCE_INVALID'));
+    assert.deepEqual(assetDomainSnapshot(service), before);
+});
+
+test('PREVIEW-04: no Workspace asset create/rename/delete/content change or recovery material from previews', async () => {
+    const { root, service, managed, source } = await managedSlot(); const before = previewFiles(root);
+    const sourceBefore = await readFile(source);
+    await service.assetMutations!.preview(managed.managedAssetId, 'REMOVE');
+    await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source });
+    assert.deepEqual(previewFiles(root), before); assert.deepEqual(await readFile(source), sourceBefore);
+    assert.equal(existsSync(path.join(root, 'Temp/AssetMutation')), false);
+});
+
+for (const [regression, role] of [['PREVIEW-05', 'BS'], ['PREVIEW-06', 'BG'], ['PREVIEW-07', 'OF']] as const) {
+    test(`${regression}: REPLACE validates a proposed valid ${role} source and simulates the same slot`, async () => {
+        const { service, root, slots } = await roleSlots([role]);
+        const source = await sourceFile(root, 'proposed.png', png(role === 'OF' ? 20 : 255, [40,50,60]));
+        const before = assetDomainSnapshot(service);
+        const result = await service.app.inject({ method: 'POST', url: `/api/v1/library/managed-assets/${slots[role]!.id}/preview`,
+            payload: { operation: 'REPLACE', source_file: source } });
+        assert.equal(result.statusCode, 200, result.body);
+        assert.equal(result.json().affected_slot.role, role); assert.equal(typeof result.json().expected_state_token, 'string');
+        assert.deepEqual(result.json().readiness_before, role === 'BS'
+            ? { standard: ready(['BS']), overframe: incomplete() } : { standard: incomplete(), overframe: incomplete() });
+        assert.deepEqual(result.json().readiness_after, result.json().readiness_before);
+        assert.deepEqual(assetDomainSnapshot(service), before);
+    });
+}
+
+test('PREVIEW-08: REPLACE rejects opaque OF without writes or publication', async () => {
+    const { root, service, slots } = await roleSlots(['OF']);
+    const opaque = await sourceFile(root, 'opaque.png', png(255));
+    const before = assetDomainSnapshot(service); const files = previewFiles(root);
+    const result = await service.app.inject({ method: 'POST', url: `/api/v1/library/managed-assets/${slots.OF!.id}/preview`,
+        payload: { operation: 'REPLACE', source_file: opaque } });
+    assert.equal(result.statusCode, 422); assert.equal(result.json().code, 'ASSET_SOURCE_INVALID');
+    assert.deepEqual(assetDomainSnapshot(service), before); assert.deepEqual(previewFiles(root), files);
+});
+
+test('PREVIEW-09: REPLACE rejects unsafe paths and real symlink/junction sources', async () => {
+    const { root, service, managed } = await managedSlot();
+    const real = path.join(root, 'real-preview 日本語'); await mkdir(real); await writeFile(path.join(real, 'valid.png'), png(255));
+    const linked = path.join(root, 'preview-link'); await symlink(real, linked, process.platform === 'win32' ? 'junction' : 'dir');
+    const before = assetDomainSnapshot(service);
+    for (const source of ['relative.png', path.join(linked, 'valid.png')]) {
+        await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source }), code('ASSET_SOURCE_UNSAFE'));
+    }
+    assert.deepEqual(assetDomainSnapshot(service), before); assert.ok(existsSync(path.join(root, managed.managedRelativePath)));
+    assert.equal(existsSync(path.join(root, 'Temp/AssetMutation')), false);
+});
+
+test('PREVIEW-10: REMOVE simulates Standard source fallback and incompleteness on persisted bindings', async () => {
+    const { service, slots } = await roleSlots(['BS', 'BG', 'OF']);
+    const result = await service.assetMutations!.preview(slots.BS!.id, 'REMOVE');
+    assert.deepEqual(result.readiness_before.standard, ready(['BS']));
+    assert.deepEqual(result.readiness_after.standard, ready(['BG', 'OF']));
+    const single = await managedSlot();
+    assert.deepEqual((await single.mutations.preview(single.managed.managedAssetId, 'REMOVE')).readiness_after.standard, incomplete());
+});
+
+test('PREVIEW-11: REMOVE simulates Overframe sources and required OF without altering bindings', async () => {
+    const { service, slots } = await roleSlots(['BS', 'OF']);
+    const before = assetDomainSnapshot(service);
+    const removeBS = await service.assetMutations!.preview(slots.BS!.id, 'REMOVE');
+    assert.deepEqual(removeBS.readiness_before.overframe, ready(['BS', 'OF']));
+    assert.deepEqual(removeBS.readiness_after.overframe, incomplete());
+    const removeOF = await service.assetMutations!.preview(slots.OF!.id, 'REMOVE');
+    assert.deepEqual(removeOF.readiness_after.overframe, incomplete());
+    assert.deepEqual(removeOF.readiness_after.standard, ready(['BS']));
+    assert.deepEqual(assetDomainSnapshot(service), before);
+});
+
+test('PREVIEW-12: BS+BG+OF removal simulations preserve frozen composition precedence', async () => {
+    const { service, slots } = await roleSlots(['BS', 'BG', 'OF']);
+    const expected = {
+        BS: { standard: ready(['BG', 'OF']), overframe: ready(['BG', 'OF']) },
+        BG: { standard: ready(['BS']), overframe: ready(['BS', 'OF']) },
+        OF: { standard: ready(['BS']), overframe: incomplete() },
+    };
+    const before = assetDomainSnapshot(service);
+    for (const role of ['BS', 'BG', 'OF'] as const) {
+        const result = await service.assetMutations!.preview(slots[role]!.id, 'REMOVE');
+        assert.deepEqual(result.readiness_before, { standard: ready(['BS']), overframe: ready(['BG', 'OF']) });
+        assert.deepEqual(result.readiness_after, expected[role]);
+    }
+    assert.deepEqual(assetDomainSnapshot(service), before);
+});
+
+test('PREVIEW-13: repeated unchanged REMOVE and REPLACE previews leave opaque token stable', async () => {
+    const { service, managed, source } = await managedSlot();
+    const before = service.assetMutations!.getState().expected_state_token;
+    for (let iteration = 0; iteration < 2; iteration++) {
+        assert.equal((await service.assetMutations!.preview(managed.managedAssetId, 'REMOVE')).expected_state_token, before);
+        assert.equal((await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source })).expected_state_token, before);
+    }
+    assert.equal(service.assetMutations!.getState().expected_state_token, before);
+});
+
+test('PREVIEW-14: execution still reconciles and rejects stale physical target/indexed source and revalidates external source', async () => {
+    for (const changed of ['target', 'indexed-source', 'external-source'] as const) {
+        const { root, service, managed, source } = await managedSlot();
+        const indexedPath = await indexedFile(root, '11000001-Proposed-BS-Other.png', png(255, [90,80,70]));
+        await service.assets!.scan();
+        const indexed = service.assets!.listAssets().find(a => a.relativePath.endsWith('Proposed-BS-Other.png'))!;
+        const selection = changed === 'indexed-source' ? { asset_id: indexed.assetId } : { source_file: source };
+        const preview = await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', selection);
+        const scans = scanCount(service); const targetBefore = await readFile(path.join(root, managed.managedRelativePath));
+        if (changed === 'target') await writeFile(path.join(root, managed.managedRelativePath), png(255, [1,90,2]));
+        else if (changed === 'indexed-source') await writeFile(indexedPath, png(255, [6,5,4]));
+        else await writeFile(source, 'invalid source after preview');
+        const response = await service.app.inject({ method: 'POST', url: '/api/v1/library/managed-assets/mutate', payload: {
+            operation: 'REPLACE', managed_asset_id: managed.managedAssetId, expected_state_token: preview.expected_state_token, ...selection,
+        } });
+        assert.equal(response.statusCode, changed === 'external-source' ? 422 : 409, response.body);
+        assert.equal(response.json().code, changed === 'external-source' ? 'ASSET_SOURCE_INVALID' : 'ASSET_STATE_STALE');
+        assert.equal(scanCount(service), scans + 1);
+        if (changed !== 'target') assert.deepEqual(await readFile(path.join(root, managed.managedRelativePath)), targetBefore);
+        assert.equal(existsSync(path.join(root, 'Temp/AssetMutation')), false);
+    }
+});
+
+test('preview runtime classification permits BACKUP read lease and preserves mutation/restore fencing', async () => {
+    const { service, managed, source } = await managedSlot();
+    const release = service.runtime.maintenance.acquireMaintenance('BACKUP');
+    try {
+        const before = assetDomainSnapshot(service);
+        assert.equal((await service.assetMutations!.preview(managed.managedAssetId, 'REMOVE')).operation, 'REMOVE');
+        assert.equal((await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source })).operation, 'REPLACE');
+        assert.deepEqual(assetDomainSnapshot(service), before);
+        for (const operation of [() => service.assetMutations!.refresh(),
+            () => service.assetMutations!.resolve({ operation: 'LEAVE', expected_state_token: 'unused' }),
+            () => service.assetMutations!.mutate({ operation: 'REMOVE', managed_asset_id: managed.managedAssetId, expected_state_token: 'unused' })]) {
+            assert.throws(operation, (error: unknown) => (error as { code: string }).code === 'WORKSPACE_MAINTENANCE_ACTIVE');
+        }
+    } finally { release(); }
+    const endRestore = service.runtime.maintenance.acquireMaintenance('RESTORE');
+    try {
+        assert.throws(() => service.assetMutations!.preview(managed.managedAssetId, 'REMOVE'),
+            (error: unknown) => (error as { code: string }).code === 'WORKSPACE_MAINTENANCE_ACTIVE');
+    } finally { endRestore(); }
+});
+
+test('REPLACE preview supports current indexed source and rejects missing/stale source or invalid selector combinations', async () => {
+    const { root, service, managed, source } = await managedSlot();
+    const file = await indexedFile(root, '11000001-Preview-BS-Other.png'); await service.assets!.scan();
+    const indexed = service.assets!.listAssets().find(a => a.relativePath.endsWith('Preview-BS-Other.png'))!;
+    const before = assetDomainSnapshot(service);
+    const response = await service.app.inject({ method: 'POST', url: `/api/v1/library/managed-assets/${managed.managedAssetId}/preview`,
+        payload: { operation: 'REPLACE', asset_id: indexed.assetId } });
+    assert.equal(response.statusCode, 200, response.body); assert.deepEqual(assetDomainSnapshot(service), before);
+    await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source, asset_id: indexed.assetId }), code('ASSET_SOURCE_INVALID'));
+    await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { asset_id: 'unknown' }), code('ASSET_NOT_FOUND'));
+    await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REMOVE', { source_file: source }), code('ASSET_SOURCE_INVALID'));
+    await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REMOVE', { asset_id: indexed.assetId }), code('ASSET_SOURCE_INVALID'));
+    await writeFile(file, png(255, [20,20,20]));
+    await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { asset_id: indexed.assetId }), code('ASSET_STATE_STALE'));
+    await unlink(file);
+    await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { asset_id: indexed.assetId }), code('ASSET_SOURCE_INVALID'));
+    assert.deepEqual(assetDomainSnapshot(service), before);
+});
+
+test('REPLACE preview simulates readiness recovery for a persisted missing slot without rebinding it', async () => {
+    const { service, slots, root } = await roleSlots(['BS', 'OF']);
+    const managed = service.managedAssets!.listManagedAssets().find(a => a.role === 'BS')!;
+    await unlink(path.join(root, managed.managedRelativePath)); await service.assets!.scan();
+    const before = assetDomainSnapshot(service);
+    const result = await service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: slots.BS!.source });
+    assert.deepEqual(result.readiness_before, { standard: incomplete(), overframe: incomplete() });
+    assert.deepEqual(result.readiness_after, { standard: ready(['BS']), overframe: ready(['BS', 'OF']) });
+    assert.deepEqual(assetDomainSnapshot(service), before);
+});
+
+test('REPLACE preview rejects non-regular, missing, unsupported and undecodable proposed sources without mutation', async () => {
+    const { root, service, managed } = await managedSlot();
+    const directory = path.join(root, 'directory.png'); await mkdir(directory);
+    const unsupported = await sourceFile(root, 'source.gif', png(255));
+    const undecodable = await sourceFile(root, 'broken.png', Buffer.from('not an image'));
+    const before = assetDomainSnapshot(service); const files = previewFiles(root);
+    for (const source of [directory, path.join(root, 'missing.png'), unsupported, undecodable]) {
+        await assert.rejects(service.assetMutations!.preview(managed.managedAssetId, 'REPLACE', { source_file: source }), code('ASSET_SOURCE_INVALID'));
+    }
+    assert.deepEqual(assetDomainSnapshot(service), before); assert.deepEqual(previewFiles(root), files);
+});
+
+test('REPLACE simulation restores BG+OF Overframe precedence after validating missing BG replacement', async () => {
+    const { root, service, slots } = await roleSlots(['BS', 'BG', 'OF']);
+    const bg = service.managedAssets!.listManagedAssets().find(a => a.role === 'BG')!;
+    await unlink(path.join(root, bg.managedRelativePath)); await service.assets!.scan();
+    const before = assetDomainSnapshot(service);
+    const result = await service.assetMutations!.preview(bg.managedAssetId, 'REPLACE', { source_file: slots.BG!.source });
+    assert.deepEqual(result.readiness_before, { standard: ready(['BS']), overframe: ready(['BS', 'OF']) });
+    assert.deepEqual(result.readiness_after, { standard: ready(['BS']), overframe: ready(['BG', 'OF']) });
+    assert.deepEqual(assetDomainSnapshot(service), before);
 });

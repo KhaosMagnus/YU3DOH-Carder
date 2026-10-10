@@ -4,6 +4,7 @@ import { copyFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { AssetIndexerService } from '../assets/indexer';
 import { inspectAssetImage } from '../assets/image';
+import { readiness } from '../assets/repository';
 import { normalizeVariantKey } from '../assets/filename';
 import { ASSET_ROLES, type AssetRole, type IndexedAssetSnapshot } from '../assets/types';
 import { findManagedAssetById, findManagedAssetByTarget, insertManagedAsset, createArtVariant } from '../managed-assets/repository';
@@ -32,6 +33,7 @@ export type ManagedMutationRequest = {
     // Optional assertions only: RELINK cannot retarget through these fields.
     card_id?: string; variant_id?: string; role?: AssetRole;
 };
+export type PreviewSource = { source_file?: string; asset_id?: string };
 
 const tables = ['art_variants', 'asset_index_scans', 'indexed_asset_files', 'managed_assets',
     'managed_asset_ingest_requests', 'asset_resolution_overrides', 'variant_role_bindings', 'asset_index_diagnostics'] as const;
@@ -106,22 +108,55 @@ export class AssetMutationService {
         }
     }
 
-    /** Persisted state only. Preview/refresh performs authoritative reconciliation before issuing tokens. */
+    /** Persisted state only. Only refresh/execution reconcile physical state. */
     getState() {
         return { expected_state_token: this.tokens.current(), assets: this.assets.listAssets(),
             variants: this.assets.listVariants(), overrides: this.persistence.runRepositoryOperation(db =>
                 db.prepare('SELECT asset_id, disposition, variant_id, role FROM asset_resolution_overrides ORDER BY asset_id').all()) };
     }
     refresh() { return this.serial(async () => { await this.assets.scan(); return this.getState(); }); }
-    preview(id: string, operation: 'REPLACE' | 'REMOVE' | 'RELINK') {
-        return this.serial(async () => {
-            await this.assets.scan();
-            const managed = this.managed(id);
-            return { operation, managed_asset: managed, expected_state_token: this.tokens.current(),
-                affected_slot: { card_id: managed.cardId, variant_id: managed.variantId, role: managed.role },
-                candidates: this.candidates(managed.variantId, managed.role),
-                recovery_policy: 'PRESERVE_PREVIOUS_STATE' as const };
-        });
+    async preview(id: string, operation: 'REPLACE' | 'REMOVE' | 'RELINK', source: PreviewSource = {}) {
+        if (!['REPLACE', 'REMOVE', 'RELINK'].includes(operation)) fail('ASSET_OPERATION_INVALID', 'Unsupported preview operation.');
+        if (operation === 'REPLACE' && Boolean(source.source_file) === Boolean(source.asset_id)) {
+            fail('ASSET_SOURCE_INVALID', 'Replace preview requires exactly one source file or indexed asset.');
+        }
+        if (operation !== 'REPLACE' && (source.source_file || source.asset_id)) {
+            fail('ASSET_SOURCE_INVALID', `${operation} preview does not accept a replacement source.`);
+        }
+        const managed = this.managed(id);
+        const variant = this.assets.listVariants().find(v => v.variantId === managed.variantId);
+        if (!variant) fail('ASSET_TARGET_INVALID', 'Managed target variant does not exist.');
+        const expectedStateToken = this.tokens.current();
+        // No scan, serial mutation lock, staging, marker or DB write belongs in a preview.
+        if (operation === 'REPLACE') {
+            const indexed = source.asset_id ? this.asset(source.asset_id) : null;
+            if (indexed && !indexed.present) fail('ASSET_SOURCE_INVALID', 'Indexed replacement source is not currently present.');
+            try {
+                const file = indexed ? under(this.root, indexed.relativePath) : source.source_file!;
+                const validated = await this.validSource(file, managed.role);
+                if (indexed) {
+                    const physical = lstatSync(file);
+                    if ((indexed.contentHash !== null && indexed.contentHash !== validated.image.contentHash)
+                        || indexed.sizeBytes !== physical.size || indexed.modifiedTimeMs !== physical.mtimeMs) {
+                        fail('ASSET_STATE_STALE', 'Indexed replacement source differs from persisted state; refresh first.', 409);
+                    }
+                }
+            } catch (error) {
+                if ((error as { code?: string }).code === 'BACKUP_SOURCE_UNSAFE') {
+                    fail('ASSET_SOURCE_UNSAFE', 'Indexed replacement source traverses an unsafe path, link or junction.');
+                }
+                throw error;
+            }
+            if (this.tokens.current() !== expectedStateToken) {
+                fail('ASSET_STATE_STALE', 'Asset state changed during preview validation; refresh the preview.', 409);
+            }
+        }
+        return { operation, managed_asset: managed, expected_state_token: expectedStateToken,
+            affected_slot: { card_id: managed.cardId, variant_id: managed.variantId, role: managed.role },
+            candidates: this.candidates(managed.variantId, managed.role),
+            readiness_before: { standard: variant.standard, overframe: variant.overframe },
+            readiness_after: readiness({ ...variant.roles, [managed.role]: operation === 'REMOVE' ? null : true }),
+            recovery_policy: 'PRESERVE_PREVIOUS_STATE' as const };
     }
 
     resolve(input: ResolutionRequest) {

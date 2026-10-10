@@ -396,7 +396,7 @@ export const listDiagnosticsForScan = (
     }));
 };
 
-const readiness = (roles: Record<AssetRole, IndexedAssetSnapshot | null>) => ({
+export const readiness = (roles: Record<AssetRole, IndexedAssetSnapshot | null | true>) => ({
     standard: roles.BS
         ? { state: 'READY' as const, sources: ['BS'] as AssetRole[] }
         : roles.BG && roles.OF

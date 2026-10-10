@@ -47,7 +47,7 @@ export class WorkspaceRuntimeManager {
             ? guard(new ManagedAssetIngestService(this.workspaceRoot, persistence, assets), ['ingest']) : null;
         const library = persistence ? guard(new LibraryQueryService(persistence)) : null;
         const assetMutations = persistence && assets ? guard(new AssetMutationService(this.workspaceRoot, persistence,
-            assets, message => this.recoveryRequired(message), this.mutationHooks), ['refresh', 'preview', 'resolve', 'mutate']) : null;
+            assets, message => this.recoveryRequired(message), this.mutationHooks), ['refresh', 'resolve', 'mutate']) : null;
         const libraryAssets = persistence && assets && managedAssets && canonical
             ? guard(new LibraryAssetService(persistence, assets, managedAssets, canonical, assetMutations?.tokens), ['rescan', 'ingestManaged']) : null;
         const carderPrepare = persistence && assets && canonical
