@@ -364,8 +364,12 @@ export class AssetIndexerService {
             );
         }
 
-        const association = this.resolveAssociation(parsed.password, parsed.cardName);
-        if (association.state !== 'RESOLVED') {
+        // A fenced source is still physically inspected, but Canonical creation must
+        // not change its validity/token or revive filename association.
+        const suppressed = explicit?.disposition === 'UNASSIGN' || explicit?.disposition === 'IGNORE';
+        const association = suppressed ? { state: 'UNRESOLVED' as const, cardId: null }
+            : this.resolveAssociation(parsed.password, parsed.cardName);
+        if (!suppressed && association.state !== 'RESOLVED') {
             return invalidDiscoveredAsset(
                 file,
                 parsed.extension,
@@ -392,7 +396,7 @@ export class AssetIndexerService {
             role: parsed.role,
             variantLabel: parsed.variantLabel,
             variantKey: parsed.variantKey,
-            associationState: 'RESOLVED',
+            associationState: association.state,
             cardId: association.cardId,
             imageWidth: image.width,
             imageHeight: image.height,

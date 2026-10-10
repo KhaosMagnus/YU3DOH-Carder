@@ -198,11 +198,15 @@ export const reconcileAssetIndex = (database: SqliteDatabase, input: ReconcileIn
             updated_at = excluded.updated_at
     `);
 
+    const explicitDisposition = database.prepare('SELECT disposition FROM asset_resolution_overrides WHERE asset_id = ?');
     for (const asset of input.assets) {
         const existing = existingByPath.get(asset.relativePath);
+        const disposition = existing ? (explicitDisposition.get(existing.asset_id) as { disposition: string } | undefined)?.disposition : undefined;
+        // Explicit retirement/unassignment fences automatic variant writes, not physical validation.
+        const suppressAutomaticAssociation = disposition === 'UNASSIGN' || disposition === 'IGNORE';
         // Diagnostic association: persist variant_id when association is knowable,
         // independent of validAsset. Bindings still require present+valid+RESOLVED.
-        const variantId = asset.associationState === 'RESOLVED'
+        const variantId = !suppressAutomaticAssociation && asset.associationState === 'RESOLVED'
             && asset.cardId
             && asset.variantKey
             && asset.variantLabel
@@ -222,8 +226,8 @@ export const reconcileAssetIndex = (database: SqliteDatabase, input: ReconcileIn
             role: asset.role,
             variantLabel: asset.variantLabel,
             variantKey: asset.variantKey,
-            associationState: asset.associationState,
-            cardId: asset.cardId,
+            associationState: suppressAutomaticAssociation ? 'UNRESOLVED' : asset.associationState,
+            cardId: suppressAutomaticAssociation ? null : asset.cardId,
             variantId,
             imageWidth: asset.imageWidth,
             imageHeight: asset.imageHeight,

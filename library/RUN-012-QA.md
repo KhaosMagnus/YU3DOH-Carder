@@ -32,7 +32,7 @@ Fixtures:
 - **QA Conflict**: Default BS has A/B/C, with no winner selected. Other variant exists. MOVE one candidate to Other/BS, then CHOOSE from the remaining conflict. Check that losers are physically present, UNASSIGN, and actionable in Needs Attention after refresh. LEAVE is an explicit no-op; Cancel calls no resolution endpoint.
 - **12999999-Attach**: unresolved image with parsed hints. Search for an existing card, choose a variant and explicit role, review, then confirm Attach.
 - **12999999-NewVariant**: unresolved image for explicit variant creation within ATTACH. No standalone empty-variant action exists.
-- **12999999-Draft**: explicit Draft creation followed by separate Attach. Role/key must be supplied. Failed Attach retains the created Draft ID and does not create another Draft on retry.
+- **12999999-Draft**: choose SPELL and password `12999999`, role BS, target variant `Explicit`. Review Create Draft + Attach is read-only. Confirm protection + Draft creation first applies UNASSIGN and then creates one matching-password Draft. Before Attach, verify the source remains unassigned and the Draft has no Default or Explicit variant, even after Rescan. Review and confirm Attach separately. Failed Attach preserves the Draft, UNASSIGN and zero variants; retry only Attach to the same Draft. If protection fails, no Draft is created. If Draft creation fails, the protected source remains unassigned; explicitly retry creation.
 - Printed OF source is transparent. Printed opaque source must fail OF Replace preview. Relative/unsafe paths must be rejected by service.
 
 After a successful mutation, UI reads persisted views; no general Rescan is required to repaint. Existing Rescan Assets remains available as an explicit user action. Current Card Variants, Needs Attention and browse readiness refresh; unsaved Canonical edits are retained. Open in Carder uses the refreshed variant bindings and the existing server grants. No save-back exists.
@@ -48,7 +48,8 @@ The following controls exist only in `scripts/run012-qa-fixture.cjs`, never in p
 curl -X POST http://127.0.0.1:4312/_qa/change-target
 
 # Fail at the service's existing database phase hook; rollback succeeds.
-# For Draft+Attach, verify Draft created / Asset not attached and retry same card.
+# Arm only AFTER protection + Draft creation, before confirming Attach.
+# Verify Draft retained, source UNASSIGN, no automatic/requested variants; retry same card.
 curl -X POST http://127.0.0.1:4312/_qa/fault/attachment
 curl -X POST http://127.0.0.1:4312/_qa/fault/none
 
@@ -88,4 +89,4 @@ If using a preinstalled Chromium instead, set `YU3DOH_QA_CHROMIUM` to its execut
 
 `evidence.json` records the tested Git HEAD, OS, successful scenarios, exact API requests, and page errors; screenshots show the actual rendered UI. If a local worktree is dirty, HEAD alone is not a validated candidate: final evidence must be generated against the clean delivered SHA. GitHub Actions produces and uploads exact-SHA evidence for both Linux and Windows in `run012-ui-<OS>-<SHA>` artifacts. Failure screenshots/logs remain available; failures must not be represented as passing evidence.
 
-Full validation is in `.github/workflows/workspace-run-012.yml`: frozen installs, root compile/build/test:sc/test:library, Workspace compile/all 340 tests, immutability checks, and operational browser evidence on both OSes. Review the Implementation Report for the final SHA and Actions run IDs.
+Full validation is in `.github/workflows/workspace-run-012.yml`: frozen installs, root compile/build/test:sc/test:library, Workspace compile/all 340 existing tests plus 12 Draft-fence/override regressions, immutability checks, and operational browser evidence on both OSes. Review the Implementation Report for the final SHA and Actions run IDs.

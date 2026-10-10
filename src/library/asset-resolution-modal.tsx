@@ -73,7 +73,7 @@ export const AssetResolutionModal = ({ entry, enabled, onClose, onChanged, onBlo
                 </Button>,
                 <Button key="confirm" type="primary" danger={selected.operation === 'REMOVE'} loading={view.phase === 'EXECUTING'}
                     disabled={!review || busy || blocked} onClick={() => { void controller.confirm(); }}>
-                    Confirm {selected.operation ? operationLabel[selected.operation].toLowerCase() : 'decision'}
+                    {view.draftReview ? 'Confirm protection + Draft creation' : `Confirm ${selected.operation ? operationLabel[selected.operation].toLowerCase() : 'decision'}`}
                 </Button>,
             ]}>
             {busy && <Spin tip={view.phase === 'EXECUTING' ? 'Executing…' : 'Loading authoritative state…'} />}
@@ -143,12 +143,12 @@ export const AssetResolutionModal = ({ entry, enabled, onClose, onChanged, onBlo
                                     {cards.map(card => <option value={card.card_id} key={card.card_id}>{card.display_name} · {card.password ?? 'no password'} · {card.card_id}</option>)}
                                 </select></label>
                                 {selected.operation === 'ATTACH' && <>
-                                    <Button onClick={() => setDraftMode(value => !value)}>Create Draft card for this resolution…</Button>
-                                    {draftMode && <fieldset><legend>Stage 1 — explicit Draft creation</legend>
-                                        <label>Draft family<select aria-label="Draft family" value={family} onChange={e => setFamily(e.target.value as LibraryFamily)}>{LIBRARY_FAMILIES.map(f => <option key={f}>{f}</option>)}</select></label>
-                                        {family !== 'TOKEN' && <label>Draft password (optional)<Input value={password} onChange={e => setPassword(e.target.value)} /></label>}
-                                        <p>Creating the Draft does not attach this asset. Review and confirm Attach separately. A failed attachment retains the Draft.</p>
-                                        <Button onClick={() => { void controller.createDraft({ family, ...(family !== 'TOKEN' ? { password: password.trim() || null } : {}) }); }}>Confirm create Draft</Button>
+                                    <Button onClick={() => { setDraftMode(value => !value); select({ createVariant: true, variantId: '' }); }}>Create Draft card for this resolution…</Button>
+                                    {draftMode && <fieldset><legend>Create Draft + Attach — explicit intent</legend>
+                                        <label>Draft family<select aria-label="Draft family" value={family} onChange={e => { setFamily(e.target.value as LibraryFamily); select({}); }}>{LIBRARY_FAMILIES.map(f => <option key={f}>{f}</option>)}</select></label>
+                                        {family !== 'TOKEN' && <label>Draft password (optional)<Input value={password} onChange={e => { setPassword(e.target.value); select({}); }} /></label>}
+                                        <p>First protect this source with explicit Unassign, then create the Draft with the password supplied. Attach to the selected role and variant requires a separate confirmation. If attachment fails, the Draft is retained and the source stays unassigned for retry.</p>
+                                        <Button onClick={() => { void controller.createDraft({ family, ...(family !== 'TOKEN' ? { password: password || null } : {}) }); }}>Review Create Draft + Attach</Button>
                                     </fieldset>}
                                 </>}
                             </>}
@@ -156,7 +156,7 @@ export const AssetResolutionModal = ({ entry, enabled, onClose, onChanged, onBlo
                                 <option value="">Select role explicitly</option>{ASSET_ROLES.map(role => <option key={role}>{role}</option>)}
                             </select></label>
                         </>}
-                    <label>Target variant mode<select aria-label="Target variant mode" value={selected.createVariant ? 'new' : 'existing'} onChange={e => select({ createVariant: e.target.value === 'new', variantId: '' })}>
+                    <label>Target variant mode<select aria-label="Target variant mode" disabled={!!view.createdDraftId || draftMode} value={selected.createVariant ? 'new' : 'existing'} onChange={e => select({ createVariant: e.target.value === 'new', variantId: '' })}>
                         <option value="existing">Existing variant</option><option value="new">Create target variant inside this resolution</option>
                     </select></label>
                     {selected.createVariant ? <>
@@ -179,7 +179,13 @@ export const AssetResolutionModal = ({ entry, enabled, onClose, onChanged, onBlo
                 {selected.operation === 'REMOVE' && <p>Remove retires the managed asset from this role. The card and variant are retained.</p>}
             </section>}
             {review && !view.preview && <section className="library-resolution-review" aria-label="Resolution confirmation">
-                <h3>Review {selected.operation && operationLabel[selected.operation]}</h3>
+                <h3>{view.draftReview ? 'Review Create Draft + Attach' : `Review ${selected.operation && operationLabel[selected.operation]}`}</h3>
+                {view.draftReview && <>
+                    <p>1. Explicitly unassign this source before creating any Draft.</p>
+                    <p>2. Create one {view.draftReview.family} Draft with password: {view.draftReview.password ?? 'none'}.</p>
+                    <p>3. Review and confirm Attach separately to role {selected.role}, variant {selected.variantKey}. No variant is created before that attachment.</p>
+                    <p>If Draft creation fails, the source remains unassigned. If Attach fails, retain the Draft and the unassigned source; retry only Attach.</p>
+                </>}
                 <p>Asset: {selected.candidateId || asset?.relativePath || target?.slot.asset?.relative_path || 'current context'}</p>
                 {selected.operation === 'RELINK' ? <p>Fixed target: {target?.variant.card_id} / {target?.variant.variant_key} / {target?.role}. Source: {selectedSource}. Source validation occurs during execution.</p>
                     : <p>Target card: {conflict ? target.variant.card_id : selected.cardId || 'unchanged'} · Variant: {selected.createVariant ? `create ${selected.variantKey}` : selected.variantId || 'unchanged'} · Role: {conflict ? target.role : selected.role || 'unchanged'}</p>}

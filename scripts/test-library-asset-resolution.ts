@@ -23,6 +23,7 @@ function harness() {
     let variants = [clone(variant), { ...clone(variant), variant_id: 'other', variant_key: 'other', display_label: 'Other' }];
     const calls: Array<{ method: string; args?: unknown }> = [];
     let failure: Error | null = null;
+    let draftFailure = false;
     const result = (operation: AssetOperationResponse['operation']): AssetOperationResponse => ({ ...snapshot, operation, changed: operation !== 'LEAVE' });
     const client: ResolverDependencies = {
         getResolutionState: async () => { calls.push({ method: 'state' }); return clone(snapshot); },
@@ -30,15 +31,24 @@ function harness() {
         getLibraryVariants: async (id) => { calls.push({ method: 'variants', args: id }); return { card_id: id, variants: clone(variants.filter(v => v.card_id === id)) }; },
         previewManagedAsset: async (id, body) => { calls.push({ method: 'preview', args: { id, body: clone(body) } }); return { ...clone(preview), operation: body.operation }; },
         mutateManagedAsset: async body => { calls.push({ method: 'mutate', args: clone(body) }); if (failure) throw failure; return result(body.operation); },
-        resolveAsset: async body => { calls.push({ method: 'resolve', args: clone(body) }); if (failure) throw failure; return result(body.operation); },
-        createLibraryCard: async body => { calls.push({ method: 'draft', args: body }); return { card_id: 'draft' } as any; },
+        resolveAsset: async body => {
+            calls.push({ method: 'resolve', args: clone(body) }); if (failure) throw failure;
+            if (body.operation === 'UNASSIGN') {
+                snapshot.overrides = [{ asset_id: body.asset_id!, disposition: 'UNASSIGN', variant_id: null, role: null }];
+                Object.assign(snapshot.assets[0], { cardId: null, variantId: null, associationState: 'UNRESOLVED' });
+                snapshot.expected_state_token = 'protected';
+            }
+            return result(body.operation);
+        },
+        createLibraryCard: async body => { calls.push({ method: 'draft', args: body }); if (draftFailure) throw new api.LibraryHttpError({ status: 422, code: 'CANONICAL_INVALID', message: 'injected' }); return { card_id: 'draft' } as any; },
     };
     const controller = new AssetResolutionController(client);
     controller.onChanged = async () => { calls.push({ method: 'views' }); };
     controller.onBlocked = async () => { calls.push({ method: 'blocked' }); };
     return { controller, calls, get snapshot() { return snapshot; }, variants,
         fail: (code: string, status = 422) => { failure = new api.LibraryHttpError({ status, code, message: 'injected' }); },
-        clear: () => { failure = null; } };
+        failDraft: () => { draftFailure = true; },
+        clear: () => { failure = null; draftFailure = false; } };
 }
 export async function runAssetResolutionChecks() {
     let passed = 0;
@@ -169,8 +179,9 @@ export async function runAssetResolutionChecks() {
         assert.deepEqual(h.calls.find(c => c.method === 'resolve')?.args, { operation: 'ATTACH', expected_state_token: 'state', asset_id: 'a', role: 'BG', variant_id: 'other' });
     });
     await check('Draft creation separate; attach failure preserves Draft and retry never creates another', async () => {
-        const h = unresolvedHarness(); await h.controller.open({ assetId: 'a' }); await h.controller.createDraft({ family: 'TOKEN' });
-        assert.equal(h.calls.filter(c => c.method === 'resolve').length, 0); assert.equal(h.controller.view.createdDraftId, 'draft');
+        const h = unresolvedHarness(); await h.controller.open({ assetId: 'a' }); h.controller.select({ role: 'BS', createVariant: true, variantKey: 'First' });
+        await h.controller.createDraft({ family: 'TOKEN' }); assert.equal(h.calls.filter(c => c.method === 'resolve').length, 0); await h.controller.confirm();
+        assert.equal(h.calls.filter(c => c.method === 'resolve').length, 1); assert.equal(h.controller.view.createdDraftId, 'draft');
         h.controller.select({ role: 'BS', variantKey: 'First' }); await h.controller.review(); h.fail('ASSET_SOURCE_INVALID'); await h.controller.confirm();
         assert.equal(h.controller.view.createdDraftId, 'draft'); assert.equal(h.controller.view.result, 'Draft created. Asset not attached.');
         await h.controller.createDraft({ family: 'TOKEN' }); h.controller.select({ cardId: 'c' }); assert.equal(h.controller.view.selection.cardId, 'draft');
@@ -208,6 +219,69 @@ export async function runAssetResolutionChecks() {
     await check('Review cannot optimistically mutate authoritative binding/readiness', async () => {
         const h = harness(); await h.controller.open({ cardId: 'c', variantId: 'v', role: 'BS', operation: 'REMOVE' }); const before = JSON.stringify(h.controller.view.snapshot);
         await h.controller.review(); assert.equal(JSON.stringify(h.controller.view.snapshot), before); assert.deepEqual(h.controller.view.variants[0].standard, variant.standard);
+    });
+    const draftReview = async (h: ReturnType<typeof harness>) => {
+        await h.controller.open({ assetId: 'a' });
+        h.controller.select({ role: 'BS', createVariant: true, variantKey: 'Explicit', displayLabel: 'Explicit art' });
+        await h.controller.createDraft({ family: 'SPELL', password: '10000000' });
+    };
+    const draftCreated = async (h: ReturnType<typeof harness>) => { await draftReview(h); await h.controller.confirm(); };
+    await check('DRAFT-UI-01 confirmation precedes any UNASSIGN/Canonical write; cancellation is read-only', async () => {
+        const h = unresolvedHarness(); await draftReview(h);
+        assert.equal(h.controller.view.phase, 'CONFIRMING'); assert.equal(h.controller.view.draftReview?.password, '10000000');
+        assert.equal(h.calls.some(c => ['resolve', 'draft'].includes(c.method)), false);
+        h.controller.close(); await h.controller.confirm(); assert.equal(h.calls.some(c => ['resolve', 'draft'].includes(c.method)), false);
+    });
+    await check('DRAFT-UI-02 UNASSIGN succeeds before matching-password Canonical creation', async () => {
+        const h = unresolvedHarness(); await draftCreated(h);
+        assert.deepEqual(h.calls.filter(c => ['resolve', 'draft'].includes(c.method)).map(c => c.method), ['resolve', 'draft']);
+        assert.deepEqual(h.calls.find(c => c.method === 'resolve')?.args, { operation: 'UNASSIGN', asset_id: 'a', expected_state_token: 'state' });
+    });
+    await check('DRAFT-UI-03 failed fence prevents Canonical creation', async () => {
+        const h = unresolvedHarness(); await draftReview(h); h.fail('ASSET_SOURCE_INVALID'); await h.controller.confirm();
+        assert.equal(h.calls.some(c => c.method === 'draft'), false); assert.equal(h.controller.view.createdDraftId, null);
+    });
+    await check('DRAFT-UI-04 protected response state/token retained through creation and explicit ATTACH', async () => {
+        const h = unresolvedHarness(); await draftCreated(h);
+        assert.equal(h.controller.view.snapshot?.expected_state_token, 'protected');
+        assert.equal(h.controller.view.snapshot?.overrides[0].disposition, 'UNASSIGN');
+        await h.controller.review(); await h.controller.confirm();
+        assert.equal((h.calls.filter(c => c.method === 'resolve').at(-1)?.args as any).expected_state_token, 'protected');
+    });
+    await check('DRAFT-UI-05 Canonical failure reports retained fence; explicit retry skips redundant UNASSIGN', async () => {
+        const h = unresolvedHarness(); await draftReview(h); h.failDraft(); await h.controller.confirm();
+        assert.equal(h.controller.view.createdDraftId, null);
+        assert.equal(h.controller.view.result, 'Draft was not created. The asset remains explicitly unassigned and safe for resolution.');
+        h.clear(); await h.controller.createDraft({ family: 'SPELL', password: '10000000' }); await h.controller.confirm();
+        assert.equal(h.calls.filter(c => c.method === 'resolve').length, 1); assert.equal(h.controller.view.createdDraftId, 'draft');
+    });
+    await check('DRAFT-UI-06 attachment failure preserves createdDraftId, source and target context', async () => {
+        const h = unresolvedHarness(); await draftCreated(h); await h.controller.review(); h.fail('ASSET_SOURCE_INVALID'); await h.controller.confirm();
+        assert.equal(h.controller.view.createdDraftId, 'draft'); assert.equal(h.controller.view.entry?.assetId, 'a');
+        assert.equal(h.controller.view.selection.variantKey, 'Explicit'); assert.equal(h.controller.view.selection.role, 'BS');
+        assert.equal(h.controller.view.snapshot?.overrides[0].disposition, 'UNASSIGN');
+    });
+    await check('DRAFT-UI-07 retry refreshes state and performs only ATTACH, never a second Canonical creation', async () => {
+        const h = unresolvedHarness(); await draftCreated(h); await h.controller.review(); h.fail('ASSET_SOURCE_INVALID'); await h.controller.confirm();
+        h.clear(); const start = h.calls.length; await h.controller.review(); await h.controller.confirm();
+        assert.equal(h.calls[start].method, 'state');
+        assert.deepEqual(h.calls.slice(start).filter(c => ['resolve', 'draft'].includes(c.method)).map(c => (c.args as any).operation), ['ATTACH']);
+        assert.equal(h.calls.filter(c => c.method === 'draft').length, 1);
+    });
+    await check('DRAFT-UI-08 stale after Draft refreshes, preserves Draft and never replays attachment', async () => {
+        const h = unresolvedHarness(); await draftCreated(h); await h.controller.review(); h.fail('ASSET_STATE_STALE', 409); await h.controller.confirm();
+        assert.equal(h.controller.view.phase, 'STALE'); assert.equal(h.controller.view.createdDraftId, 'draft');
+        assert.equal(h.controller.view.selection.variantKey, 'Explicit'); assert.ok(h.calls.some(c => c.method === 'refresh'));
+        const count = h.calls.length; await h.controller.confirm(); assert.equal(h.calls.length, count);
+        h.clear(); await h.controller.review(); await h.controller.confirm(); assert.equal(h.calls.filter(c => c.method === 'draft').length, 1);
+        assert.equal((h.calls.filter(c => c.method === 'resolve').at(-1)?.args as any).expected_state_token, 'fresh');
+    });
+    await check('DRAFT-UI-09 non-TOKEN Draft preserves supplied matching password and resolver target', async () => {
+        const h = unresolvedHarness(); await draftCreated(h);
+        assert.deepEqual(h.calls.find(c => c.method === 'draft')?.args, { family: 'SPELL', password: '10000000' });
+        await h.controller.review(); await h.controller.confirm();
+        assert.deepEqual((h.calls.filter(c => c.method === 'resolve').at(-1)?.args as any).create_variant,
+            { card_id: 'draft', variant_key: 'Explicit', display_label: 'Explicit art' });
     });
     console.log(`Library RUN 012 resolver checks: ${passed} PASS / 0 FAIL / 0 SKIP`);
 }

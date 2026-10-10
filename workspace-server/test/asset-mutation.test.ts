@@ -693,3 +693,126 @@ test('REPLACE simulation restores BG+OF Overframe precedence after validating mi
     assert.deepEqual(result.readiness_after, { standard: ready(['BS']), overframe: ready(['BG', 'OF']) });
     assert.deepEqual(assetDomainSnapshot(service), before);
 });
+
+// RUN012: a matching Canonical password must not pierce explicit resolver intent.
+const draftFence = async (hooks: MutationHooks = {}) => {
+    const { root, service } = await setup(hooks);
+    const file = await indexedFile(root, '77770000-DraftSource-BS-Default.png');
+    const initial = await service.assetMutations!.refresh();
+    const asset = initial.assets[0]!;
+    const fenced = await service.assetMutations!.resolve({ operation: 'UNASSIGN', asset_id: asset.assetId,
+        expected_state_token: initial.expected_state_token });
+    const card = service.canonical!.createCard({ family: 'SPELL', password: '77770000' });
+    return { root, service, file, asset, fenced, card };
+};
+const assertFence = (service: WorkspaceService, assetId: string, cardId: string) => {
+    const asset = service.assets!.listAssets().find(a => a.assetId === assetId)!;
+    assert.equal(asset.associationState, 'UNRESOLVED'); assert.equal(asset.cardId, null); assert.equal(asset.variantId, null);
+    assert.equal(asset.present, true); assert.equal(asset.validAsset, true); assert.equal(asset.parsedPassword, '77770000');
+    assert.equal(disposition(service, assetId), 'UNASSIGN');
+    assert.equal(service.assets!.listVariants(cardId).length, 0);
+    assert.equal(service.libraryAssets!.getNeedsAttention().items.some(i => i.asset_id === assetId && i.code === 'UNRESOLVED_CARD'), true);
+};
+const attachDraft = (fixture: Awaited<ReturnType<typeof draftFence>>, role: 'BS' | 'OF' = 'BS') => fixture.service.assetMutations!.resolve({
+    operation: 'ATTACH', asset_id: fixture.asset.assetId, expected_state_token: fixture.fenced.expected_state_token,
+    role, create_variant: { card_id: fixture.card.cardId, variant_key: 'Explicit', display_label: 'Explicit art' },
+});
+
+test('DRAFT-FENCE-01 matching-password Draft and scan preserve explicit unresolved source and physical bytes', async () => {
+    const f = await draftFence(); const bytes = await readFile(f.file);
+    await f.service.assets!.scan(); assertFence(f.service, f.asset.assetId, f.card.cardId);
+    assert.deepEqual(await readFile(f.file), bytes);
+    await writeFile(f.file, 'invalid bytes'); await f.service.assets!.scan();
+    assert.equal(f.service.assets!.listAssets().find(a => a.assetId === f.asset.assetId)!.validAsset, false);
+    assert.equal(f.service.assets!.listVariants(f.card.cardId).length, 0);
+    await unlink(f.file); await f.service.assets!.scan();
+    assert.equal(f.service.assets!.listAssets().find(a => a.assetId === f.asset.assetId)!.present, false);
+    assert.equal(disposition(f.service, f.asset.assetId), 'UNASSIGN');
+});
+test('DRAFT-FENCE-02 fenced scan creates no automatic Art Variant and does not update existing variants', async () => {
+    const f = await draftFence();
+    f.service.persistence!.runRepositoryOperation(db => db.prepare(`INSERT INTO art_variants
+        (variant_id, card_id, variant_key, display_label, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)`)
+        .run('existing-default', f.card.cardId, 'default', 'Untouched label', 'before', 'before'));
+    const before = f.service.persistence!.runRepositoryOperation(db => db.prepare('SELECT * FROM art_variants').all());
+    await f.service.assets!.scan();
+    assert.deepEqual(f.service.persistence!.runRepositoryOperation(db => db.prepare('SELECT * FROM art_variants').all()), before);
+});
+test('DRAFT-FENCE-03 protection token survives matching Draft creation and execution pre-scan', async () => {
+    const f = await draftFence();
+    assert.equal(f.service.assetMutations!.getState().expected_state_token, f.fenced.expected_state_token);
+    await f.service.assets!.scan();
+    assert.equal(f.service.assetMutations!.getState().expected_state_token, f.fenced.expected_state_token);
+    await attachDraft(f);
+});
+test('DRAFT-FENCE-04 explicit ATTACH creates only requested resolver variant', async () => {
+    const f = await draftFence(); const result = await attachDraft(f);
+    const variants = result.variants.filter(v => v.cardId === f.card.cardId);
+    assert.equal(variants.length, 1); assert.equal(variants[0]!.variantKey, 'explicit');
+    assert.equal(variants[0]!.roles.BS!.assetId, f.asset.assetId);
+});
+test('DRAFT-FENCE-05 UNASSIGN becomes ASSIGN only at explicitly requested target', async () => {
+    const f = await draftFence(); assert.equal(disposition(f.service, f.asset.assetId), 'UNASSIGN');
+    const result = await attachDraft(f); const asset = result.assets.find(a => a.assetId === f.asset.assetId)!;
+    assert.equal(disposition(f.service, f.asset.assetId), 'ASSIGN'); assert.equal(asset.cardId, f.card.cardId);
+    assert.equal(asset.variantKey, 'explicit'); assert.equal(asset.role, 'BS');
+    await f.service.assets!.scan(); assert.equal(f.service.assets!.listVariants(f.card.cardId).length, 1);
+});
+test('DRAFT-FENCE-06 injected ATTACH postcondition failure preserves Draft and fence with no automatic/requested variant', async () => {
+    let armed = false;
+    const f = await draftFence({ phase: phase => { if (armed && phase === 'postcondition') throw new Error('attachment completion failure'); } });
+    armed = true; await assert.rejects(attachDraft(f), code('ASSET_MUTATION_FAILED'));
+    assertFence(f.service, f.asset.assetId, f.card.cardId);
+    assert.ok(f.service.persistence!.runRepositoryOperation(db => db.prepare('SELECT card_id FROM canonical_cards WHERE card_id = ?').get(f.card.cardId)));
+});
+test('DRAFT-FENCE-07 failure after resolver variant creation compensates Asset domain, preserving Draft and fence', async () => {
+    let armed = false;
+    const f = await draftFence({ phase: phase => { if (armed && phase === 'database') throw new Error('after variant creation'); } });
+    armed = true; await assert.rejects(attachDraft(f), code('ASSET_MUTATION_FAILED'));
+    assertFence(f.service, f.asset.assetId, f.card.cardId);
+    assert.equal(f.service.assetMutations!.getState().expected_state_token, f.fenced.expected_state_token);
+    assert.ok(f.service.persistence!.runRepositoryOperation(db => db.prepare('SELECT card_id FROM canonical_cards WHERE card_id = ?').get(f.card.cardId)));
+    armed = false; await attachDraft(f);
+});
+test('DRAFT-FENCE-08 restart and Rescan preserve fence without automatic binding or variant creation', async () => {
+    const f = await draftFence(); await f.service.close();
+    const service = await createWorkspaceService({ workspaceRoot: f.root, host: '127.0.0.1', port: 4312 }); services.push(service);
+    await service.assets!.scan(); assertFence(service, f.asset.assetId, f.card.cardId);
+});
+test('OVERRIDE-PRECEDENCE-01 conflict loser remains unassigned through Rescan and available for explicit attachment', async () => {
+    const f = await conflict();
+    await f.service.assetMutations!.resolve({ operation: 'CHOOSE', asset_id: f.winner.assetId, variant_id: f.variant.variantId,
+        role: 'BS', expected_state_token: await token(f.service) });
+    await f.service.assets!.scan(); assert.equal(disposition(f.service, f.loser.assetId), 'UNASSIGN');
+    assert.equal(f.service.assets!.listAssets().find(a => a.assetId === f.loser.assetId)!.variantId, null);
+    const result = await f.service.assetMutations!.resolve({ operation: 'ATTACH', asset_id: f.loser.assetId,
+        expected_state_token: f.service.assetMutations!.getState().expected_state_token, role: 'BS',
+        create_variant: { card_id: f.card.cardId, variant_key: 'Later' } });
+    assert.equal(result.assets.find(a => a.assetId === f.loser.assetId)!.variantKey, 'later'); assert.ok(existsSync(f.b));
+});
+test('OVERRIDE-PRECEDENCE-02 IGNORE suppresses automatic variant side effects and actionable diagnostics', async () => {
+    const f = await draftFence();
+    f.service.persistence!.runRepositoryOperation(db => db.prepare("UPDATE asset_resolution_overrides SET disposition = 'IGNORE' WHERE asset_id = ?").run(f.asset.assetId));
+    await f.service.assets!.scan();
+    assert.equal(f.service.assets!.listVariants(f.card.cardId).length, 0);
+    const asset = f.service.assets!.listAssets().find(a => a.assetId === f.asset.assetId)!;
+    assert.equal(asset.cardId, null); assert.equal(asset.variantId, null); assert.equal(asset.validAsset, true);
+    assert.equal(f.service.libraryAssets!.getNeedsAttention().items.some(i => i.asset_id === f.asset.assetId), false);
+    assert.ok(existsSync(f.file));
+});
+test('OVERRIDE-PRECEDENCE-03 ASSIGN retains explicit target and physical validation precedence', async () => {
+    const f = await draftFence(); await attachDraft(f); await writeFile(f.file, png(255, [90, 50, 20]));
+    await f.service.assets!.scan();
+    const asset = f.service.assets!.listAssets().find(a => a.assetId === f.asset.assetId)!;
+    assert.equal(asset.cardId, f.card.cardId); assert.equal(asset.variantKey, 'explicit'); assert.equal(asset.validAsset, true);
+    await writeFile(f.file, 'not an image'); await f.service.assets!.scan();
+    assert.equal(f.service.assets!.listAssets().find(a => a.assetId === f.asset.assetId)!.validAsset, false);
+    assert.equal(disposition(f.service, f.asset.assetId), 'ASSIGN');
+});
+test('OVERRIDE-PRECEDENCE-04 ordinary filename association without override remains automatic', async () => {
+    const { root, service } = await setup(); await indexedFile(root, '77770000-Ordinary-BS-Default.png');
+    await service.assets!.scan(); const card = service.canonical!.createCard({ family: 'SPELL', password: '77770000' });
+    await service.assets!.scan(); const variant = service.assets!.listVariants(card.cardId)[0]!;
+    assert.equal(variant.variantKey, 'default'); assert.equal(variant.roles.BS!.cardId, card.cardId);
+    assert.equal(disposition(service, variant.roles.BS!.assetId), undefined);
+});

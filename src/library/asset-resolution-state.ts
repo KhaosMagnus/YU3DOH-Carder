@@ -21,11 +21,12 @@ export type ResolverView = {
     selection: ResolverSelection; preview: ManagedAssetPreview | null;
     error: string | null; warning: string | null; createdDraftId: string | null;
     result: string | null;
+    draftReview: { family: LibraryFamily; password?: string | null } | null;
 };
 const initialSelection = (): ResolverSelection => ({ operation: '', candidateId: '', sourceMode: 'path', sourceFile: '',
     sourceAssetId: '', cardId: '', variantId: '', role: '', createVariant: false, variantKey: '', displayLabel: '' });
 const initialView = (): ResolverView => ({ phase: 'CLOSED', entry: null, snapshot: null, variants: [], targetVariants: [],
-    selection: initialSelection(), preview: null, error: null, warning: null, createdDraftId: null, result: null });
+    selection: initialSelection(), preview: null, error: null, warning: null, createdDraftId: null, result: null, draftReview: null });
 export const resolverBusy = (phase: ResolverPhase) => ['LOADING_STATE', 'PREVIEW_LOADING', 'EXECUTING'].includes(phase);
 export const resolverAsset = (view: ResolverView): IndexedLibraryAsset | undefined =>
     view.snapshot?.assets.find(a => a.assetId === view.entry?.assetId);
@@ -80,7 +81,8 @@ export type ResolverDependencies = Pick<typeof api, 'getResolutionState' | 'refr
 export class AssetResolutionController {
     view = initialView();
     private listeners = new Set<(view: ResolverView) => void>();
-    private prepared: { kind: 'managed'; body: ManagedAssetMutationRequest } | { kind: 'resolution'; body: AssetResolutionRequest } | null = null;
+    private prepared: { kind: 'managed'; body: ManagedAssetMutationRequest } | { kind: 'resolution'; body: AssetResolutionRequest }
+        | { kind: 'draft'; input: { family: LibraryFamily; password?: string | null }; assetId: string; token: string } | null = null;
     private generation = 0;
     onChanged: () => Promise<void> = async () => {};
     onBlocked: () => Promise<void> = async () => {};
@@ -112,7 +114,7 @@ export class AssetResolutionController {
         this.prepared = null;
         // Draft identity cannot be replaced accidentally during attach retry.
         if (this.view.createdDraftId && patch.cardId && patch.cardId !== this.view.createdDraftId) return;
-        this.patch({ selection: { ...this.view.selection, ...patch }, preview: null, error: null, phase: 'SELECTING', result: null });
+        this.patch({ selection: { ...this.view.selection, ...patch }, preview: null, draftReview: null, error: null, phase: 'SELECTING', result: null });
     }
     async selectCard(cardId: string) {
         if (resolverBusy(this.view.phase) || this.view.phase === 'RECOVERY_BLOCKED') return;
@@ -141,25 +143,67 @@ export class AssetResolutionController {
     }
     async refresh() {
         if (resolverBusy(this.view.phase)) return;
-        this.prepared = null; this.patch({ preview: null, snapshot: null, phase: 'LOADING_STATE' });
+        this.prepared = null; this.patch({ preview: null, draftReview: null, snapshot: null, phase: 'LOADING_STATE' });
         try { await this.reload(true); await this.onChanged(); this.patch({ phase: 'SELECTING', error: null }); }
         catch (error) { await this.handleError(error); }
     }
+    /** Review is read-only; the fence and Canonical creation require confirmation. */
     async createDraft(input: { family: LibraryFamily; password?: string | null }) {
         if (resolverBusy(this.view.phase) || this.view.createdDraftId || this.view.phase === 'RECOVERY_BLOCKED') return;
-        if (!this.view.snapshot || this.view.selection.operation !== 'ATTACH' || !resolverOperations(this.view).includes('ATTACH')) return;
-        this.prepared = null; this.patch({ phase: 'EXECUTING', preview: null, error: null });
+        const { snapshot, selection } = this.view;
+        if (!snapshot || selection.operation !== 'ATTACH' || !resolverOperations(this.view).includes('ATTACH')) return;
+        if (!selection.role || !selection.createVariant || !selection.variantKey.trim()) {
+            this.patch({ error: 'Confirm the target role and resolver variant key before reviewing Draft creation.', phase: 'ERROR' });
+            return;
+        }
+        const assetId = resolverAsset(this.view)?.assetId;
+        if (!assetId) return;
+        this.prepared = { kind: 'draft', input: { ...input }, assetId, token: snapshot.expected_state_token };
+        this.patch({ draftReview: { ...input }, phase: 'CONFIRMING', preview: null, error: null });
+    }
+    private isUnassigned(snapshot: AssetResolutionState, assetId: string) {
+        const asset = snapshot.assets.find(a => a.assetId === assetId);
+        return !!asset && asset.present && !asset.cardId && !asset.variantId
+            && snapshot.overrides.some(o => o.asset_id === assetId && o.disposition === 'UNASSIGN');
+    }
+    private async protectAndCreateDraft(request: { input: { family: LibraryFamily; password?: string | null }; assetId: string; token: string }) {
+        let protectedSource = false;
         try {
-            const card = await this.client.createLibraryCard(input);
+            const current = await this.client.getResolutionState();
+            this.patch({ snapshot: current });
+            if (current.expected_state_token !== request.token || !resolverOperations(this.view).includes('ATTACH')) {
+                throw new api.LibraryHttpError({ status: 409, code: 'ASSET_STATE_STALE', message: 'Review the current source before creating a Draft.' });
+            }
+            protectedSource = this.isUnassigned(current, request.assetId);
+            if (!protectedSource) {
+                const fenced = await this.client.resolveAsset({ operation: 'UNASSIGN', asset_id: request.assetId,
+                    expected_state_token: current.expected_state_token });
+                this.patch({ snapshot: fenced });
+                protectedSource = this.isUnassigned(fenced, request.assetId);
+                if (!protectedSource) throw new Error('The server did not prove explicit source protection. Draft was not created.');
+            }
+            const card = await this.client.createLibraryCard(request.input);
             this.patch({ createdDraftId: card.card_id, targetVariants: [], selection: { ...this.view.selection,
-                cardId: card.card_id, variantId: '', createVariant: true }, result: 'Draft created. Asset not attached.' });
+                cardId: card.card_id, variantId: '', createVariant: true }, result: 'Draft created. Asset not attached; source remains explicitly unassigned.' });
             await this.reload(false); await this.onChanged(); this.patch({ phase: 'SELECTING' });
-        } catch (error) { await this.handleError(error); }
+        } catch (error) {
+            await this.handleError(error);
+            if (protectedSource && !this.view.createdDraftId) this.patch({ result: 'Draft was not created. The asset remains explicitly unassigned and safe for resolution.' });
+        }
     }
     async review() {
         if (resolverBusy(this.view.phase) || this.view.phase === 'RECOVERY_BLOCKED') return;
-        this.prepared = null; this.patch({ error: null, preview: null });
+        this.prepared = null; this.patch({ error: null, preview: null, draftReview: null });
         try {
+            if (this.view.createdDraftId) {
+                // Retry reviews current state, never Canonical creation or a replay.
+                await this.reload(false);
+                if (this.view.selection.operation !== 'ATTACH' || !this.view.selection.createVariant
+                    || this.view.selection.cardId !== this.view.createdDraftId
+                    || !this.view.snapshot || !this.isUnassigned(this.view.snapshot, this.view.entry?.assetId ?? '')) {
+                    throw new api.LibraryHttpError({ status: 409, code: 'ASSET_STATE_STALE', message: 'Draft retry requires the same explicitly unassigned source.' });
+                }
+            }
             const { selection: selected, snapshot } = this.view;
             if (!snapshot || !resolverOperations(this.view).includes(selected.operation as ResolverOperation)) {
                 throw new api.LibraryHttpError({ status: 422, code: 'ASSET_OPERATION_INVALID', message: 'Load current state and select an available operation.' });
@@ -220,7 +264,8 @@ export class AssetResolutionController {
     async confirm() {
         if (!this.prepared || !['PREVIEW_READY', 'CONFIRMING'].includes(this.view.phase)) return;
         const request = this.prepared;
-        this.prepared = null; this.patch({ phase: 'EXECUTING', error: null });
+        this.prepared = null; this.patch({ phase: 'EXECUTING', error: null, draftReview: null });
+        if (request.kind === 'draft') { await this.protectAndCreateDraft(request); return; }
         let completed = false;
         try {
             const response = request.kind === 'managed' ? await this.client.mutateManagedAsset(request.body) : await this.client.resolveAsset(request.body);
@@ -236,7 +281,7 @@ export class AssetResolutionController {
         this.prepared = null;
         const code = error instanceof api.LibraryHttpError ? error.code : '';
         const blocked = ['ASSET_MUTATION_RECOVERY_REQUIRED', 'WORKSPACE_NOT_READY'].includes(code);
-        this.patch({ preview: null, error: assetResolutionError(error), phase: blocked ? 'RECOVERY_BLOCKED' : 'ERROR',
+        this.patch({ preview: null, draftReview: null, error: assetResolutionError(error), phase: blocked ? 'RECOVERY_BLOCKED' : 'ERROR',
             ...(this.view.createdDraftId ? { result: 'Draft created. Asset not attached.' } : {}) });
         if (blocked) { this.patch({ snapshot: null }); await this.onBlocked().catch(() => {}); return; }
         if (['ASSET_STATE_STALE', 'ASSET_NOT_FOUND', 'ASSET_MUTATION_FAILED'].includes(code)) {
