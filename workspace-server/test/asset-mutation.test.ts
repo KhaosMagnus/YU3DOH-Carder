@@ -108,10 +108,10 @@ test('RUN011 real schema 4 migrates through recovery checkpoint, 005/history val
     assert.equal(service.assetMutations, null);
     const result = await service.recovery.migrate();
     assert.ok('previousVersion' in result); assert.ok(result.backup_id);
-    assert.equal(result.previousVersion, 4); assert.deepEqual(result.appliedVersions, [5]);
-    assert.equal(service.status.state, 'READY'); assert.equal(service.status.database_schema_version, 5);
+    assert.equal(result.previousVersion, 4); assert.deepEqual(result.appliedVersions, [5, 6]);
+    assert.equal(service.status.state, 'READY'); assert.equal(service.status.database_schema_version, 6);
     assert.ok(service.assetMutations);
-    assert.deepEqual(service.persistence!.runRepositoryOperation(db => db.prepare('SELECT version FROM _workspace_migrations ORDER BY version').all()), [1,2,3,4,5].map(version => ({ version })));
+    assert.deepEqual(service.persistence!.runRepositoryOperation(db => db.prepare('SELECT version FROM _workspace_migrations ORDER BY version').all()), [1,2,3,4,5, 6].map(version => ({ version })));
     const backup = JSON.parse(await readFile(path.join(root, 'Backups', result.backup_id, 'backup.json'), 'utf8'));
     assert.equal(backup.database_schema_version, 4);
     const db = new Database(path.join(root, 'Backups', result.backup_id, 'payload/Data/workspace.db'), { readonly: true });

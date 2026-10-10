@@ -43,6 +43,8 @@ export type LibraryVariantDetailDto = {
 
 export type LibraryVariantsResponseDto = {
     card_id: string;
+    preferred_variant_id: string | null;
+    expected_state_token: string;
     variants: LibraryVariantDetailDto[];
 };
 

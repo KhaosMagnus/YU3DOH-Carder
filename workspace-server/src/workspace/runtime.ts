@@ -1,3 +1,4 @@
+import { VariantLifecycleService } from '../variant-lifecycle/service';
 import { AssetMutationService, type MutationHooks } from '../asset-mutation/service';
 import { AssetIndexerService } from '../assets/indexer';
 import { CanonicalDomainService } from '../canonical/service';
@@ -22,6 +23,7 @@ export type WorkspaceRuntime = {
     libraryAssets: LibraryAssetService | null;
     assetMutations: AssetMutationService | null;
     carderPrepare: CarderPrepareService | null;
+    variantLifecycle: VariantLifecycleService | null;
     carderAssetGrants: CarderAssetGrantRegistry;
 };
 
@@ -31,7 +33,7 @@ export class WorkspaceRuntimeManager {
     readonly maintenance = new WorkspaceMaintenanceCoordinator();
 
     constructor(readonly workspaceRoot: string, inspection: WorkspaceInspection,
-        grants = new CarderAssetGrantRegistry(), private readonly mutationHooks: MutationHooks = {}) {
+        grants = new CarderAssetGrantRegistry(), private readonly mutationHooks: MutationHooks = {}, private readonly lifecycleHooks: MutationHooks = {}) {
         this.runtime = this.build(inspection, grants);
     }
 
@@ -48,11 +50,14 @@ export class WorkspaceRuntimeManager {
         const library = persistence ? guard(new LibraryQueryService(persistence)) : null;
         const assetMutations = persistence && assets ? guard(new AssetMutationService(this.workspaceRoot, persistence,
             assets, message => this.recoveryRequired(message), this.mutationHooks), ['refresh', 'resolve', 'mutate']) : null;
-        const libraryAssets = persistence && assets && managedAssets && canonical
-            ? guard(new LibraryAssetService(persistence, assets, managedAssets, canonical, assetMutations?.tokens), ['rescan', 'ingestManaged']) : null;
+        const libraryAssets = persistence && assets && managedAssets && canonical && assetMutations
+            ? guard(new LibraryAssetService(persistence, assets, managedAssets, canonical, assetMutations.tokens), ['rescan', 'ingestManaged']) : null;
+        const variantLifecycle = persistence && assets && libraryAssets && assetMutations
+            ? guard(new VariantLifecycleService(this.workspaceRoot, persistence, assets, libraryAssets, assetMutations.tokens, grants,
+                message => this.recoveryRequired(message), this.lifecycleHooks), ['setPreferred', 'rename', 'remove']) : null;
         const carderPrepare = persistence && assets && canonical
             ? guard(new CarderPrepareService(canonical, assets, grants)) : null;
-        return { status, persistence, canonical, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare,
+        return { status, persistence, canonical, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare, variantLifecycle,
             carderAssetGrants: grants };
     }
 

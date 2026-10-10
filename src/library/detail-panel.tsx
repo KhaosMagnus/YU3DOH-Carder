@@ -1,3 +1,5 @@
+import { VariantLifecycleModal } from './variant-lifecycle-modal';
+import type { LifecycleEntry } from './variant-lifecycle-state';
 import { useEffect, useMemo, useState } from 'react';
 import { Alert, Button, Drawer, Input, Modal, Spin, Tag } from 'antd';
 import {
@@ -43,9 +45,10 @@ type Props = {
     onResolve?: (entry: ResolverEntry) => void;
     assetsRevision?: number;
     assetsEnabled?: boolean;
+    onLifecycleBlocked?: () => Promise<void>;
 };
 
-export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, assetsEnabled = true }: Props) => {
+export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, assetsEnabled = true, onLifecycleBlocked = async () => {} }: Props) => {
     const [loading, setLoading] = useState(false);
     const [detailError, setDetailError] = useState<string | null>(null);
     const [metadataError, setMetadataError] = useState<string | null>(null);
@@ -61,6 +64,8 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
     const [confirmSourceKind, setConfirmSourceKind] = useState('MANUAL');
     const [confirmSourceRef, setConfirmSourceRef] = useState('');
     const [confirmNote, setConfirmNote] = useState('');
+    const [lifecycleEntry, setLifecycleEntry] = useState<LifecycleEntry | null>(null);
+    const [preferredVariantId, setPreferredVariantId] = useState<string | null>(null);
     const [variants, setVariants] = useState<LibraryVariantDetail[]>([]);
     const [variantsLoading, setVariantsLoading] = useState(false);
     const [variantError, setVariantError] = useState<string | null>(null);
@@ -89,6 +94,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
         try {
             const response = await getLibraryVariants(id);
             setVariants(response.variants);
+            setPreferredVariantId(response.preferred_variant_id);
             setVariantError(null);
         } catch (error) {
             // Do not clear authoritative Canonical detail on variant failure.
@@ -371,11 +377,14 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                                 detail={authoritative}
                                 variants={variants}
                                 dirty={dirty}
+                                preferredVariantId={preferredVariantId}
                             />}
                             <VariantsPanel
                                 cardId={authoritative.card_id}
                                 variants={variants}
                                 onResolve={onResolve}
+                                preferredVariantId={preferredVariantId}
+                                onLifecycle={setLifecycleEntry}
                                 assetsEnabled={assetsEnabled}
                                 loading={variantsLoading}
                                 error={variantError}
@@ -392,6 +401,8 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                 </div>
             )}
 
+            {lifecycleEntry && <VariantLifecycleModal entry={lifecycleEntry} onClose={() => setLifecycleEntry(null)}
+                onBlocked={onLifecycleBlocked} onChanged={async () => { await loadVariants(lifecycleEntry.cardId); onAssetsChanged?.(); }} />}
             <Modal
                 title="Confirmed block modification"
                 visible={Boolean(pendingConfirmations)}

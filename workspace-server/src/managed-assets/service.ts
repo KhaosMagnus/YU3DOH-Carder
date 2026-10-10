@@ -198,7 +198,7 @@ export class ManagedAssetIngestService {
         }
     }
 
-    private async compensate(asset: ManagedAssetSnapshot, idempotencyKey: string, createdVariant: boolean) {
+    private async compensate(asset: ManagedAssetSnapshot, idempotencyKey: string, createdVariant: boolean, previousPreference?: Record<string, unknown>) {
         const destinationPath = path.resolve(this.workspaceRoot, ...asset.managedRelativePath.split('/'));
         await this.removePublishedFileIfOwned(destinationPath, asset.role, asset.extension, asset.contentHash);
         this.persistence.transaction(database => {
@@ -210,6 +210,11 @@ export class ManagedAssetIngestService {
                 asset.managedRelativePath,
                 createdVariant,
             );
+            if (createdVariant) {
+                database.prepare('DELETE FROM card_variant_preferences WHERE card_id = ?').run(asset.cardId);
+                if (previousPreference) database.prepare('INSERT INTO card_variant_preferences (card_id, preferred_variant_id, revision, updated_at) VALUES (?, ?, ?, ?)')
+                    .run(previousPreference.card_id, previousPreference.preferred_variant_id, previousPreference.revision, previousPreference.updated_at);
+            }
         });
         try { await this.assets.scan(); } catch { /* preserve primary error */ }
     }
@@ -222,6 +227,7 @@ export class ManagedAssetIngestService {
         } catch (error) {
             throw new ManagedAssetIngestError('INVALID_VARIANT', 'Managed asset variant key is invalid.', { cause: error });
         }
+        const previousPreference = this.persistence.runRepositoryOperation(database => database.prepare('SELECT * FROM card_variant_preferences WHERE card_id = ?').get(input.cardId) as Record<string, unknown> | undefined);
         const displayLabel = input.variantKey.normalize('NFKC').trim();
         const idempotencyKey = input.idempotencyKey.trim();
         if (!idempotencyKey || idempotencyKey.length > 256) {
@@ -427,7 +433,7 @@ export class ManagedAssetIngestService {
                     throw new Error('Managed asset did not become authoritative role binding.');
                 }
             } catch (error) {
-                await this.compensate(createdAsset, idempotencyKey, createdVariant);
+                await this.compensate(createdAsset, idempotencyKey, createdVariant, previousPreference);
                 throw new ManagedAssetIngestError(
                     'INDEX_RECONCILIATION_FAILED',
                     'Managed asset was compensated because index reconciliation did not establish its binding.',

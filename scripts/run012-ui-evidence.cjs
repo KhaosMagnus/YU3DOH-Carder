@@ -146,7 +146,10 @@ async function run() {
         assert.equal(await assertDraftFence(), protectedToken, 'Matching Canonical password must not change the protected token on scan');
         await screenshot('19b-matching-password-draft-unassigned-no-automatic-variant');
         await review(); await screenshot('19-draft-created-explicit-attach-review'); await api('/_qa/fault/attachment', 'POST'); await confirm();
-        await visible(modal().getByText(/ASSET_MUTATION_FAILED/)); await assertDraftFence(); await screenshot('20-draft-created-attach-failed-retained');
+        await visible(modal().getByText(/ASSET_MUTATION_FAILED/));
+        // The error renders before the authoritative refresh releases its mutation lease.
+        await modal().locator('button:not([disabled])').filter({hasText:/Preview \/ review|Review decision/}).waitFor({state:'visible'});
+        await assertDraftFence(); await screenshot('20-draft-created-attach-failed-retained');
         await api('/_qa/fault/none', 'POST'); await review(); await confirm(); await success();
         const attachedState = await api('/api/v1/library/assets/resolution-state');
         const attached = attachedState.assets.find(a => a.assetId === draftSource.assetId);

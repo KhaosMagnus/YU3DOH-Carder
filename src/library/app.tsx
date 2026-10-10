@@ -457,6 +457,7 @@ export const LibraryApp = () => {
                 onResolve={setResolverEntry}
                 assetsRevision={assetsRevision}
                 assetsEnabled={assetsEnabled}
+                onLifecycleBlocked={blockAssetViews}
             />
 
             <NeedsAttentionPanel

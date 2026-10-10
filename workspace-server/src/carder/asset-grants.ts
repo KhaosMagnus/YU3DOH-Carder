@@ -132,6 +132,10 @@ export class CarderAssetGrantRegistry {
     }
 
     /** Number of live entries held (tests: cap / no-issue on failed prepare). */
+    revokeVariant(variantId: string) {
+        for (const [id, entry] of this.entries) if (entry.scope.variantId === variantId) this.entries.delete(id);
+    }
+
     size(): number {
         return this.entries.size;
     }

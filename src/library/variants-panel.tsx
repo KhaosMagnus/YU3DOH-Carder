@@ -1,3 +1,4 @@
+import type { LifecycleEntry } from './variant-lifecycle-state';
 import { Alert, Button, Spin, Tag } from 'antd';
 import type { ResolverEntry } from './asset-resolution-state';
 import { ASSET_ROLES, type LibraryVariantDetail } from './model';
@@ -19,6 +20,8 @@ type Props = {
     onIngestError: (message: string | null) => void;
     onResolve?: (entry: ResolverEntry) => void;
     assetsEnabled?: boolean;
+    preferredVariantId?: string | null;
+    onLifecycle?: (entry: LifecycleEntry) => void;
 };
 
 const slotColor = (state: string) => {
@@ -41,6 +44,8 @@ export const VariantsPanel = ({
     onIngestError,
     onResolve,
     assetsEnabled = true,
+    preferredVariantId = null,
+    onLifecycle,
 }: Props) => (
     <section className="library-variants" aria-label="Variants and Assets">
         <h3>Variants / Assets</h3>
@@ -71,6 +76,14 @@ export const VariantsPanel = ({
                             </Tag>
                         </div>
                     </div>
+                    {onLifecycle && <div className="library-variant-actions">
+                        {preferredVariantId === variant.variant_id && <Tag color="gold">Preferred</Tag>}
+                        <Button disabled={!assetsEnabled} onClick={() => onLifecycle({cardId,variantId:variant.variant_id,operation:preferredVariantId===variant.variant_id?'CLEAR':'PREFERRED'})}>
+                            {preferredVariantId===variant.variant_id?'Clear Preferred':'Set Preferred'}
+                        </Button>
+                        <Button disabled={!assetsEnabled} onClick={() => onLifecycle({cardId,variantId:variant.variant_id,operation:'RENAME'})}>Rename Variant</Button>
+                        <Button danger disabled={!assetsEnabled} onClick={() => onLifecycle({cardId,variantId:variant.variant_id,operation:'REMOVE'})}>Remove Variant</Button>
+                    </div>}
                     <div className="library-role-slots">
                         {ASSET_ROLES.map(role => {
                             const slot = variant.roles[role];

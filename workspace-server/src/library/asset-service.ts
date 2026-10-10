@@ -1,3 +1,4 @@
+import { preferredVariant } from '../variant-lifecycle/preferences';
 import type { AssetStateTokens } from '../asset-mutation/state';
 import { listIndexedAssets } from '../assets/repository';
 import type { AssetIndexerService } from '../assets/indexer';
@@ -49,7 +50,7 @@ export class LibraryAssetService {
         private readonly assets: AssetIndexerService,
         private readonly managedAssets: ManagedAssetIngestService,
         private readonly canonical: CanonicalDomainService,
-        private readonly stateTokens?: AssetStateTokens,
+        private readonly stateTokens: AssetStateTokens,
     ) {}
 
     private requireCard(cardId: string) {
@@ -149,7 +150,8 @@ export class LibraryAssetService {
         this.requireCard(cardId);
         // Read persisted index only — never scan().
         const variants = this.assets.listVariants(cardId).map(variant => this.enrichVariant(variant));
-        return { card_id: cardId, variants };
+        return { card_id: cardId, variants, preferred_variant_id: this.persistence.runRepositoryOperation(db => preferredVariant(db, cardId)),
+            expected_state_token: this.stateTokens.current() };
     }
 
     getNeedsAttention(): LibraryNeedsAttentionResponseDto {

@@ -318,6 +318,13 @@ export class WorkspaceRecoveryService {
     }
 
     private resolveOlderMarkers(currentId: string) {
+        const lifecycleRoot = under(this.root, 'Temp/VariantLifecycle');
+        if (existsSync(lifecycleRoot)) for (const id of readdirSync(lifecycleRoot)) {
+            const markerPath = under(lifecycleRoot, `${id}/operation.json`);
+            if (!existsSync(markerPath)) continue;
+            const marker = JSON.parse(readFileSync(markerPath, 'utf8')) as { status?: string };
+            if (!['COMPLETE', 'ROLLED_BACK', 'RESOLVED'].includes(marker.status ?? '')) atomicJson(markerPath, { ...marker, status: 'RESOLVED', resolved_by: currentId });
+        }
         const parent = under(this.root, 'Temp/Restore');
         for (const id of readdirSync(parent)) {
             if (id === currentId) continue;

@@ -64,7 +64,7 @@ test('AC07/14/15/17/18: recovery point snapshots live WAL coherently with comple
     assert.ok(existsSync(path.join(root, 'Data/workspace.db-wal')));
     const manifestBefore = await readFile(path.join(root, 'workspace.json'));
     const backup = await service.recovery.create('RECOVERY_POINT');
-    assert.equal(backup.backup_format_version, 1); assert.equal(backup.database_schema_version, 5);
+    assert.equal(backup.backup_format_version, 1); assert.equal(backup.database_schema_version, 6);
     assert.equal(backup.workspace_id, value().workspace_id); assert.equal(backup.completion_state, 'COMPLETE');
     assert.deepEqual(backup.included_roots, ['workspace.json', 'Data/workspace.db', 'Config']);
     assert.deepEqual(backup.excluded_roots, ['Temp', 'Backups', 'Assets', 'Output']);
@@ -169,7 +169,7 @@ for (const scenario of ['identity', 'tamper', 'missing', 'partial', 'version', '
         if (scenario === 'missing') await rm(payloadPath(root, backup, 'Data/workspace.db'));
         if (scenario === 'partial') { configureMetadata(root, backup, { completion_state: 'INCOMPLETE' as 'COMPLETE' }); code = 'BACKUP_INCOMPLETE'; }
         if (scenario === 'version') { configureMetadata(root, backup, { backup_format_version: 2 as 1 }); code = 'BACKUP_INCOMPATIBLE'; }
-        if (scenario === 'schema') { configureMetadata(root, backup, { database_schema_version: 6 }); code = 'BACKUP_INCOMPATIBLE'; }
+        if (scenario === 'schema') { configureMetadata(root, backup, { database_schema_version: 7 }); code = 'BACKUP_INCOMPATIBLE'; }
         if (scenario === 'unsafe') { configureMetadata(root, backup, { files: [...backup.files, { relative_path: '../escape', size_bytes: 0, sha256: '0'.repeat(64) }] }); code = 'BACKUP_SOURCE_UNSAFE'; }
         if (scenario === 'undeclared') await writeFile(payloadPath(root, backup, 'extra.txt'), 'not inventoried');
         if (scenario === 'kind') configureMetadata(root, backup, { kind: 'FULL' });
@@ -280,7 +280,7 @@ test('AC37/39/40: API migration checkpoints before schema changes, verifies hist
     } } });
     const result = await service.app.inject({ method: 'POST', url: '/api/v1/workspace/migrate' });
     assert.equal(result.statusCode, 200, result.body); assert.equal(result.json().migrated, true);
-    assert.deepEqual(result.json().appliedVersions, [1, 2, 3, 4, 5]); assert.equal(service.status.state, 'READY');
+    assert.deepEqual(result.json().appliedVersions, [1, 2, 3, 4, 5, 6]); assert.equal(service.status.state, 'READY');
     const backups = await service.recovery.list(); assert.equal(backups.length, 1); assert.equal(backups[0]!.protection_state, 'NONE');
     const noOp = await service.recovery.migrate(); assert.equal(noOp.migrated, false); assert.equal((await service.recovery.list()).length, 1);
 });
@@ -417,7 +417,7 @@ for (const state of ['INVALID_WORKSPACE', 'UNSUPPORTED_NEWER_SCHEMA'] as const) 
         const { root, service } = await setup(); const backup = await service.recovery.create('FULL'); await service.close();
         if (state === 'INVALID_WORKSPACE') await writeFile(path.join(root, 'workspace.json'), JSON.stringify({ workspace_id: value().workspace_id }));
         else {
-            const db = new Database(path.join(root, 'Data/workspace.db')); db.pragma('user_version = 6'); db.close();
+            const db = new Database(path.join(root, 'Data/workspace.db')); db.pragma('user_version = 7'); db.close();
         }
         const recover = await createWorkspaceService({ workspaceRoot: root, host: '127.0.0.1', port: 4312 }); services.push(recover);
         assert.equal(recover.status.state, state); assert.equal((await recover.recovery.list()).length, 1);
@@ -446,13 +446,13 @@ test('a backup format failure and unknown backup id return stable API errors', a
     assert.equal(invalid.statusCode, 422); assert.equal(invalid.json().code, 'BACKUP_INCOMPATIBLE');
 });
 
-test('QA-010-01: retention failure after real migration leaves schema 5/READY and reports successful migration', async () => {
+test('QA-010-01: retention failure after real migration leaves current schema/READY and reports successful migration', async () => {
     let retentionAttempted = false;
     const { root, service } = await setup({ old: true, retention: 0, hooks: { atBoundary: boundary => {
         if (boundary === 'retention_cleanup') {
             retentionAttempted = true;
             assert.equal(service.status.state, 'READY');
-            assert.equal(service.status.database_schema_version, 5);
+            assert.equal(service.status.database_schema_version, 6);
             throw new Error('injected post-success retention failure');
         }
     } } });
@@ -462,16 +462,16 @@ test('QA-010-01: retention failure after real migration leaves schema 5/READY an
     const result = response.json();
     assert.equal(retentionAttempted, true);
     assert.equal(result.migrated, true);
-    assert.equal(result.currentVersion, 5);
-    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5]);
+    assert.equal(result.currentVersion, 6);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5, 6]);
     assert.equal(result.status.state, 'READY');
     assert.equal(service.status.state, 'READY');
     assert.equal(service.persistence!.isOpen, true);
     const database = new Database(path.join(root, 'Data/workspace.db'), { readonly: true, fileMustExist: true });
     try {
-        assert.equal(database.pragma('user_version', { simple: true }), 5);
+        assert.equal(database.pragma('user_version', { simple: true }), 6);
         assert.deepEqual(database.prepare('SELECT version FROM _workspace_migrations ORDER BY version').all(),
-            [1, 2, 3, 4, 5].map(version => ({ version })));
+            [1, 2, 3, 4, 5, 6].map(version => ({ version })));
     } finally { database.close(); }
     assert.deepEqual(result.maintenance_warnings, [{ code: 'RETENTION_CLEANUP_FAILED',
         message: 'Migration completed, but automatic recovery point retention cleanup failed.' }]);
@@ -496,7 +496,7 @@ test('QA-010-01: post-success protection metadata failure does not reclassify a 
     const result = response.json();
     assert.equal(result.migrated, true);
     assert.equal(result.status.state, 'READY');
-    assert.equal(service.status.database_schema_version, 5);
+    assert.equal(service.status.database_schema_version, 6);
     assert.equal(result.maintenance_warnings[0].code, 'CHECKPOINT_PROTECTION_UPDATE_FAILED');
     const checkpoint: BackupMetadata = JSON.parse(readFileSync(path.join(root, 'Backups', result.backup_id, 'backup.json'), 'utf8'));
     assert.equal(checkpoint.protection_state, 'MIGRATION_PENDING');
@@ -504,7 +504,7 @@ test('QA-010-01: post-success protection metadata failure does not reclassify a 
 });
 
 for (const oldSchema of [false, true]) {
-    test(`QA-010-02: HTTP restore observability contract reports actual schema ${oldSchema ? 0 : 5} and completion timestamp`, async () => {
+    test(`QA-010-02: HTTP restore observability contract reports actual schema ${oldSchema ? 0 : 6} and completion timestamp`, async () => {
         const { service } = await setup({ old: oldSchema });
         const backup = await service.recovery.create('RECOVERY_POINT');
         const before = Date.now();
@@ -518,7 +518,7 @@ for (const oldSchema of [false, true]) {
         assert.equal(result.restored, true);
         assert.equal(result.backup_id, backup.backup_id);
         assert.equal(result.workspace_id, value().workspace_id);
-        assert.equal(result.database_schema_version, oldSchema ? 0 : 5);
+        assert.equal(result.database_schema_version, oldSchema ? 0 : 6);
         assert.equal(result.status.state, oldSchema ? 'NEEDS_MIGRATION' : 'READY');
         assert.equal(result.status.workspace_id, result.workspace_id);
         assert.equal(result.status.database_schema_version, result.database_schema_version);

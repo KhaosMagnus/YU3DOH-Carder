@@ -174,3 +174,16 @@ export const previewManagedAsset = (id: string, body: ManagedAssetPreviewRequest
         { method: 'POST', body: JSON.stringify(body) }, signal);
 export const mutateManagedAsset = (body: ManagedAssetMutationRequest, signal?: AbortSignal) =>
     fetchJson<AssetOperationResponse>('/api/v1/library/managed-assets/mutate', { method: 'POST', body: JSON.stringify(body) }, signal);
+
+export const setPreferredVariant = (cardId: string, preferredVariantId: string | null, expectedStateToken: string) =>
+    fetchJson<import('./model').VariantLifecycleResponse>(`/api/v1/library/cards/${encodeURIComponent(cardId)}/preferred-variant`, {
+        method: 'POST', body: JSON.stringify({ preferred_variant_id: preferredVariantId, expected_state_token: expectedStateToken }),
+    });
+export const previewVariantRename = (variantId: string, body: import('./model').VariantRenameProposal) =>
+    fetchJson<import('./model').VariantLifecyclePreview>(`/api/v1/library/variants/${encodeURIComponent(variantId)}/rename-preview`, { method: 'POST', body: JSON.stringify(body) });
+export const renameVariant = (variantId: string, body: import('./model').VariantRenameProposal & { expected_state_token: string }) =>
+    fetchJson<import('./model').VariantLifecycleResponse>(`/api/v1/library/variants/${encodeURIComponent(variantId)}/rename`, { method: 'POST', body: JSON.stringify(body) });
+export const previewVariantRemove = (variantId: string) =>
+    fetchJson<import('./model').VariantLifecyclePreview>(`/api/v1/library/variants/${encodeURIComponent(variantId)}/remove-preview`, { method: 'POST' });
+export const removeVariant = (variantId: string, body: { expected_state_token: string; acknowledge_preferred_clear?: boolean }) =>
+    fetchJson<import('./model').VariantLifecycleResponse>(`/api/v1/library/variants/${encodeURIComponent(variantId)}/remove`, { method: 'POST', body: JSON.stringify(body) });

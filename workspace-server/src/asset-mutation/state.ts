@@ -37,8 +37,9 @@ export class AssetStateTokens {
                     FROM indexed_asset_files ORDER BY asset_id`).all(),
                 db.prepare('SELECT * FROM asset_resolution_overrides ORDER BY asset_id').all(),
                 db.prepare('SELECT * FROM managed_assets ORDER BY managed_asset_id').all(),
-                db.prepare('SELECT variant_id, card_id, variant_key FROM art_variants ORDER BY variant_id').all(),
+                db.prepare('SELECT variant_id, card_id, variant_key, display_label FROM art_variants ORDER BY variant_id').all(),
                 db.prepare('SELECT * FROM variant_role_bindings ORDER BY variant_id, role').all(),
+                db.prepare('SELECT * FROM card_variant_preferences ORDER BY card_id').all(),
             ];
             return createHmac('sha256', this.secret).update(JSON.stringify(state)).digest('base64url');
         });

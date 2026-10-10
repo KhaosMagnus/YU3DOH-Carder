@@ -1,3 +1,4 @@
+import { defaultCarderVariant } from './variant-lifecycle-state';
 import { useMemo, useState } from 'react';
 import { Alert, Button, Select } from 'antd';
 import { LibraryHttpError, prepareWorkingCardRequest } from './api';
@@ -16,6 +17,7 @@ type Props = {
     detail: LibraryCardDetail;
     variants: LibraryVariantDetail[];
     dirty: boolean;
+    preferredVariantId?: string | null;
 };
 
 const confirmedLanguages = (detail: LibraryCardDetail): LibraryLanguage[] =>
@@ -41,10 +43,14 @@ export const canOpenComposition = (
         : variant.overframe.state === 'READY';
 };
 
-export const OpenInCarderPanel = ({ detail, variants, dirty }: Props) => {
+export const OpenInCarderPanel = ({ detail, variants, dirty, preferredVariantId = null }: Props) => {
     const languages = useMemo(() => confirmedLanguages(detail), [detail]);
     const [language, setLanguage] = useState<LibraryLanguage | ''>(languages[0] ?? '');
-    const [variantId, setVariantId] = useState(variants[0]?.variant_id ?? '');
+    const [choice, setChoice] = useState<{ id: string; card: string; preferred: string | null } | null>(null);
+    const fallback = defaultCarderVariant(variants, preferredVariantId);
+    const variantId = choice?.card === detail.card_id && choice.preferred === preferredVariantId
+        && variants.some(v => v.variant_id === choice.id) ? choice.id : fallback;
+    const setVariantId = (id: string) => setChoice({ id, card: detail.card_id, preferred: preferredVariantId });
     const [error, setError] = useState<string | null>(null);
     const [opening, setOpening] = useState(false);
     const [openedNotice, setOpenedNotice] = useState<string | null>(null);
@@ -107,6 +113,9 @@ export const OpenInCarderPanel = ({ detail, variants, dirty }: Props) => {
                 Prepares a read-only Workspace snapshot and opens Carder working state.
                 Working edits are not saved back to Workspace in RUN 009.
             </p>
+            {preferredVariantId && selectedVariant?.variant_id === preferredVariantId && <Alert type="info" message={`Preferred Variant selected: ${selectedVariant.display_label}`} />}
+            {preferredVariantId && selectedVariant?.variant_id === preferredVariantId && (!standardReady || !overframeReady) && <Alert type="warning" message="Preferred Variant has unavailable composition. It remains selected; choose another variant manually if needed." />}
+            {!preferredVariantId && variants.length > 1 && !variantId && <Alert type="info" message="No Preferred Variant. Select a variant explicitly." />}
             {blockedByDirty && (
                 <Alert
                     type="warning"

@@ -35,14 +35,14 @@ export type ManagedMutationRequest = {
 };
 export type PreviewSource = { source_file?: string; asset_id?: string };
 
-const tables = ['art_variants', 'asset_index_scans', 'indexed_asset_files', 'managed_assets',
-    'managed_asset_ingest_requests', 'asset_resolution_overrides', 'variant_role_bindings', 'asset_index_diagnostics'] as const;
-type Snapshot = Record<typeof tables[number], Record<string, unknown>[]>;
-const capture = (db: SqliteDatabase): Snapshot => Object.fromEntries(
-    tables.map(table => [table, db.prepare(`SELECT * FROM ${table}`).all()])) as Snapshot;
-const restore = (db: SqliteDatabase, snapshot: Snapshot) => {
-    for (const table of [...tables].reverse()) db.prepare(`DELETE FROM ${table}`).run();
-    for (const table of tables) for (const row of snapshot[table]) {
+export const assetDomainTables = ['art_variants', 'asset_index_scans', 'indexed_asset_files', 'managed_assets',
+    'managed_asset_ingest_requests', 'asset_resolution_overrides', 'variant_role_bindings', 'asset_index_diagnostics', 'card_variant_preferences'] as const;
+type Snapshot = Record<typeof assetDomainTables[number], Record<string, unknown>[]>;
+export const captureAssetDomain = (db: SqliteDatabase): Snapshot => Object.fromEntries(
+    assetDomainTables.map(table => [table, db.prepare(`SELECT * FROM ${table}`).all()])) as Snapshot;
+export const restoreAssetDomain = (db: SqliteDatabase, snapshot: Snapshot) => {
+    for (const table of [...assetDomainTables].reverse()) db.prepare(`DELETE FROM ${table}`).run();
+    for (const table of assetDomainTables) for (const row of snapshot[table]) {
         const columns = Object.keys(row);
         db.prepare(`INSERT INTO ${table} (${columns.join(',')}) VALUES (${columns.map(() => '?').join(',')})`)
             .run(...columns.map(column => row[column]));
@@ -172,7 +172,7 @@ export class AssetMutationService {
             if (input.variant_id && input.create_variant) fail('ASSET_TARGET_INVALID', 'Specify an existing variant or explicit resolver variant creation.');
             let variant = input.variant_id;
             if (input.operation !== 'UNASSIGN' && !variant && !input.create_variant) fail('ASSET_TARGET_INVALID', 'A target variant is required.');
-            const previous = this.persistence.runRepositoryOperation(capture);
+            const previous = this.persistence.runRepositoryOperation(captureAssetDomain);
             let conflict: IndexedAssetSnapshot[] = [];
             if (input.operation === 'CHOOSE') {
                 if (!variant || input.create_variant) fail('ASSET_TARGET_INVALID', 'Choose requires an existing current conflict slot.');
@@ -256,7 +256,7 @@ export class AssetMutationService {
             if (destination && destination !== oldPath && existsSync(destination)) fail('ASSET_DESTINATION_OCCUPIED', 'Managed destination is already occupied.', 409);
             const otherCandidates = this.candidates(managed.variantId, managed.role).filter(a => a.relativePath !== managed.managedRelativePath);
             if (input.operation !== 'REMOVE' && otherCandidates.some(a => !source || a.assetId !== source.assetId)) fail('ASSET_SLOT_OCCUPIED', 'Another target candidate requires explicit resolution.', 409);
-            const previous = this.persistence.runRepositoryOperation(capture);
+            const previous = this.persistence.runRepositoryOperation(captureAssetDomain);
             const operationId = randomUUID();
             const operationRoot = directory(this.root, `Temp/AssetMutation/${operationId}`);
             const marker = path.join(operationRoot, 'operation.json');
@@ -338,10 +338,10 @@ export class AssetMutationService {
     private async compensate(previous: Snapshot, marker: string, operationId: string, files: () => Promise<void>) {
         try {
             await this.phase('rollback'); await files();
-            this.persistence.transaction(db => restore(db, previous));
+            this.persistence.transaction(db => restoreAssetDomain(db, previous));
             // Prove the restored domain matches the saved snapshot without generating new scans.
-            const current = this.persistence.runRepositoryOperation(capture);
-            const canonical = (snapshot: Snapshot) => JSON.stringify(tables.map(table => snapshot[table]
+            const current = this.persistence.runRepositoryOperation(captureAssetDomain);
+            const canonical = (snapshot: Snapshot) => JSON.stringify(assetDomainTables.map(table => snapshot[table]
                 .map(row => JSON.stringify(row)).sort()));
             if (canonical(current) !== canonical(previous)) throw new Error('Previous database state could not be proven.');
             const detail = JSON.parse(readFileSync(marker, 'utf8')) as Record<string, unknown>;

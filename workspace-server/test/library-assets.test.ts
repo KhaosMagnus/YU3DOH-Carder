@@ -209,7 +209,7 @@ test('1-3 variants GET zero, one, and unknown card', async () => {
     const card = createCard(service, '80000001');
     const empty = await service.app.inject({ method: 'GET', url: `/api/v1/library/cards/${card.cardId}/variants` });
     assert.equal(empty.statusCode, 200);
-    assert.deepEqual(JSON.parse(empty.body), { card_id: card.cardId, variants: [] });
+    assert.deepEqual(JSON.parse(empty.body), { card_id: card.cardId, variants: [], preferred_variant_id: null, expected_state_token: service.assetMutations!.getState().expected_state_token });
 
     insertVariantState(service, card.cardId, 'default', ['BS']);
     const one = await service.app.inject({ method: 'GET', url: `/api/v1/library/cards/${card.cardId}/variants` });
@@ -618,7 +618,7 @@ test('52-53 schema 3 remains NEEDS_MIGRATION; reads do not migrate', async () =>
     assert.equal(needs.statusCode, 503);
     const after = await inspectWorkspaceRoot(root);
     assert.equal(after.database_schema_version, 3);
-    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 5);
+    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 6);
     assert.equal(existsSync(path.join(process.cwd(), 'migrations', '005_anything.sql')), false);
     await service.close();
 });

@@ -394,4 +394,5 @@ console.log('Library client RUN 008 asset checks PASS');
 
 // RUN 012: execute deterministic client/resolver orchestration contracts.
 import { runAssetResolutionChecks } from './test-library-asset-resolution';
-void runAssetResolutionChecks().catch(error => { console.error(error); process.exitCode = 1; });
+import { runVariantLifecycleChecks } from './test-library-variant-lifecycle';
+void runAssetResolutionChecks().then(runVariantLifecycleChecks).catch(error => { console.error(error); process.exitCode = 1; });

@@ -28,7 +28,7 @@ function harness() {
     const client: ResolverDependencies = {
         getResolutionState: async () => { calls.push({ method: 'state' }); return clone(snapshot); },
         refreshResolutionState: async () => { calls.push({ method: 'refresh' }); snapshot.expected_state_token = 'fresh'; return clone(snapshot); },
-        getLibraryVariants: async (id) => { calls.push({ method: 'variants', args: id }); return { card_id: id, variants: clone(variants.filter(v => v.card_id === id)) }; },
+        getLibraryVariants: async (id) => { calls.push({ method: 'variants', args: id }); return { card_id: id, preferred_variant_id: null, expected_state_token: snapshot.expected_state_token, variants: clone(variants.filter(v => v.card_id === id)) }; },
         previewManagedAsset: async (id, body) => { calls.push({ method: 'preview', args: { id, body: clone(body) } }); return { ...clone(preview), operation: body.operation }; },
         mutateManagedAsset: async body => { calls.push({ method: 'mutate', args: clone(body) }); if (failure) throw failure; return result(body.operation); },
         resolveAsset: async body => {

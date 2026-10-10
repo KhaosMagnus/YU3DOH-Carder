@@ -1,3 +1,4 @@
+import { VariantLifecycleError, type RenameProposal, type LifecycleRequest } from './variant-lifecycle/service';
 import type { WorkspaceRuntimeManager } from './workspace/runtime';
 import type { WorkspaceRecoveryService } from './recovery/service';
 import { WorkspaceRecoveryError } from './recovery/errors';
@@ -632,6 +633,7 @@ export const buildWorkspaceApp = (
     });
     app.addHook('onResponse', async request => { leases.get(request)?.(); leases.delete(request); });
     app.setErrorHandler((error, _request, reply) => {
+        if (error instanceof VariantLifecycleError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if (error instanceof AssetMutationError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if (error instanceof WorkspaceRecoveryError) {
             const code = error.code === 'BACKUP_NOT_FOUND' ? 404
@@ -643,6 +645,27 @@ export const buildWorkspaceApp = (
     });
 
     if (runtimeManager) {
+        const lifecycle = () => {
+            const service = runtimeManager.current.variantLifecycle;
+            if (runtimeManager.current.status.state !== 'READY' || !service) throw new VariantLifecycleError('WORKSPACE_NOT_READY', 'Workspace is not READY.', 503);
+            return service;
+        };
+        const text = { type: 'string', minLength: 1 };
+        const renameFields = { variant_key: text, display_label: text };
+        app.post<{ Params: { card_id: string }; Body: { preferred_variant_id: string | null; expected_state_token: string } }>('/api/v1/library/cards/:card_id/preferred-variant', {
+            schema: { body: { type: 'object', additionalProperties: false, required: ['preferred_variant_id', 'expected_state_token'],
+                properties: { preferred_variant_id: { anyOf: [text, { type: 'null' }] }, expected_state_token: text } } },
+        }, async request => lifecycle().setPreferred(request.params.card_id, request.body.preferred_variant_id, request.body.expected_state_token));
+        app.post<{ Params: { variant_id: string }; Body: RenameProposal }>('/api/v1/library/variants/:variant_id/rename-preview', {
+            schema: { body: { type: 'object', additionalProperties: false, required: ['variant_key', 'display_label'], properties: renameFields } },
+        }, async request => lifecycle().previewRename(request.params.variant_id, request.body));
+        app.post<{ Params: { variant_id: string }; Body: RenameProposal & LifecycleRequest }>('/api/v1/library/variants/:variant_id/rename', {
+            schema: { body: { type: 'object', additionalProperties: false, required: ['variant_key', 'display_label', 'expected_state_token'], properties: { ...renameFields, expected_state_token: text } } },
+        }, async request => lifecycle().rename(request.params.variant_id, request.body));
+        app.post<{ Params: { variant_id: string } }>('/api/v1/library/variants/:variant_id/remove-preview', async request => lifecycle().previewRemove(request.params.variant_id));
+        app.post<{ Params: { variant_id: string }; Body: LifecycleRequest }>('/api/v1/library/variants/:variant_id/remove', {
+            schema: { body: { type: 'object', additionalProperties: false, required: ['expected_state_token'], properties: { expected_state_token: text, acknowledge_preferred_clear: { type: 'boolean' } } } },
+        }, async request => lifecycle().remove(request.params.variant_id, request.body));
         const mutationService = () => {
             const service = runtimeManager.current.assetMutations;
             if (runtimeManager.current.status.state !== 'READY' || !service) {

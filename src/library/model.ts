@@ -218,6 +218,8 @@ export type LibraryVariantDetail = {
 
 export type LibraryVariantsResponse = {
     card_id: string;
+    preferred_variant_id: string | null;
+    expected_state_token: string;
     variants: LibraryVariantDetail[];
 };
 
@@ -362,3 +364,17 @@ export type AssetOperationResponse = AssetResolutionState & {
     operation: AssetResolutionOperation | ManagedAssetOperation;
     changed: boolean; operation_id?: string; recovery_relative_path?: string;
 };
+
+export type VariantRenameProposal = { variant_key: string; display_label: string };
+export type VariantLifecyclePreview = {
+    operation: 'RENAME' | 'REMOVE'; expected_state_token: string; recovery_policy: string;
+    preferred: boolean; can_execute?: boolean; collision?: boolean;
+    current?: VariantRenameProposal; proposed?: VariantRenameProposal;
+    key_changed?: boolean; label_changed?: boolean;
+    readiness_before?: AssetReadiness; readiness_after?: AssetReadiness;
+    variant?: LibraryVariantDetail; remaining_variants?: LibraryVariantDetail[];
+    acknowledge_preferred_clear_required?: boolean;
+    managed_assets: Array<{ managed_asset_id: string; managed_relative_path: string; destination?: string; present?: boolean; occupied?: boolean }>;
+    unmanaged_assets: IndexedLibraryAsset[];
+};
+export type VariantLifecycleResponse = LibraryVariantsResponse & { operation: string; changed: boolean; recovery_relative_path?: string };

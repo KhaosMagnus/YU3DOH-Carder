@@ -1,3 +1,4 @@
+import { writePreference } from '../variant-lifecycle/preferences';
 import { randomUUID } from 'node:crypto';
 import type { AssetRole } from '../assets/types';
 import type { SqliteDatabase } from '../persistence/database';
@@ -77,12 +78,14 @@ export const createArtVariant = (
     displayLabel: string,
     timestamp: string,
 ): VariantRow => {
+    const firstExplicitVariant = !database.prepare('SELECT 1 FROM art_variants WHERE card_id = ?').get(cardId);
     const variantId = randomUUID();
     database.prepare(`
         INSERT INTO art_variants (
             variant_id, card_id, variant_key, display_label, created_at, updated_at
         ) VALUES (?, ?, ?, ?, ?, ?)
     `).run(variantId, cardId, variantKey, displayLabel, timestamp, timestamp);
+    if (firstExplicitVariant) writePreference(database, cardId, variantId);
     return {
         variant_id: variantId,
         card_id: cardId,
@@ -282,6 +285,7 @@ export const deleteManagedIngest = (
         WHERE relative_path = ? AND variant_id = ?
     `).run(managedRelativePath, variantId);
     if (deleteVariant) {
+        database.prepare('DELETE FROM card_variant_preferences WHERE preferred_variant_id = ?').run(variantId);
         database.prepare(`
             DELETE FROM art_variants
             WHERE variant_id = ?

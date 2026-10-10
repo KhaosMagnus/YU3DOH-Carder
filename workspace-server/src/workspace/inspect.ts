@@ -140,6 +140,18 @@ export const inspectWorkspaceRootWithPersistence = async (workspaceRoot: string,
         }));
     }
 
+    if (!ignoreRestoreMarkers) try {
+        const lifecycleRoot = under(workspaceRoot, 'Temp/VariantLifecycle');
+        if (existsSync(lifecycleRoot)) for (const id of readdirSync(lifecycleRoot)) {
+            const marker = under(lifecycleRoot, `${id}/operation.json`);
+            if (!existsSync(marker)) continue;
+            const value = JSON.parse(readFileSync(marker, 'utf8')) as { status?: string };
+            if (!['COMPLETE', 'ROLLED_BACK', 'RESOLVED'].includes(value.status ?? '')) return withoutPersistence(createStatus({
+                state: 'RECOVERY_REQUIRED', manifest, healthSummary: 'VARIANT_MUTATION_RECOVERY_REQUIRED: interrupted lifecycle operation.' }));
+        }
+    } catch { return withoutPersistence(createStatus({ state: 'RECOVERY_REQUIRED', manifest,
+        healthSummary: 'VARIANT_MUTATION_RECOVERY_REQUIRED: lifecycle recovery material is unsafe.' })); }
+
     try {
         const mutationRoot = under(workspaceRoot, 'Temp/AssetMutation');
         if (existsSync(mutationRoot)) for (const id of readdirSync(mutationRoot)) {

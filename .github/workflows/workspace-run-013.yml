@@ -1,0 +1,73 @@
+name: Workspace RUN 013 validation
+on:
+  push:
+    branches: [feature/workspace-run-013]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validation:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+      - run: npm install --global yarn@1.22.22
+      - name: Install root (immutable lockfile)
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: Install Workspace (immutable lockfile)
+        run: yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+      - name: Root compile and build
+        run: |
+          yarn compile
+          yarn build
+        shell: bash
+      - name: Carder and Library regressions
+        run: |
+          yarn test:sc
+          yarn test:library
+        shell: bash
+      - name: Workspace compile and full suite
+        run: |
+          yarn --cwd workspace-server compile
+          yarn --cwd workspace-server test
+        shell: bash
+      - name: Repository hygiene and frozen migration/lockfile hashes
+        shell: bash
+        run: |
+          git diff --exit-code
+          git diff --check
+          git status --short
+          sha256sum yarn.lock workspace-server/yarn.lock workspace-server/migrations/*.sql
+      - name: Install isolated operational QA browser tool
+        shell: bash
+        run: |
+          npm install --prefix "$RUNNER_TEMP/run013-ui-tools" --no-audit --no-fund playwright-core@1.58.2
+          node "$RUNNER_TEMP/run013-ui-tools/node_modules/playwright-core/cli.js" install chromium
+      - name: Operational Library UI evidence against disposable Workspace
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run013-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run012-ui-evidence
+        run: node scripts/run012-operational-qa.cjs
+      - name: Operational Variant Lifecycle UI evidence against disposable Workspace
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run013-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run013-ui-evidence
+        run: node scripts/run013-operational-qa.cjs
+      - name: Preserve exact-SHA UI evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run013-ui-${{ matrix.os }}-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/run012-ui-evidence
+            ${{ runner.temp }}/run013-ui-evidence
+          if-no-files-found: error
