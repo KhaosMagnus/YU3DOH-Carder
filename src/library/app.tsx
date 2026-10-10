@@ -24,6 +24,8 @@ import {
 import { DetailPanel } from './detail-panel';
 import { NeedsAttentionPanel } from './needs-attention-panel';
 import { NewDraftModal } from './new-draft-modal';
+import { AssetResolutionModal } from './asset-resolution-modal';
+import type { ResolverEntry } from './asset-resolution-state';
 import {
     getLibraryResultState,
     getWorkspaceShellState,
@@ -80,13 +82,16 @@ export const LibraryApp = () => {
     const [needsAttentionError, setNeedsAttentionError] = useState<string | null>(null);
     const [rescanError, setRescanError] = useState<string | null>(null);
     const [rescanning, setRescanning] = useState(false);
+    const [resolverEntry, setResolverEntry] = useState<ResolverEntry | null>(null);
+    const [assetsRevision, setAssetsRevision] = useState(0);
+    const [assetBlocked, setAssetBlocked] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
         setStatus(null);
         setStatusError(null);
         getWorkspaceStatus(controller.signal)
-            .then(setStatus)
+            .then(current => { setStatus(current); if (current.state === 'READY') setAssetBlocked(false); })
             .catch(error => {
                 if (error instanceof Error && error.name === 'AbortError') return;
                 setStatusError(error instanceof Error ? error.message : 'Workspace Service is unavailable.');
@@ -133,7 +138,7 @@ export const LibraryApp = () => {
             window.clearTimeout(timeout);
             controller.abort();
         };
-    }, [status, filters, retryNonce]);
+    }, [status, filters, retryNonce, assetsRevision]);
 
     const criteria = useMemo(() => hasBrowseCriteria(filters), [filters]);
     const resultState = getLibraryResultState({
@@ -154,6 +159,7 @@ export const LibraryApp = () => {
 
     const workspaceShellState = getWorkspaceShellState(status, statusError);
     const workspaceReady = workspaceShellState === 'ready';
+    const assetsEnabled = workspaceReady && !assetBlocked;
 
     const openDetail = (cardId: string) => {
         setSelectedCardId(cardId);
@@ -202,12 +208,23 @@ export const LibraryApp = () => {
         try {
             await rescanLibraryAssets();
             await loadNeedsAttention();
-            setRetryNonce(value => value + 1);
+            setAssetsRevision(value => value + 1);
         } catch (error) {
             setRescanError(formatRescanError(error));
         } finally {
             setRescanning(false);
         }
+    };
+
+    const refreshAssetViews = async () => {
+        // Mutation already reconciled; these are persisted reads, not another Rescan.
+        if (needsAttentionOpen) await loadNeedsAttention();
+        setAssetsRevision(value => value + 1);
+    };
+    const blockAssetViews = async () => {
+        setAssetBlocked(true);
+        try { setStatus(await getWorkspaceStatus()); }
+        catch (error) { setStatusError(error instanceof Error ? error.message : 'Workspace status unavailable.'); }
     };
 
     return (
@@ -265,6 +282,9 @@ export const LibraryApp = () => {
                     description={status.health_summary}
                 />
             )}
+            {assetBlocked && <Alert type="error" showIcon message="Asset operations blocked — Workspace recovery / readiness required"
+                description={status?.health_summary ?? 'Check Workspace status before continuing.'}
+                action={<Button onClick={() => setRetryNonce(value => value + 1)}>Check Workspace status</Button>} />}
 
             {facetsError && workspaceReady && (
                 <Alert
@@ -431,9 +451,12 @@ export const LibraryApp = () => {
                 onClose={() => setDetailOpen(false)}
                 onSaved={handleSaved}
                 onAssetsChanged={() => {
-                    setRetryNonce(value => value + 1);
+                    setAssetsRevision(value => value + 1);
                     if (needsAttentionOpen) void loadNeedsAttention();
                 }}
+                onResolve={setResolverEntry}
+                assetsRevision={assetsRevision}
+                assetsEnabled={assetsEnabled}
             />
 
             <NeedsAttentionPanel
@@ -448,7 +471,12 @@ export const LibraryApp = () => {
                 onNavigateCard={cardId => {
                     openDetail(cardId);
                 }}
+                onResolve={setResolverEntry}
+                assetsEnabled={assetsEnabled}
             />
+
+            {resolverEntry && <AssetResolutionModal entry={resolverEntry} enabled={assetsEnabled}
+                onClose={() => setResolverEntry(null)} onChanged={refreshAssetViews} onBlocked={blockAssetViews} />}
 
             <NewDraftModal
                 open={newDraftOpen}

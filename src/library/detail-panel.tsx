@@ -32,6 +32,7 @@ import {
 } from './model';
 import { OpenInCarderPanel } from './open-in-carder';
 import { VariantsPanel } from './variants-panel';
+import type { ResolverEntry } from './asset-resolution-state';
 
 type Props = {
     cardId: string | null;
@@ -39,9 +40,12 @@ type Props = {
     onClose: () => void;
     onSaved: (detail: LibraryCardDetail) => void;
     onAssetsChanged?: () => void;
+    onResolve?: (entry: ResolverEntry) => void;
+    assetsRevision?: number;
+    assetsEnabled?: boolean;
 };
 
-export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged }: Props) => {
+export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, assetsEnabled = true }: Props) => {
     const [loading, setLoading] = useState(false);
     const [detailError, setDetailError] = useState<string | null>(null);
     const [metadataError, setMetadataError] = useState<string | null>(null);
@@ -160,6 +164,12 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged }:
         void loadDetail(cardId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open, cardId]);
+
+    useEffect(() => {
+        if (open && cardId && assetsRevision) void loadVariants(cardId);
+        // Refresh assets without replacing unsaved Canonical edits.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [assetsRevision]);
 
     const requestClose = () => {
         if (dirty) {
@@ -357,14 +367,16 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged }:
 
                     {detailSection === 'variants' && (
                         <>
-                            <OpenInCarderPanel
+                            {assetsEnabled && !variantsLoading && !variantError && <OpenInCarderPanel
                                 detail={authoritative}
                                 variants={variants}
                                 dirty={dirty}
-                            />
+                            />}
                             <VariantsPanel
                                 cardId={authoritative.card_id}
                                 variants={variants}
+                                onResolve={onResolve}
+                                assetsEnabled={assetsEnabled}
                                 loading={variantsLoading}
                                 error={variantError}
                                 ingestError={ingestError}

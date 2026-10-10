@@ -1,4 +1,10 @@
 import type {
+    AssetOperationResponse,
+    AssetResolutionRequest,
+    AssetResolutionState,
+    ManagedAssetMutationRequest,
+    ManagedAssetPreview,
+    ManagedAssetPreviewRequest,
     LibraryApiError,
     LibraryBrowseFilters,
     LibraryBrowseResult,
@@ -156,3 +162,15 @@ export const prepareWorkingCardRequest = (
     },
     signal,
 );
+
+export const getResolutionState = (signal?: AbortSignal) =>
+    fetchJson<AssetResolutionState>('/api/v1/library/assets/resolution-state', undefined, signal);
+export const refreshResolutionState = (signal?: AbortSignal) =>
+    fetchJson<AssetResolutionState>('/api/v1/library/assets/resolution-state/refresh', { method: 'POST', body: '{}' }, signal);
+export const resolveAsset = (body: AssetResolutionRequest, signal?: AbortSignal) =>
+    fetchJson<AssetOperationResponse>('/api/v1/library/assets/resolve', { method: 'POST', body: JSON.stringify(body) }, signal);
+export const previewManagedAsset = (id: string, body: ManagedAssetPreviewRequest, signal?: AbortSignal) =>
+    fetchJson<ManagedAssetPreview>(`/api/v1/library/managed-assets/${encodeURIComponent(id)}/preview`,
+        { method: 'POST', body: JSON.stringify(body) }, signal);
+export const mutateManagedAsset = (body: ManagedAssetMutationRequest, signal?: AbortSignal) =>
+    fetchJson<AssetOperationResponse>('/api/v1/library/managed-assets/mutate', { method: 'POST', body: JSON.stringify(body) }, signal);

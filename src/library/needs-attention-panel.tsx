@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import { Alert, Button, Select, Spin, Tag } from 'antd';
 import type { LibraryNeedsAttentionResponse } from './model';
+import type { ResolverEntry } from './asset-resolution-state';
+import { ASSET_ROLES } from './model';
 import {
     filterDiagnosticsByCode,
     presentNeedsAttention,
@@ -19,6 +21,8 @@ type Props = {
     onRescan: () => void;
     onClose: () => void;
     onNavigateCard?: (cardId: string) => void;
+    onResolve?: (entry: ResolverEntry) => void;
+    assetsEnabled?: boolean;
 };
 
 export const NeedsAttentionPanel = ({
@@ -31,6 +35,8 @@ export const NeedsAttentionPanel = ({
     onRescan,
     onClose,
     onNavigateCard,
+    onResolve,
+    assetsEnabled = true,
 }: Props) => {
     const [codeFilter, setCodeFilter] = useState('');
     const presentation = useMemo(() => presentNeedsAttention(data), [data]);
@@ -53,7 +59,7 @@ export const NeedsAttentionPanel = ({
                     <Button
                         type="primary"
                         loading={rescanning}
-                        disabled={rescanning}
+                        disabled={rescanning || !assetsEnabled}
                         onClick={onRescan}
                     >
                         Rescan Assets
@@ -114,6 +120,14 @@ export const NeedsAttentionPanel = ({
                                     <span className="library-muted">{item.relative_path}</span>
                                 </div>
                                 <p>{item.message}</p>
+                                {onResolve && item.asset_id && !['ASSETS_DIRECTORY_MISSING', 'UNSAFE_LINK', 'SOURCE_READ_ERROR'].includes(item.code) && (
+                                    <Button disabled={!assetsEnabled} onClick={() => onResolve({ assetId: item.asset_id!,
+                                        ...(item.card_id ? { cardId: item.card_id } : {}),
+                                        ...(item.variant_id ? { variantId: item.variant_id } : {}),
+                                        ...(ASSET_ROLES.includes(item.role as any) ? { role: item.role as typeof ASSET_ROLES[number] } : {}) })}>
+                                        {item.code === 'ROLE_CONFLICT' ? 'Resolve Conflict' : item.code === 'MISSING_SOURCE' ? 'Repair' : 'Resolve'}
+                                    </Button>
+                                )}
                                 {(item.card_id || item.variant_key || item.role) && (
                                     <div className="library-diagnostic__assoc">
                                         {item.card_id && onNavigateCard && (

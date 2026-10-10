@@ -344,3 +344,19 @@ body {
     gap: 8px;
     flex-wrap: wrap;
 }
+
+.library-resolution-fields {
+    border: 0;
+    padding: 0;
+    margin-top: 16px;
+    label { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; }
+    select { width: 100%; min-height: 34px; padding: 4px 8px; border: 1px solid #bbb; border-radius: 4px; background: #fff; color: #222; }
+    fieldset { border: 1px solid #ddd; padding: 12px; margin: 16px 0; }
+    legend { width: auto; padding: 0 6px; font-size: 15px; font-weight: 600; }
+    .library-resolution-candidate { flex-direction: row; align-items: flex-start; gap: 10px; padding: 10px; background: #f4f6f8; border-radius: 4px; }
+    .library-resolution-metadata { display: grid; grid-template-columns: 140px 1fr; gap: 6px 12px; overflow-wrap: anywhere; }
+    dt { font-weight: 600; }
+    dd { margin: 0; }
+}
+.library-resolution-review { margin-top: 16px; padding: 16px; border: 1px solid #91caff; border-radius: 6px; background: #f0f7ff; overflow-wrap: anywhere; }
+.library-resolution-readiness { padding: 10px 0; }

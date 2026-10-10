@@ -1,4 +1,5 @@
-import { Alert, Spin, Tag } from 'antd';
+import { Alert, Button, Spin, Tag } from 'antd';
+import type { ResolverEntry } from './asset-resolution-state';
 import { ASSET_ROLES, type LibraryVariantDetail } from './model';
 import {
     ownershipLabel,
@@ -16,6 +17,8 @@ type Props = {
     onIngestSuccess: () => void;
     ingestError: string | null;
     onIngestError: (message: string | null) => void;
+    onResolve?: (entry: ResolverEntry) => void;
+    assetsEnabled?: boolean;
 };
 
 const slotColor = (state: string) => {
@@ -36,6 +39,8 @@ export const VariantsPanel = ({
     onIngestSuccess,
     ingestError,
     onIngestError,
+    onResolve,
+    assetsEnabled = true,
 }: Props) => (
     <section className="library-variants" aria-label="Variants and Assets">
         <h3>Variants / Assets</h3>
@@ -99,12 +104,18 @@ export const VariantsPanel = ({
                                     )}
                                     {slot.issues.length > 0 && (
                                         <ul className="library-role-slot__issues">
-                                            {slot.issues.map(issue => (
-                                                <li key={`${issue.code}-${issue.message}`}>
+                                            {slot.issues.map((issue, index) => (
+                                                <li key={`${issue.code}-${issue.message}-${index}`}>
                                                     <Tag color="red">{issue.code}</Tag> {issue.message}
                                                 </li>
                                             ))}
                                         </ul>
+                                    )}
+                                    {onResolve && slot.slot_state !== 'EMPTY' && (
+                                        <Button disabled={!assetsEnabled} onClick={() => onResolve({ cardId, variantId: variant.variant_id, role,
+                                            ...(slot.asset?.asset_id ? { assetId: slot.asset.asset_id } : {}) })}>
+                                            {slot.slot_state === 'CONFLICT' ? 'Resolve Conflict' : slot.slot_state === 'MISSING' || slot.slot_state === 'INVALID' ? 'Repair / resolve asset' : 'Asset actions'}
+                                        </Button>
                                     )}
                                 </div>
                             );
@@ -113,12 +124,12 @@ export const VariantsPanel = ({
                 </article>
             );
         })}
-        <IngestForm
+        {assetsEnabled && <IngestForm
             cardId={cardId}
             knownVariantKeys={variants.map(variant => variant.variant_key)}
             onSuccess={onIngestSuccess}
             error={ingestError}
             onError={onIngestError}
-        />
+        />}
     </section>
 );

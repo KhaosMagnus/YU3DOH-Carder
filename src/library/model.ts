@@ -202,6 +202,8 @@ export type LibraryRoleSlot = {
     slot_state: SlotState;
     asset: LibraryBoundAsset | null;
     issues: Array<{ code: string; message: string }>;
+    candidates?: IndexedLibraryAsset[];
+    expected_state_token?: string;
 };
 
 export type LibraryVariantDetail = {
@@ -304,4 +306,59 @@ export type PrepareWorkingCardDto = {
             content_url: string;
         }>;
     };
+};
+
+/** RUN 011 state is emitted in the service's camel-case snapshot format. */
+export type IndexedLibraryAsset = {
+    assetId: string; relativePath: string; fileName: string; extension: string;
+    sizeBytes: number; modifiedTimeMs: number; contentHash: string | null;
+    parsedCardName: string | null; parsedPassword: string | null;
+    role: AssetRole | null; variantLabel: string | null; variantKey: string | null;
+    associationState: 'RESOLVED' | 'UNRESOLVED' | 'AMBIGUOUS' | 'INVALID';
+    cardId: string | null; variantId: string | null;
+    imageWidth: number | null; imageHeight: number | null; hasTransparency: boolean | null;
+    validAsset: boolean; present: boolean;
+};
+export type AssetReadiness = Pick<LibraryVariantDetail, 'standard' | 'overframe'>;
+export type AssetResolutionState = {
+    expected_state_token: string;
+    assets: IndexedLibraryAsset[];
+    variants: Array<AssetReadiness & {
+        variantId: string; cardId: string; variantKey: string; displayLabel: string;
+        roles: Record<AssetRole, IndexedLibraryAsset | null>;
+    }>;
+    overrides: Array<{ asset_id: string; disposition: 'ASSIGN' | 'UNASSIGN' | 'IGNORE'; variant_id: string | null; role: AssetRole | null }>;
+};
+export type AssetResolutionOperation = 'ATTACH' | 'MOVE' | 'CHOOSE' | 'UNASSIGN' | 'LEAVE';
+export type ManagedAssetOperation = 'REPLACE' | 'RELINK' | 'REMOVE';
+export type AssetResolutionRequest = {
+    operation: AssetResolutionOperation; expected_state_token: string; asset_id?: string;
+    variant_id?: string; role?: AssetRole;
+    create_variant?: { card_id: string; variant_key: string; display_label?: string };
+};
+export type AssetSource = { source_file: string; asset_id?: never } | { asset_id: string; source_file?: never };
+export type ManagedAssetMutationRequest = {
+    operation: ManagedAssetOperation; expected_state_token: string;
+    managed_asset_id?: string; target_asset_id?: string;
+    source_file?: string; asset_id?: string;
+    card_id?: string; variant_id?: string; role?: AssetRole;
+};
+export type ManagedAssetPreviewRequest = { operation: 'REPLACE' } & AssetSource
+    | { operation: 'REMOVE' | 'RELINK'; source_file?: never; asset_id?: never };
+export type ManagedAssetPreview = {
+    operation: ManagedAssetOperation;
+    managed_asset: {
+        managedAssetId: string; variantId: string; cardId: string; variantKey: string;
+        displayLabel: string; role: AssetRole; managedRelativePath: string;
+        contentHash: string; originalFileName: string; extension: string; createdAt: string;
+    };
+    expected_state_token: string;
+    affected_slot: { card_id: string; variant_id: string; role: AssetRole };
+    candidates: IndexedLibraryAsset[];
+    readiness_before: AssetReadiness; readiness_after: AssetReadiness;
+    recovery_policy: 'PRESERVE_PREVIOUS_STATE';
+};
+export type AssetOperationResponse = AssetResolutionState & {
+    operation: AssetResolutionOperation | ManagedAssetOperation;
+    changed: boolean; operation_id?: string; recovery_relative_path?: string;
 };
