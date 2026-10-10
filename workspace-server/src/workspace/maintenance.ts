@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
 import { WorkspaceRecoveryError } from '../recovery/errors';
 
 export type MaintenanceMode = 'NORMAL' | 'BACKUP' | 'MIGRATION' | 'RESTORE';
@@ -7,6 +8,8 @@ export class WorkspaceMaintenanceCoordinator {
     private currentMode: MaintenanceMode = 'NORMAL';
     private mutations = 0;
     private reads = 0;
+    private readonly mutationContext = new AsyncLocalStorage<object>();
+    private mutationOwner: object | undefined;
 
     get mode() { return this.currentMode; }
 
@@ -16,11 +19,12 @@ export class WorkspaceMaintenanceCoordinator {
     }
 
     assertReadable() {
+        if (this.mutationOwner && this.mutationContext.getStore() !== this.mutationOwner) this.conflict();
         if (this.currentMode === 'RESTORE' || this.currentMode === 'MIGRATION') this.conflict();
     }
 
     assertMutable() {
-        if (this.currentMode !== 'NORMAL') this.conflict();
+        if (this.currentMode !== 'NORMAL' || (this.mutationOwner && this.mutationContext.getStore() !== this.mutationOwner)) this.conflict();
     }
 
     acquireRead() {
@@ -45,8 +49,13 @@ export class WorkspaceMaintenanceCoordinator {
 
     mutate<T>(operation: () => T): T {
         this.assertMutable();
+        if (this.mutationOwner) return operation(); // Nested service calls share the owning lease.
+        const owner = {};
+        this.mutationOwner = owner;
         this.mutations++;
-        return this.run(operation, () => { this.mutations--; });
+        return this.mutationContext.run(owner, () => this.run(operation, () => {
+            this.mutations--; this.mutationOwner = undefined;
+        }));
     }
 
     acquireMaintenance(mode: Exclude<MaintenanceMode, 'NORMAL'>) {

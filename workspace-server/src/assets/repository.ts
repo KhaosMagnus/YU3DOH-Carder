@@ -258,10 +258,30 @@ export const reconcileAssetIndex = (database: SqliteDatabase, input: ReconcileIn
         );
     }
 
+    // Explicit dispositions survive rescans and suppress automatic filename binding.
+    database.prepare(`UPDATE indexed_asset_files SET card_id = NULL, variant_id = NULL,
+        association_state = 'UNRESOLVED' WHERE asset_id IN (
+        SELECT asset_id FROM asset_resolution_overrides WHERE disposition IN ('UNASSIGN', 'IGNORE'))`).run();
+    database.prepare(`UPDATE indexed_asset_files SET variant_id = (
+        SELECT variant_id FROM asset_resolution_overrides WHERE asset_id = indexed_asset_files.asset_id),
+        card_id = (SELECT v.card_id FROM asset_resolution_overrides o JOIN art_variants v ON v.variant_id = o.variant_id
+            WHERE o.asset_id = indexed_asset_files.asset_id),
+        role = (SELECT role FROM asset_resolution_overrides WHERE asset_id = indexed_asset_files.asset_id),
+        association_state = 'RESOLVED' WHERE asset_id IN (
+            SELECT asset_id FROM asset_resolution_overrides WHERE disposition = 'ASSIGN')`).run();
+    database.prepare(`DELETE FROM asset_index_diagnostics WHERE scan_id = ? AND asset_id IN (
+        SELECT asset_id FROM asset_resolution_overrides WHERE disposition = 'IGNORE')`).run(input.scanId);
+    const unassigned = database.prepare(`SELECT a.asset_id, a.relative_path FROM indexed_asset_files a
+        JOIN asset_resolution_overrides o ON o.asset_id = a.asset_id
+        WHERE o.disposition = 'UNASSIGN' AND a.present = 1`).all() as Array<{asset_id: string; relative_path: string}>;
+    for (const row of unassigned) insertDiagnostic(database, input.scanId, row.asset_id, row.relative_path,
+        'UNRESOLVED_CARD', 'Explicitly unassigned asset remains available for resolution.', input.completedAt);
+
     const missing = database.prepare(`
         SELECT asset_id, relative_path
         FROM indexed_asset_files
-        WHERE present = 0 AND last_seen_scan_id <> ?
+        WHERE present = 0 AND last_seen_scan_id <> ? AND asset_id NOT IN (
+            SELECT asset_id FROM asset_resolution_overrides WHERE disposition = 'IGNORE')
         ORDER BY relative_path
     `).all(input.scanId) as Array<{ asset_id: string; relative_path: string }>;
     for (const row of missing) {

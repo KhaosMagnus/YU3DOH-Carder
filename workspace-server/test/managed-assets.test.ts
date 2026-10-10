@@ -123,19 +123,20 @@ test('schema 3 remains NEEDS_MIGRATION until explicit 3->4 migration', async () 
     const unchanged = new Database(databasePath, { readonly: true, fileMustExist: true });
     assert.equal(readDatabaseSchemaVersion(unchanged), 3); unchanged.close();
     const migrated = migrateWorkspaceDatabase(root, manifest());
-    assert.deepEqual(migrated.appliedVersions, [4]);
-    assert.equal(migrated.currentVersion, 4);
+    assert.deepEqual(migrated.appliedVersions, [4, 5]);
+    assert.equal(migrated.currentVersion, 5);
 });
 
-test('fresh bootstrap reaches schema 4 and records migration 004', async () => {
+test('fresh bootstrap reaches current schema and records migration 005', async () => {
     const root = await tempRoot('fresh');
     const result = bootstrapWorkspaceDatabase(root, manifest());
-    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 4);
-    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4]);
+    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 5);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5]);
     const database = new Database(result.databasePath, { readonly: true, fileMustExist: true });
     assert.deepEqual(database.prepare('SELECT version, name FROM _workspace_migrations ORDER BY version').all(), [
         { version: 1, name: 'repository_foundation' }, { version: 2, name: 'canonical_domain' },
         { version: 3, name: 'art_variants_asset_index' }, { version: 4, name: 'managed_asset_ingest' },
+        { version: 5, name: 'asset_resolution_overrides' },
     ]);
     database.close();
 });

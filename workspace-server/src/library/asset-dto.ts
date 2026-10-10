@@ -25,6 +25,8 @@ export type LibraryBoundAssetDto = {
 
 export type LibraryRoleSlotDto = {
     slot_state: SlotState;
+    candidates?: IndexedAssetSnapshot[];
+    expected_state_token?: string;
     asset: LibraryBoundAssetDto | null;
     issues: Array<{ code: string; message: string }>;
 };
@@ -169,6 +171,8 @@ const toManagedOnlyBoundDto = (
 
 export type RoleSlotEnrichment = {
     candidateCount: number;
+    candidates?: IndexedAssetSnapshot[];
+    expectedStateToken?: string;
     managed: ManagedAssetSnapshot | null;
     managedIndexed: IndexedAssetSnapshot | null;
     /** Unbound missing/invalid indexed asset with knowable association — diagnostic metadata only. */
@@ -230,6 +234,8 @@ export const toRoleSlotDto = (
     }
     return {
         slot_state: slotState,
+        candidates: enrichment.candidates ?? [],
+        ...(enrichment.expectedStateToken ? { expected_state_token: enrichment.expectedStateToken } : {}),
         asset,
         issues: enrichment.issues,
     };

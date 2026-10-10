@@ -140,6 +140,22 @@ export const inspectWorkspaceRootWithPersistence = async (workspaceRoot: string,
         }));
     }
 
+    try {
+        const mutationRoot = under(workspaceRoot, 'Temp/AssetMutation');
+        if (existsSync(mutationRoot)) for (const id of readdirSync(mutationRoot)) {
+            const marker = under(mutationRoot, `${id}/operation.json`);
+            if (!existsSync(marker)) continue;
+            const value = JSON.parse(readFileSync(marker, 'utf8')) as { status?: string };
+            if (value.status !== 'COMPLETE' && value.status !== 'ROLLED_BACK') {
+                return withoutPersistence(createStatus({ state: 'RECOVERY_REQUIRED', manifest,
+                    healthSummary: 'ASSET_MUTATION_RECOVERY_REQUIRED: an interrupted asset operation requires recovery.' }));
+            }
+        }
+    } catch {
+        return withoutPersistence(createStatus({ state: 'RECOVERY_REQUIRED', manifest,
+            healthSummary: 'ASSET_MUTATION_RECOVERY_REQUIRED: asset recovery material cannot be verified safely.' }));
+    }
+
     if (!ignoreRestoreMarkers) {
         try {
             noLinks(workspaceRoot);

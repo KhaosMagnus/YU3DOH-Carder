@@ -1,0 +1,47 @@
+name: Workspace RUN 011 validation
+on:
+  push:
+    branches: [feature/workspace-run-011]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validation:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+      - run: npm install --global yarn@1.22.22
+      - name: Install root (immutable lockfile)
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: Install Workspace (immutable lockfile)
+        run: yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+      - name: Root compile and build
+        run: |
+          yarn compile
+          yarn build
+        shell: bash
+      - name: Carder and Library regressions
+        run: |
+          yarn test:sc
+          yarn test:library
+        shell: bash
+      - name: Workspace compile and full suite
+        run: |
+          yarn --cwd workspace-server compile
+          yarn --cwd workspace-server test
+        shell: bash
+      - name: Repository hygiene and frozen migration/lockfile hashes
+        shell: bash
+        run: |
+          git diff --exit-code
+          git diff --check
+          git status --short
+          sha256sum yarn.lock workspace-server/yarn.lock workspace-server/migrations/*.sql

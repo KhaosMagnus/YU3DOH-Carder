@@ -2,6 +2,8 @@ import type { WorkspaceRuntimeManager } from './workspace/runtime';
 import type { WorkspaceRecoveryService } from './recovery/service';
 import { WorkspaceRecoveryError } from './recovery/errors';
 import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
+import { AssetMutationError } from './asset-mutation/errors';
+import type { ManagedMutationRequest, ResolutionRequest } from './asset-mutation/service';
 import type { AssetIndexerService } from './assets/indexer';
 import {
     CarderPrepareError,
@@ -630,6 +632,7 @@ export const buildWorkspaceApp = (
     });
     app.addHook('onResponse', async request => { leases.get(request)?.(); leases.delete(request); });
     app.setErrorHandler((error, _request, reply) => {
+        if (error instanceof AssetMutationError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if (error instanceof WorkspaceRecoveryError) {
             const code = error.code === 'BACKUP_NOT_FOUND' ? 404
                 : ['WORKSPACE_MAINTENANCE_ACTIVE', 'WORKSPACE_ID_MISMATCH'].includes(error.code) ? 409
@@ -638,6 +641,41 @@ export const buildWorkspaceApp = (
         }
         return reply.send(error);
     });
+
+    if (runtimeManager) {
+        const mutationService = () => {
+            const service = runtimeManager.current.assetMutations;
+            if (runtimeManager.current.status.state !== 'READY' || !service) {
+                throw new AssetMutationError('WORKSPACE_NOT_READY', 'Workspace is not READY for asset mutation.', 503);
+            }
+            return service;
+        };
+        const token = { type: 'string', minLength: 1 };
+        const role = { type: 'string', enum: ['BS', 'BG', 'OF'] };
+        app.get('/api/v1/library/assets/resolution-state', async () => mutationService().getState());
+        app.post('/api/v1/library/assets/resolution-state/refresh', async () => mutationService().refresh());
+        app.post<{ Body: ResolutionRequest }>('/api/v1/library/assets/resolve', {
+            schema: { body: { type: 'object', additionalProperties: false,
+                required: ['operation', 'expected_state_token'], properties: {
+                    operation: { type: 'string', enum: ['ATTACH', 'MOVE', 'CHOOSE', 'UNASSIGN', 'LEAVE'] },
+                    expected_state_token: token, asset_id: token, variant_id: token, role,
+                    create_variant: { type: 'object', additionalProperties: false,
+                        required: ['card_id', 'variant_key'], properties: { card_id: token, variant_key: token, display_label: token } },
+                } } },
+        }, async request => mutationService().resolve(request.body));
+        app.post<{ Params: { managed_asset_id: string }; Body: { operation: 'REPLACE' | 'REMOVE' | 'RELINK' } }>(
+            '/api/v1/library/managed-assets/:managed_asset_id/preview', {
+                schema: { body: { type: 'object', additionalProperties: false, required: ['operation'],
+                    properties: { operation: { type: 'string', enum: ['REPLACE', 'REMOVE', 'RELINK'] } } } },
+            }, async request => mutationService().preview(request.params.managed_asset_id, request.body.operation));
+        app.post<{ Body: ManagedMutationRequest }>('/api/v1/library/managed-assets/mutate', {
+            schema: { body: { type: 'object', additionalProperties: false,
+                required: ['operation', 'expected_state_token'], properties: {
+                    operation: { type: 'string', enum: ['REPLACE', 'RELINK', 'REMOVE'] }, managed_asset_id: token, target_asset_id: token,
+                    expected_state_token: token, source_file: token, asset_id: token, card_id: token, variant_id: token, role,
+                } } },
+        }, async request => mutationService().mutate(request.body));
+    }
 
     if (recovery) {
         app.get('/api/v1/workspace/backups', async () => ({ backups: await recovery.list() }));

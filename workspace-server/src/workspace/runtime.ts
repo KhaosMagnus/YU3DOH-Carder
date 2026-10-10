@@ -1,3 +1,4 @@
+import { AssetMutationService, type MutationHooks } from '../asset-mutation/service';
 import { AssetIndexerService } from '../assets/indexer';
 import { CanonicalDomainService } from '../canonical/service';
 import { ManagedAssetIngestService } from '../managed-assets/service';
@@ -19,6 +20,7 @@ export type WorkspaceRuntime = {
     managedAssets: ManagedAssetIngestService | null;
     library: LibraryQueryService | null;
     libraryAssets: LibraryAssetService | null;
+    assetMutations: AssetMutationService | null;
     carderPrepare: CarderPrepareService | null;
     carderAssetGrants: CarderAssetGrantRegistry;
 };
@@ -29,7 +31,7 @@ export class WorkspaceRuntimeManager {
     readonly maintenance = new WorkspaceMaintenanceCoordinator();
 
     constructor(readonly workspaceRoot: string, inspection: WorkspaceInspection,
-        grants = new CarderAssetGrantRegistry()) {
+        grants = new CarderAssetGrantRegistry(), private readonly mutationHooks: MutationHooks = {}) {
         this.runtime = this.build(inspection, grants);
     }
 
@@ -44,11 +46,13 @@ export class WorkspaceRuntimeManager {
         const managedAssets = persistence && assets
             ? guard(new ManagedAssetIngestService(this.workspaceRoot, persistence, assets), ['ingest']) : null;
         const library = persistence ? guard(new LibraryQueryService(persistence)) : null;
+        const assetMutations = persistence && assets ? guard(new AssetMutationService(this.workspaceRoot, persistence,
+            assets, message => this.recoveryRequired(message), this.mutationHooks), ['refresh', 'preview', 'resolve', 'mutate']) : null;
         const libraryAssets = persistence && assets && managedAssets && canonical
-            ? guard(new LibraryAssetService(persistence, assets, managedAssets, canonical), ['rescan', 'ingestManaged']) : null;
+            ? guard(new LibraryAssetService(persistence, assets, managedAssets, canonical, assetMutations?.tokens), ['rescan', 'ingestManaged']) : null;
         const carderPrepare = persistence && assets && canonical
             ? guard(new CarderPrepareService(canonical, assets, grants)) : null;
-        return { status, persistence, canonical, assets, managedAssets, library, libraryAssets, carderPrepare,
+        return { status, persistence, canonical, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare,
             carderAssetGrants: grants };
     }
 

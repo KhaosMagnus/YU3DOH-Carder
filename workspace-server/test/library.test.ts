@@ -443,11 +443,11 @@ test('browse is read-only: revision/classification/migration history and scan co
 
 test('supported schema remains 4 and normal Library/status requests preserve service regression behavior', async () => {
     const { service } = await readyService('schema status');
-    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 4);
-    assert.equal(service.status.database_schema_version, 4);
+    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 5);
+    assert.equal(service.status.database_schema_version, 5);
     const status = await service.app.inject({ method: 'GET', url: '/api/v1/workspace/status' });
     assert.equal(status.statusCode, 200);
-    assert.equal(status.json().database_schema_version, 4);
+    assert.equal(status.json().database_schema_version, 5);
     const browse = await service.app.inject({ method: 'GET', url: '/api/v1/library/cards?preferred_language=JP&limit=50&offset=0' });
     assert.equal(browse.statusCode, 200);
     await service.close();

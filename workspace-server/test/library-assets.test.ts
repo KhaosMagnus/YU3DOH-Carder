@@ -618,7 +618,7 @@ test('52-53 schema 3 remains NEEDS_MIGRATION; reads do not migrate', async () =>
     assert.equal(needs.statusCode, 503);
     const after = await inspectWorkspaceRoot(root);
     assert.equal(after.database_schema_version, 3);
-    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 4);
+    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 5);
     assert.equal(existsSync(path.join(process.cwd(), 'migrations', '005_anything.sql')), false);
     await service.close();
 });

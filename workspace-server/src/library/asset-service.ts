@@ -1,3 +1,5 @@
+import type { AssetStateTokens } from '../asset-mutation/state';
+import { listIndexedAssets } from '../assets/repository';
 import type { AssetIndexerService } from '../assets/indexer';
 import {
     countRoleCandidatesForVariant,
@@ -47,6 +49,7 @@ export class LibraryAssetService {
         private readonly assets: AssetIndexerService,
         private readonly managedAssets: ManagedAssetIngestService,
         private readonly canonical: CanonicalDomainService,
+        private readonly stateTokens?: AssetStateTokens,
     ) {}
 
     private requireCard(cardId: string) {
@@ -73,6 +76,12 @@ export class LibraryAssetService {
                     if (byPath) {
                         ownershipManaged = findManagedAssetById(database, byPath.managedAssetId);
                     }
+                }
+                if (ownershipManaged) {
+                    const disposition = database.prepare(`SELECT o.disposition, o.variant_id, o.role FROM asset_resolution_overrides o
+                        JOIN indexed_asset_files a ON a.asset_id = o.asset_id WHERE a.relative_path = ?`)
+                        .get(ownershipManaged.managedRelativePath) as { disposition: string; variant_id: string | null; role: string | null } | undefined;
+                    if (disposition && (disposition.disposition !== 'ASSIGN' || disposition.variant_id !== snapshot.variantId || disposition.role !== role)) ownershipManaged = null;
                 }
                 const managedIndexed = ownershipManaged
                     ? findIndexedAssetByRelativePath(database, ownershipManaged.managedRelativePath)
@@ -123,6 +132,9 @@ export class LibraryAssetService {
                 }
                 roleEnrichment[role] = {
                     candidateCount,
+                    candidates: listIndexedAssets(database).filter(a => a.variantId === snapshot.variantId && a.role === role
+                        && a.present && a.validAsset && a.associationState === 'RESOLVED'),
+                    ...(this.stateTokens ? { expectedStateToken: this.stateTokens.current() } : {}),
                     managed: ownershipManaged,
                     managedIndexed,
                     problemAsset,

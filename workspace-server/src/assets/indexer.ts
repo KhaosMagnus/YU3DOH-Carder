@@ -1,3 +1,4 @@
+import { overrideForPath } from '../asset-mutation/state';
 import { randomUUID } from 'node:crypto';
 import { lstat, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
@@ -264,6 +265,31 @@ export class AssetIndexerService {
     }
 
     private async inspectFile(file: DiscoveredFile): Promise<DiscoveredAsset> {
+        const explicit = this.persistence.runRepositoryOperation(db => overrideForPath(db, file.relativePath));
+        if (explicit?.disposition === 'ASSIGN') {
+            const extension = path.extname(file.fileName).slice(1).toLowerCase();
+            const details: Partial<DiscoveredAsset> = { role: explicit.role, cardId: explicit.card_id,
+                variantKey: explicit.variant_key, variantLabel: explicit.display_label, associationState: 'RESOLVED' };
+            try {
+                const image = await inspectAssetImage(file.absolutePath, explicit.role!, extension);
+                const inspected = { ...details, contentHash: image.contentHash, imageWidth: image.width,
+                    imageHeight: image.height, hasTransparency: image.hasTransparency };
+                if (explicit.role === 'OF' && !image.hasTransparency) {
+                    return invalidDiscoveredAsset(file, extension, inspected,
+                        [diagnostic(file.relativePath, 'INVALID_OF_TRANSPARENCY', 'Assigned OF image is opaque.')]);
+                }
+                // Registered ownership integrity remains authoritative even with an override.
+                const owner = this.persistence.runRepositoryOperation(db => findManagedOwnershipByRelativePath(db, file.relativePath));
+                if (owner && owner.contentHash !== image.contentHash) {
+                    return invalidDiscoveredAsset(file, extension, inspected,
+                        [diagnostic(file.relativePath, 'INVALID_IMAGE', 'Managed content differs from committed ownership.')]);
+                }
+                return { ...invalidDiscoveredAsset(file, extension, inspected, []), validAsset: true };
+            } catch {
+                return invalidDiscoveredAsset(file, extension, details,
+                    [diagnostic(file.relativePath, 'INVALID_IMAGE', 'Assigned source is not a valid image for this role.')]);
+            }
+        }
         const managedOwnership = this.persistence.runRepositoryOperation(database =>
             findManagedOwnershipByRelativePath(database, file.relativePath));
         if (managedOwnership) return this.inspectManagedFile(file, managedOwnership);

@@ -39,7 +39,9 @@ const findIndexedAssetById = (
             SELECT asset_id, relative_path, content_hash, extension, present, valid_asset, role,
                 card_id, variant_id
             FROM indexed_asset_files
-            WHERE asset_id = ?
+            WHERE asset_id = ? AND EXISTS (
+                SELECT 1 FROM variant_role_bindings b WHERE b.asset_id = indexed_asset_files.asset_id
+                    AND b.variant_id = indexed_asset_files.variant_id AND b.role = indexed_asset_files.role)
         `).get(assetId) as IndexedAssetContentRow | undefined;
         return row ?? null;
     });

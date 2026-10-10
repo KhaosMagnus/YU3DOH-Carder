@@ -664,7 +664,7 @@ test('detail and editor-metadata reads do not mutate revision, scans, or migrati
         schema: database.pragma('user_version', { simple: true }),
     }));
     assert.deepEqual(after, before);
-    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 4);
+    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 5);
     await service.close();
 });
 
