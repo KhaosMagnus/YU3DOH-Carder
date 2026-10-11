@@ -25,8 +25,10 @@ import type {
     ProvenanceInput,
     RegistryEntity,
     StructuralRegistryKind,
+    SemanticBlockKey,
 } from './types';
 import {
+    assertBlockForConfirmation,
     assertConfirmedBlocksExplicitlyTransitioned,
     assertConfirmedBlocksValid,
     assertMutationShape,
@@ -92,6 +94,21 @@ export class CanonicalDomainService {
     getCard(cardId: string): CanonicalCardSnapshot | null {
         return this.persistence.runRepositoryOperation(database =>
             loadCanonicalCardSnapshot(database, cardId));
+    }
+
+    reviewConfirmation(cardId: string, expectedRevision: string, block: SemanticBlockKey) {
+        const snapshot = requireSnapshot(this.getCard(cardId), cardId);
+        if (snapshot.revision !== expectedRevision) throw new CanonicalDomainError('REVISION_CONFLICT', 'Card changed since the displayed revision; review again.');
+        const state = snapshot.confirmations.find(c => c.block === block)?.state ?? 'DRAFT';
+        try {
+            assertBlockForConfirmation(snapshot, block);
+            return { card_id: cardId, revision: snapshot.revision, block, state,
+                confirmable: state === 'DRAFT', validation: { status: 'PASS', code: null, message: null } };
+        } catch (error) {
+            if (!(error instanceof CanonicalDomainError) || error.code !== 'DOMAIN_VALIDATION') throw error;
+            return { card_id: cardId, revision: snapshot.revision, block, state,
+                confirmable: false, validation: { status: 'FAIL', code: error.code, message: error.message } };
+        }
     }
 
     mutateCard(
@@ -199,8 +216,8 @@ export class CanonicalDomainService {
                         targetKind: 'BLOCK',
                         targetKey: confirmation.block,
                         sourceKind: confirmation.provenance.sourceKind,
-                        sourceRef: confirmation.provenance.sourceRef ?? null,
-                        note: confirmation.provenance.note ?? null,
+                        sourceRef: confirmation.provenance.sourceRef?.trim() || null,
+                        note: confirmation.provenance.note?.trim() || null,
                     }, timestamp);
                 }
                 setBlockState(

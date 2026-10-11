@@ -1,3 +1,4 @@
+import { ConfirmationModal } from './confirmation-modal';
 import { VariantLifecycleModal } from './variant-lifecycle-modal';
 import type { LifecycleEntry } from './variant-lifecycle-state';
 import { useEffect, useMemo, useState } from 'react';
@@ -64,6 +65,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
     const [confirmSourceKind, setConfirmSourceKind] = useState('MANUAL');
     const [confirmSourceRef, setConfirmSourceRef] = useState('');
     const [confirmNote, setConfirmNote] = useState('');
+    const [reviewBlock, setReviewBlock] = useState<SemanticBlock | null>(null);
     const [lifecycleEntry, setLifecycleEntry] = useState<LifecycleEntry | null>(null);
     const [preferredVariantId, setPreferredVariantId] = useState<string | null>(null);
     const [variants, setVariants] = useState<LibraryVariantDetail[]>([]);
@@ -342,9 +344,10 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                                 <h3>Confirmations</h3>
                                 {(['STRUCTURE', 'TEXT:EN', 'TEXT:ES', 'TEXT:JP', 'CLASSIFICATION', 'RELATIONS'] as SemanticBlock[])
                                     .map(block => (
-                                        <Tag key={block}>
-                                            {block}: {getConfirmationState(authoritative, block)}
-                                        </Tag>
+                                        <div key={block} className="library-block-confirmation">
+                                            <Tag>{block}: {getConfirmationState(authoritative, block)}</Tag>
+                                            {getConfirmationState(authoritative, block)==='DRAFT' && <Button disabled={dirty||saving} onClick={()=>setReviewBlock(block)}>Review / Confirm {block}</Button>}
+                                        </div>
                                     ))}
                             </section>
                             <section>
@@ -401,6 +404,9 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                 </div>
             )}
 
+            {reviewBlock && authoritative && !editing && <ConfirmationModal key={`${authoritative.card_id}:${reviewBlock}`} detail={authoritative} block={reviewBlock} onClose={()=>setReviewBlock(null)} onAdopt={detail=>{
+                const adopted=adoptServerSnapshot(detail);setAuthoritative(adopted.authoritative);setWorking(adopted.working);onSaved(detail);
+            }}/>}
             {lifecycleEntry && <VariantLifecycleModal entry={lifecycleEntry} onClose={() => setLifecycleEntry(null)}
                 onBlocked={onLifecycleBlocked} onChanged={async () => { await loadVariants(lifecycleEntry.cardId); onAssetsChanged?.(); }} />}
             <Modal

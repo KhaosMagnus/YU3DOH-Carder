@@ -187,3 +187,8 @@ export const previewVariantRemove = (variantId: string) =>
     fetchJson<import('./model').VariantLifecyclePreview>(`/api/v1/library/variants/${encodeURIComponent(variantId)}/remove-preview`, { method: 'POST' });
 export const removeVariant = (variantId: string, body: { expected_state_token: string; acknowledge_preferred_clear?: boolean }) =>
     fetchJson<import('./model').VariantLifecycleResponse>(`/api/v1/library/variants/${encodeURIComponent(variantId)}/remove`, { method: 'POST', body: JSON.stringify(body) });
+
+export const reviewCanonicalConfirmation = (cardId: string, block: import('./model').SemanticBlock, expectedRevision: string) =>
+    fetchJson<import('./model').ConfirmationReview>(`/api/v1/library/cards/${encodeURIComponent(cardId)}/confirmation-review`, {
+        method: 'POST', body: JSON.stringify({block, expected_revision: expectedRevision}),
+    });

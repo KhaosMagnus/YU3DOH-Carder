@@ -378,3 +378,12 @@ export type VariantLifecyclePreview = {
     unmanaged_assets: IndexedLibraryAsset[];
 };
 export type VariantLifecycleResponse = LibraryVariantsResponse & { operation: string; changed: boolean; recovery_relative_path?: string };
+
+export type ConfirmationReview = {
+    card_id: string;
+    revision: string;
+    block: SemanticBlock;
+    state: 'DRAFT' | 'CONFIRMED';
+    confirmable: boolean;
+    validation: { status: 'PASS' | 'FAIL'; code: string | null; message: string | null };
+};

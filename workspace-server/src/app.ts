@@ -832,6 +832,19 @@ export const buildWorkspaceApp = (
         return loadLibraryEditorMetadata(readyPersistence);
     });
 
+    app.post<{ Params: { card_id: string }; Body: { block: import('./canonical/types').SemanticBlockKey; expected_revision: string } }>('/api/v1/library/cards/:card_id/confirmation-review', {
+        schema: {
+            params: { type: 'object', additionalProperties: false, required: ['card_id'], properties: { card_id: {type:'string',minLength:1} } },
+            body: { type: 'object', additionalProperties: false, required: ['block','expected_revision'], properties: {
+                block: {type:'string',enum:SEMANTIC_BLOCK_KEYS}, expected_revision: {type:'string',minLength:1} } },
+        },
+    }, async (request, reply) => {
+        const domain = requireReadyCanonical();
+        if (!domain) return workspaceNotReady(reply, current().status);
+        try { return domain.reviewConfirmation(request.params.card_id, request.body.expected_revision, request.body.block); }
+        catch (error) { if (error instanceof CanonicalDomainError) return sendDomainError(reply, error); throw error; }
+    });
+
     app.get<{ Params: { card_id: string } }>('/api/v1/library/cards/:card_id', {
         schema: {
             params: {

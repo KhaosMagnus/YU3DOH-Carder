@@ -128,7 +128,7 @@ export const assertMutationShape = (
             }
         }
         for (const confirmation of mutation.confirmations) {
-            if (confirmation.state === 'CONFIRMED' && !confirmation.provenance) {
+            if (confirmation.state === 'CONFIRMED' && (!confirmation.provenance || typeof confirmation.provenance.sourceKind !== 'string' || !confirmation.provenance.sourceKind.trim())) {
                 fail(`Confirming ${confirmation.block} requires provenance.`);
             }
         }
@@ -307,16 +307,17 @@ export const assertConfirmedBlocksValid = (snapshot: CanonicalCardSnapshot) => {
             fail(`Confirmed block ${confirmation.block} must retain provenance.`);
         }
 
-        if (confirmation.block === 'STRUCTURE') {
-            assertStructureConfirmed(snapshot);
-            continue;
-        }
-        if (confirmation.block.startsWith('TEXT:')) {
-            assertTextConfirmed(snapshot, confirmation.block);
-            continue;
-        }
-        if (confirmation.block === 'CLASSIFICATION' && !snapshot.classification.effectReviewed) {
-            fail('Confirmed CLASSIFICATION requires Effect Classification review state.');
-        }
+        assertBlockForConfirmation(snapshot, confirmation.block);
     }
+};
+
+/** Shared persisted-block rules for read-only Review and actual confirmation. */
+export const assertBlockForConfirmation = (snapshot: CanonicalCardSnapshot, block: SemanticBlockKey) => {
+    if (!SEMANTIC_BLOCK_KEYS.includes(block)) fail(`Unsupported semantic block: ${block}`);
+    if (block === 'STRUCTURE') return assertStructureConfirmed(snapshot);
+    if (block.startsWith('TEXT:')) return assertTextConfirmed(snapshot, block);
+    if (block === 'CLASSIFICATION' && !snapshot.classification.effectReviewed) {
+        fail('Confirmed CLASSIFICATION requires Effect Classification review state.');
+    }
+    // RELATIONS are already persisted using the existing validated positive-assertion model.
 };
