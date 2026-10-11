@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import {
     Alert,
     Button,
@@ -16,6 +16,7 @@ import {
     getWorkspaceStatus,
     LibraryHttpError,
     rescanLibraryAssets,
+    setLibraryMaintenanceFence,
 } from './api';
 import {
     formatNeedsAttentionError,
@@ -39,6 +40,8 @@ import {
     type LibraryNeedsAttentionResponse,
     type WorkspaceStatus,
 } from './model';
+import { WorkspaceManagement } from './workspace-management';
+import { WorkspaceManagementController, type MaintenanceOperation } from './workspace-management-state';
 import './library.scss';
 
 const { Option } = Select;
@@ -86,21 +89,101 @@ export const LibraryApp = () => {
     const [assetsRevision, setAssetsRevision] = useState(0);
     const [assetBlocked, setAssetBlocked] = useState(false);
 
+    const [clientDataBlocked, setClientDataBlocked] = useState(false);
+    const [maintenanceError, setMaintenanceError] = useState<string | null>(
+        null,
+    );
+    const [managementOpen, setManagementOpen] = useState(false);
+    const [maintenance, setMaintenance] =
+        useState<MaintenanceOperation>('NONE');
+    const [editorDirty, setEditorDirty] = useState(false);
+    const [workspaceGeneration, setWorkspaceGeneration] = useState(0);
+    const maintenanceRef = useRef<MaintenanceOperation>('NONE');
+    const filtersRef = useRef(filters);
+    filtersRef.current = filters;
+    const dataEpoch = useRef(0);
+    const invalidateWorkspace = useCallback(() => {
+        dataEpoch.current++;
+        setClientDataBlocked(true);
+        setWorkspaceGeneration((n) => n + 1);
+        setSelectedCardId(null);
+        setDetailOpen(false);
+        setEditorDirty(false);
+        setResolverEntry(null);
+        setNeedsAttentionOpen(false);
+        setNeedsAttention(null);
+        setNewDraftOpen(false);
+        setResult(emptyResult);
+        setFacets(null);
+        setBrowseError(null);
+        setFacetsError(null);
+        setNeedsAttentionError(null);
+        setRescanError(null);
+        setAssetBlocked(false);
+    }, []);
+    const [managementController] = useState(
+        () =>
+            new WorkspaceManagementController({
+                begin: (operation) => {
+                    maintenanceRef.current = operation;
+                    setLibraryMaintenanceFence(operation);
+                    setMaintenance(operation);
+                    dataEpoch.current++;
+                    setNewDraftOpen(false);
+                    setResolverEntry(null);
+                },
+                invalidate: invalidateWorkspace,
+                adoptStatus: (current, error) => {
+                    setStatus(current);
+                    setStatusError(error);
+                },
+                reloadLibrary: async (current) => {
+                    if (current.state !== 'READY') return;
+                    // Permit persisted reads for the authoritative rebuild; keep all mutation controls fenced.
+                    if (maintenanceRef.current !== 'NONE')
+                        setLibraryMaintenanceFence('BACKUP');
+                    const epoch=dataEpoch.current;
+                    const [freshFacets, freshResult] = await Promise.all([
+                        getLibraryFacets(),
+                        browseLibraryCards(filtersRef.current),
+                    ]);
+                    if(epoch!==dataEpoch.current)return;
+                    setFacets(freshFacets);
+                    setResult(freshResult);
+                    setLoading(false);
+                    setClientDataBlocked(false);
+                },
+                finish: () => {
+                    maintenanceRef.current = 'NONE';
+                    setLibraryMaintenanceFence('NONE');
+                    setMaintenance('NONE');
+                },
+            }),
+    );
+    useEffect(() => () => setLibraryMaintenanceFence('NONE'), []);
+    useEffect(
+        () =>
+            managementController.subscribe((v) => setMaintenanceError(v.error)),
+        [managementController],
+    );
+
     useEffect(() => {
+        if(maintenanceRef.current!=='NONE')return;
         const controller = new AbortController();
         setStatus(null);
         setStatusError(null);
+        const epoch=dataEpoch.current;
         getWorkspaceStatus(controller.signal)
-            .then(current => { setStatus(current); if (current.state === 'READY') setAssetBlocked(false); })
+            .then(current => { if(epoch!==dataEpoch.current)return; setStatus(current); if (current.state === 'READY') setAssetBlocked(false); })
             .catch(error => {
-                if (error instanceof Error && error.name === 'AbortError') return;
+                if (epoch!==dataEpoch.current || (error instanceof Error && error.name === 'AbortError')) return;
                 setStatusError(error instanceof Error ? error.message : 'Workspace Service is unavailable.');
             });
         return () => controller.abort();
     }, [retryNonce]);
 
     useEffect(() => {
-        if (status?.state !== 'READY') {
+        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE' || maintenanceRef.current==='MIGRATION') {
             setFacets(null);
             setFacetsError(null);
             setLoading(false);
@@ -108,29 +191,32 @@ export const LibraryApp = () => {
         }
         const controller = new AbortController();
         setFacetsError(null);
+        const epoch=dataEpoch.current;
         getLibraryFacets(controller.signal)
-            .then(setFacets)
+            .then(value=>{if(epoch===dataEpoch.current)setFacets(value);})
             .catch(error => {
-                if (error instanceof Error && error.name === 'AbortError') return;
+                if (epoch!==dataEpoch.current || (error instanceof Error && error.name === 'AbortError')) return;
                 setFacetsError(error instanceof Error ? error.message : 'Could not load Library facets.');
             });
         return () => controller.abort();
     }, [status, retryNonce]);
 
     useEffect(() => {
-        if (status?.state !== 'READY') {
+        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE' || maintenanceRef.current==='MIGRATION') {
             setLoading(false);
             return;
         }
         const controller = new AbortController();
+        const epoch=dataEpoch.current;
         const timeout = window.setTimeout(() => {
+            if(epoch!==dataEpoch.current)return;
             setLoading(true);
             setBrowseError(null);
             browseLibraryCards(filters, controller.signal)
-                .then(setResult)
+                .then(value=>{if(epoch===dataEpoch.current)setResult(value);})
                 .catch(error => {
-                    if (error instanceof Error && error.name === 'AbortError') return;
-                    setBrowseError(error instanceof Error ? error.message : 'Library request failed.');
+                    if (epoch!==dataEpoch.current || (error instanceof Error && error.name === 'AbortError')) return;
+                    setBrowseError(error instanceof LibraryHttpError ? `${error.code}: ${error.message}` : error instanceof Error ? error.message : 'Library request failed.');
                 })
                 .finally(() => setLoading(false));
         }, 200);
@@ -159,14 +245,18 @@ export const LibraryApp = () => {
 
     const workspaceShellState = getWorkspaceShellState(status, statusError);
     const workspaceReady = workspaceShellState === 'ready';
-    const assetsEnabled = workspaceReady && !assetBlocked;
+    const mutationEnabled = workspaceReady && !status?.read_only && maintenance==='NONE' && !clientDataBlocked;
+    const ordinaryReadsEnabled=workspaceReady && maintenance!=='RESTORE' && maintenance!=='MIGRATION';
+    const assetsEnabled = mutationEnabled && !assetBlocked;
 
     const openDetail = (cardId: string) => {
+        if(maintenanceRef.current==='RESTORE'||maintenanceRef.current==='MIGRATION')return;
         setSelectedCardId(cardId);
         setDetailOpen(true);
     };
 
     const handleCreated = async (input: { family: LibraryFamily; password?: string | null }) => {
+        if(!mutationEnabled)return;
         setCreatingDraft(true);
         setCreateError(null);
         try {
@@ -188,12 +278,13 @@ export const LibraryApp = () => {
     };
 
     const loadNeedsAttention = async () => {
-        if (status?.state !== 'READY') return;
+        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE'||maintenanceRef.current==='MIGRATION') return;
+        const epoch=dataEpoch.current;
         setNeedsAttentionLoading(true);
         setNeedsAttentionError(null);
         try {
             const data = await getLibraryNeedsAttention();
-            setNeedsAttention(data);
+            if(epoch===dataEpoch.current)setNeedsAttention(data);
         } catch (error) {
             if (error instanceof Error && error.name === 'AbortError') return;
             setNeedsAttentionError(formatNeedsAttentionError(error));
@@ -203,6 +294,7 @@ export const LibraryApp = () => {
     };
 
     const handleRescan = async () => {
+        if(!assetsEnabled)return;
         setRescanError(null);
         setRescanning(true);
         try {
@@ -235,8 +327,9 @@ export const LibraryApp = () => {
                     <p>Canonical card browse/search + detail editor</p>
                 </div>
                 <div className="library-header__actions">
+                    <Button onClick={()=>setManagementOpen(true)}>Workspace</Button>
                     <Button
-                        disabled={!workspaceReady}
+                        disabled={!ordinaryReadsEnabled}
                         onClick={() => {
                             setNeedsAttentionOpen(true);
                             void loadNeedsAttention();
@@ -246,7 +339,7 @@ export const LibraryApp = () => {
                     </Button>
                     <Button
                         type="primary"
-                        disabled={!workspaceReady}
+                        disabled={!mutationEnabled}
                         onClick={() => {
                             setCreateError(null);
                             setNewDraftOpen(true);
@@ -264,6 +357,8 @@ export const LibraryApp = () => {
                 </div>
             </header>
 
+            {maintenance!=='NONE' && <Alert type="info" showIcon message={`Workspace maintenance: ${maintenance}`} description="Library mutations are disabled until authoritative refresh completes."/>}
+
             {statusError && (
                 <Alert
                     type="error"
@@ -276,12 +371,14 @@ export const LibraryApp = () => {
 
             {!statusError && status && !workspaceReady && (
                 <Alert
-                    type="warning"
+                    type={status.state==='RECOVERY_REQUIRED'?'error':'warning'}
                     showIcon
-                    message="Workspace is not ready"
+                    message={status.state==='RECOVERY_REQUIRED'?'Recovery Required':'Workspace is not ready'}
                     description={status.health_summary}
                 />
             )}
+            {maintenanceError?.includes('RECOVERY_REQUIRED') && status?.state!=='READY' && <Alert type="error" showIcon message="Recovery Required — Workspace operation could not prove completion" description={maintenanceError}/>}
+            {clientDataBlocked && workspaceReady && maintenance==='NONE' && <Alert type="error" message="Library refresh required before editing" description="Workspace status is READY, but Library data has not been rebuilt. Open Workspace and Retry."/>}
             {assetBlocked && <Alert type="error" showIcon message="Asset operations blocked — Workspace recovery / readiness required"
                 description={status?.health_summary ?? 'Check Workspace status before continuing.'}
                 action={<Button onClick={() => setRetryNonce(value => value + 1)}>Check Workspace status</Button>} />}
@@ -306,13 +403,13 @@ export const LibraryApp = () => {
                     value={filters.query}
                     onChange={event => updateFilter('query', event.target.value)}
                     onSearch={value => updateFilter('query', value)}
-                    disabled={!workspaceReady}
+                    disabled={!ordinaryReadsEnabled}
                 />
 
                 <Select
                     value={filters.preferredLanguage}
                     onChange={value => updateFilter('preferredLanguage', value as LibraryLanguage)}
-                    disabled={!workspaceReady}
+                    disabled={!ordinaryReadsEnabled}
                     aria-label="Preferred language"
                 >
                     {(facets?.languages ?? ['EN', 'ES', 'JP']).map(language => (
@@ -325,7 +422,7 @@ export const LibraryApp = () => {
                     placeholder="Family"
                     value={filters.family || undefined}
                     onChange={value => updateFilter('family', (value ?? '') as LibraryBrowseFilters['family'])}
-                    disabled={!workspaceReady}
+                    disabled={!ordinaryReadsEnabled}
                 >
                     {(facets?.families ?? []).map(value => <Option key={value} value={value}>{value}</Option>)}
                 </Select>
@@ -336,7 +433,7 @@ export const LibraryApp = () => {
                     placeholder="Archetype"
                     value={filters.archetype || undefined}
                     onChange={value => updateFilter('archetype', value ?? '')}
-                    disabled={!workspaceReady}
+                    disabled={!ordinaryReadsEnabled}
                 >
                     {(facets?.archetypes ?? []).map(value => <Option key={value} value={value}>{value}</Option>)}
                 </Select>
@@ -347,7 +444,7 @@ export const LibraryApp = () => {
                     placeholder="Effect Classifier"
                     value={filters.effectClassifier || undefined}
                     onChange={value => updateFilter('effectClassifier', value ?? '')}
-                    disabled={!workspaceReady}
+                    disabled={!ordinaryReadsEnabled}
                 >
                     {(facets?.effect_classifiers ?? []).map(value => <Option key={value} value={value}>{value}</Option>)}
                 </Select>
@@ -358,7 +455,7 @@ export const LibraryApp = () => {
                     placeholder="Functional Tag"
                     value={filters.functionalTag || undefined}
                     onChange={value => updateFilter('functionalTag', value ?? '')}
-                    disabled={!workspaceReady}
+                    disabled={!ordinaryReadsEnabled}
                 >
                     {(facets?.functional_tags ?? []).map(value => <Option key={value} value={value}>{value}</Option>)}
                 </Select>
@@ -446,6 +543,11 @@ export const LibraryApp = () => {
             )}
 
             <DetailPanel
+                key={workspaceGeneration}
+                onOpenWorkspace={()=>setManagementOpen(true)}
+                maintenanceActive={maintenance!=='NONE'}
+                mutationEnabled={mutationEnabled}
+                onDirtyChange={setEditorDirty}
                 cardId={selectedCardId}
                 open={detailOpen}
                 onClose={() => setDetailOpen(false)}
@@ -461,6 +563,7 @@ export const LibraryApp = () => {
             />
 
             <NeedsAttentionPanel
+                key={`attention-${workspaceGeneration}`}
                 open={needsAttentionOpen}
                 data={needsAttention}
                 loading={needsAttentionLoading}
@@ -479,8 +582,10 @@ export const LibraryApp = () => {
             {resolverEntry && <AssetResolutionModal entry={resolverEntry} enabled={assetsEnabled}
                 onClose={() => setResolverEntry(null)} onChanged={refreshAssetViews} onBlocked={blockAssetViews} />}
 
+            <WorkspaceManagement open={managementOpen} onClose={()=>setManagementOpen(false)} status={status} statusError={statusError} dirty={editorDirty} controller={managementController}/>
+
             <NewDraftModal
-                open={newDraftOpen}
+                open={newDraftOpen && mutationEnabled}
                 confirming={creatingDraft}
                 onCancel={() => setNewDraftOpen(false)}
                 onCreate={input => { void handleCreated(input); }}

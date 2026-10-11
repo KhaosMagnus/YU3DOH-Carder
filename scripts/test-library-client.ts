@@ -396,4 +396,5 @@ console.log('Library client RUN 008 asset checks PASS');
 import { runAssetResolutionChecks } from './test-library-asset-resolution';
 import { runVariantLifecycleChecks } from './test-library-variant-lifecycle';
 import { runConfirmationChecks } from './test-library-confirmation';
-void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).catch(error => { console.error(error); process.exitCode = 1; });
+import { runWorkspaceManagementChecks } from './test-workspace-management';
+void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).catch(error => { console.error(error); process.exitCode = 1; });

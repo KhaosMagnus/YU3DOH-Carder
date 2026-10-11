@@ -56,6 +56,12 @@ const fetchJson = async <T>(
     init?: RequestInit,
     signal?: AbortSignal,
 ): Promise<T> => {
+    if (maintenanceFence !== 'NONE' && !url.startsWith('/api/v1/workspace/')) {
+        const read = !init?.method || init.method === 'GET';
+        if (!read || maintenanceFence !== 'BACKUP') {
+            throw new LibraryHttpError({status:409,code:'WORKSPACE_MAINTENANCE_ACTIVE',message:'Wait for the active Workspace maintenance operation to finish.'});
+        }
+    }
     const response = await fetch(url, {
         ...init,
         headers: {
@@ -192,3 +198,14 @@ export const reviewCanonicalConfirmation = (cardId: string, block: import('./mod
     fetchJson<import('./model').ConfirmationReview>(`/api/v1/library/cards/${encodeURIComponent(cardId)}/confirmation-review`, {
         method: 'POST', body: JSON.stringify({block, expected_revision: expectedRevision}),
     });
+
+export const getWorkspaceBackups = () => fetchJson<{backups: import('./workspace-management-state').WorkspaceBackup[]}>('/api/v1/workspace/backups');
+export const createWorkspaceBackup = (body: {kind: import('./workspace-management-state').BackupKind; include_output?: boolean}) =>
+    fetchJson<import('./workspace-management-state').WorkspaceBackup>('/api/v1/workspace/backups', {method:'POST',body:JSON.stringify(body)});
+export const restoreWorkspaceBackup = (backupId: string) =>
+    fetchJson<import('./workspace-management-state').RestoreResult>(`/api/v1/workspace/backups/${encodeURIComponent(backupId)}/restore`, {method:'POST'});
+export const migrateWorkspace = () => fetchJson<import('./workspace-management-state').MigrationResult>('/api/v1/workspace/migrate', {method:'POST'});
+
+// Prevent launching new ordinary requests during destructive maintenance. This is UI fencing, not a server lock.
+let maintenanceFence: 'NONE' | 'BACKUP' | 'RESTORE' | 'MIGRATION' = 'NONE';
+export const setLibraryMaintenanceFence = (operation: typeof maintenanceFence) => { maintenanceFence=operation; };

@@ -46,10 +46,14 @@ type Props = {
     onResolve?: (entry: ResolverEntry) => void;
     assetsRevision?: number;
     assetsEnabled?: boolean;
+    onOpenWorkspace?: ()=>void;
+    maintenanceActive?: boolean;
+    mutationEnabled?: boolean;
+    onDirtyChange?: (dirty: boolean)=>void;
     onLifecycleBlocked?: () => Promise<void>;
 };
 
-export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, assetsEnabled = true, onLifecycleBlocked = async () => {} }: Props) => {
+export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, assetsEnabled = true, mutationEnabled = true, maintenanceActive = false, onDirtyChange, onOpenWorkspace, onLifecycleBlocked = async () => {} }: Props) => {
     const [loading, setLoading] = useState(false);
     const [detailError, setDetailError] = useState<string | null>(null);
     const [metadataError, setMetadataError] = useState<string | null>(null);
@@ -78,6 +82,11 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
         () => Boolean(authoritative && working && isWorkingFormDirty(authoritative, working)),
         [authoritative, working],
     );
+
+    useEffect(()=>{ onDirtyChange?.(dirty); },[dirty,onDirtyChange]);
+    useEffect(()=>{
+        if(maintenanceActive){setReviewBlock(null);setLifecycleEntry(null);setPendingConfirmations(null);}
+    },[maintenanceActive]);
 
     const loadMetadata = async () => {
         setMetadataError(null);
@@ -186,6 +195,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                 content: 'Switching away will discard local editor changes.',
                 okText: 'Discard',
                 onOk: () => {
+                    if(authoritative)setWorking(detailToWorkingForm(authoritative));
                     setEditing(false);
                     onClose();
                 },
@@ -211,7 +221,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
             provenance?: { source_kind: string; source_ref?: string | null; note?: string | null };
         }>,
     ) => {
-        if (!authoritative || !working) return;
+        if (!mutationEnabled || !authoritative || !working) return;
         setSaving(true);
         setSaveError(null);
         setConflict(false);
@@ -237,7 +247,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
     };
 
     const onSave = () => {
-        if (!authoritative || !working) return;
+        if (!mutationEnabled || !authoritative || !working) return;
         const impacted = impactedConfirmedBlocks(authoritative, working);
         if (impacted.length > 0) {
             setPendingConfirmations(impacted);
@@ -270,13 +280,14 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                             <div><strong>revision</strong>: {authoritative.revision}</div>
                         </div>
                         <div className="library-detail__actions">
+                            <Button onClick={onOpenWorkspace}>Workspace</Button>
                             {!editing && (
-                                <Button type="primary" onClick={() => setEditing(true)}>Edit</Button>
+                                <Button disabled={!mutationEnabled} type="primary" onClick={() => setEditing(true)}>Edit</Button>
                             )}
                             {editing && (
                                 <>
-                                    <Button onClick={cancelEdit} disabled={saving}>Cancel</Button>
-                                    <Button type="primary" loading={saving} onClick={onSave} disabled={!dirty}>
+                                    <Button onClick={cancelEdit} disabled={saving || !mutationEnabled}>Cancel</Button>
+                                    <Button type="primary" loading={saving} onClick={onSave} disabled={!dirty || !mutationEnabled}>
                                         Save
                                     </Button>
                                 </>
@@ -346,7 +357,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                                     .map(block => (
                                         <div key={block} className="library-block-confirmation">
                                             <Tag>{block}: {getConfirmationState(authoritative, block)}</Tag>
-                                            {getConfirmationState(authoritative, block)==='DRAFT' && <Button disabled={dirty||saving} onClick={()=>setReviewBlock(block)}>Review / Confirm {block}</Button>}
+                                            {getConfirmationState(authoritative, block)==='DRAFT' && <Button disabled={dirty||saving||!mutationEnabled} onClick={()=>setReviewBlock(block)}>Review / Confirm {block}</Button>}
                                         </div>
                                     ))}
                             </section>
@@ -404,14 +415,14 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                 </div>
             )}
 
-            {reviewBlock && authoritative && !editing && <ConfirmationModal key={`${authoritative.card_id}:${reviewBlock}`} detail={authoritative} block={reviewBlock} onClose={()=>setReviewBlock(null)} onAdopt={detail=>{
+            {!maintenanceActive && reviewBlock && authoritative && !editing && <ConfirmationModal enabled={mutationEnabled} key={`${authoritative.card_id}:${reviewBlock}`} detail={authoritative} block={reviewBlock} onClose={()=>setReviewBlock(null)} onAdopt={detail=>{
                 const adopted=adoptServerSnapshot(detail);setAuthoritative(adopted.authoritative);setWorking(adopted.working);onSaved(detail);
             }}/>}
-            {lifecycleEntry && <VariantLifecycleModal entry={lifecycleEntry} onClose={() => setLifecycleEntry(null)}
+            {!maintenanceActive && lifecycleEntry && <VariantLifecycleModal entry={lifecycleEntry} onClose={() => setLifecycleEntry(null)}
                 onBlocked={onLifecycleBlocked} onChanged={async () => { await loadVariants(lifecycleEntry.cardId); onAssetsChanged?.(); }} />}
             <Modal
                 title="Confirmed block modification"
-                visible={Boolean(pendingConfirmations)}
+                visible={mutationEnabled && Boolean(pendingConfirmations)}
                 onCancel={() => setPendingConfirmations(null)}
                 onOk={() => {
                     if (!pendingConfirmations) return;
@@ -432,6 +443,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                 }}
                 okText={confirmMode === 'DRAFT' ? 'Move to Draft and Save' : 'Reconfirm and Save'}
                 confirmLoading={saving}
+                okButtonProps={{disabled:!mutationEnabled}}
             >
                 <p>These confirmed blocks are impacted:</p>
                 <ul>

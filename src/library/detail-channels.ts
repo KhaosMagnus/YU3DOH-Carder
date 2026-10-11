@@ -2,6 +2,7 @@ import { LibraryHttpError } from './api';
 import type { LibraryCardDetail, LibraryEditorMetadata } from './model';
 
 export const formatDetailLoadError = (error: unknown): string => {
+    if (error instanceof LibraryHttpError && error.code === 'WORKSPACE_MAINTENANCE_ACTIVE') return `${error.code}: ${error.message}`;
     if (error instanceof LibraryHttpError && error.status === 404) {
         return 'Canonical card not found.';
     }
@@ -12,6 +13,7 @@ export const formatDetailLoadError = (error: unknown): string => {
 };
 
 export const formatMetadataLoadError = (error: unknown): string => {
+    if (error instanceof LibraryHttpError && error.code === 'WORKSPACE_MAINTENANCE_ACTIVE') return `${error.code}: ${error.message}`;
     if (error instanceof LibraryHttpError && error.status === 503) {
         return 'Workspace is not READY.';
     }

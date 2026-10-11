@@ -360,3 +360,7 @@ body {
 }
 .library-resolution-review { margin-top: 16px; padding: 16px; border: 1px solid #91caff; border-radius: 6px; background: #f0f7ff; overflow-wrap: anywhere; }
 .library-resolution-readiness { padding: 10px 0; }
+
+.workspace-management__metadata { display: grid; grid-template-columns: 160px 1fr; gap: 4px 16px; overflow-wrap: anywhere; dt { font-weight: 600; } dd { margin: 0; } }
+.workspace-management__actions { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
+.workspace-management__backup { border: 1px solid #ddd; border-radius: 4px; padding: 12px; margin: 12px 0; overflow-wrap: anywhere; }

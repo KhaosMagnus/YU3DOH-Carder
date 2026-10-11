@@ -2,6 +2,7 @@ import { LibraryHttpError } from './api';
 import type { LibraryCardDetail } from './model';
 
 export const formatVariantLoadError = (error: unknown): string => {
+    if (error instanceof LibraryHttpError && error.code === 'WORKSPACE_MAINTENANCE_ACTIVE') return `${error.code}: ${error.message}`;
     if (error instanceof LibraryHttpError && error.status === 404) {
         return 'Canonical card not found for variants.';
     }
@@ -12,6 +13,7 @@ export const formatVariantLoadError = (error: unknown): string => {
 };
 
 export const formatNeedsAttentionError = (error: unknown): string => {
+    if (error instanceof LibraryHttpError && error.code === 'WORKSPACE_MAINTENANCE_ACTIVE') return `${error.code}: ${error.message}`;
     if (error instanceof LibraryHttpError && error.status === 503) {
         return 'Workspace is not READY.';
     }
@@ -19,6 +21,7 @@ export const formatNeedsAttentionError = (error: unknown): string => {
 };
 
 export const formatRescanError = (error: unknown): string => {
+    if (error instanceof LibraryHttpError && error.code === 'WORKSPACE_MAINTENANCE_ACTIVE') return `${error.code}: ${error.message}`;
     if (error instanceof LibraryHttpError && error.status === 503) {
         return 'Workspace is not READY.';
     }
@@ -26,6 +29,7 @@ export const formatRescanError = (error: unknown): string => {
 };
 
 export const formatIngestError = (error: unknown): string => {
+    if (error instanceof LibraryHttpError && error.code === 'WORKSPACE_MAINTENANCE_ACTIVE') return `${error.code}: ${error.message}`;
     if (error instanceof LibraryHttpError) {
         return `${error.code}: ${error.message}`;
     }

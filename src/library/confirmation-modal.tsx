@@ -7,18 +7,20 @@ export const ConfirmationModal = ({
     block,
     onClose,
     onAdopt,
+    enabled = true,
 }: {
     detail: LibraryCardDetail;
     block: SemanticBlock;
     onClose: () => void;
     onAdopt: (d: LibraryCardDetail) => void;
+    enabled?: boolean;
 }) => {
     const [controller] = useState(() => new ConfirmationController(detail, block));
     const [v, setView] = useState(controller.view);
     controller.onAdopt = onAdopt;
     useEffect(() => {
         const un = controller.subscribe(setView);
-        void controller.review();
+        if(enabled)void controller.review();
         return un;
     }, [controller]);
     const data =
@@ -52,8 +54,8 @@ export const ConfirmationModal = ({
                 </Button>,
                 <Button
                     key="review"
-                    disabled={busy || v.phase === 'SUCCESS'}
-                    onClick={() => void controller.review()}
+                    disabled={!enabled || busy || v.phase === 'SUCCESS'}
+                    onClick={() => {if(enabled)void controller.review();}}
                 >
                     Review again
                 </Button>,
@@ -61,8 +63,8 @@ export const ConfirmationModal = ({
                     key="confirm"
                     type="primary"
                     loading={v.phase === 'CONFIRMING'}
-                    disabled={!controller.canConfirm()}
-                    onClick={() => void controller.confirm()}
+                    disabled={!enabled || !controller.canConfirm()}
+                    onClick={() => {if(enabled)void controller.confirm();}}
                 >
                     Confirm block
                 </Button>,
