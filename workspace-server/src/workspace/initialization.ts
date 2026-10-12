@@ -68,6 +68,7 @@ export class WorkspaceInitializationService {
             const files: Owned[] = [];
             const directories: Owned[] = [];
             const rememberFile = (file: string) => {
+                safe(file);
                 const owned = {
                     file,
                     stat: lstatSync(file),
@@ -270,6 +271,23 @@ export class WorkspaceInitializationService {
                 const content = JSON.stringify(manifest, null, 2) + '\n';
                 publishExclusive(manifestFile, Buffer.from(content));
                 await this.hooks.atBoundary?.('manifest_published');
+                // Do not open a foreign replacement DB or adopt pre-existing/foreign SQLite sidecars.
+                safe(root);
+                safe(data);
+                if (
+                    readdirSync(root).some(
+                        (name) => !['Data', 'workspace.json'].includes(name),
+                    ) ||
+                    readdirSync(data).some((name) => name !== 'workspace.db') ||
+                    !owned(directories.find((d) => d.file === data)!) ||
+                    !owned(files.find((f) => f.file === database)!) ||
+                    !owned(files.find((f) => f.file === manifestFile)!)
+                )
+                    throw new WorkspaceInitializationError(
+                        'WORKSPACE_INITIALIZATION_NOT_ALLOWED',
+                        'Workspace publication changed before runtime adoption.',
+                        409,
+                    );
                 const status = await this.runtime.reload();
                 // Track only SQLite sidecars actually created during our reload; never enumerate/delete foreign files recursively.
                 for (const suffix of ['-wal', '-shm', '-journal']) {

@@ -636,3 +636,52 @@ test('INIT-created root replaced by real junction before artifacts fails closed'
     assert.deepEqual(readdirSync(target), []);
     assert(lstatSync(root).isSymbolicLink());
 });
+
+test('INIT-foreign SQLite sidecar before reload is preserved without opening persistence', async () => {
+    let root = '';
+    const f = await setup({
+        hooks: {
+            atBoundary: (b) => {
+                if (b === 'manifest_published')
+                    writeFileSync(
+                        path.join(root, 'Data/workspace.db-wal'),
+                        'foreign sidecar bytes',
+                    );
+            },
+        },
+    });
+    root = f.root;
+    const r = await call(f.s);
+    assert.equal(r.statusCode, 409);
+    assert.equal(
+        readFileSync(path.join(root, 'Data/workspace.db-wal'), 'utf8'),
+        'foreign sidecar bytes',
+    );
+    assert(!existsSync(path.join(root, 'Data/workspace.db')));
+    assert(!existsSync(path.join(root, 'workspace.json')));
+    assert.equal(f.s.status.state, 'INVALID_WORKSPACE');
+});
+test('INIT-foreign replacement DB before reload is preserved byte-for-byte', async () => {
+    let root = '';
+    const f = await setup({
+        hooks: {
+            atBoundary: (b) => {
+                if (b === 'manifest_published') {
+                    unlinkSync(path.join(root, 'Data/workspace.db'));
+                    writeFileSync(
+                        path.join(root, 'Data/workspace.db'),
+                        'foreign replacement DB',
+                    );
+                }
+            },
+        },
+    });
+    root = f.root;
+    const r = await call(f.s);
+    assert.equal(r.statusCode, 409);
+    assert.equal(
+        readFileSync(path.join(root, 'Data/workspace.db'), 'utf8'),
+        'foreign replacement DB',
+    );
+    assert(!existsSync(path.join(root, 'workspace.json')));
+});
