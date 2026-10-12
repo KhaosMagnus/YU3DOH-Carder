@@ -207,5 +207,7 @@ export const restoreWorkspaceBackup = (backupId: string) =>
 export const migrateWorkspace = () => fetchJson<import('./workspace-management-state').MigrationResult>('/api/v1/workspace/migrate', {method:'POST'});
 
 // Prevent launching new ordinary requests during destructive maintenance. This is UI fencing, not a server lock.
-let maintenanceFence: 'NONE' | 'BACKUP' | 'RESTORE' | 'MIGRATION' = 'NONE';
+let maintenanceFence: 'NONE' | 'BACKUP' | 'RESTORE' | 'MIGRATION' | 'INITIALIZATION' = 'NONE';
 export const setLibraryMaintenanceFence = (operation: typeof maintenanceFence) => { maintenanceFence=operation; };
+
+export const initializeWorkspace = () => fetchJson<import('./workspace-management-state').InitializationResult>('/api/v1/workspace/initialize',{method:'POST',body:'{}'});

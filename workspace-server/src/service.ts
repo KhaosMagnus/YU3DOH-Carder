@@ -1,3 +1,4 @@
+import { WorkspaceInitializationService, type InitializationHooks } from './workspace/initialization';
 import type { VariantLifecycleService } from './variant-lifecycle/service';
 import type { AssetMutationService, MutationHooks } from './asset-mutation/service';
 import { WorkspaceRuntimeManager } from './workspace/runtime';
@@ -21,6 +22,7 @@ export type WorkspaceService = {
     app: FastifyInstance;
     runtime: WorkspaceRuntimeManager;
     recovery: WorkspaceRecoveryService;
+    initialization: WorkspaceInitializationService;
     status: WorkspaceStatus;
     persistence: WorkspacePersistence | null;
     canonical: CanonicalDomainService | null;
@@ -41,12 +43,14 @@ export const createWorkspaceService = async (
     {
         logger = false,
         recoveryHooks = {},
+        initializationHooks = {},
         mutationHooks = {},
         lifecycleHooks = {},
         carderAssetGrants = new CarderAssetGrantRegistry(),
     }: {
         logger?: boolean;
         recoveryHooks?: RecoveryHooks;
+        initializationHooks?: InitializationHooks;
         mutationHooks?: MutationHooks;
         lifecycleHooks?: MutationHooks;
         /** Test hook only (e.g. a registry with an injected clock). Never persisted. */
@@ -56,8 +60,9 @@ export const createWorkspaceService = async (
     const inspection = await inspectWorkspaceRootWithPersistence(config.workspaceRoot);
     const runtime = new WorkspaceRuntimeManager(config.workspaceRoot, inspection, carderAssetGrants, mutationHooks, lifecycleHooks);
     const recovery = new WorkspaceRecoveryService(runtime, config.automaticRecoveryPointRetention ?? 10, recoveryHooks);
+    const initialization=new WorkspaceInitializationService(runtime,initializationHooks);
     const app = buildWorkspaceApp(runtime.current.status, {
-        logger, runtimeManager: runtime, recovery, workspaceRoot: config.workspaceRoot,
+        logger, runtimeManager: runtime, recovery, initialization, workspaceRoot: config.workspaceRoot,
     });
     let closePromise: Promise<void> | undefined;
 
@@ -73,7 +78,7 @@ export const createWorkspaceService = async (
     };
 
     return {
-        app, runtime, recovery,
+        app, runtime, recovery, initialization,
         get status() { return runtime.current.status; },
         get persistence() { return runtime.current.persistence; },
         get canonical() { return runtime.current.canonical; },

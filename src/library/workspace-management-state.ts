@@ -1,6 +1,11 @@
 import * as api from './api';
 import type { WorkspaceStatus } from './model';
-export type MaintenanceOperation = 'NONE' | 'BACKUP' | 'RESTORE' | 'MIGRATION';
+export type MaintenanceOperation =
+    | 'NONE'
+    | 'BACKUP'
+    | 'RESTORE'
+    | 'MIGRATION'
+    | 'INITIALIZATION';
 export type BackupKind = 'RECOVERY_POINT' | 'FULL';
 export type WorkspaceBackup = {
     backup_format_version: 1;
@@ -28,6 +33,16 @@ export type RestoreResult = {
     database_schema_version: number;
     status: WorkspaceStatus;
 };
+export type InitializationResult = {
+    operation: 'INITIALIZE';
+    initialized: true;
+    workspace_id: string;
+    workspace_format_version: number;
+    database_schema_version: number;
+    status: WorkspaceStatus;
+};
+export const initializationAvailable = (status: WorkspaceStatus | null) =>
+    status?.state === 'NEEDS_INITIALIZATION';
 export type MigrationResult = {
     migrated: boolean;
     status: WorkspaceStatus;
@@ -51,6 +66,7 @@ export type ManagementClient = Pick<
     | 'createWorkspaceBackup'
     | 'restoreWorkspaceBackup'
     | 'migrateWorkspace'
+    | 'initializeWorkspace'
 >;
 export type ManagementEffects = {
     begin: (operation: MaintenanceOperation) => void;
@@ -64,7 +80,12 @@ export type ManagementView = {
     backups: WorkspaceBackup[];
     error: string | null;
     listError: string | null;
-    result: WorkspaceBackup | RestoreResult | MigrationResult | null;
+    result:
+        | WorkspaceBackup
+        | RestoreResult
+        | MigrationResult
+        | InitializationResult
+        | null;
 };
 /** Orchestrates existing endpoints only; compatibility and maintenance coordination belong to the service. */
 export class WorkspaceManagementController {
@@ -157,6 +178,11 @@ export class WorkspaceManagementController {
         }
         if (operation === 'MIGRATION' && !migrationAvailable(options.status))
             return;
+        if (
+            operation === 'INITIALIZATION' &&
+            !initializationAvailable(options.status)
+        )
+            return;
         if (operation === 'RESTORE' && !options.backupId) return;
         if (operation === 'BACKUP' && !options.kind) return;
         this.generation++;
@@ -176,6 +202,8 @@ export class WorkspaceManagementController {
                 );
             if (operation === 'MIGRATION')
                 result = await this.client.migrateWorkspace();
+            if (operation === 'INITIALIZATION')
+                result = await this.client.initializeWorkspace();
         } catch (e) {
             error = formatMaintenanceError(e);
         }

@@ -77,6 +77,7 @@ function fixture() {
                 status: status(state),
             };
         },
+        initializeWorkspace:async()=>({operation:'INITIALIZE' as const,initialized:true as const,workspace_id:'fixture',workspace_format_version:1,database_schema_version:6,status:status()}),
         migrateWorkspace: async () => {
             calls.push('migrate');
             if (failure)

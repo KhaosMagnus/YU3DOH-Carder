@@ -183,7 +183,7 @@ export const LibraryApp = () => {
     }, [retryNonce]);
 
     useEffect(() => {
-        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE' || maintenanceRef.current==='MIGRATION') {
+        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE' || maintenanceRef.current==='MIGRATION'||maintenanceRef.current==='INITIALIZATION') {
             setFacets(null);
             setFacetsError(null);
             setLoading(false);
@@ -202,7 +202,7 @@ export const LibraryApp = () => {
     }, [status, retryNonce]);
 
     useEffect(() => {
-        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE' || maintenanceRef.current==='MIGRATION') {
+        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE' || maintenanceRef.current==='MIGRATION'||maintenanceRef.current==='INITIALIZATION') {
             setLoading(false);
             return;
         }
@@ -246,11 +246,11 @@ export const LibraryApp = () => {
     const workspaceShellState = getWorkspaceShellState(status, statusError);
     const workspaceReady = workspaceShellState === 'ready';
     const mutationEnabled = workspaceReady && !status?.read_only && maintenance==='NONE' && !clientDataBlocked;
-    const ordinaryReadsEnabled=workspaceReady && maintenance!=='RESTORE' && maintenance!=='MIGRATION';
+    const ordinaryReadsEnabled=workspaceReady && maintenance!=='RESTORE' && maintenance!=='MIGRATION' && maintenance!=='INITIALIZATION';
     const assetsEnabled = mutationEnabled && !assetBlocked;
 
     const openDetail = (cardId: string) => {
-        if(maintenanceRef.current==='RESTORE'||maintenanceRef.current==='MIGRATION')return;
+        if(maintenanceRef.current==='RESTORE'||maintenanceRef.current==='MIGRATION'||maintenanceRef.current==='INITIALIZATION')return;
         setSelectedCardId(cardId);
         setDetailOpen(true);
     };
@@ -278,7 +278,7 @@ export const LibraryApp = () => {
     };
 
     const loadNeedsAttention = async () => {
-        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE'||maintenanceRef.current==='MIGRATION') return;
+        if (status?.state !== 'READY' || maintenanceRef.current==='RESTORE'||maintenanceRef.current==='MIGRATION'||maintenanceRef.current==='INITIALIZATION') return;
         const epoch=dataEpoch.current;
         setNeedsAttentionLoading(true);
         setNeedsAttentionError(null);

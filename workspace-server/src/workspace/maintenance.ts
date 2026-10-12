@@ -1,7 +1,7 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { WorkspaceRecoveryError } from '../recovery/errors';
 
-export type MaintenanceMode = 'NORMAL' | 'BACKUP' | 'MIGRATION' | 'RESTORE';
+export type MaintenanceMode = 'NORMAL' | 'BACKUP' | 'MIGRATION' | 'RESTORE' | 'INITIALIZATION';
 
 /** One coordinator per Workspace runtime owner. Leases cover entire async operations. */
 export class WorkspaceMaintenanceCoordinator {
@@ -20,7 +20,7 @@ export class WorkspaceMaintenanceCoordinator {
 
     assertReadable() {
         if (this.mutationOwner && this.mutationContext.getStore() !== this.mutationOwner) this.conflict();
-        if (this.currentMode === 'RESTORE' || this.currentMode === 'MIGRATION') this.conflict();
+        if (this.currentMode === 'RESTORE' || this.currentMode === 'MIGRATION' || this.currentMode === 'INITIALIZATION') this.conflict();
     }
 
     assertMutable() {

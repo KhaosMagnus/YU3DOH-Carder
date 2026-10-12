@@ -1,3 +1,4 @@
+import { WorkspaceInitializationError, type WorkspaceInitializationService } from './workspace/initialization';
 import { VariantLifecycleError, type RenameProposal, type LifecycleRequest } from './variant-lifecycle/service';
 import type { WorkspaceRuntimeManager } from './workspace/runtime';
 import type { WorkspaceRecoveryService } from './recovery/service';
@@ -592,6 +593,7 @@ export const buildWorkspaceApp = (
         workspaceRoot = '',
         runtimeManager,
         recovery,
+        initialization,
     }: {
         logger?: boolean;
         library?: LibraryQueryService | null;
@@ -605,6 +607,7 @@ export const buildWorkspaceApp = (
         workspaceRoot?: string;
         runtimeManager?: WorkspaceRuntimeManager;
         recovery?: WorkspaceRecoveryService;
+        initialization?: WorkspaceInitializationService;
     } = {},
 ): FastifyInstance => {
     const app = Fastify({
@@ -633,6 +636,7 @@ export const buildWorkspaceApp = (
     });
     app.addHook('onResponse', async request => { leases.get(request)?.(); leases.delete(request); });
     app.setErrorHandler((error, _request, reply) => {
+        if (error instanceof WorkspaceInitializationError) return reply.code(error.statusCode).send({code:error.code,message:error.message});
         if (error instanceof VariantLifecycleError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if (error instanceof AssetMutationError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if (error instanceof WorkspaceRecoveryError) {
@@ -699,6 +703,8 @@ export const buildWorkspaceApp = (
                 } } },
         }, async request => mutationService().mutate(request.body));
     }
+
+    if(initialization)app.post('/api/v1/workspace/initialize',{schema:{body:{type:'object',additionalProperties:false}}},async()=>initialization.initialize());
 
     if (recovery) {
         app.get('/api/v1/workspace/backups', async () => ({ backups: await recovery.list() }));

@@ -3,6 +3,7 @@ import { Alert, Button, Checkbox, Modal, Radio, Spin, Tag } from 'antd';
 import type { WorkspaceStatus } from './model';
 import {
     migrationAvailable,
+    initializationAvailable,
     type BackupKind,
     type WorkspaceBackup,
     type WorkspaceManagementController,
@@ -24,7 +25,7 @@ export const WorkspaceManagement = ({
 }) => {
     const [view, setView] = useState(controller.view);
     const [action, setAction] = useState<
-        'BACKUP' | 'RESTORE' | 'MIGRATION' | null
+        'BACKUP' | 'RESTORE' | 'MIGRATION' | 'INITIALIZATION' | null
     >(null);
     const [kind, setKind] = useState<BackupKind>('RECOVERY_POINT');
     const [output, setOutput] = useState(false);
@@ -106,6 +107,7 @@ export const WorkspaceManagement = ({
                                 description={status.health_summary}
                             />
                         )}
+
                         {migrationAvailable(status) && (
                             <Alert
                                 type="warning"
@@ -134,6 +136,14 @@ export const WorkspaceManagement = ({
                     >
                         Create Backup
                     </Button>
+                    {initializationAvailable(status) && (
+                        <Button
+                            disabled={busy || !!statusError}
+                            onClick={() => start('INITIALIZATION')}
+                        >
+                            Initialize Workspace
+                        </Button>
+                    )}
                     {migrationAvailable(status) && (
                         <Button
                             disabled={busy || !!statusError}
@@ -164,6 +174,13 @@ export const WorkspaceManagement = ({
                                 type="success"
                                 message="Restore completed"
                                 description={`Backup ID: ${view.result.backup_id} · Restored at: ${view.result.restored_at} · Resulting state: ${view.result.status.state}`}
+                            />
+                        )}
+                        {'initialized' in view.result && (
+                            <Alert
+                                type="success"
+                                message="Workspace initialized"
+                                description={`Workspace ID: ${view.result.workspace_id} · Lifecycle: ${view.result.status.state} · Workspace format: ${view.result.workspace_format_version} · Database schema: ${view.result.database_schema_version}`}
                             />
                         )}
                         {'migrated' in view.result && (
@@ -236,22 +253,26 @@ export const WorkspaceManagement = ({
             <Modal
                 zIndex={1300}
                 title={
-                    action === 'BACKUP'
-                        ? 'Create Backup'
-                        : action === 'RESTORE'
-                          ? 'Restore Backup — replace persisted Workspace'
-                          : 'Migrate Workspace — explicit confirmation'
+                    action === 'INITIALIZATION'
+                        ? 'Initialize Workspace — explicit confirmation'
+                        : action === 'BACKUP'
+                          ? 'Create Backup'
+                          : action === 'RESTORE'
+                            ? 'Restore Backup — replace persisted Workspace'
+                            : 'Migrate Workspace — explicit confirmation'
                 }
                 visible={action !== null}
                 maskClosable={false}
                 onCancel={() => setAction(null)}
                 onOk={submit}
                 okText={
-                    action === 'BACKUP'
-                        ? 'Create backup'
-                        : action === 'RESTORE'
-                          ? 'Restore selected backup'
-                          : 'Confirm migration'
+                    action === 'INITIALIZATION'
+                        ? 'Initialize configured Workspace'
+                        : action === 'BACKUP'
+                          ? 'Create backup'
+                          : action === 'RESTORE'
+                            ? 'Restore selected backup'
+                            : 'Confirm migration'
                 }
                 okButtonProps={{
                     disabled:
@@ -330,6 +351,14 @@ export const WorkspaceManagement = ({
                             <dd>{backup.protection_state}</dd>
                         </dl>
                     </>
+                )}
+                {action === 'INITIALIZATION' && (
+                    <p>
+                        The already-configured Workspace location will be
+                        initialized with a new server-generated Workspace
+                        identity. This does not switch Workspaces or adopt
+                        unknown existing contents.
+                    </p>
                 )}
                 {action === 'MIGRATION' && (
                     <p>

@@ -200,6 +200,8 @@ export class WorkspaceRecoveryService {
     }
 
     async restore(id: string) {
+        // Initialization must fence even restore validation/staging; existing modes retain their established behavior.
+        if (this.runtime.maintenance.mode === 'INITIALIZATION') this.runtime.maintenance.assertMutable();
         // Validate and stage before acquiring exclusive ownership of active-state replacement.
         const operation = async () => {
             let releaseMaintenance: (() => void) | undefined;
