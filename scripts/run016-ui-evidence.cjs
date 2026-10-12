@@ -57,7 +57,13 @@ async function run() {
             fullPage: true,
             animations: 'disabled',
         });
-        cases.push({ name, sha, result: 'PASS', filesystem, ...extra });
+        cases.push({
+            name,
+            sha,
+            result: 'PASS',
+            filesystem,
+            operation_result: extra.result ?? null,
+        });
         console.log(`RUN016 UI ${name} PASS`);
     };
     const open = async () => {
