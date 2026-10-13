@@ -1,5 +1,6 @@
 import { ConfirmationModal } from './confirmation-modal';
 import { ProvenancePanel } from './provenance-panel';
+import { ExternalSourcesPanel } from './external-sources-panel';
 import { VariantLifecycleModal } from './variant-lifecycle-modal';
 import type { LifecycleEntry } from './variant-lifecycle-state';
 import { useEffect, useMemo, useState } from 'react';
@@ -79,7 +80,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
     const [variantsLoading, setVariantsLoading] = useState(false);
     const [variantError, setVariantError] = useState<string | null>(null);
     const [ingestError, setIngestError] = useState<string | null>(null);
-    const [detailSection, setDetailSection] = useState<'canonical' | 'provenance' | 'variants'>('canonical');
+    const [detailSection, setDetailSection] = useState<'canonical' | 'provenance' | 'variants' | 'external'>('canonical');
 
     const dirty = useMemo(
         () => Boolean(authoritative && working && isWorkingFormDirty(authoritative, working)),
@@ -339,6 +340,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                             Canonical
                         </Button>
                         <Button type={detailSection === 'provenance' ? 'primary' : 'default'} onClick={() => setDetailSection('provenance')}>Sources / Provenance</Button>
+                        <Button type={detailSection === 'external' ? 'primary' : 'default'} onClick={() => setDetailSection('external')}>External Sources</Button>
                         <Button
                             type={detailSection === 'variants' ? 'primary' : 'default'}
                             onClick={() => setDetailSection('variants')}
@@ -393,6 +395,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                     )}
 
                     {detailSection === 'provenance' && <ProvenancePanel key={authoritative.card_id} detail={authoritative} dirty={dirty} />}
+                    {detailSection === 'external' && <ExternalSourcesPanel key={authoritative.card_id} detail={authoritative} dirty={dirty} enabled={mutationEnabled && !maintenanceActive} />}
 
                     {detailSection === 'variants' && (
                         <>

@@ -1,4 +1,6 @@
 import { WorkspaceInitializationService, type InitializationHooks } from './workspace/initialization';
+import type { ExternalSourceIngestionService } from './external-sources/service';
+import type { AdapterOptions } from './external-sources/adapter';
 import type { LibraryBatchClassificationService } from './library/batch-classification';
 import type { VariantLifecycleService } from './variant-lifecycle/service';
 import type { AssetMutationService, MutationHooks } from './asset-mutation/service';
@@ -22,6 +24,7 @@ import { inspectWorkspaceRootWithPersistence } from './workspace/inspect';
 import type { WorkspaceStatus } from './workspace/types';
 
 export type WorkspaceService = {
+    externalSourceIngestion: ExternalSourceIngestionService | null;
     app: FastifyInstance;
     runtime: WorkspaceRuntimeManager;
     recovery: WorkspaceRecoveryService;
@@ -52,6 +55,7 @@ export const createWorkspaceService = async (
         initializationHooks = {},
         mutationHooks = {},
         lifecycleHooks = {},
+        externalSourceAdapterOptions = {},
         carderAssetGrants = new CarderAssetGrantRegistry(),
     }: {
         logger?: boolean;
@@ -59,12 +63,15 @@ export const createWorkspaceService = async (
         initializationHooks?: InitializationHooks;
         mutationHooks?: MutationHooks;
         lifecycleHooks?: MutationHooks;
+        externalSourceAdapterOptions?: AdapterOptions;
         /** Test hook only (e.g. a registry with an injected clock). Never persisted. */
         carderAssetGrants?: CarderAssetGrantRegistry;
     } = {},
 ): Promise<WorkspaceService> => {
+    if (config.enabledExternalSources !== undefined && (!Array.isArray(config.enabledExternalSources) || config.enabledExternalSources.some(code=>code !== 'YGORESOURCES_CARD_DB'))) throw new Error('Unknown External Source enablement.');
     const inspection = await inspectWorkspaceRootWithPersistence(config.workspaceRoot);
-    const runtime = new WorkspaceRuntimeManager(config.workspaceRoot, inspection, carderAssetGrants, mutationHooks, lifecycleHooks);
+    const runtime = new WorkspaceRuntimeManager(config.workspaceRoot, inspection, carderAssetGrants, mutationHooks, lifecycleHooks,
+        {enabled:config.enabledExternalSources?.includes('YGORESOURCES_CARD_DB') ?? false,adapterOptions:externalSourceAdapterOptions});
     const recovery = new WorkspaceRecoveryService(runtime, config.automaticRecoveryPointRetention ?? 10, recoveryHooks);
     const initialization=new WorkspaceInitializationService(runtime,initializationHooks);
     const app = buildWorkspaceApp(runtime.current.status, {
@@ -87,6 +94,7 @@ export const createWorkspaceService = async (
         app, runtime, recovery, initialization,
         get status() { return runtime.current.status; },
         get persistence() { return runtime.current.persistence; },
+        get externalSourceIngestion() { return runtime.current.externalSourceIngestion; },
         get canonical() { return runtime.current.canonical; },
         get assets() { return runtime.current.assets; },
         get managedAssets() { return runtime.current.managedAssets; },

@@ -1,4 +1,6 @@
 import { CarderWriteGrantRegistry } from '../carder/write-grants';
+import { ExternalSourceIngestionService } from '../external-sources/service';
+import { YgoResourcesCardAdapter, type AdapterOptions } from '../external-sources/adapter';
 import { LibraryBatchClassificationService } from '../library/batch-classification';
 import { loadBatchRegistry } from '../library/batch-registry';
 import { CarderWriteBackService } from '../carder/write-back';
@@ -18,6 +20,7 @@ import { WorkspaceMaintenanceCoordinator } from './maintenance';
 import type { WorkspaceStatus } from './types';
 
 export type WorkspaceRuntime = {
+    externalSourceIngestion: ExternalSourceIngestionService | null;
     status: WorkspaceStatus;
     persistence: WorkspacePersistence | null;
     canonical: CanonicalDomainService | null;
@@ -40,7 +43,8 @@ export class WorkspaceRuntimeManager {
     readonly maintenance = new WorkspaceMaintenanceCoordinator();
 
     constructor(readonly workspaceRoot: string, inspection: WorkspaceInspection,
-        grants = new CarderAssetGrantRegistry(), private readonly mutationHooks: MutationHooks = {}, private readonly lifecycleHooks: MutationHooks = {}) {
+        grants = new CarderAssetGrantRegistry(), private readonly mutationHooks: MutationHooks = {}, private readonly lifecycleHooks: MutationHooks = {},
+        private readonly externalSources: { enabled: boolean; adapterOptions: AdapterOptions } = { enabled:false,adapterOptions:{} }) {
         this.runtime = this.build(inspection, grants);
     }
 
@@ -52,6 +56,11 @@ export class WorkspaceRuntimeManager {
         const guard = <T extends object>(service: T, mutations: string[] = []) => this.maintenance.guard(service, mutations);
         const canonical = persistence ? guard(new CanonicalDomainService(persistence),
             ['registerStructuralCode', 'registerNamedEntity', 'createCard', 'mutateCard', 'addProvenance']) : null;
+        // retrieve owns separate preflight/publication leases; never wrap its entire async fetch in guard().
+        const externalSourceIngestion = persistence && canonical ? new ExternalSourceIngestionService(
+            persistence,{getCard:id=>canonical.getCard(id)},this.maintenance,
+            ()=>this.runtime.persistence === persistence && this.runtime.status.state === 'READY',
+            this.externalSources.enabled,new YgoResourcesCardAdapter(this.externalSources.adapterOptions)) : null;
         const carderWriteBack = canonical ? guard(new CarderWriteBackService(canonical, writeGrants), ['writeBack']) : null;
         const libraryBatchClassification = canonical && persistence
             ? guard(new LibraryBatchClassificationService(canonical, () => loadBatchRegistry(persistence)), ['apply']) : null;
@@ -68,7 +77,7 @@ export class WorkspaceRuntimeManager {
                 message => this.recoveryRequired(message), this.lifecycleHooks), ['setPreferred', 'rename', 'remove']) : null;
         const carderPrepare = persistence && assets && canonical
             ? guard(new CarderPrepareService(canonical, assets, grants, writeGrants)) : null;
-        return { status, persistence, canonical, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare, variantLifecycle,
+        return { status, persistence, canonical, externalSourceIngestion, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare, variantLifecycle,
             carderAssetGrants: grants, carderWriteGrants:writeGrants, carderWriteBack, libraryBatchClassification };
     }
 

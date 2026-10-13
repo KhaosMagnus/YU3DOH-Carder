@@ -109,7 +109,7 @@ async function run() {
         const calls = requests.length;
         assert.deepEqual(
             await sections().getByRole('button').allTextContents(),
-            ['Canonical', 'Sources / Provenance', 'Variants / Assets'],
+            ['Canonical', 'Sources / Provenance', 'External Sources', 'Variants / Assets'],
         );
         assert.equal(
             await page

@@ -8,6 +8,7 @@ export type WorkspaceServiceConfig = {
     host: string;
     port: number;
     automaticRecoveryPointRetention?: number;
+    enabledExternalSources?: string[];
 };
 
 export type WorkspaceConfigOverrides = Partial<WorkspaceServiceConfig>;
@@ -53,7 +54,13 @@ export const loadWorkspaceConfig = ({
     if (!Number.isSafeInteger(retention) || retention < 0) {
         throw new WorkspaceConfigurationError('Automatic recovery point retention must be a non-negative integer.');
     }
+    const enabledExternalSources = overrides.enabledExternalSources
+        ?? (env.YU3DOH_ENABLED_EXTERNAL_SOURCES ?? '').split(',').map(code=>code.trim()).filter(Boolean);
+    if (!Array.isArray(enabledExternalSources) || enabledExternalSources.some(code=>code !== 'YGORESOURCES_CARD_DB')) {
+        throw new WorkspaceConfigurationError('Only YGORESOURCES_CARD_DB can be explicitly enabled in Phase 1.');
+    }
     return {
+        enabledExternalSources: [...new Set(enabledExternalSources)],
         automaticRecoveryPointRetention: retention,
         workspaceRoot,
         host,

@@ -234,16 +234,16 @@ test('schema 2 is NEEDS_MIGRATION without implicit migration and explicit upgrad
 
     const migrated = migrateWorkspaceDatabase(root, manifest());
     assert.equal(migrated.previousVersion, 2);
-    assert.equal(migrated.currentVersion, 6);
-    assert.deepEqual(migrated.appliedVersions, [3, 4, 5, 6]);
+    assert.equal(migrated.currentVersion, 7);
+    assert.deepEqual(migrated.appliedVersions, [3, 4, 5, 6, 7]);
 });
 
 test('fresh bootstrap reaches current schema through migrations 001, 002, 003, 004', async () => {
     const root = await tempRoot('fresh schema3');
     const result = bootstrapWorkspaceDatabase(root, manifest());
-    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 6);
-    assert.equal(result.currentVersion, 6);
-    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5, 6]);
+    assert.equal(SUPPORTED_DATABASE_SCHEMA_VERSION, 7);
+    assert.equal(result.currentVersion, 7);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5, 6, 7]);
     const database = new Database(result.databasePath, { readonly: true, fileMustExist: true });
     assert.deepEqual(database.prepare('SELECT version, name FROM _workspace_migrations ORDER BY version').all(), [
         { version: 1, name: 'repository_foundation' },
@@ -252,6 +252,7 @@ test('fresh bootstrap reaches current schema through migrations 001, 002, 003, 0
         { version: 4, name: 'managed_asset_ingest' },
         { version: 5, name: 'asset_resolution_overrides' },
         { version: 6, name: 'variant_lifecycle' },
+        { version: 7, name: 'external_source_ingestion' },
     ]);
     database.close();
 });
@@ -680,10 +681,10 @@ test('invalid required PNG metadata and superficially framed corrupt JPEG are re
 
 test('current-schema Workspace is READY and status endpoint reports database_schema_version 5', async () => {
     const { service } = await readyService('schema4 ready');
-    assert.equal(service.status.database_schema_version, 6);
+    assert.equal(service.status.database_schema_version, 7);
     const response = await service.app.inject({ method: 'GET', url: '/api/v1/workspace/status' });
     assert.equal(response.statusCode, 200);
-    assert.equal(response.json().database_schema_version, 6);
+    assert.equal(response.json().database_schema_version, 7);
     await service.close();
 });
 

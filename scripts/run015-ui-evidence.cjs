@@ -461,7 +461,7 @@ async function run() {
         const migrated = await (await migrating).json();
         assert.equal(migrated.migrated, true);
         assert.equal(migrated.status.state, 'READY');
-        assert.equal(migrated.status.database_schema_version, 6);
+        assert.equal(migrated.status.database_schema_version, 7);
         assert(migrated.backup_id);
         await settled();
         await visible(

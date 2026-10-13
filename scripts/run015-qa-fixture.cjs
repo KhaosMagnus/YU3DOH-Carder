@@ -187,7 +187,7 @@ async function run() {
         const data = JSON.parse(await fs.readFile(file, 'utf8'));
         await fs.writeFile(
             file,
-            JSON.stringify({ ...data, database_schema_version: 7 }),
+            JSON.stringify({ ...data, database_schema_version: 8 }),
         );
         return { altered: true };
     });

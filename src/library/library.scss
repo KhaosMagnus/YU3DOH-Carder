@@ -381,3 +381,11 @@ body {
     .library-provenance__context { margin-top: 12px; }
     .library-provenance__current { margin-top: 12px; }
 }
+.library-external-sources {
+    display: grid;
+    gap: 12px;
+    &__retrieve, &__history { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow: auto; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; table-layout: fixed; }
+    td, th { padding: 6px; border: 1px solid #9995; text-align: left; overflow-wrap: anywhere; }
+}

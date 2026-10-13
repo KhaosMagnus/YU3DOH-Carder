@@ -1,4 +1,6 @@
 import { WorkspaceInitializationError, type WorkspaceInitializationService } from './workspace/initialization';
+import { ExternalSourceError } from './external-sources/errors';
+import { RETRIEVE_ROUTE, registerExternalSourceRoutes } from './external-sources/http';
 import { VariantLifecycleError, type RenameProposal, type LifecycleRequest } from './variant-lifecycle/service';
 import type { WorkspaceRuntimeManager } from './workspace/runtime';
 import type { WorkspaceRecoveryService } from './recovery/service';
@@ -636,10 +638,11 @@ export const buildWorkspaceApp = (
     const leases = new WeakMap<object, () => void>();
     app.addHook('preHandler', async request => {
         const url = request.routeOptions.url ?? '';
-        if (runtimeManager && !url.startsWith('/api/v1/workspace/')) leases.set(request, runtimeManager.maintenance.acquireRead());
+        if (runtimeManager && !url.startsWith('/api/v1/workspace/') && url !== RETRIEVE_ROUTE) leases.set(request, runtimeManager.maintenance.acquireRead());
     });
     app.addHook('onResponse', async request => { leases.get(request)?.(); leases.delete(request); });
     app.setErrorHandler((error, _request, reply) => {
+        if (error instanceof ExternalSourceError) return reply.code(error.statusCode).send({code:error.code,message:error.message,...(error.retrieval_id ? {retrieval_id:error.retrieval_id} : {})});
         if (error instanceof LibraryBatchError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if(error instanceof CarderWriteError) return reply.code(error.statusCode).send({code:error.code,message:error.message});
         if (error instanceof WorkspaceInitializationError) return reply.code(error.statusCode).send({code:error.code,message:error.message});
@@ -655,6 +658,7 @@ export const buildWorkspaceApp = (
     });
 
     if (runtimeManager) {
+        registerExternalSourceRoutes(app,runtimeManager);
         const lifecycle = () => {
             const service = runtimeManager.current.variantLifecycle;
             if (runtimeManager.current.status.state !== 'READY' || !service) throw new VariantLifecycleError('WORKSPACE_NOT_READY', 'Workspace is not READY.', 503);

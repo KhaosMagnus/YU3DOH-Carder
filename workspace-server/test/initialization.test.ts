@@ -100,7 +100,7 @@ for (const missing of [false, true])
         assert(!Number.isNaN(Date.parse(m.created_at)));
         assert.equal(result.status.state, 'READY');
         assert.equal(result.status.read_only, false);
-        assert.equal(result.database_schema_version, 6);
+        assert.equal(result.database_schema_version, 7);
         assert.equal(result.status.workspace_id, result.workspace_id);
         assert(s.persistence?.isOpen);
         assert.notEqual(s.carderAssetGrants, registry);
@@ -121,7 +121,7 @@ for (const missing of [false, true])
         ] as const)
             assert(s[name], name);
         const db = new Database(path.join(root, 'Data/workspace.db'));
-        assert.equal(db.pragma('user_version', { simple: true }), 6);
+        assert.equal(db.pragma('user_version', { simple: true }), 7);
         const tables = db
             .prepare("SELECT name FROM sqlite_master WHERE type='table'")
             .all() as { name: string }[];
@@ -130,10 +130,10 @@ for (const missing of [false, true])
         const records = db
             .prepare(`SELECT * FROM ${history.name}`)
             .all() as any[];
-        assert.equal(records.length, 6);
+        assert.equal(records.length, 7);
         assert.deepEqual(
             records.map((row) => row.version),
-            [1, 2, 3, 4, 5, 6],
+            [1, 2, 3, 4, 5, 6, 7],
         );
         db.close();
         assert.deepEqual(readdirSync(root).sort(), ['Data', 'workspace.json']);

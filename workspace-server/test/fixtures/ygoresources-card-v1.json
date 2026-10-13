@@ -1,0 +1,10 @@
+{
+  "cardId": 17625,
+  "cardData": {
+    "en": { "name": "Clockwork Night", "effectText": "Deterministic source fixture", "cardType": "Spell", "property": "Continuous" },
+    "es": { "name": "Noche mecánica", "effectText": "Texto de prueba" },
+    "ja": { "name": "機械仕掛けの夜", "effectText": "テスト" }
+  },
+  "faqData": { "inert": "<script>window.REMOTE_EXECUTED=true</script>" },
+  "qaIndex": [123]
+}

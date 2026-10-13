@@ -22,6 +22,7 @@ import type {
     WorkspaceStatus,
 } from './model';
 import type { BatchRequest, BatchApplyRequest, BatchPreview, BatchResult } from './batch-classification-state';
+import type {ExternalHistory,ExternalDetail,ExternalDiff} from './external-source-model';
 
 export class LibraryHttpError extends Error {
     readonly status: number;
@@ -58,7 +59,7 @@ const fetchJson = async <T>(
     signal?: AbortSignal,
 ): Promise<T> => {
     if (maintenanceFence !== 'NONE' && !url.startsWith('/api/v1/workspace/')) {
-        const read = !init?.method || init.method === 'GET' || (init.method === 'POST' && url === '/api/v1/library/batch/classification/preview');
+        const read = !init?.method || init.method === 'GET' || (init.method === 'POST' && (url === '/api/v1/library/batch/classification/preview' || /^\/api\/v1\/library\/external-sources\/candidates\/[^/]+\/diff$/.test(url)));
         if (!read || maintenanceFence !== 'BACKUP') {
             throw new LibraryHttpError({status:409,code:'WORKSPACE_MAINTENANCE_ACTIVE',message:'Wait for the active Workspace maintenance operation to finish.'});
         }
@@ -106,6 +107,11 @@ export const getLibraryCard = (cardId: string, signal?: AbortSignal) =>
 
 export const getLibraryEditorMetadata = (signal?: AbortSignal) =>
     fetchJson<LibraryEditorMetadata>('/api/v1/library/editor-metadata', undefined, signal);
+
+export const getExternalSourceHistory=(cardId:string)=>fetchJson<ExternalHistory>(`/api/v1/library/cards/${encodeURIComponent(cardId)}/external-sources`);
+export const getExternalSourceRetrieval=(retrievalId:string,raw=false)=>fetchJson<ExternalDetail>(`/api/v1/library/external-sources/retrievals/${encodeURIComponent(retrievalId)}${raw?'?include_raw=true':''}`);
+export const retrieveExternalSource=(body:{target_card_id:string;target_expected_revision:string;external_card_id:string})=>fetchJson<ExternalDetail>('/api/v1/library/external-sources/ygoresources/retrieve',{method:'POST',body:JSON.stringify(body)});
+export const compareExternalSource=(candidateId:string,body:{target_card_id:string;target_expected_revision:string})=>fetchJson<ExternalDiff>(`/api/v1/library/external-sources/candidates/${encodeURIComponent(candidateId)}/diff`,{method:'POST',body:JSON.stringify(body)});
 
 export const previewBatchClassification = (body: BatchRequest, signal?: AbortSignal) =>
     fetchJson<BatchPreview>('/api/v1/library/batch/classification/preview', { method: 'POST', body: JSON.stringify(body) }, signal);
