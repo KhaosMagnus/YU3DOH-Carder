@@ -87,8 +87,10 @@ const setup = async (
             },
         },
     );
+    const ownedServices = [service];
     t.after(async () => {
-        await service.close();
+        // Node after-hooks run in registration order. Close every runtime before Windows unlinks its DB.
+        for (const owned of ownedServices) await owned.close();
         await rm(root, { recursive: true, force: true });
     });
     const card = service.canonical!.createCard({ family: 'SPELL' });
@@ -97,7 +99,7 @@ const setup = async (
         target_expected_revision: card.revision,
         external_card_id: '17625',
     };
-    return { root, manifest, service, card, request };
+    return { root, manifest, service, card, request, ownedServices };
 };
 const tables = [
     'external_source_records',
@@ -937,7 +939,7 @@ test('AC94 actual Backup/Restore captures schema-7 External Source evidence, the
         host: '127.0.0.1',
         port: 4312,
     });
-    t.after(() => older.close());
+    f.ownedServices.push(older);
     assert.equal(older.status.state, 'NEEDS_MIGRATION');
     const oldBackup = await older.recovery.create('RECOVERY_POINT');
     assert.equal(oldBackup.database_schema_version, 6);
