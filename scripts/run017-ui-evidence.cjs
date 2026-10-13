@@ -69,6 +69,9 @@ async function run() {
         });
         await page.goto('http://127.0.0.1:3000/ygocarder/?' + params);
         await saveButton().waitFor({ state: 'visible', timeout: 60000 });
+        await page
+            .locator('.app-loading')
+            .waitFor({ state: 'hidden', timeout: 60000 });
         const s = await session();
         assert(s.write?.grant);
         return fixture;
@@ -80,24 +83,25 @@ async function run() {
             );
             return m.getWorkspaceBridgeSession();
         });
-    // Text edits use the real Carder input. Other matrix values enter the actual
-    // production working store; Save, acknowledgement and HTTP are never mocked.
+    // Text edits use the real Carder input. Other matrix values enter its production
+    // working store. Wait predicates are synchronous: an async predicate is a truthy
+    // Promise in Playwright polling and would allow Save before the input debounce.
     const edit = async (changes) => {
         const { name, ...other } = changes;
         await page.evaluate(async (changes) => {
             const { useCard } = await import(
                 '/ygocarder/src/service/use-card.ts'
             );
+            window.__run017CardStore = useCard;
             useCard.getState().setCard((c) => ({ ...c, ...changes }));
         }, other);
         if (name !== undefined) {
             await page.locator('#name').fill(name);
-            await page.waitForFunction(async (name) => {
-                const { useCard } = await import(
-                    '/ygocarder/src/service/use-card.ts'
-                );
-                return useCard.getState().card.name === name;
-            }, name);
+            await page.waitForFunction(
+                (name) =>
+                    window.__run017CardStore.getState().card.name === name,
+                name,
+            );
         }
     };
     const save = async (ack = true) => {
