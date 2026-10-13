@@ -83,26 +83,17 @@ async function run() {
             );
             return m.getWorkspaceBridgeSession();
         });
-    // Text edits use the real Carder input. Other matrix values enter its production
-    // working store. Wait predicates are synchronous: an async predicate is a truthy
-    // Promise in Playwright polling and would allow Save before the input debounce.
+    // Submit immediately after the real Name input edit, without waiting for its
+    // debounce. Production Save must flush pending form edits before classification.
     const edit = async (changes) => {
         const { name, ...other } = changes;
         await page.evaluate(async (changes) => {
             const { useCard } = await import(
                 '/ygocarder/src/service/use-card.ts'
             );
-            window.__run017CardStore = useCard;
             useCard.getState().setCard((c) => ({ ...c, ...changes }));
         }, other);
-        if (name !== undefined) {
-            await page.locator('#name').fill(name);
-            await page.waitForFunction(
-                (name) =>
-                    window.__run017CardStore.getState().card.name === name,
-                name,
-            );
-        }
+        if (name !== undefined) await page.locator('#name').fill(name);
     };
     const save = async (ack = true) => {
         const response = page.waitForResponse((r) =>
@@ -267,6 +258,11 @@ async function run() {
         assert.deepEqual(second.body.moved_to_draft, []);
         assert.equal((await session()).revision, second.body.revision);
         assert.notEqual(first.body.write_grant, second.body.write_grant);
+        assert(
+            (await status().textContent()).includes(
+                'A fresh Open in Carder may require Library reconfirmation.',
+            ),
+        );
         await shot('QA-17-12-repeated-save');
         const replay = await page.evaluate(async (old) => {
             const r = await fetch('/api/v1/carder/write-back', {

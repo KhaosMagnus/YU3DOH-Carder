@@ -8,7 +8,7 @@ const buttonStyle: React.CSSProperties = {
     margin: '6px 6px 6px 0',
 };
 import type { WorkspaceBridgeSession } from 'src/service/workspace-bridge';
-import { useCard } from 'src/service';
+import { useCard, flushPendingCardUpdates } from 'src/service';
 import { classifyWrite } from 'src/service/workspace-bridge/write-projection';
 import { saveToWorkspace } from 'src/service/workspace-bridge/write-back';
 
@@ -25,7 +25,12 @@ export const WorkspaceBridgeStatus = ({ session, error }: Props) => {
         setBusy(true);
         setAck(null);
         try {
-            const result = await saveToWorkspace(session, card, blocks);
+            flushPendingCardUpdates();
+            const result = await saveToWorkspace(
+                session,
+                useCard.getState().card,
+                blocks,
+            );
             setMessage(
                 `${result.changed ? 'Saved' : 'Unchanged'} · revision ${result.revision} · changed blocks: ${result.changed_blocks.join(', ') || 'none'} · moved to DRAFT: ${result.moved_to_draft.join(', ') || 'none'}`,
             );
@@ -38,6 +43,17 @@ export const WorkspaceBridgeStatus = ({ session, error }: Props) => {
         } finally {
             setBusy(false);
         }
+    };
+    const beginSave = () => {
+        if (!session) return;
+        flushPendingCardUpdates();
+        const latest = classifyWrite(session, useCard.getState().card);
+        if (latest.unsupported.length) {
+            setMessage(`Save blocked by: ${latest.unsupported.join(', ')}`);
+            return;
+        }
+        if (latest.required.length) setAck(latest.required);
+        else void save([]);
     };
     return (
         <div
@@ -76,11 +92,7 @@ export const WorkspaceBridgeStatus = ({ session, error }: Props) => {
                                             session.write.stale ||
                                             classified.unsupported.length > 0
                                         }
-                                        onClick={() =>
-                                            classified.required.length
-                                                ? setAck(classified.required)
-                                                : void save([])
-                                        }
+                                        onClick={beginSave}
                                     >
                                         Save to Workspace
                                     </button>
@@ -96,7 +108,15 @@ export const WorkspaceBridgeStatus = ({ session, error }: Props) => {
                                             Workspace session is stale. Carder
                                             edits are preserved. Reopen
                                             explicitly from Library using Open
-                                            in Carder.
+                                            in Carder.{' '}
+                                            <a
+                                                href="/ygocarder/library/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                style={{ color: '#9fd8ff' }}
+                                            >
+                                                Review in Library and reopen
+                                            </a>
                                         </div>
                                     )}
                                     {ack && (
@@ -124,15 +144,14 @@ export const WorkspaceBridgeStatus = ({ session, error }: Props) => {
                                         </div>
                                     )}
                                     {message && <div>{message}</div>}
-                                    {session.write.lastResult?.moved_to_draft
-                                        .length !== undefined &&
-                                        session.write.lastResult.moved_to_draft
-                                            .length > 0 && (
-                                            <div>
-                                                A fresh Open in Carder may
-                                                require Library reconfirmation.
-                                            </div>
-                                        )}
+                                    {Object.values(
+                                        session.write.confirmations,
+                                    ).includes('DRAFT') && (
+                                        <div>
+                                            A fresh Open in Carder may require
+                                            Library reconfirmation.
+                                        </div>
+                                    )}
                                 </>
                             )}
                     </>

@@ -175,6 +175,14 @@ export type CardStore = {
         variant?: 'throttle' | 'debounce' | { type: 'throttle', wait: number } | { type: 'debounce', wait: number },
     ) => (e: string | number | unknown[] | ((card: Card) => Value) | { target: { value: Value } }) => void,
 };
+// Delayed form edits stay Carder-local. Explicit Workspace Save flushes them
+// before deriving its projection, so it never submits an earlier working state.
+const pendingCardUpdates = new Set<{ flush(): unknown; cancel(): void }>();
+export const flushPendingCardUpdates = () => {
+    for (const update of pendingCardUpdates) update.flush();
+    pendingCardUpdates.clear();
+};
+
 export const useCard = create<CardStore>((set, get) => {
     return {
         card: getDefaultInternalCard(),
@@ -227,8 +235,20 @@ export const useCard = create<CardStore>((set, get) => {
             if (!variantConfig) return returnFunction;
             const { wait, type } = variantConfig;
 
-            if (type === 'debounce') return debounce(returnFunction, wait);
-            if (type === 'throttle') return throttle(returnFunction, wait);
+            if (type === 'debounce' || type === 'throttle') {
+                const run = (event: Parameters<typeof returnFunction>[0]) => {
+                    pendingCardUpdates.delete(delayed);
+                    returnFunction(event);
+                };
+                const delayed = type === 'debounce' ? debounce(run, wait) : throttle(run, wait);
+                return Object.assign((event: Parameters<typeof returnFunction>[0]) => {
+                    pendingCardUpdates.add(delayed);
+                    delayed(event);
+                }, {
+                    cancel: () => { pendingCardUpdates.delete(delayed); delayed.cancel(); },
+                    flush: () => { pendingCardUpdates.delete(delayed); delayed.flush(); },
+                });
+            }
 
             return returnFunction;
         },

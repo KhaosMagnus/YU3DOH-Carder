@@ -20,7 +20,7 @@ For local browser evidence, compile Workspace first, provide playwright-core thr
 NODE_PATH and optionally YU3DOH_QA_CHROMIUM, then execute
 `node scripts/run017-operational-qa.cjs`. Set YU3DOH_QA_OUTPUT outside the checkout.
 The harness refuses an occupied Workspace port and creates only a disposable
-Workspace. Text edits use the real Carder Name input; remaining matrix inputs use
+Workspace. Text edits use the real Carder Name input and Save is pressed without waiting for debounce; production Save flushes pending edits before classification; remaining matrix inputs use
 the production Carder working store. Save controls, acknowledgement dialogs,
 maintenance ownership, Canonical transactions and HTTP responses are real, not mocked.
 
