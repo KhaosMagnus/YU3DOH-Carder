@@ -627,6 +627,28 @@ for (const [label, kind, extras, projection, blocks, check] of [
         (s: any) => assert.equal(s.attributeCode, 'DARK'),
     ],
     [
+        'existing matrix SPELL attribute preserves Monster family',
+        'MONSTER',
+        {},
+        { attribute: 'SPELL' },
+        ['STRUCTURE'],
+        (s: any) => {
+            assert.equal(s.attributeCode, 'SPELL');
+            assert.equal(s.kind, 'MONSTER');
+        },
+    ],
+    [
+        'existing matrix TRAP attribute preserves Token family',
+        'TOKEN',
+        {},
+        { attribute: 'TRAP' },
+        ['STRUCTURE'],
+        (s: any) => {
+            assert.equal(s.attributeCode, 'TRAP');
+            assert.equal(s.kind, 'TOKEN');
+        },
+    ],
+    [
         'Monster Level',
         'MONSTER',
         {},

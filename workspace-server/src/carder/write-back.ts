@@ -181,6 +181,8 @@ export class CarderWriteBackService {
                         'WATER',
                         'WIND',
                         'DIVINE',
+                        'SPELL',
+                        'TRAP',
                         'NONE',
                     ].includes(p.attribute)
                 )
