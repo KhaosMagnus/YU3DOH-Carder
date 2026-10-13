@@ -1129,3 +1129,25 @@ test('frozen request identity/revision cannot be changed by an in-process caller
     assert.equal(stored.retrieval.target_expected_revision, f.card.revision);
     assert.equal(stored.retrieval.external_record_key, '17625');
 });
+
+for (const family of [undefined, 'FUTURE_FAMILY'])
+    test(`AC64/70 generic property cannot qualify subtype when family is ${String(family)}`, () => {
+        const p = payload();
+        p.cardData.en = {
+            name: 'Unknown family',
+            effectText: 'Text',
+            property: 'Continuous',
+            ...(family ? { cardType: family } : {}),
+        };
+        const normalized = normalizeYgoResources(p, '17625', 'doc');
+        const fields = normalized.candidate.blocks.STRUCTURE.fields;
+        assert.equal(fields.family!.state, family ? 'UNMAPPED' : 'ABSENT');
+        assert.equal(fields.spell_subtype_code!.state, 'UNMAPPED');
+        assert.equal(fields.trap_subtype_code!.state, 'UNMAPPED');
+        assert.equal(normalized.status, 'PARTIAL');
+        assert.ok(
+            normalized.diagnostics.some(
+                (d) => d.code === 'SOURCE_FIELD_UNMAPPED',
+            ),
+        );
+    });

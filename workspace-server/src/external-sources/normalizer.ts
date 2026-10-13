@@ -392,6 +392,9 @@ export function normalizeYgoResources(
     for (const field of STRUCTURE_FIELDS) {
         const family = fields.family;
         const summon = fields.summon_kind;
+        const unresolvedSubtype =
+            (field === 'spell_subtype_code' || field === 'trap_subtype_code') &&
+            family?.state !== 'PRESENT';
         const notApplicable =
             (field === 'spell_subtype_code' &&
                 family?.state === 'PRESENT' &&
@@ -411,7 +414,14 @@ export function normalizeYgoResources(
             field,
             'en',
             aliases[field] ?? keys[field] ?? [field],
-            notApplicable ? () => ({ state: 'ABSENT' }) : converters[field]!,
+            notApplicable
+                ? () => ({ state: 'ABSENT' })
+                : unresolvedSubtype
+                  ? (value) =>
+                        typeof value === 'string'
+                            ? { state: 'UNMAPPED', raw_value: value }
+                            : invalid(value)
+                  : converters[field]!,
         );
     }
     // Property is applicable only to its explicit family, not both Spell and Trap.
