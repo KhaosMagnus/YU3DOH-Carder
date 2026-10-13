@@ -34,7 +34,7 @@ import {
 } from './library/canonical-dto';
 import { loadLibraryEditorMetadata } from './library/editor-metadata';
 import { LibraryBatchError, type BatchRequest, type BatchApplyRequest } from './library/batch-classification';
-import { batchPreviewBodySchema, batchApplyBodySchema, batchPreviewResponseSchema, batchApplyResponseSchema } from './library/batch-classification-dto';
+import { assertBatchTransportTypes, batchPreviewBodySchema, batchApplyBodySchema, batchPreviewResponseSchema, batchApplyResponseSchema } from './library/batch-classification-dto';
 import {
     LibraryAssetNotFoundError,
     type LibraryAssetService,
@@ -830,14 +830,16 @@ export const buildWorkspaceApp = (
     });
 
     app.post<{ Body: BatchRequest }>('/api/v1/library/batch/classification/preview', {
-        schema: { body: batchPreviewBodySchema, response: { 200: batchPreviewResponseSchema, 409: libraryErrorResponseSchema, 422: libraryErrorResponseSchema, 503: libraryErrorResponseSchema } },
+        preValidation: async request => assertBatchTransportTypes(request.body, false),
+        schema: { body: batchPreviewBodySchema, response: { 200: batchPreviewResponseSchema, 400: libraryErrorResponseSchema, 409: libraryErrorResponseSchema, 422: libraryErrorResponseSchema, 503: libraryErrorResponseSchema } },
     }, async (request, reply) => {
         const service = runtimeManager?.current.libraryBatchClassification;
         if (current().status.state !== 'READY' || !service) return workspaceNotReady(reply, current().status);
         return service.preview(request.body);
     });
     app.post<{ Body: BatchApplyRequest }>('/api/v1/library/batch/classification/apply', {
-        schema: { body: batchApplyBodySchema, response: { 200: batchApplyResponseSchema, 409: libraryErrorResponseSchema, 422: libraryErrorResponseSchema, 503: libraryErrorResponseSchema } },
+        preValidation: async request => assertBatchTransportTypes(request.body, true),
+        schema: { body: batchApplyBodySchema, response: { 200: batchApplyResponseSchema, 400: libraryErrorResponseSchema, 409: libraryErrorResponseSchema, 422: libraryErrorResponseSchema, 503: libraryErrorResponseSchema } },
     }, async (request, reply) => {
         const service = runtimeManager?.current.libraryBatchClassification;
         if (current().status.state !== 'READY' || current().status.read_only || !service) return workspaceNotReady(reply, current().status);

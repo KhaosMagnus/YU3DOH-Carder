@@ -36,6 +36,53 @@ export const batchApplyBodySchema = {
         acknowledge_move_to_draft_card_ids: ids,
     },
 } as const;
+
+type TransportSchema = {
+    type: string;
+    items?: TransportSchema;
+    properties?: Record<string, TransportSchema>;
+};
+/** Fastify's existing validator coerces primitive values. Reject coercion for these two
+ * new contracts before schema validation; required/extra fields still belong to AJV. */
+export const assertBatchTransportTypes = (body: unknown, apply: boolean) => {
+    const inspect = (value: unknown, schema: TransportSchema, path: string) => {
+        if (value === undefined) return;
+        const valid =
+            schema.type === 'array'
+                ? Array.isArray(value)
+                : schema.type === 'object'
+                  ? value !== null &&
+                    typeof value === 'object' &&
+                    !Array.isArray(value)
+                  : typeof value === schema.type;
+        if (!valid) {
+            const error = Object.assign(
+                new Error(
+                    `${path} must have JSON type ${schema.type}; coercion is not permitted.`,
+                ),
+                { statusCode: 400, code: 'FST_ERR_VALIDATION' },
+            );
+            throw error;
+        }
+        if (schema.items && Array.isArray(value))
+            value.forEach((child, index) =>
+                inspect(child, schema.items!, `${path}[${index}]`),
+            );
+        if (schema.properties && value && typeof value === 'object') {
+            for (const [key, child] of Object.entries(schema.properties))
+                inspect(
+                    (value as Record<string, unknown>)[key],
+                    child,
+                    `${path}.${key}`,
+                );
+        }
+    };
+    inspect(
+        body,
+        apply ? batchApplyBodySchema : batchPreviewBodySchema,
+        'body',
+    );
+};
 const nullableText = { anyOf: [{ type: 'string' }, { type: 'null' }] } as const;
 const bool = { type: 'boolean' } as const;
 const summary = (keys: string[]) => ({

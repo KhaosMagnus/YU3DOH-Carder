@@ -725,3 +725,44 @@ test('RUN018 successful Batch makes existing RUN017 Carder grant stale without s
         c.localizations[0]!.name,
     );
 });
+
+for (const action of ['preview', 'apply'])
+    for (const field of [
+        'card_id',
+        'expected_revision',
+        'boolean',
+        'array',
+        'note',
+    ])
+        test(`RUN018 ${action} rejects coercible ${field} transport type before any writes`, async (t) => {
+            const { service, create, a } = await fixture(t);
+            const c = create();
+            const before = snapshot(service);
+            const body: any = {
+                items: [item(c)],
+                operation: { set_effect_reviewed: true },
+            };
+            if (field === 'card_id') body.items[0].card_id = 180;
+            if (field === 'expected_revision')
+                body.items[0].expected_revision = Number(c.revision);
+            if (field === 'boolean')
+                body.operation.set_effect_reviewed = 'true';
+            if (field === 'array') body.operation = { add_archetype_ids: a };
+            if (field === 'note') body.note = 123;
+            const r = await request(service, action, body);
+            assert.equal(r.statusCode, 400);
+            assert.equal(r.json().code, 'FST_ERR_VALIDATION');
+            assert.deepEqual(snapshot(service), before);
+        });
+test('RUN018 Apply acknowledgement IDs reject numeric-to-string coercion', async (t) => {
+    const { service, create } = await fixture(t);
+    const c = create();
+    const before = snapshot(service);
+    const r = await request(service, 'apply', {
+        items: [item(c)],
+        operation: { set_effect_reviewed: true },
+        acknowledge_move_to_draft_card_ids: [123],
+    });
+    assert.equal(r.statusCode, 400);
+    assert.deepEqual(snapshot(service), before);
+});
