@@ -400,4 +400,5 @@ import { runWorkspaceManagementChecks } from './test-workspace-management';
 import { runInitializationChecks } from './test-workspace-initialization';
 import { runCarderWriteChecks } from './test-carder-write-back';
 import { runBatchClassificationChecks } from './test-library-batch-classification';
-void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).then(runBatchClassificationChecks).catch(error => { console.error(error); process.exitCode = 1; });
+import { runProvenanceChecks } from './test-library-provenance';
+void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).then(runBatchClassificationChecks).then(runProvenanceChecks).catch(error => { console.error(error); process.exitCode = 1; });

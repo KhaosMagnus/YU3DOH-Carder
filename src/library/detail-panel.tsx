@@ -1,4 +1,5 @@
 import { ConfirmationModal } from './confirmation-modal';
+import { ProvenancePanel } from './provenance-panel';
 import { VariantLifecycleModal } from './variant-lifecycle-modal';
 import type { LifecycleEntry } from './variant-lifecycle-state';
 import { useEffect, useMemo, useState } from 'react';
@@ -78,7 +79,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
     const [variantsLoading, setVariantsLoading] = useState(false);
     const [variantError, setVariantError] = useState<string | null>(null);
     const [ingestError, setIngestError] = useState<string | null>(null);
-    const [detailSection, setDetailSection] = useState<'canonical' | 'variants'>('canonical');
+    const [detailSection, setDetailSection] = useState<'canonical' | 'provenance' | 'variants'>('canonical');
 
     const dirty = useMemo(
         () => Boolean(authoritative && working && isWorkingFormDirty(authoritative, working)),
@@ -291,7 +292,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                             {onOpenBatch && <Button onClick={onOpenBatch}>Batch Classification…</Button>}
                             <Button onClick={onOpenWorkspace}>Workspace</Button>
                             {!editing && (
-                                <Button disabled={!mutationEnabled} type="primary" onClick={() => setEditing(true)}>Edit</Button>
+                                <Button disabled={!mutationEnabled} type="primary" onClick={() => { setDetailSection('canonical'); setEditing(true); }}>Edit</Button>
                             )}
                             {editing && (
                                 <>
@@ -337,6 +338,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                         >
                             Canonical
                         </Button>
+                        <Button type={detailSection === 'provenance' ? 'primary' : 'default'} onClick={() => setDetailSection('provenance')}>Sources / Provenance</Button>
                         <Button
                             type={detailSection === 'variants' ? 'primary' : 'default'}
                             onClick={() => setDetailSection('variants')}
@@ -378,10 +380,6 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                                 <h3>Relations</h3>
                                 <pre>{JSON.stringify(authoritative.relations, null, 2)}</pre>
                             </section>
-                            <section>
-                                <h3>Provenance</h3>
-                                <pre>{JSON.stringify(authoritative.provenance, null, 2)}</pre>
-                            </section>
                         </div>
                     )}
 
@@ -393,6 +391,8 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                             onChange={setWorking}
                         />
                     )}
+
+                    {detailSection === 'provenance' && <ProvenancePanel key={authoritative.card_id} detail={authoritative} dirty={dirty} />}
 
                     {detailSection === 'variants' && (
                         <>

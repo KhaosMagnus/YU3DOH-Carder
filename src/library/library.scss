@@ -373,3 +373,11 @@ body {
     .ant-select { min-width: 200px; width: 100%; }
 }
 .library-batch-result { display: grid; gap: 6px; padding: 12px 0; border-bottom: 1px solid #ddd; overflow-wrap: anywhere; }
+.library-provenance {
+    .library-provenance__filters { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; label { display: grid; gap: 6px; } select { width: 100%; padding: 6px; } }
+    .library-provenance__history { display: grid; gap: 16px; }
+    .library-provenance__row { border: 1px solid #dfe3e8; border-radius: 8px; padding: 16px; overflow-wrap: anywhere; }
+    dl { display: grid; grid-template-columns: 135px minmax(0, 1fr); gap: 6px 12px; dt { font-weight: 600; } dd { margin: 0; white-space: pre-wrap; } }
+    .library-provenance__context { margin-top: 12px; }
+    .library-provenance__current { margin-top: 12px; }
+}
