@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import {
     Alert,
     Button,
+    Checkbox,
     Input,
     Pagination,
     Select,
@@ -41,6 +42,8 @@ import {
     type WorkspaceStatus,
 } from './model';
 import { WorkspaceManagement } from './workspace-management';
+import { BatchClassificationModal } from './batch-classification-modal';
+import { batchParticipatingDetail, deselectBatchCard, hiddenBatchCount, selectBatchCards, stopBatchCheckboxEvent, type BatchSelection, type BatchResult } from './batch-classification-state';
 import { WorkspaceManagementController, type MaintenanceOperation } from './workspace-management-state';
 import './library.scss';
 
@@ -97,6 +100,12 @@ export const LibraryApp = () => {
     const [maintenance, setMaintenance] =
         useState<MaintenanceOperation>('NONE');
     const [editorDirty, setEditorDirty] = useState(false);
+    const [batchSelection, setBatchSelection] = useState<BatchSelection>(new Map());
+    const [batchOpen, setBatchOpen] = useState(false);
+    const [batchBusy, setBatchBusy] = useState(false);
+    const [hasBatchReport, setHasBatchReport] = useState(false);
+    const [batchSelectionError, setBatchSelectionError] = useState<string | null>(null);
+    const [detailRefresh, setDetailRefresh] = useState(0);
     const [workspaceGeneration, setWorkspaceGeneration] = useState(0);
     const maintenanceRef = useRef<MaintenanceOperation>('NONE');
     const filtersRef = useRef(filters);
@@ -109,6 +118,10 @@ export const LibraryApp = () => {
         setSelectedCardId(null);
         setDetailOpen(false);
         setEditorDirty(false);
+        setBatchSelection(new Map());
+        setBatchOpen(false);
+        setHasBatchReport(false);
+        setBatchSelectionError(null);
         setResolverEntry(null);
         setNeedsAttentionOpen(false);
         setNeedsAttention(null);
@@ -319,6 +332,21 @@ export const LibraryApp = () => {
         catch (error) { setStatusError(error instanceof Error ? error.message : 'Workspace status unavailable.'); }
     };
 
+    const selectBatchPage = (cards: LibraryBrowseResult['items']) => {
+        if (batchBusy || !ordinaryReadsEnabled || clientDataBlocked) return;
+        try { setBatchSelection(selectBatchCards(batchSelection, cards)); setBatchSelectionError(null); }
+        catch (error) { setBatchSelectionError(error instanceof Error ? error.message : 'Selection limit reached.'); }
+    };
+    const afterBatch = async (batch: BatchResult) => {
+        // An executed request consumes all frozen selections; returned revisions never replace them.
+        setBatchSelection(new Map()); setBatchSelectionError(null);
+        setHasBatchReport(true);
+        if (detailOpen && batchParticipatingDetail(batch, selectedCardId, editorDirty)) setDetailRefresh(value => value + 1);
+        const epoch = dataEpoch.current;
+        const [freshResult, freshFacets] = await Promise.all([browseLibraryCards(filtersRef.current), getLibraryFacets()]);
+        if (epoch === dataEpoch.current) { setResult(freshResult); setFacets(freshFacets); }
+    };
+
     return (
         <main className="library-shell">
             <header className="library-header">
@@ -461,6 +489,17 @@ export const LibraryApp = () => {
                 </Select>
             </section>
 
+            <section className="library-batch-toolbar" aria-label="Batch selection">
+                <strong data-testid="batch-selection-count">Selected: {batchSelection.size}</strong>
+                <span data-testid="batch-hidden-count">Hidden from current view: {hiddenBatchCount(batchSelection, resultState === 'results' ? result.items : [])}</span>
+                <Button disabled={!ordinaryReadsEnabled || loading || clientDataBlocked || batchBusy || !result.items.length} onClick={() => selectBatchPage(result.items)}>Select current page</Button>
+                <Button disabled={!batchSelection.size || batchBusy} onClick={() => { setBatchSelection(new Map()); setBatchSelectionError(null); }}>Clear selection</Button>
+                <Button disabled={!ordinaryReadsEnabled || clientDataBlocked || batchBusy || !batchSelection.size} onClick={() => setBatchOpen(true)}>Batch Classification…</Button>
+                {hasBatchReport && <Button disabled={batchBusy} onClick={() => setBatchOpen(true)}>Batch results</Button>}
+                <Button disabled={!ordinaryReadsEnabled || batchBusy} onClick={() => setRetryNonce(value => value + 1)}>Refresh Library</Button>
+            </section>
+            {batchSelectionError && <Alert type="warning" message={batchSelectionError} />}
+
             <section className="library-results" aria-live="polite">
                 {workspaceShellState === 'connecting' && (
                     <div className="library-state"><Spin tip="Connecting to Workspace…" /></div>
@@ -495,6 +534,7 @@ export const LibraryApp = () => {
                         key={card.card_id}
                         onClick={() => openDetail(card.card_id)}
                         onKeyDown={event => {
+                            if (event.target !== event.currentTarget) return;
                             if (event.key === 'Enter' || event.key === ' ') {
                                 event.preventDefault();
                                 openDetail(card.card_id);
@@ -503,6 +543,12 @@ export const LibraryApp = () => {
                         role="button"
                         tabIndex={0}
                     >
+                        <span className="library-card__batch" onClick={stopBatchCheckboxEvent} onKeyDown={stopBatchCheckboxEvent}>
+                            <Checkbox aria-label={`Select ${card.display_name} for Batch`} checked={batchSelection.has(card.card_id)} disabled={batchBusy || !ordinaryReadsEnabled || clientDataBlocked} onChange={event => {
+                                if (event.target.checked) selectBatchPage([card]);
+                                else { setBatchSelection(deselectBatchCard(batchSelection, card.card_id)); setBatchSelectionError(null); }
+                            }} />
+                        </span>
                         <div className="library-card__main">
                             <h2>{card.display_name}</h2>
                             <div className="library-card__identity">
@@ -546,8 +592,9 @@ export const LibraryApp = () => {
                 key={workspaceGeneration}
                 onOpenWorkspace={()=>setManagementOpen(true)}
                 maintenanceActive={maintenance!=='NONE'}
-                mutationEnabled={mutationEnabled}
+                mutationEnabled={mutationEnabled && !batchBusy}
                 onDirtyChange={setEditorDirty}
+                onOpenBatch={ordinaryReadsEnabled && !clientDataBlocked && !batchBusy && batchSelection.size ? () => setBatchOpen(true) : undefined}
                 cardId={selectedCardId}
                 open={detailOpen}
                 onClose={() => setDetailOpen(false)}
@@ -558,9 +605,12 @@ export const LibraryApp = () => {
                 }}
                 onResolve={setResolverEntry}
                 assetsRevision={assetsRevision}
+                canonicalRefresh={detailRefresh}
                 assetsEnabled={assetsEnabled}
                 onLifecycleBlocked={blockAssetViews}
             />
+
+            <BatchClassificationModal open={batchOpen} selection={batchSelection} readEnabled={ordinaryReadsEnabled && !clientDataBlocked} mutationEnabled={mutationEnabled} editorDirty={editorDirty} generation={workspaceGeneration} onClose={() => setBatchOpen(false)} onBusyChange={setBatchBusy} onApplied={afterBatch} />
 
             <NeedsAttentionPanel
                 key={`attention-${workspaceGeneration}`}

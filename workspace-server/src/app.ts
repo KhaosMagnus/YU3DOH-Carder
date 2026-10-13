@@ -33,6 +33,8 @@ import {
     type PatchLibraryCardBody,
 } from './library/canonical-dto';
 import { loadLibraryEditorMetadata } from './library/editor-metadata';
+import { LibraryBatchError, type BatchRequest, type BatchApplyRequest } from './library/batch-classification';
+import { batchPreviewBodySchema, batchApplyBodySchema, batchPreviewResponseSchema, batchApplyResponseSchema } from './library/batch-classification-dto';
 import {
     LibraryAssetNotFoundError,
     type LibraryAssetService,
@@ -638,6 +640,7 @@ export const buildWorkspaceApp = (
     });
     app.addHook('onResponse', async request => { leases.get(request)?.(); leases.delete(request); });
     app.setErrorHandler((error, _request, reply) => {
+        if (error instanceof LibraryBatchError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if(error instanceof CarderWriteError) return reply.code(error.statusCode).send({code:error.code,message:error.message});
         if (error instanceof WorkspaceInitializationError) return reply.code(error.statusCode).send({code:error.code,message:error.message});
         if (error instanceof VariantLifecycleError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
@@ -824,6 +827,21 @@ export const buildWorkspaceApp = (
             return workspaceNotReady(reply, current().status);
         }
         return libraryService.facets();
+    });
+
+    app.post<{ Body: BatchRequest }>('/api/v1/library/batch/classification/preview', {
+        schema: { body: batchPreviewBodySchema, response: { 200: batchPreviewResponseSchema, 409: libraryErrorResponseSchema, 422: libraryErrorResponseSchema, 503: libraryErrorResponseSchema } },
+    }, async (request, reply) => {
+        const service = runtimeManager?.current.libraryBatchClassification;
+        if (current().status.state !== 'READY' || !service) return workspaceNotReady(reply, current().status);
+        return service.preview(request.body);
+    });
+    app.post<{ Body: BatchApplyRequest }>('/api/v1/library/batch/classification/apply', {
+        schema: { body: batchApplyBodySchema, response: { 200: batchApplyResponseSchema, 409: libraryErrorResponseSchema, 422: libraryErrorResponseSchema, 503: libraryErrorResponseSchema } },
+    }, async (request, reply) => {
+        const service = runtimeManager?.current.libraryBatchClassification;
+        if (current().status.state !== 'READY' || current().status.read_only || !service) return workspaceNotReady(reply, current().status);
+        return service.apply(request.body);
     });
 
     app.get('/api/v1/library/editor-metadata', {

@@ -1,4 +1,6 @@
 import { CarderWriteGrantRegistry } from '../carder/write-grants';
+import { LibraryBatchClassificationService } from '../library/batch-classification';
+import { loadBatchRegistry } from '../library/batch-registry';
 import { CarderWriteBackService } from '../carder/write-back';
 import { VariantLifecycleService } from '../variant-lifecycle/service';
 import { AssetMutationService, type MutationHooks } from '../asset-mutation/service';
@@ -29,6 +31,7 @@ export type WorkspaceRuntime = {
     carderAssetGrants: CarderAssetGrantRegistry;
     carderWriteGrants: CarderWriteGrantRegistry;
     carderWriteBack: CarderWriteBackService | null;
+    libraryBatchClassification: LibraryBatchClassificationService | null;
 };
 
 /** All routes and service getters resolve this owner; obsolete connections are closed. */
@@ -50,6 +53,8 @@ export class WorkspaceRuntimeManager {
         const canonical = persistence ? guard(new CanonicalDomainService(persistence),
             ['registerStructuralCode', 'registerNamedEntity', 'createCard', 'mutateCard', 'addProvenance']) : null;
         const carderWriteBack = canonical ? guard(new CarderWriteBackService(canonical, writeGrants), ['writeBack']) : null;
+        const libraryBatchClassification = canonical && persistence
+            ? guard(new LibraryBatchClassificationService(canonical, () => loadBatchRegistry(persistence)), ['apply']) : null;
         const assets = persistence ? guard(new AssetIndexerService(this.workspaceRoot, persistence), ['scan']) : null;
         const managedAssets = persistence && assets
             ? guard(new ManagedAssetIngestService(this.workspaceRoot, persistence, assets), ['ingest']) : null;
@@ -64,7 +69,7 @@ export class WorkspaceRuntimeManager {
         const carderPrepare = persistence && assets && canonical
             ? guard(new CarderPrepareService(canonical, assets, grants, writeGrants)) : null;
         return { status, persistence, canonical, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare, variantLifecycle,
-            carderAssetGrants: grants, carderWriteGrants:writeGrants, carderWriteBack };
+            carderAssetGrants: grants, carderWriteGrants:writeGrants, carderWriteBack, libraryBatchClassification };
     }
 
     closePersistence() { this.runtime.persistence?.close(); }

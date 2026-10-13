@@ -21,6 +21,7 @@ import type {
     PrepareWorkingCardDto,
     WorkspaceStatus,
 } from './model';
+import type { BatchRequest, BatchApplyRequest, BatchPreview, BatchResult } from './batch-classification-state';
 
 export class LibraryHttpError extends Error {
     readonly status: number;
@@ -57,7 +58,7 @@ const fetchJson = async <T>(
     signal?: AbortSignal,
 ): Promise<T> => {
     if (maintenanceFence !== 'NONE' && !url.startsWith('/api/v1/workspace/')) {
-        const read = !init?.method || init.method === 'GET';
+        const read = !init?.method || init.method === 'GET' || (init.method === 'POST' && url === '/api/v1/library/batch/classification/preview');
         if (!read || maintenanceFence !== 'BACKUP') {
             throw new LibraryHttpError({status:409,code:'WORKSPACE_MAINTENANCE_ACTIVE',message:'Wait for the active Workspace maintenance operation to finish.'});
         }
@@ -105,6 +106,11 @@ export const getLibraryCard = (cardId: string, signal?: AbortSignal) =>
 
 export const getLibraryEditorMetadata = (signal?: AbortSignal) =>
     fetchJson<LibraryEditorMetadata>('/api/v1/library/editor-metadata', undefined, signal);
+
+export const previewBatchClassification = (body: BatchRequest, signal?: AbortSignal) =>
+    fetchJson<BatchPreview>('/api/v1/library/batch/classification/preview', { method: 'POST', body: JSON.stringify(body) }, signal);
+export const applyBatchClassification = (body: BatchApplyRequest, signal?: AbortSignal) =>
+    fetchJson<BatchResult>('/api/v1/library/batch/classification/apply', { method: 'POST', body: JSON.stringify(body) }, signal);
 
 export const createLibraryCard = (
     input: { family: LibraryFamily; password?: string | null },

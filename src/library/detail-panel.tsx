@@ -45,15 +45,17 @@ type Props = {
     onAssetsChanged?: () => void;
     onResolve?: (entry: ResolverEntry) => void;
     assetsRevision?: number;
+    canonicalRefresh?: number;
     assetsEnabled?: boolean;
     onOpenWorkspace?: ()=>void;
     maintenanceActive?: boolean;
     mutationEnabled?: boolean;
     onDirtyChange?: (dirty: boolean)=>void;
+    onOpenBatch?: () => void;
     onLifecycleBlocked?: () => Promise<void>;
 };
 
-export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, assetsEnabled = true, mutationEnabled = true, maintenanceActive = false, onDirtyChange, onOpenWorkspace, onLifecycleBlocked = async () => {} }: Props) => {
+export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, canonicalRefresh = 0, assetsEnabled = true, mutationEnabled = true, maintenanceActive = false, onDirtyChange, onOpenBatch, onOpenWorkspace, onLifecycleBlocked = async () => {} }: Props) => {
     const [loading, setLoading] = useState(false);
     const [detailError, setDetailError] = useState<string | null>(null);
     const [metadataError, setMetadataError] = useState<string | null>(null);
@@ -183,6 +185,12 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
     }, [open, cardId]);
 
     useEffect(() => {
+        if (canonicalRefresh && open && cardId && !dirty) void loadDetail(cardId);
+        // Explicit authoritative reload after an executed Batch; never replace dirty edits.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [canonicalRefresh]);
+
+    useEffect(() => {
         if (open && cardId && assetsRevision) void loadVariants(cardId);
         // Refresh assets without replacing unsaved Canonical edits.
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -280,6 +288,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                             <div><strong>revision</strong>: {authoritative.revision}</div>
                         </div>
                         <div className="library-detail__actions">
+                            {onOpenBatch && <Button onClick={onOpenBatch}>Batch Classification…</Button>}
                             <Button onClick={onOpenWorkspace}>Workspace</Button>
                             {!editing && (
                                 <Button disabled={!mutationEnabled} type="primary" onClick={() => setEditing(true)}>Edit</Button>

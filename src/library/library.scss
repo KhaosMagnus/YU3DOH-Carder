@@ -364,3 +364,12 @@ body {
 .workspace-management__metadata { display: grid; grid-template-columns: 160px 1fr; gap: 4px 16px; overflow-wrap: anywhere; dt { font-weight: 600; } dd { margin: 0; } }
 .workspace-management__actions { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; }
 .workspace-management__backup { border: 1px solid #ddd; border-radius: 4px; padding: 12px; margin: 12px 0; overflow-wrap: anywhere; }
+.library-batch-toolbar { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+.library-card__batch { align-self: center; padding: 12px; }
+.library-batch-modal {
+    display: grid; gap: 16px;
+    fieldset { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; border: 1px solid #ddd; padding: 12px; }
+    label { display: grid; gap: 6px; }
+    .ant-select { min-width: 200px; width: 100%; }
+}
+.library-batch-result { display: grid; gap: 6px; padding: 12px 0; border-bottom: 1px solid #ddd; overflow-wrap: anywhere; }

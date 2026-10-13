@@ -1,4 +1,5 @@
 import { WorkspaceInitializationService, type InitializationHooks } from './workspace/initialization';
+import type { LibraryBatchClassificationService } from './library/batch-classification';
 import type { VariantLifecycleService } from './variant-lifecycle/service';
 import type { AssetMutationService, MutationHooks } from './asset-mutation/service';
 import { WorkspaceRuntimeManager } from './workspace/runtime';
@@ -39,6 +40,7 @@ export type WorkspaceService = {
     carderAssetGrants: CarderAssetGrantRegistry;
     carderWriteGrants: CarderWriteGrantRegistry;
     carderWriteBack: CarderWriteBackService | null;
+    libraryBatchClassification: LibraryBatchClassificationService | null;
     close: () => Promise<void>;
 };
 
@@ -95,6 +97,7 @@ export const createWorkspaceService = async (
         get carderPrepare() { return runtime.current.carderPrepare; },
         get carderWriteGrants() { return runtime.current.carderWriteGrants; },
         get carderWriteBack() { return runtime.current.carderWriteBack; },
+        get libraryBatchClassification() { return runtime.current.libraryBatchClassification; },
         get carderAssetGrants() { return runtime.current.carderAssetGrants; },
         close,
     };
