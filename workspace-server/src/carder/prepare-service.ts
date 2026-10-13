@@ -1,3 +1,4 @@
+import { CarderWriteGrantRegistry } from './write-grants';
 import type { AssetIndexerService } from '../assets/indexer';
 import type { ArtVariantSnapshot, AssetRole } from '../assets/types';
 import type { CanonicalDomainService } from '../canonical/service';
@@ -156,6 +157,7 @@ export class CarderPrepareService {
         private readonly canonical: CanonicalDomainService,
         private readonly assets: AssetIndexerService,
         private readonly grants: CarderAssetGrantRegistry,
+        private readonly writeGrants = new CarderWriteGrantRegistry(),
     ) {}
 
     prepareWorkingCard(input: PrepareWorkingCardRequest): PrepareWorkingCardDto {
@@ -225,6 +227,7 @@ export class CarderPrepareService {
 
         return {
             identity: {
+                write_grant: this.writeGrants.issue({cardId:card.cardId,contentLanguage:input.contentLanguage,revision}),
                 card_id: card.cardId,
                 revision,
                 variant_id: variant.variantId,

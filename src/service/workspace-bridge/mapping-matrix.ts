@@ -27,6 +27,7 @@ export type PrepareDtoArtworkAsset = {
 
 export type PrepareWorkingCardDto = {
     identity: {
+        write_grant?: string;
         card_id: string;
         revision: string;
         variant_id: string;

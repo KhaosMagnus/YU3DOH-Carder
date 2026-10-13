@@ -271,7 +271,7 @@ const prepareFor = async (
 ) => {
     const response = await preparePost(ctx, card, variantId, composition, language);
     assert.equal(response.statusCode, 200, response.body);
-    return response.json() as { artwork: { sources: AssetRole[]; assets: PreparedAsset[] } } & Record<string, unknown>;
+    return response.json() as { identity: import('../src/carder/prepare-dto').PrepareWorkingCardDto['identity']; artwork: { sources: AssetRole[]; assets: PreparedAsset[] } } & Record<string, unknown>;
 };
 
 const emittedAsset = (body: { artwork: { assets: PreparedAsset[] } }, role: AssetRole) => {
@@ -726,7 +726,8 @@ test('21 idempotent re-prepare re-checks gates', async () => {
     const second = await ctx.service.app.inject({ method: 'POST', url: '/api/v1/carder/prepare-working-card', payload });
     assert.equal(first.statusCode, 200);
     assert.equal(second.statusCode, 200);
-    assert.deepEqual(first.json().identity, second.json().identity);
+    assert.deepEqual({...first.json().identity,write_grant:undefined}, {...second.json().identity,write_grant:undefined});
+    assert.notEqual(first.json().identity.write_grant, second.json().identity.write_grant);
     const stale = await ctx.service.app.inject({
         method: 'POST',
         url: '/api/v1/carder/prepare-working-card',
@@ -1568,7 +1569,8 @@ test('G-11 double prepare (Library + Carder pattern): independent grants, both s
         assert.equal((await getUrl(ctx, asset.content_url)).statusCode, 200);
     }
     // Same identity both times; only the opaque grant differs.
-    assert.deepEqual(first.identity, second.identity);
+    assert.deepEqual({...first.identity,write_grant:undefined}, {...second.identity,write_grant:undefined});
+    assert.notEqual(first.identity.write_grant, second.identity.write_grant);
     assert.deepEqual(
         first.artwork.assets.map(item => withQuery(item.content_url, { grant: null })),
         second.artwork.assets.map(item => withQuery(item.content_url, { grant: null })),

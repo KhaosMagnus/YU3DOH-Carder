@@ -11,6 +11,8 @@ import type { ManagedAssetIngestService } from './managed-assets/service';
 import type { LibraryAssetService } from './library/asset-service';
 import type { LibraryQueryService } from './library/service';
 import { CarderAssetGrantRegistry } from './carder/asset-grants';
+import type { CarderWriteBackService } from './carder/write-back';
+import type { CarderWriteGrantRegistry } from './carder/write-grants';
 import type { CarderPrepareService } from './carder/prepare-service';
 import { buildWorkspaceApp } from './app';
 import type { WorkspaceServiceConfig } from './config';
@@ -35,6 +37,8 @@ export type WorkspaceService = {
     variantLifecycle: VariantLifecycleService | null;
     /** In-memory, per-process prepared-composition grants (QA-009-08). Exposed for tests. */
     carderAssetGrants: CarderAssetGrantRegistry;
+    carderWriteGrants: CarderWriteGrantRegistry;
+    carderWriteBack: CarderWriteBackService | null;
     close: () => Promise<void>;
 };
 
@@ -89,6 +93,8 @@ export const createWorkspaceService = async (
         get assetMutations() { return runtime.current.assetMutations; },
         get variantLifecycle() { return runtime.current.variantLifecycle; },
         get carderPrepare() { return runtime.current.carderPrepare; },
+        get carderWriteGrants() { return runtime.current.carderWriteGrants; },
+        get carderWriteBack() { return runtime.current.carderWriteBack; },
         get carderAssetGrants() { return runtime.current.carderAssetGrants; },
         close,
     };

@@ -26,3 +26,6 @@ export {
 } from './startup';
 
 export { fetchPrepareWorkingCard } from './fetch-prepare';
+
+export {saveToWorkspace,WriteBackError} from './write-back';
+export {classifyWrite,projectionOf,guardedOf} from './write-projection';

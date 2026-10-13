@@ -1,3 +1,4 @@
+import { guardedOf, projectionOf } from './write-projection';
 import { getEmptyCard, type InternalCard } from 'src/model';
 import { v4 as uuid } from 'uuid';
 import { WorkspaceBridgeError } from './errors';
@@ -123,6 +124,7 @@ export const prepareWorkingCard = (dto: PrepareWorkingCardDto): PrepareWorkingCa
         contentLanguage: dto.identity.content_language,
         revision: dto.identity.revision,
     });
+    if(dto.identity.write_grant) session.write={internalCardId:card.id,grant:dto.identity.write_grant,baseline:projectionOf(card),guardedBaseline:guardedOf(card),context:{family:dto.structure.family,summonKind:dto.structure.summon_kind,pendulum:isPendulum},confirmations:{STRUCTURE:'CONFIRMED',[`TEXT:${session.contentLanguage}`]:'CONFIRMED'},stale:false,inFlight:false};
     setWorkspaceBridgeSession(session);
 
     if (card.id === session.cardId) {

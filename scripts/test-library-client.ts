@@ -398,4 +398,5 @@ import { runVariantLifecycleChecks } from './test-library-variant-lifecycle';
 import { runConfirmationChecks } from './test-library-confirmation';
 import { runWorkspaceManagementChecks } from './test-workspace-management';
 import { runInitializationChecks } from './test-workspace-initialization';
-void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).catch(error => { console.error(error); process.exitCode = 1; });
+import { runCarderWriteChecks } from './test-carder-write-back';
+void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).catch(error => { console.error(error); process.exitCode = 1; });

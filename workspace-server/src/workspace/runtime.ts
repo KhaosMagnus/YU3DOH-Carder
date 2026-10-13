@@ -1,3 +1,5 @@
+import { CarderWriteGrantRegistry } from '../carder/write-grants';
+import { CarderWriteBackService } from '../carder/write-back';
 import { VariantLifecycleService } from '../variant-lifecycle/service';
 import { AssetMutationService, type MutationHooks } from '../asset-mutation/service';
 import { AssetIndexerService } from '../assets/indexer';
@@ -25,6 +27,8 @@ export type WorkspaceRuntime = {
     carderPrepare: CarderPrepareService | null;
     variantLifecycle: VariantLifecycleService | null;
     carderAssetGrants: CarderAssetGrantRegistry;
+    carderWriteGrants: CarderWriteGrantRegistry;
+    carderWriteBack: CarderWriteBackService | null;
 };
 
 /** All routes and service getters resolve this owner; obsolete connections are closed. */
@@ -40,10 +44,12 @@ export class WorkspaceRuntimeManager {
     get current() { return this.runtime; }
 
     private build({ status, persistence }: WorkspaceInspection, grants: CarderAssetGrantRegistry): WorkspaceRuntime {
+        const writeGrants = new CarderWriteGrantRegistry();
         persistence?.attachMaintenance(this.maintenance);
         const guard = <T extends object>(service: T, mutations: string[] = []) => this.maintenance.guard(service, mutations);
         const canonical = persistence ? guard(new CanonicalDomainService(persistence),
             ['registerStructuralCode', 'registerNamedEntity', 'createCard', 'mutateCard', 'addProvenance']) : null;
+        const carderWriteBack = canonical ? guard(new CarderWriteBackService(canonical, writeGrants), ['writeBack']) : null;
         const assets = persistence ? guard(new AssetIndexerService(this.workspaceRoot, persistence), ['scan']) : null;
         const managedAssets = persistence && assets
             ? guard(new ManagedAssetIngestService(this.workspaceRoot, persistence, assets), ['ingest']) : null;
@@ -56,9 +62,9 @@ export class WorkspaceRuntimeManager {
             ? guard(new VariantLifecycleService(this.workspaceRoot, persistence, assets, libraryAssets, assetMutations.tokens, grants,
                 message => this.recoveryRequired(message), this.lifecycleHooks), ['setPreferred', 'rename', 'remove']) : null;
         const carderPrepare = persistence && assets && canonical
-            ? guard(new CarderPrepareService(canonical, assets, grants)) : null;
+            ? guard(new CarderPrepareService(canonical, assets, grants, writeGrants)) : null;
         return { status, persistence, canonical, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare, variantLifecycle,
-            carderAssetGrants: grants };
+            carderAssetGrants: grants, carderWriteGrants:writeGrants, carderWriteBack };
     }
 
     closePersistence() { this.runtime.persistence?.close(); }
@@ -66,7 +72,7 @@ export class WorkspaceRuntimeManager {
     async reload(ignoreRestoreMarkers = false) {
         this.closePersistence();
         const inspection = await inspectWorkspaceRootWithPersistence(this.workspaceRoot, ignoreRestoreMarkers);
-        // Restore revokes pre-restore in-memory prepared-composition capabilities.
+        // Runtime replacement revokes both asset and write capabilities.
         this.runtime = this.build(inspection, new CarderAssetGrantRegistry());
         return this.runtime.status;
     }

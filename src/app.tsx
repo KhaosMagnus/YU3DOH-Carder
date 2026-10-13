@@ -668,17 +668,17 @@ function App() {
                     }}
                 >
                     {ocgStyleFile && <link rel="stylesheet" type="text/css" href={ocgStyleFile} />}
+                    <WorkspaceBridgeStatus
+                        key={bridgeSessionVersion}
+                        session={getWorkspaceBridgeSession()}
+                        error={bridgeError}
+                    />
                     <div
                         className={'app-container'}
                         style={{
                             backgroundImage: `url("${PUBLIC_PATH}/asset/image/texture/dark-denim-3.png")`,
                         }}
                     >
-                        <WorkspaceBridgeStatus
-                            key={bridgeSessionVersion}
-                            session={getWorkspaceBridgeSession()}
-                            error={bridgeError}
-                        />
                         {isLoading && <StyledAppLoading className="app-loading">
                             {error.length > 0
                                 ? <ErrorAlert>

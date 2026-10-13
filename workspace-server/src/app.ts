@@ -15,6 +15,8 @@ import {
     toPrepareWorkingCardRequest,
     type PrepareWorkingCardHttpBody,
 } from './carder';
+import { writeBackBodySchema, writeBackResponseSchema } from './carder/write-dto';
+import { CarderWriteError, type WriteBackRequest } from './carder/write-back';
 import { CanonicalDomainError } from './canonical/errors';
 import type { CanonicalDomainService } from './canonical/service';
 import {
@@ -636,6 +638,7 @@ export const buildWorkspaceApp = (
     });
     app.addHook('onResponse', async request => { leases.get(request)?.(); leases.delete(request); });
     app.setErrorHandler((error, _request, reply) => {
+        if(error instanceof CarderWriteError) return reply.code(error.statusCode).send({code:error.code,message:error.message});
         if (error instanceof WorkspaceInitializationError) return reply.code(error.statusCode).send({code:error.code,message:error.message});
         if (error instanceof VariantLifecycleError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
         if (error instanceof AssetMutationError) return reply.code(error.statusCode).send({ code: error.code, message: error.message });
@@ -1065,6 +1068,25 @@ export const buildWorkspaceApp = (
         }
     });
 
+
+    app.post<{ Body: WriteBackRequest }>('/api/v1/carder/write-back', {
+        schema: {
+            body: writeBackBodySchema,
+            response: { 200: writeBackResponseSchema, 403: libraryErrorResponseSchema,
+                404: libraryErrorResponseSchema, 409: libraryErrorResponseSchema,
+                422: libraryErrorResponseSchema, 503: libraryErrorResponseSchema },
+        },
+    }, async (request, reply) => {
+        const runtime = runtimeManager?.current;
+        if (!runtime || runtime.status.state !== 'READY' || runtime.status.read_only || !runtime.carderWriteBack) {
+            return workspaceNotReady(reply, current().status);
+        }
+        try { return runtime.carderWriteBack.writeBack(request.body); }
+        catch (error) {
+            if (error instanceof CanonicalDomainError) return sendDomainError(reply, error);
+            throw error;
+        }
+    });
 
     app.post<{ Body: PrepareWorkingCardHttpBody }>('/api/v1/carder/prepare-working-card', {
         schema: {
