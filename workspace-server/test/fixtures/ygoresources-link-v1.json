@@ -1,0 +1,25 @@
+{
+  "cardId": 13036,
+  "cardData": {
+    "en": {
+      "name": "Synthetic Link fixture",
+      "effectText": "Deterministic Link observation",
+      "cardType": "Monster",
+      "summonKind": "Link",
+      "linkRating": 3,
+      "linkArrows": [
+        "NW",
+        "S",
+        "SE"
+      ]
+    },
+    "es": {
+      "name": "Fixture Link sintético",
+      "effectText": "Texto de prueba"
+    },
+    "ja": {
+      "name": "リンクテスト",
+      "effectText": "テスト"
+    }
+  }
+}

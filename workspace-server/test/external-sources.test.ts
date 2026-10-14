@@ -422,8 +422,8 @@ test('AC46..63 locale claims, evidence, absent vs empty, inert FAQ/QA and separa
         value: '',
         evidence: {
             document_id: 'doc',
-            locale: 'en',
-            source_path: 'cardData.en.pendEffect',
+            locale: 'EN',
+            source_path: '$.cardData.en.pendEffect',
         },
     });
     assert.ok(n.diagnostics.some((d) => d.code === 'LOCALE_NOT_AVAILABLE'));
@@ -478,7 +478,7 @@ test('AC64..72 explicit dictionaries, validated stats, level/rank, scale, Link o
     assert.equal(value('pendulum_scale'), 8);
     assert.equal(value('link_rating'), 3);
     assert.equal(f.link_markers!.state, 'ABSENT');
-    p.cardData.en.linkMarkers = ['NW'];
+    p.cardData.en.linkArrows = ['NW'];
     assert.equal(
         normalizeYgoResources(p, '17625', 'doc').candidate.blocks.STRUCTURE
             .fields.link_markers!.state,
@@ -511,6 +511,12 @@ for (const [a, b, field] of [
             n.candidate.blocks[block].fields[field!]!.state,
             'INVALID',
         );
+        const evidence = n.candidate.blocks[block].fields[field!]!.evidence;
+        assert.equal(evidence.source_path, `$.cardData.en.${a}`);
+        assert.deepEqual(evidence.source_paths, [
+            `$.cardData.en.${a}`,
+            `$.cardData.en.${b}`,
+        ]);
         assert.ok(n.diagnostics.some((d) => d.code === 'SOURCE_FIELD_INVALID'));
     });
 test('root parser structure change and unsupported shape are fatal, not guessed', () => {
@@ -523,8 +529,8 @@ test('root parser structure change and unsupported shape are fatal, not guessed'
 test('AC84..89 all six diff statuses and applicability-aware absence', () => {
     const evidence = {
         document_id: 'doc',
-        locale: 'en',
-        source_path: 'cardData.en.def',
+        locale: 'EN',
+        source_path: '$.cardData.en.def',
     };
     const c = (state: Claim['state'], value?: unknown) =>
         ({
@@ -1153,3 +1159,210 @@ for (const family of [undefined, 'FUTURE_FAMILY'])
             ),
         );
     });
+
+// QA correction: provider keys are source paths, not normalized candidate locales.
+for (const [locale, providerKey] of [
+    ['EN', 'en'],
+    ['ES', 'es'],
+    ['JP', 'ja'],
+] as const) {
+    test(`QA-020-01/02 ${providerKey} maps to ${locale} in evidence and diagnostics`, () => {
+        const p = payload();
+        p.cardData[providerKey]!.pendulumEffectText = 'Explicit pendulum text';
+        p.cardData[providerKey]!.effectText = 123;
+        const n = normalizeYgoResources(p, '17625', 'doc');
+        const block = `TEXT:${locale}` as const;
+        for (const [field, name] of [
+            ['name', 'name'],
+            ['card_text', 'effectText'],
+            ['pendulum_text', 'pendulumEffectText'],
+        ]) {
+            assert.deepEqual(
+                n.candidate.blocks[block].fields[field!]!.evidence,
+                {
+                    document_id: 'doc',
+                    locale,
+                    source_path: `$.cardData.${providerKey}.${name}`,
+                },
+            );
+        }
+        const diagnostics = n.diagnostics.filter((d) => d.block === block);
+        assert.ok(diagnostics.some((d) => d.code === 'SOURCE_FIELD_INVALID'));
+        assert.ok(diagnostics.every((d) => d.locale === locale));
+        delete p.cardData[providerKey];
+        const missing = normalizeYgoResources(p, '17625', 'doc');
+        assert.ok(
+            missing.diagnostics.some(
+                (d) =>
+                    d.code === 'LOCALE_NOT_AVAILABLE' &&
+                    d.block === block &&
+                    d.locale === locale,
+            ),
+        );
+        assert.equal(
+            missing.candidate.blocks[block].fields.name!.state,
+            'ABSENT',
+        );
+        assert.equal(
+            missing.candidate.blocks[block].fields.name!.evidence.locale,
+            locale,
+        );
+        assert.equal(
+            missing.candidate.blocks[block].fields.name!.evidence.source_path,
+            `$.cardData.${providerKey}.name`,
+        );
+    });
+}
+test('QA-020-02 every structural and localized evidence path has an exact JSONPath root', () => {
+    const n = normalizeYgoResources(payload(), '17625', 'doc');
+    for (const [block, { fields }] of Object.entries(n.candidate.blocks)) {
+        for (const claim of Object.values(fields)) {
+            assert.match(
+                claim.evidence.source_path,
+                /^\$\.cardData\.(en|es|ja)\.[A-Za-z]+$/,
+            );
+            assert.equal(
+                claim.evidence.locale,
+                block === 'STRUCTURE' ? 'EN' : block.slice(5),
+            );
+        }
+    }
+});
+test('QA-020-02 equivalent aliases retain both exact paths without introducing ambiguity', () => {
+    const p = payload();
+    p.cardData.en!.type = 'SPELL';
+    p.cardData.en!.englishProperty = 'CONTINUOUS';
+    const n = normalizeYgoResources(p, '17625', 'doc');
+    for (const [field, names, value] of [
+        ['family', ['cardType', 'type'], 'SPELL'],
+        ['spell_subtype_code', ['property', 'englishProperty'], 'CONTINUOUS'],
+    ] as const) {
+        assert.deepEqual(n.candidate.blocks.STRUCTURE.fields[field], {
+            state: 'PRESENT',
+            value,
+            evidence: {
+                document_id: 'doc',
+                locale: 'EN',
+                source_path: `$.cardData.en.${names[0]}`,
+                source_paths: names.map((name) => `$.cardData.en.${name}`),
+            },
+        });
+    }
+    assert.ok(!n.diagnostics.some((d) => d.code === 'SOURCE_FIELD_AMBIGUOUS'));
+});
+const linkFixture = () =>
+    JSON.parse(
+        readFileSync(
+            path.join(__dirname, 'fixtures/ygoresources-link-v1.json'),
+            'utf8',
+        ),
+    );
+test('QA-020-03 frozen linkArrows observation stays UNMAPPED with its original raw value', () => {
+    const p = linkFixture();
+    const n = normalizeYgoResources(p, '13036', 'link-doc');
+    assert.deepEqual(n.candidate.blocks.STRUCTURE.fields.link_markers, {
+        state: 'UNMAPPED',
+        raw_value: p.cardData.en.linkArrows,
+        evidence: {
+            document_id: 'link-doc',
+            locale: 'EN',
+            source_path: '$.cardData.en.linkArrows',
+        },
+    });
+    assert.ok(
+        n.diagnostics.some(
+            (d) =>
+                d.code === 'SOURCE_FIELD_UNMAPPED' &&
+                d.field === 'link_markers' &&
+                d.locale === 'EN',
+        ),
+    );
+    assert.equal(n.status, 'PARTIAL');
+});
+test('QA-020-03 Link Rating and unauthorized linkMarkers do not fabricate a marker claim', () => {
+    const p = linkFixture();
+    delete p.cardData.en.linkArrows;
+    p.cardData.en.linkMarkers = ['NW'];
+    const n = normalizeYgoResources(p, '13036', 'doc');
+    assert.equal(
+        n.candidate.blocks.STRUCTURE.fields.link_rating!.state,
+        'PRESENT',
+    );
+    assert.equal(
+        n.candidate.blocks.STRUCTURE.fields.link_markers!.state,
+        'ABSENT',
+    );
+    assert.equal(
+        n.candidate.blocks.STRUCTURE.fields.link_markers!.evidence.source_path,
+        '$.cardData.en.linkArrows',
+    );
+});
+test('QA-020-03 linkArrows is retained verbatim without interpreting provider representation', () => {
+    const p = linkFixture();
+    for (const value of [
+        0,
+        123,
+        null,
+        'raw observation',
+        { source: 'opaque' },
+    ]) {
+        p.cardData.en.linkArrows = value;
+        const claim = normalizeYgoResources(p, '13036', 'doc').candidate.blocks
+            .STRUCTURE.fields.link_markers!;
+        assert.equal(claim.state, 'UNMAPPED');
+        assert.deepEqual(
+            claim.state === 'UNMAPPED' ? claim.raw_value : undefined,
+            value,
+        );
+    }
+});
+test('QA-020-01..03 corrected evidence and observation persist through the retrieval HTTP contract', async (t) => {
+    const p = linkFixture();
+    p.cardData.es.effectText = 123;
+    p.cardData.ja.effectText = 456;
+    const f = await setup(t, { fetch: mock(() => source(JSON.stringify(p))) });
+    const before = authoritative(f.service);
+    const response = await f.service.app.inject({
+        method: 'POST',
+        url: '/api/v1/library/external-sources/ygoresources/retrieve',
+        payload: { ...f.request, external_card_id: '13036' },
+    });
+    assert.equal(response.statusCode, 200);
+    const detail = response.json();
+    for (const [locale, key] of [
+        ['EN', 'en'],
+        ['ES', 'es'],
+        ['JP', 'ja'],
+    ] as const) {
+        assert.deepEqual(
+            detail.candidate.candidate.blocks[`TEXT:${locale}`].fields.name
+                .evidence,
+            {
+                document_id: detail.document.document_id,
+                locale,
+                source_path: `$.cardData.${key}.name`,
+            },
+        );
+    }
+    const stored = f.service.externalSourceIngestion!.detail(
+        detail.retrieval.retrieval_id,
+        true,
+    );
+    assert.deepEqual(stored.candidate, detail.candidate);
+    assert.deepEqual(
+        stored.candidate!.candidate.blocks.STRUCTURE.fields.link_markers,
+        {
+            state: 'UNMAPPED',
+            raw_value: p.cardData.en.linkArrows,
+            evidence: {
+                document_id: detail.document.document_id,
+                locale: 'EN',
+                source_path: '$.cardData.en.linkArrows',
+            },
+        },
+    );
+    assert.ok(stored.candidate!.diagnostics.some((d) => d.locale === 'ES'));
+    assert.ok(stored.candidate!.diagnostics.some((d) => d.locale === 'JP'));
+    assert.deepEqual(authoritative(f.service), before);
+    assert.deepEqual(counts(f.service), [1, 1, 1, 1]);
+});

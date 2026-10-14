@@ -117,6 +117,24 @@ async function run() {
         assert.match(await panel().innerText(), /ES: Usable/);
         assert.match(await panel().innerText(), /JP: Usable/);
         await shot('UI-20-06-locale-review');
+        const candidateRow = after.tables.external_source_candidates[0];
+        const candidate = JSON.parse(candidateRow.candidate_json);
+        for (const [locale, key] of [
+            ['EN', 'en'],
+            ['ES', 'es'],
+            ['JP', 'ja'],
+        ]) {
+            assert.equal(
+                candidate.blocks[`TEXT:${locale}`].fields.name.evidence.locale,
+                locale,
+            );
+            assert.equal(
+                candidate.blocks[`TEXT:${locale}`].fields.name.evidence
+                    .source_path,
+                `$.cardData.${key}.name`,
+            );
+        }
+        await shot('UI-20-20-normalized-locale-and-rooted-paths');
         await btn('Review raw evidence').click();
         await panel().locator('.library-external-sources__raw').waitFor();
         assert.match(

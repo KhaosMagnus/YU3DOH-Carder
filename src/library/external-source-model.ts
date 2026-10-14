@@ -1,8 +1,9 @@
 export type SourceClaim = {
     evidence: {
         document_id: string;
-        locale: string | null;
+        locale: 'EN' | 'ES' | 'JP' | null;
         source_path: string;
+        source_paths?: string[];
     };
 } & (
     | { state: 'PRESENT'; value: unknown }
@@ -59,7 +60,7 @@ export type ExternalDetail = {
             code: string;
             block: string | null;
             field: string | null;
-            locale: string | null;
+            locale: 'EN' | 'ES' | 'JP' | null;
             message: string;
         }>;
     } | null;

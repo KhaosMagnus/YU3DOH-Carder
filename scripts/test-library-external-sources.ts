@@ -48,8 +48,8 @@ export async function runExternalSourceChecks() {
         );
     const evidence = {
         document_id: 'doc',
-        locale: 'en',
-        source_path: 'cardData.en.name',
+        locale: 'EN' as const,
+        source_path: '$.cardData.en.name',
     };
     await check('ABSENT stays distinct from PRESENT empty string', () => {
         assert.equal(claimText({ state: 'ABSENT', evidence }), 'ABSENT');

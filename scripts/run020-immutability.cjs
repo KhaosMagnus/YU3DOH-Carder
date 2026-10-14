@@ -7,6 +7,20 @@ const assert = require('node:assert/strict'),
 const base = 'e83de9793c26f78834f748b320161a168943d4ed';
 const git = (...args) => execFileSync('git', args);
 const sha = git('rev-parse', 'HEAD').toString().trim();
+const reviewed = '6caa1204df52aaa7dc811d50dfe5b22cb834555d';
+const migration007 =
+    'workspace-server/migrations/007_external_source_ingestion.sql';
+assert(
+    git('show', reviewed + ':' + migration007).equals(
+        fs.readFileSync(migration007),
+    ),
+    'QA correction must preserve migration 007 byte-for-byte',
+);
+assert.equal(
+    git('merge-base', reviewed, sha).toString().trim(),
+    reviewed,
+    'QA correction must preserve reviewed history',
+);
 const old = git(
     'ls-tree',
     '-r',
@@ -81,6 +95,7 @@ const report = {
     run: 'RUN020',
     sha,
     baseline: base,
+    correction_baseline: reviewed,
     schema: 7,
     workspace_format: 1,
     production_dependencies: 'UNCHANGED',

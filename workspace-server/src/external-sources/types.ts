@@ -8,10 +8,12 @@ export const SOURCE_REGISTRY = Object.freeze({
     supported_candidate_locales: ['EN', 'ES', 'JP'],
 });
 export type Block = 'STRUCTURE' | 'TEXT:EN' | 'TEXT:ES' | 'TEXT:JP';
+export type CandidateLocale = 'EN' | 'ES' | 'JP';
 export type Evidence = {
     document_id: string;
-    locale: string | null;
+    locale: CandidateLocale | null;
     source_path: string;
+    source_paths?: string[];
 };
 export type Claim = { evidence: Evidence } & (
     | { state: 'PRESENT'; value: string | number | string[] | null }
@@ -25,7 +27,7 @@ export type Diagnostic = {
     code: string;
     block: Block | null;
     field: string | null;
-    locale: string | null;
+    locale: CandidateLocale | null;
     message: string;
 };
 export type Candidate = {

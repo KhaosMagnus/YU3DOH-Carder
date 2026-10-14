@@ -226,7 +226,7 @@ export function normalizeYgoResources(
         code: string,
         block: Block,
         field: string | null,
-        locale: string | null,
+        locale: 'EN' | 'ES' | 'JP' | null,
         message: string,
     ) => {
         diagnostics.push({
@@ -244,15 +244,20 @@ export function normalizeYgoResources(
         source: Record<string, unknown>,
         block: Block,
         field: string,
-        locale: string,
+        locale: 'EN' | 'ES' | 'JP',
+        providerKey: 'en' | 'es' | 'ja',
         names: string[],
         convert: (v: unknown) => Omit<Claim, 'evidence'>,
     ): Claim => {
         const present = names.filter((n) => own(source, n));
+        const paths = (present.length ? present : [names[0]!]).map(
+            (name) => `$.cardData.${providerKey}.${name}`,
+        );
         const evidence = {
             document_id: documentId,
             locale,
-            source_path: `cardData.${locale}.${present.join('|') || names[0]}`,
+            source_path: paths[0]!,
+            ...(paths.length > 1 ? { source_paths: paths } : {}),
         };
         let result: Omit<Claim, 'evidence'>;
         if (!present.length) result = { state: 'ABSENT' };
@@ -329,7 +334,7 @@ export function normalizeYgoResources(
                 'LOCALE_NOT_AVAILABLE',
                 block,
                 null,
-                key,
+                language,
                 'Supported locale is unavailable; no fallback is used.',
             );
         for (const field of textFields) {
@@ -337,6 +342,7 @@ export function normalizeYgoResources(
                 object(source) ? source : {},
                 block,
                 field,
+                language,
                 key,
                 aliases[field] ?? [
                     field === 'card_text' ? 'effectText' : field,
@@ -353,7 +359,7 @@ export function normalizeYgoResources(
                 'LOCALE_NOT_AVAILABLE',
                 block,
                 null,
-                key,
+                language,
                 'Supported locale is unusable/partial; no fallback is used.',
             );
     }
@@ -387,7 +393,7 @@ export function normalizeYgoResources(
         summon_kind: ['summonKind'],
         race_code: ['race'],
         link_rating: ['linkRating'],
-        link_markers: ['linkMarkers'],
+        link_markers: ['linkArrows'],
     };
     for (const field of STRUCTURE_FIELDS) {
         const family = fields.family;
@@ -412,6 +418,7 @@ export function normalizeYgoResources(
             source,
             'STRUCTURE',
             field,
+            'EN',
             'en',
             aliases[field] ?? keys[field] ?? [field],
             notApplicable
