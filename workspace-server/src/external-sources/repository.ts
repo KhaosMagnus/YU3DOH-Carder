@@ -126,3 +126,31 @@ export function detail(
         candidate,
     };
 }
+
+/** Read-only resolution for the separate acceptance capability; never updates history. */
+export function acceptanceCandidate(db: SqliteDatabase, candidateId: string) {
+    const row = db
+        .prepare(
+            'SELECT * FROM external_source_candidates WHERE candidate_id=?',
+        )
+        .get(candidateId) as
+        | (Omit<StoredCandidate, 'candidate' | 'diagnostics'> & {
+              candidate_json: string;
+              diagnostics_json: string;
+          })
+        | undefined;
+    if (!row) return null;
+    const stored: StoredCandidate = {
+        candidate_id: row.candidate_id,
+        retrieval_id: row.retrieval_id,
+        candidate_schema_version: row.candidate_schema_version,
+        normalizer_version: row.normalizer_version,
+        created_at: row.created_at,
+        candidate: JSON.parse(row.candidate_json),
+        diagnostics: JSON.parse(row.diagnostics_json),
+    };
+    const retrieval = db
+        .prepare(retrievalSql + ' WHERE r.retrieval_id=?')
+        .get(row.retrieval_id) as Retrieval | undefined;
+    return { stored, retrieval };
+}

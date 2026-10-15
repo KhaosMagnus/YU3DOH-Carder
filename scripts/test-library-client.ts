@@ -402,4 +402,5 @@ import { runCarderWriteChecks } from './test-carder-write-back';
 import { runBatchClassificationChecks } from './test-library-batch-classification';
 import { runProvenanceChecks } from './test-library-provenance';
 import { runExternalSourceChecks } from './test-library-external-sources';
-void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).then(runBatchClassificationChecks).then(runProvenanceChecks).then(runExternalSourceChecks).catch(error => { console.error(error); process.exitCode = 1; });
+import { runExternalAcceptanceChecks } from './test-library-external-acceptance';
+void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).then(runBatchClassificationChecks).then(runProvenanceChecks).then(runExternalSourceChecks).then(runExternalAcceptanceChecks).catch(error => { console.error(error); process.exitCode = 1; });

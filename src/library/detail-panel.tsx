@@ -3,7 +3,7 @@ import { ProvenancePanel } from './provenance-panel';
 import { ExternalSourcesPanel } from './external-sources-panel';
 import { VariantLifecycleModal } from './variant-lifecycle-modal';
 import type { LifecycleEntry } from './variant-lifecycle-state';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import { Alert, Button, Drawer, Input, Modal, Spin, Tag } from 'antd';
 import {
     LibraryHttpError,
@@ -57,8 +57,11 @@ type Props = {
     onLifecycleBlocked?: () => Promise<void>;
 };
 
-export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, canonicalRefresh = 0, assetsEnabled = true, mutationEnabled = true, maintenanceActive = false, onDirtyChange, onOpenBatch, onOpenWorkspace, onLifecycleBlocked = async () => {} }: Props) => {
+export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, onResolve, assetsRevision = 0, canonicalRefresh = 0, assetsEnabled = true, mutationEnabled: mutationsAllowed = true, maintenanceActive = false, onDirtyChange, onOpenBatch, onOpenWorkspace, onLifecycleBlocked = async () => {} }: Props) => {
+    const [externalApplying,setExternalApplying]=useState(false);
+    const mutationEnabled=mutationsAllowed && !externalApplying;
     const [loading, setLoading] = useState(false);
+    const externalCardOwner=useRef(cardId);externalCardOwner.current=cardId;
     const [detailError, setDetailError] = useState<string | null>(null);
     const [metadataError, setMetadataError] = useState<string | null>(null);
     const [saveError, setSaveError] = useState<string | null>(null);
@@ -142,6 +145,14 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
         await loadVariants(id);
     };
 
+    const refreshExternalCanonical = async (id:string) => {
+        const fresh=await getLibraryCard(id);
+        if (externalCardOwner.current!==id) return;
+        const adopted=adoptServerSnapshot(fresh);
+        setAuthoritative(adopted.authoritative);setWorking(adopted.working);
+        setEditing(false);setSaveError(null);setConflict(false);onSaved(fresh);
+    };
+
     const applyConflictReload = async (cardIdToReload: string) => {
         setLoading(true);
         setSaveError(null);
@@ -177,6 +188,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
 
     useEffect(() => {
         if (!open || !cardId) return;
+        setExternalApplying(false);
         setEditing(false);
         setMetadataError(null);
         setVariantError(null);
@@ -199,6 +211,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
     }, [assetsRevision]);
 
     const requestClose = () => {
+        if(externalApplying) return;
         if (dirty) {
             Modal.confirm({
                 title: 'Discard unsaved changes?',
@@ -395,7 +408,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                     )}
 
                     {detailSection === 'provenance' && <ProvenancePanel key={authoritative.card_id} detail={authoritative} dirty={dirty} />}
-                    {detailSection === 'external' && <ExternalSourcesPanel key={authoritative.card_id} detail={authoritative} dirty={dirty} enabled={mutationEnabled && !maintenanceActive} />}
+                    {detailSection === 'external' && <ExternalSourcesPanel key={authoritative.card_id} detail={authoritative} dirty={dirty} enabled={mutationEnabled && !maintenanceActive} onRefresh={refreshExternalCanonical} onApplyingChange={busy=>{if(externalCardOwner.current===authoritative.card_id)setExternalApplying(busy);}} />}
 
                     {detailSection === 'variants' && (
                         <>

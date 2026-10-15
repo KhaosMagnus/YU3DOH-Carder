@@ -16,6 +16,7 @@ export const emptyProvenanceFilters = (): ProvenanceFilters => ({
 export const provenanceSourceLabel = (kind: string) =>
     new Map([
         ['MANUAL', 'Manual'],
+        ['EXTERNAL_SOURCE', 'External source'],
         ['CARDER_WRITE_BACK', 'Carder write-back'],
         ['LIBRARY_BATCH', 'Library batch'],
     ]).get(kind) ?? kind;

@@ -223,3 +223,6 @@ let maintenanceFence: 'NONE' | 'BACKUP' | 'RESTORE' | 'MIGRATION' | 'INITIALIZAT
 export const setLibraryMaintenanceFence = (operation: typeof maintenanceFence) => { maintenanceFence=operation; };
 
 export const initializeWorkspace = () => fetchJson<import('./workspace-management-state').InitializationResult>('/api/v1/workspace/initialize',{method:'POST',body:'{}'});
+
+export const applyExternalSourceText=(candidateId:string,body:import('./external-acceptance-state').ExternalTextApplyRequest)=>
+    fetchJson<import('./external-acceptance-state').ExternalTextApplyResult>(`/api/v1/library/external-sources/candidates/${encodeURIComponent(candidateId)}/apply-text`,{method:'POST',body:JSON.stringify(body)});
