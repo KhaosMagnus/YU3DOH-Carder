@@ -6,7 +6,7 @@ import { WorkspaceRecoveryError } from '../recovery/errors';
 import { assertExternalCardId, YgoResourcesCardAdapter } from './adapter';
 import { ExternalSourceError } from './errors';
 import { diffCandidate } from './diff';
-import { normalizeYgoResources } from './normalizer';
+import { normalizeYgoResources, NORMALIZER_VERSION } from './normalizer';
 import { detail, history, publishPackage } from './repository';
 import {
     SOURCE_REGISTRY,
@@ -103,7 +103,7 @@ export class ExternalSourceIngestionService {
                     candidate_id: randomUUID(),
                     retrieval_id: retrievalId,
                     candidate_schema_version: 1,
-                    normalizer_version: 1,
+                    normalizer_version: NORMALIZER_VERSION,
                     candidate: normalized.candidate,
                     diagnostics: normalized.diagnostics,
                     created_at: timestamp,

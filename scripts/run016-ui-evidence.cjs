@@ -142,7 +142,7 @@ async function run() {
         assert.equal(result.status.state, 'READY');
         assert.equal(result.status.read_only, false);
         assert.equal(result.workspace_format_version, 1);
-        assert.equal(result.database_schema_version, 7);
+        assert.equal(result.database_schema_version, 8);
         await settled();
         await visible(
             management().getByText('Workspace initialized', { exact: true }),

@@ -1,0 +1,145 @@
+name: Workspace RUN 022 validation
+on:
+  push:
+    branches: [feature/workspace-run-022]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validation:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - name: Preserve Git blob bytes during checkout
+        shell: bash
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.19.0"
+      - run: npm install --global yarn@1.22.22
+      - name: Install root (immutable lockfile)
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: Install Workspace (immutable lockfile)
+        run: yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+      - name: Root compile and build
+        run: |
+          yarn compile
+          yarn build
+        shell: bash
+      - name: Carder and Library regressions
+        run: |
+          yarn test:sc
+          yarn test:library
+        shell: bash
+      - name: Workspace compile and full suite
+        env:
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run022-immutability
+        run: |
+          yarn --cwd workspace-server compile
+          yarn --cwd workspace-server test
+        shell: bash
+      - name: Repository hygiene and frozen migration/lockfile hashes
+        env:
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run022-immutability
+        shell: bash
+        run: |
+          node scripts/run022-immutability.cjs
+      - name: Install isolated operational QA browser tool
+        shell: bash
+        run: |
+          npm install --prefix "$RUNNER_TEMP/run022-ui-tools" --no-audit --no-fund playwright-core@1.58.2
+          node "$RUNNER_TEMP/run022-ui-tools/node_modules/playwright-core/cli.js" install chromium
+      - name: Operational Library UI evidence against disposable Workspace
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run012-ui-evidence
+        run: node scripts/run012-operational-qa.cjs
+      - name: Operational Variant Lifecycle UI evidence against disposable Workspace
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run013-ui-evidence
+        run: node scripts/run013-operational-qa.cjs
+      - name: Operational Canonical confirmation UI evidence against disposable Workspace
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run014-ui-evidence
+        run: node scripts/run014-operational-qa.cjs
+      - name: Operational Workspace Recovery and Maintenance UI evidence
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run015-ui-evidence
+        run: node scripts/run015-operational-qa.cjs
+      - name: Operational Single-Workspace Initialization UI evidence
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run016-ui-evidence
+        run: node scripts/run016-operational-qa.cjs
+      - name: Operational Carder selective write-back UI evidence
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run017-ui-evidence
+        run: node scripts/run017-operational-qa.cjs
+      - name: Operational Library Batch Classification UI evidence
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run018-ui-evidence
+        run: node scripts/run018-operational-qa.cjs
+      - name: Operational Library Sources and Provenance UI evidence
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run019-ui-evidence
+        run: node scripts/run019-operational-qa.cjs
+      - name: Operational External Source UI evidence (mocked provider, no live network)
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run020-ui-evidence
+        run: node scripts/run020-operational-qa.cjs
+      - name: Operational selective TEXT acceptance (persisted candidates, zero provider requests)
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run021-ui-evidence
+        run: node scripts/run021-operational-qa.cjs
+      - name: Operational schema7-to8 and STRUCTURE normalizer v2 (accepted capture only)
+        shell: bash
+        env:
+          NODE_PATH: ${{ runner.temp }}/run022-ui-tools/node_modules
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run022-ui-evidence
+        run: node scripts/run022-operational-qa.cjs
+      - name: Preserve exact-SHA UI evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: RUN022-evidence-${{ matrix.os }}-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/run012-ui-evidence
+            ${{ runner.temp }}/run013-ui-evidence
+            ${{ runner.temp }}/run014-ui-evidence
+            ${{ runner.temp }}/run015-ui-evidence
+            ${{ runner.temp }}/run016-ui-evidence
+            ${{ runner.temp }}/run017-ui-evidence
+            ${{ runner.temp }}/run018-ui-evidence
+            ${{ runner.temp }}/run019-ui-evidence
+            ${{ runner.temp }}/run020-ui-evidence
+            ${{ runner.temp }}/run022-immutability
+            ${{ runner.temp }}/run021-ui-evidence
+            ${{ runner.temp }}/run022-ui-evidence
+          if-no-files-found: error

@@ -85,7 +85,7 @@ test('explicit bootstrap creates a fresh database at current schema', async () =
 
     assert.equal(result.previousVersion, 0);
     assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
-    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5, 6, 7]);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5, 6, 7, 8]);
     assert.equal(existsSync(result.databasePath), true);
 
     const status = await inspectWorkspaceRoot(root);
@@ -105,7 +105,7 @@ test('migration operation brings an older schema to current and records ordered 
     assert.equal(before.database_schema_version, 0);
 
     const result = migrateWorkspaceDatabase(root, value);
-    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5, 6, 7]);
+    assert.deepEqual(result.appliedVersions, [1, 2, 3, 4, 5, 6, 7, 8]);
     assert.equal(result.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
 
     const database = new Database(databasePath, { readonly: true, fileMustExist: true });
@@ -118,6 +118,7 @@ test('migration operation brings an older schema to current and records ordered 
         { version: 5, name: 'asset_resolution_overrides' },
         { version: 6, name: 'variant_lifecycle' },
         { version: 7, name: 'external_source_ingestion' },
+        { version: 8, name: 'standard_structural_registry_baseline' },
     ]);
     database.close();
 });
@@ -131,7 +132,7 @@ test('second migration run is idempotent and does not reapply applied versions',
     const first = migrateWorkspaceDatabase(root, value);
     const second = migrateWorkspaceDatabase(root, value);
 
-    assert.deepEqual(first.appliedVersions, [1, 2, 3, 4, 5, 6, 7]);
+    assert.deepEqual(first.appliedVersions, [1, 2, 3, 4, 5, 6, 7, 8]);
     assert.deepEqual(second.appliedVersions, []);
     assert.equal(second.previousVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);
     assert.equal(second.currentVersion, SUPPORTED_DATABASE_SCHEMA_VERSION);

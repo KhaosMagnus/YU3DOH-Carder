@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { ExternalSourceError } from './errors';
+import { structuralProperties, linkMarkers } from './structure-v2';
 import {
     YGORESOURCES_SOURCE,
     type Block,
@@ -180,6 +181,7 @@ export const STRUCTURE_FIELDS = [
     'trap_subtype_code',
 ] as const;
 const textFields = ['name', 'card_text', 'pendulum_text'] as const;
+export const NORMALIZER_VERSION = 2;
 
 export function normalizeYgoResources(
     payload: unknown,
@@ -368,6 +370,16 @@ export function normalizeYgoResources(
     // Structural observations use the explicit English source record; never fallback to translated fields.
     const source = object(payload.cardData.en) ? payload.cardData.en : {};
     const fields = candidate.blocks.STRUCTURE.fields;
+    const warnStructure = (
+        code: string,
+        field: string | null,
+        message: string,
+    ) => diagnostic(code, 'STRUCTURE', field, 'EN', message);
+    const propertyClaim = structuralProperties(
+        source,
+        documentId,
+        warnStructure,
+    );
     const converters: Record<string, (v: unknown) => Omit<Claim, 'evidence'>> =
         {
             family: dictionary(families),
@@ -389,7 +401,17 @@ export function normalizeYgoResources(
                     return { state: 'UNMAPPED', raw_value: v };
                 return present([...new Set(v.map((x) => abilities.get(x)!))]);
             },
-            link_markers: (v) => ({ state: 'UNMAPPED', raw_value: v }),
+            link_markers: (v) =>
+                linkMarkers(
+                    v,
+                    fields,
+                    {
+                        document_id: documentId,
+                        locale: 'EN',
+                        source_path: '$.cardData.en.linkArrows',
+                    },
+                    warnStructure,
+                ),
         };
     const keys: Record<string, string[]> = {
         summon_kind: ['summonKind'],
@@ -417,29 +439,32 @@ export function normalizeYgoResources(
                 summon?.state === 'PRESENT' &&
                 summon.value === 'LINK');
         const directNames = aliases[field] ?? keys[field] ?? [field];
-        // properties is an opaque provider observation, not a dictionary or a direct-field alias.
-        const unresolvedProperties =
-            ['summon_kind', 'race_code', 'abilities'].includes(field) &&
-            !directNames.some((name) => own(source, name)) &&
-            own(source, 'properties');
         fields[field] = claim(
             source,
             'STRUCTURE',
             field,
             'EN',
             'en',
-            unresolvedProperties ? ['properties'] : directNames,
-            unresolvedProperties
-                ? (value) => ({ state: 'UNMAPPED', raw_value: value })
-                : notApplicable
-                  ? () => ({ state: 'ABSENT' })
-                  : unresolvedSubtype
-                    ? (value) =>
-                          typeof value === 'string'
-                              ? { state: 'UNMAPPED', raw_value: value }
-                              : invalid(value)
-                    : converters[field]!,
+            directNames,
+            notApplicable
+                ? () => ({ state: 'ABSENT' })
+                : unresolvedSubtype
+                  ? (value) =>
+                        typeof value === 'string'
+                            ? { state: 'UNMAPPED', raw_value: value }
+                            : invalid(value)
+                  : converters[field]!,
         );
+        if (
+            field === 'summon_kind' ||
+            field === 'race_code' ||
+            field === 'abilities'
+        )
+            fields[field] = propertyClaim(
+                field,
+                fields[field]!,
+                fields.family!,
+            );
     }
     // Property is applicable only to its explicit family, not both Spell and Trap.
     if (fields.family?.state === 'PRESENT') {

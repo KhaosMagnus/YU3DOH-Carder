@@ -483,7 +483,7 @@ test('AC64..72 explicit dictionaries, validated stats, level/rank, scale, Link o
     assert.equal(
         normalizeYgoResources(p, '17625', 'doc').candidate.blocks.STRUCTURE
             .fields.link_markers!.state,
-        'UNMAPPED',
+        'INVALID',
     );
     p.cardData.en.attribute = 'NEW_VALUE';
     delete p.cardData.en.englishAttribute;
@@ -636,7 +636,7 @@ test('AC23/35..54/73..79 frozen STRICT/FKs, atomic history, versioning, exact ra
     );
     assert.deepEqual(counts(f.service), [1, 2, 2, 2]);
     assert.equal(first.retrieval.adapter_version, 1);
-    assert.equal(first.candidate!.normalizer_version, 1);
+    assert.equal(first.candidate!.normalizer_version, 2);
     assert.equal(first.candidate!.candidate_schema_version, 1);
     assert.equal('raw_payload' in first.document, false);
     const full = s.detail(first.retrieval.retrieval_id, true);
@@ -951,13 +951,13 @@ test('AC94 actual Backup/Restore captures schema-7 External Source evidence, the
     const oldBackup = await older.recovery.create('RECOVERY_POINT');
     assert.equal(oldBackup.database_schema_version, 6);
     await older.recovery.migrate();
-    assert.equal(older.status.database_schema_version, 7);
+    assert.equal(older.status.database_schema_version, 8);
     await older.recovery.restore(oldBackup.backup_id);
     assert.equal(older.status.state, 'NEEDS_MIGRATION');
     assert.equal(older.status.database_schema_version, 6);
     const migration = await older.recovery.migrate();
     assert.ok('appliedVersions' in migration);
-    assert.deepEqual(migration.appliedVersions, [7]);
+    assert.deepEqual(migration.appliedVersions, [7, 8]);
     assert.equal(older.status.state, 'READY');
     assert.equal(older.status.workspace_format_version, 1);
     const checkpoint = JSON.parse(
@@ -975,7 +975,7 @@ test('AC94 actual Backup/Restore captures schema-7 External Source evidence, the
                 )
                 .all(),
         ),
-        [1, 2, 3, 4, 5, 6, 7].map((version) => ({ version })),
+        [1, 2, 3, 4, 5, 6, 7, 8].map((version) => ({ version })),
     );
 });
 test('HTTP contract rejects extra properties, numeric IDs/revisions, arbitrary URLs, raw query extras; no network preflight leakage', async (t) => {
@@ -1258,11 +1258,11 @@ const linkFixture = () =>
             'utf8',
         ),
     );
-test('QA-020-03 frozen linkArrows observation stays UNMAPPED with its original raw value', () => {
+test('QA-020-03 frozen linkArrows observation is INVALID in v2 with its original raw value', () => {
     const p = linkFixture();
     const n = normalizeYgoResources(p, '13036', 'link-doc');
     assert.deepEqual(n.candidate.blocks.STRUCTURE.fields.link_markers, {
-        state: 'UNMAPPED',
+        state: 'INVALID',
         raw_value: p.cardData.en.linkArrows,
         evidence: {
             document_id: 'link-doc',
@@ -1273,7 +1273,7 @@ test('QA-020-03 frozen linkArrows observation stays UNMAPPED with its original r
     assert.ok(
         n.diagnostics.some(
             (d) =>
-                d.code === 'SOURCE_FIELD_UNMAPPED' &&
+                d.code === 'SOURCE_FIELD_INVALID' &&
                 d.field === 'link_markers' &&
                 d.locale === 'EN',
         ),
@@ -1298,7 +1298,7 @@ test('QA-020-03 Link Rating and unauthorized linkMarkers do not fabricate a mark
         '$.cardData.en.linkArrows',
     );
 });
-test('QA-020-03 linkArrows is retained verbatim without interpreting provider representation', () => {
+test('QA-020-03 linkArrows is retained verbatim as invalid when provider representation is malformed', () => {
     const p = linkFixture();
     for (const value of [
         0,
@@ -1310,9 +1310,9 @@ test('QA-020-03 linkArrows is retained verbatim without interpreting provider re
         p.cardData.en.linkArrows = value;
         const claim = normalizeYgoResources(p, '13036', 'doc').candidate.blocks
             .STRUCTURE.fields.link_markers!;
-        assert.equal(claim.state, 'UNMAPPED');
+        assert.equal(claim.state, 'INVALID');
         assert.deepEqual(
-            claim.state === 'UNMAPPED' ? claim.raw_value : undefined,
+            claim.state === 'INVALID' ? claim.raw_value : undefined,
             value,
         );
     }
@@ -1353,7 +1353,7 @@ test('QA-020-01..03 corrected evidence and observation persist through the retri
     assert.deepEqual(
         stored.candidate!.candidate.blocks.STRUCTURE.fields.link_markers,
         {
-            state: 'UNMAPPED',
+            state: 'INVALID',
             raw_value: p.cardData.en.linkArrows,
             evidence: {
                 document_id: detail.document.document_id,
@@ -1427,7 +1427,7 @@ test('QA-020-LIVE-04A captured properties observation is never false ABSENT thro
     assert.equal(JSON.parse(captured13036.toString('utf8')).cardId, 13036);
     const f = await replayCaptured13036(t);
     for (const field of affectedPropertiesFields)
-        assert.equal(f.fields[field]!.state, 'UNMAPPED');
+        assert.equal(f.fields[field]!.state, 'PRESENT');
     for (const [field, value] of [
         ['family', 'MONSTER'],
         ['attribute_code', 'DARK'],
@@ -1448,20 +1448,13 @@ test('QA-020-LIVE-04A captured properties observation is never false ABSENT thro
     assert.equal('ygoresources_properties' in f.fields, false);
     assert.equal('provider_properties' in f.fields, false);
 });
-test('QA-020-LIVE-04B unresolved properties retains exact ordered raw_value', async (t) => {
+test('QA-020-LIVE-04B v2 properties maps deterministically while exact raw observation remains durable', async (t) => {
     const f = await replayCaptured13036(t);
-    for (const field of affectedPropertiesFields) {
-        const claim = f.fields[field]!;
-        assert.equal(claim.state, 'UNMAPPED');
-        assert.deepEqual(
-            claim.state === 'UNMAPPED' ? claim.raw_value : undefined,
-            [30, 23, 4],
-        );
+    for (const [field, value] of Object.entries({summon_kind:'LINK',race_code:'CYBERSE',abilities:['EFFECT']})) {
+        const claim=f.fields[field]!; assert.equal(claim.state,'PRESENT');
+        assert.deepEqual(claim.state==='PRESENT'&&claim.value,value);
     }
-    assert.deepEqual(
-        JSON.parse(f.stored.document.raw_payload!).cardData.en.properties,
-        [30, 23, 4],
-    );
+    assert.deepEqual(JSON.parse(f.stored.document.raw_payload!).cardData.en.properties,[30,23,4]);
 });
 test('QA-020-LIVE-04C unresolved properties points to exact rooted English source evidence', async (t) => {
     const f = await replayCaptured13036(t);
@@ -1472,29 +1465,12 @@ test('QA-020-LIVE-04C unresolved properties points to exact rooted English sourc
             source_path: '$.cardData.en.properties',
         });
 });
-test('QA-020-LIVE-04D exact field diagnostics identify the unmapped properties observation', async (t) => {
+test('QA-020-LIVE-04D v2 resolves the prior four structural diagnostics', async (t) => {
     const f = await replayCaptured13036(t);
-    for (const field of affectedPropertiesFields) {
-        const diags = f.stored.candidate!.diagnostics.filter(
-            (d) => d.field === field,
-        );
-        assert.equal(diags.length, 1);
-        assert.deepEqual(
-            { ...diags[0], diagnostic_id: 'id' },
-            {
-                diagnostic_id: 'id',
-                severity: 'WARNING',
-                stage: 'NORMALIZATION',
-                code: 'SOURCE_FIELD_UNMAPPED',
-                block: 'STRUCTURE',
-                field,
-                locale: 'EN',
-                message: `Source observation $.cardData.en.properties is unmapped for ${field}; normalizer v1 has no proven provider-code dictionary.`,
-            },
-        );
-    }
+    assert.deepEqual(f.stored.candidate!.diagnostics, []);
+    assert.equal(f.stored.retrieval.status,'SUCCESS');
 });
-test('QA-020-LIVE-04E captured linkArrows 813 stays UNMAPPED independently of Link Rating 3', async (t) => {
+test('QA-020-LIVE-04E captured linkArrows 813 maps through the frozen v2 dictionary consistently with Link Rating 3', async (t) => {
     const f = await replayCaptured13036(t);
     assert.deepEqual(f.fields.link_rating, {
         state: 'PRESENT',
@@ -1506,8 +1482,8 @@ test('QA-020-LIVE-04E captured linkArrows 813 stays UNMAPPED independently of Li
         },
     });
     assert.deepEqual(f.fields.link_markers, {
-        state: 'UNMAPPED',
-        raw_value: '813',
+        state: 'PRESENT',
+        value: ['2','7','9'],
         evidence: {
             document_id: f.stored.document.document_id,
             locale: 'EN',
@@ -1562,18 +1538,18 @@ test('QA-020-LIVE-04G captured replay changes zero authoritative domain rows or 
     );
     assert.deepEqual(authoritative(f.service), beforeRead);
 });
-test('QA-020-LIVE-04H serialized candidate is valid PARTIAL with versions 1 and immutable snapshot history', async (t) => {
+test('QA-020-LIVE-04H serialized candidate is valid SUCCESS with versions 1/2/1 and immutable snapshot history', async (t) => {
     const f = await replayCaptured13036(t);
-    assert.equal(f.stored.retrieval.status, 'PARTIAL');
+    assert.equal(f.stored.retrieval.status, 'SUCCESS');
     assert.equal(f.stored.document.status, 'SUCCESS');
     assert.equal(f.stored.document.error_code, null);
     assert.equal(f.stored.retrieval.error_code, null);
     assert.equal(f.stored.retrieval.adapter_version, 1);
-    assert.equal(f.stored.candidate!.normalizer_version, 1);
+    assert.equal(f.stored.candidate!.normalizer_version, 2);
     assert.equal(f.stored.candidate!.candidate_schema_version, 1);
     assert.equal(f.stored.candidate!.candidate.candidate_schema_version, 1);
     assert.equal(f.stored.candidate!.candidate.authoritative, false);
-    assert.equal(f.stored.candidate!.diagnostics.length, 4);
+    assert.equal(f.stored.candidate!.diagnostics.length, 0);
     const first = JSON.stringify(f.stored);
     await f.service.externalSourceIngestion!.retrieve({
         ...f.request,
@@ -1607,7 +1583,7 @@ test('QA-020-LIVE-04H serialized candidate is valid PARTIAL with versions 1 and 
                     authoritative_domains_unchanged: true,
                     versions: {
                         adapter: 1,
-                        normalizer: 1,
+                        normalizer: 2,
                         candidate_schema: 1,
                     },
                     serialized_http_result: f.serialized,
@@ -1621,7 +1597,7 @@ test('QA-020-LIVE-04H serialized candidate is valid PARTIAL with versions 1 and 
     console.log(
         'RUN020 captured13036 8611 bytes SHA256 ' +
             captured13036Hash +
-            ' PARTIAL / versions 1 / zero authoritative writes / no provider request',
+            ' SUCCESS / versions 1/2/1 / zero authoritative writes / no provider request',
     );
 });
 test('QA-020-LIVE-04 properties absent preserves genuine absence and never falls back to other locales', () => {
@@ -1663,34 +1639,19 @@ test('QA-020-LIVE-04 existing explicit direct-field normalization is preserved w
                 document_id: 'doc',
                 locale: 'EN',
                 source_path: `$.cardData.en.${source}`,
+                source_paths: [`$.cardData.en.${source}`, "$.cardData.en.properties"],
             },
         });
     }
 });
-test('QA-020-LIVE-04 opaque properties observations are retained without numeric interpretation or reordering', () => {
-    for (const properties of [
-        [4, 30, 23],
-        [],
-        null,
-        'opaque',
-        { encoded: [30, 23, 4] },
-    ]) {
-        const p = JSON.parse(captured13036.toString('utf8'));
-        p.cardData.en.properties = properties;
-        const normalized = normalizeYgoResources(p, '13036', 'doc');
-        for (const field of affectedPropertiesFields) {
-            assert.deepEqual(
-                normalized.candidate.blocks.STRUCTURE.fields[field],
-                {
-                    state: 'UNMAPPED',
-                    raw_value: properties,
-                    evidence: {
-                        document_id: 'doc',
-                        locale: 'EN',
-                        source_path: '$.cardData.en.properties',
-                    },
-                },
-            );
-        }
+test('QA-020-LIVE-04 v2 malformed properties preserve exact raw observation while valid arrays normalize', () => {
+    for (const properties of [null, 'opaque', {encoded:[30,23,4]}]) {
+        const p=JSON.parse(captured13036.toString('utf8'));p.cardData.en.properties=properties;
+        const n=normalizeYgoResources(p,'13036','doc');
+        for (const field of affectedPropertiesFields) assert.deepEqual(n.candidate.blocks.STRUCTURE.fields[field], {
+            state:'INVALID',raw_value:properties,evidence:{document_id:'doc',locale:'EN',source_path:'$.cardData.en.properties'},
+        });
     }
+    const p=JSON.parse(captured13036.toString('utf8'));p.cardData.en.properties=[4,30,23];
+    assert.equal(normalizeYgoResources(p,'13036','doc').candidate.blocks.STRUCTURE.fields.race_code!.state,'PRESENT');
 });

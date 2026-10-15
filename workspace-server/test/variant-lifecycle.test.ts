@@ -60,12 +60,12 @@ test('RUN013 real schema 5 migration: checkpoint, history 001..006, existing var
     await new AssetIndexerService(root,p).scan(); p.close();
     const service = await createWorkspaceService({workspaceRoot:root,host:'127.0.0.1',port:4312}); services.push(service);
     assert.equal(service.status.state,'NEEDS_MIGRATION'); assert.equal(service.status.database_schema_version,5);
-    const result = await service.recovery.migrate(); assert.ok('appliedVersions' in result); assert.deepEqual(result.appliedVersions,[6,7]); assert.ok(result.backup_id);
-    assert.equal(service.status.state,'READY'); assert.equal(service.status.database_schema_version,7);
+    const result = await service.recovery.migrate(); assert.ok('appliedVersions' in result); assert.deepEqual(result.appliedVersions,[6,7, 8]); assert.ok(result.backup_id);
+    assert.equal(service.status.state,'READY'); assert.equal(service.status.database_schema_version,8);
     assert.equal(service.variantLifecycle!.getState(card.cardId).preferred_variant_id,null);
     assert.equal(service.persistence!.runRepositoryOperation(db => (db.prepare('SELECT count(*) AS n FROM card_variant_preferences').get() as {n:number})).n,0);
     const backup = JSON.parse(await readFile(path.join(root,'Backups',result.backup_id!,'backup.json'),'utf8')); assert.equal(backup.database_schema_version,5);
-    assert.deepEqual(service.persistence!.runRepositoryOperation(db=>db.prepare('SELECT version FROM _workspace_migrations ORDER BY version').all()),[1, 2, 3, 4, 5, 6, 7].map(version=>({version})));
+    assert.deepEqual(service.persistence!.runRepositoryOperation(db=>db.prepare('SELECT version FROM _workspace_migrations ORDER BY version').all()),[1, 2, 3, 4, 5, 6, 7, 8].map(version=>({version})));
 });
 test('Preferred first explicit Managed Ingest initializes preference, additional variant preserves it', async () => {
     const f = await fixture(); assert.equal(state(f).preferred_variant_id,f.id);

@@ -1,0 +1,281 @@
+{
+  "candidate": {
+    "candidate_schema_version": 1,
+    "authoritative": false,
+    "identity": {
+      "source_code": "YGORESOURCES_CARD_DB",
+      "external_record_key": "13036"
+    },
+    "blocks": {
+      "STRUCTURE": {
+        "fields": {
+          "family": {
+            "state": "PRESENT",
+            "value": "MONSTER",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.cardType"
+            }
+          },
+          "summon_kind": {
+            "state": "UNMAPPED",
+            "raw_value": [
+              30,
+              23,
+              4
+            ],
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.properties"
+            }
+          },
+          "attribute_code": {
+            "state": "PRESENT",
+            "value": "DARK",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.attribute"
+            }
+          },
+          "race_code": {
+            "state": "UNMAPPED",
+            "raw_value": [
+              30,
+              23,
+              4
+            ],
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.properties"
+            }
+          },
+          "level": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.level"
+            }
+          },
+          "rank": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.rank"
+            }
+          },
+          "atk": {
+            "state": "PRESENT",
+            "value": 2300,
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.atk"
+            }
+          },
+          "def": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.def"
+            }
+          },
+          "pendulum_scale": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.pendulumScale"
+            }
+          },
+          "abilities": {
+            "state": "UNMAPPED",
+            "raw_value": [
+              30,
+              23,
+              4
+            ],
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.properties"
+            }
+          },
+          "link_rating": {
+            "state": "PRESENT",
+            "value": 3,
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.linkRating"
+            }
+          },
+          "link_markers": {
+            "state": "UNMAPPED",
+            "raw_value": "813",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.linkArrows"
+            }
+          },
+          "spell_subtype_code": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.property"
+            }
+          },
+          "trap_subtype_code": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.property"
+            }
+          }
+        }
+      },
+      "TEXT:EN": {
+        "fields": {
+          "name": {
+            "state": "PRESENT",
+            "value": "Decode Talker",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.name"
+            }
+          },
+          "card_text": {
+            "state": "PRESENT",
+            "value": "2+ Effect Monsters\nGains 500 ATK for each monster it points to. When your opponent activates a card or effect that targets a card(s) you control (Quick Effect): You can Tribute 1 monster this card points to; negate the activation, and if you do, destroy that card.",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.effectText"
+            }
+          },
+          "pendulum_text": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "EN",
+              "source_path": "$.cardData.en.pendulumEffectText"
+            }
+          }
+        }
+      },
+      "TEXT:ES": {
+        "fields": {
+          "name": {
+            "state": "PRESENT",
+            "value": "Decodificador Hablador",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "ES",
+              "source_path": "$.cardData.es.name"
+            }
+          },
+          "card_text": {
+            "state": "PRESENT",
+            "value": "2+ Monstruos de Efecto\nGana 500 ATK por cada monstruo al que apunte. Cuando tu adversario activa una carta o efecto que selecciona una o más cartas que controles (Efecto Rápido): puedes Sacrificar 1 monstruo al que esta carta apunte; niega la activación y, si lo haces, destruye esa carta.",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "ES",
+              "source_path": "$.cardData.es.effectText"
+            }
+          },
+          "pendulum_text": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "ES",
+              "source_path": "$.cardData.es.pendulumEffectText"
+            }
+          }
+        }
+      },
+      "TEXT:JP": {
+        "fields": {
+          "name": {
+            "state": "PRESENT",
+            "value": "デコード・トーカー",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "JP",
+              "source_path": "$.cardData.ja.name"
+            }
+          },
+          "card_text": {
+            "state": "PRESENT",
+            "value": "効果モンスター２体以上\n①：このカードの攻撃力は、このカードのリンク先のモンスターの数×５００アップする。\n②：自分フィールドのカードを対象とする魔法・罠・モンスターの効果を相手が発動した時、このカードのリンク先の自分のモンスター１体をリリースして発動できる。その発動を無効にし破壊する。",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "JP",
+              "source_path": "$.cardData.ja.effectText"
+            }
+          },
+          "pendulum_text": {
+            "state": "ABSENT",
+            "evidence": {
+              "document_id": "historical-v1-document",
+              "locale": "JP",
+              "source_path": "$.cardData.ja.pendulumEffectText"
+            }
+          }
+        }
+      }
+    }
+  },
+  "diagnostics": [
+    {
+      "diagnostic_id": "8ec49908-644d-472e-b430-0f5396990c4f",
+      "severity": "WARNING",
+      "stage": "NORMALIZATION",
+      "code": "SOURCE_FIELD_UNMAPPED",
+      "block": "STRUCTURE",
+      "field": "summon_kind",
+      "locale": "EN",
+      "message": "Source observation $.cardData.en.properties is unmapped for summon_kind; normalizer v1 has no proven provider-code dictionary."
+    },
+    {
+      "diagnostic_id": "a9732313-bd47-4332-be75-c5065ff705ba",
+      "severity": "WARNING",
+      "stage": "NORMALIZATION",
+      "code": "SOURCE_FIELD_UNMAPPED",
+      "block": "STRUCTURE",
+      "field": "race_code",
+      "locale": "EN",
+      "message": "Source observation $.cardData.en.properties is unmapped for race_code; normalizer v1 has no proven provider-code dictionary."
+    },
+    {
+      "diagnostic_id": "c659122b-8775-4f2e-90c2-e477f6a71dd0",
+      "severity": "WARNING",
+      "stage": "NORMALIZATION",
+      "code": "SOURCE_FIELD_UNMAPPED",
+      "block": "STRUCTURE",
+      "field": "abilities",
+      "locale": "EN",
+      "message": "Source observation $.cardData.en.properties is unmapped for abilities; normalizer v1 has no proven provider-code dictionary."
+    },
+    {
+      "diagnostic_id": "b2eb2960-adfe-4de4-b603-eb651aaba889",
+      "severity": "WARNING",
+      "stage": "NORMALIZATION",
+      "code": "SOURCE_FIELD_UNMAPPED",
+      "block": "STRUCTURE",
+      "field": "link_markers",
+      "locale": "EN",
+      "message": "Source field is unmapped."
+    }
+  ],
+  "status": "PARTIAL"
+}
