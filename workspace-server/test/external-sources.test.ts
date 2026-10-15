@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createHash, randomUUID } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { mkdtemp, rm, writeFile, mkdir, readFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import os from 'node:os';
@@ -1365,4 +1366,331 @@ test('QA-020-01..03 corrected evidence and observation persist through the retri
     assert.ok(stored.candidate!.diagnostics.some((d) => d.locale === 'JP'));
     assert.deepEqual(authoritative(f.service), before);
     assert.deepEqual(counts(f.service), [1, 1, 1, 1]);
+});
+
+// Exact user-supplied successful capture. Never format or regenerate these source bytes.
+const captured13036 = readFileSync(
+    path.join(__dirname, 'fixtures/ygoresources-13036-live-v1.json'),
+);
+const captured13036Hash =
+    '8607fb3931c142a983c243201dbc42ba8ec27396580aa5be2efd4be628971cbf';
+const affectedPropertiesFields = [
+    'summon_kind',
+    'race_code',
+    'abilities',
+] as const;
+const replayCaptured13036 = async (t: test.TestContext) => {
+    let calls = 0;
+    const f = await setup(t, {
+        fetch: mock((url, init) => {
+            assert.equal(url, 'https://db.ygoresources.com/data/card/13036');
+            assert.equal(init.method, 'GET');
+            calls++;
+            return new Response(new Uint8Array(captured13036), {
+                headers: {
+                    'content-type': 'application/json',
+                    'x-cache-revision': '32732',
+                },
+            });
+        }),
+    });
+    const before = authoritative(f.service);
+    const response = await f.service.app.inject({
+        method: 'POST',
+        url: '/api/v1/library/external-sources/ygoresources/retrieve',
+        payload: { ...f.request, external_card_id: '13036' },
+    });
+    assert.equal(response.statusCode, 200);
+    assert.equal(calls, 1, 'Only one mocked request, never a provider call');
+    const serialized = response.json();
+    const stored = f.service.externalSourceIngestion!.detail(
+        serialized.retrieval.retrieval_id,
+        true,
+    );
+    assert.deepEqual(stored.candidate, serialized.candidate);
+    assert.equal(stored.document.raw_payload, captured13036.toString('utf8'));
+    assert.equal(stored.document.payload_hash, captured13036Hash);
+    return {
+        ...f,
+        before,
+        stored,
+        serialized,
+        fields: stored.candidate!.candidate.blocks.STRUCTURE.fields,
+    };
+};
+test('QA-020-LIVE-04A captured properties observation is never false ABSENT through production parsing/publication', async (t) => {
+    assert.equal(captured13036.byteLength, 8611);
+    assert.equal(
+        createHash('sha256').update(captured13036).digest('hex'),
+        captured13036Hash,
+    );
+    assert.equal(JSON.parse(captured13036.toString('utf8')).cardId, 13036);
+    const f = await replayCaptured13036(t);
+    for (const field of affectedPropertiesFields)
+        assert.equal(f.fields[field]!.state, 'UNMAPPED');
+    for (const [field, value] of [
+        ['family', 'MONSTER'],
+        ['attribute_code', 'DARK'],
+        ['atk', 2300],
+    ] as const) {
+        const claim = f.fields[field]!;
+        assert.equal(claim.state, 'PRESENT');
+        assert.equal(
+            claim.state === 'PRESENT' ? claim.value : undefined,
+            value,
+        );
+    }
+    assert.equal(
+        'properties' in f.fields,
+        false,
+        'No provider-specific candidate field',
+    );
+    assert.equal('ygoresources_properties' in f.fields, false);
+    assert.equal('provider_properties' in f.fields, false);
+});
+test('QA-020-LIVE-04B unresolved properties retains exact ordered raw_value', async (t) => {
+    const f = await replayCaptured13036(t);
+    for (const field of affectedPropertiesFields) {
+        const claim = f.fields[field]!;
+        assert.equal(claim.state, 'UNMAPPED');
+        assert.deepEqual(
+            claim.state === 'UNMAPPED' ? claim.raw_value : undefined,
+            [30, 23, 4],
+        );
+    }
+    assert.deepEqual(
+        JSON.parse(f.stored.document.raw_payload!).cardData.en.properties,
+        [30, 23, 4],
+    );
+});
+test('QA-020-LIVE-04C unresolved properties points to exact rooted English source evidence', async (t) => {
+    const f = await replayCaptured13036(t);
+    for (const field of affectedPropertiesFields)
+        assert.deepEqual(f.fields[field]!.evidence, {
+            document_id: f.stored.document.document_id,
+            locale: 'EN',
+            source_path: '$.cardData.en.properties',
+        });
+});
+test('QA-020-LIVE-04D exact field diagnostics identify the unmapped properties observation', async (t) => {
+    const f = await replayCaptured13036(t);
+    for (const field of affectedPropertiesFields) {
+        const diags = f.stored.candidate!.diagnostics.filter(
+            (d) => d.field === field,
+        );
+        assert.equal(diags.length, 1);
+        assert.deepEqual(
+            { ...diags[0], diagnostic_id: 'id' },
+            {
+                diagnostic_id: 'id',
+                severity: 'WARNING',
+                stage: 'NORMALIZATION',
+                code: 'SOURCE_FIELD_UNMAPPED',
+                block: 'STRUCTURE',
+                field,
+                locale: 'EN',
+                message: `Source observation $.cardData.en.properties is unmapped for ${field}; normalizer v1 has no proven provider-code dictionary.`,
+            },
+        );
+    }
+});
+test('QA-020-LIVE-04E captured linkArrows 813 stays UNMAPPED independently of Link Rating 3', async (t) => {
+    const f = await replayCaptured13036(t);
+    assert.deepEqual(f.fields.link_rating, {
+        state: 'PRESENT',
+        value: 3,
+        evidence: {
+            document_id: f.stored.document.document_id,
+            locale: 'EN',
+            source_path: '$.cardData.en.linkRating',
+        },
+    });
+    assert.deepEqual(f.fields.link_markers, {
+        state: 'UNMAPPED',
+        raw_value: '813',
+        evidence: {
+            document_id: f.stored.document.document_id,
+            locale: 'EN',
+            source_path: '$.cardData.en.linkArrows',
+        },
+    });
+});
+test('QA-020-LIVE-04F exact capture retains EN ES JP without fallback, translation, or lowercase locale leakage', async (t) => {
+    const f = await replayCaptured13036(t);
+    const p = JSON.parse(captured13036.toString('utf8'));
+    for (const [locale, key] of [
+        ['EN', 'en'],
+        ['ES', 'es'],
+        ['JP', 'ja'],
+    ] as const) {
+        const fields =
+            f.stored.candidate!.candidate.blocks[`TEXT:${locale}`].fields;
+        for (const [field, provider] of [
+            ['name', 'name'],
+            ['card_text', 'effectText'],
+        ] as const) {
+            assert.deepEqual(fields[field], {
+                state: 'PRESENT',
+                value: p.cardData[key][provider],
+                evidence: {
+                    document_id: f.stored.document.document_id,
+                    locale,
+                    source_path: `$.cardData.${key}.${provider}`,
+                },
+            });
+        }
+        assert.equal(fields.pendulum_text!.state, 'ABSENT');
+    }
+    assert.ok(
+        f.stored.candidate!.diagnostics.every(
+            (d) => d.locale === null || ['EN', 'ES', 'JP'].includes(d.locale),
+        ),
+    );
+});
+test('QA-020-LIVE-04G captured replay changes zero authoritative domain rows or revisions', async (t) => {
+    const f = await replayCaptured13036(t);
+    assert.deepEqual(authoritative(f.service), f.before);
+    assert.equal(
+        f.service.canonical!.getCard(f.card.cardId)!.revision,
+        f.card.revision,
+    );
+    assert.deepEqual(counts(f.service), [1, 1, 1, 1]);
+    const beforeRead = authoritative(f.service);
+    f.service.externalSourceIngestion!.detail(
+        f.stored.retrieval.retrieval_id,
+        true,
+    );
+    assert.deepEqual(authoritative(f.service), beforeRead);
+});
+test('QA-020-LIVE-04H serialized candidate is valid PARTIAL with versions 1 and immutable snapshot history', async (t) => {
+    const f = await replayCaptured13036(t);
+    assert.equal(f.stored.retrieval.status, 'PARTIAL');
+    assert.equal(f.stored.document.status, 'SUCCESS');
+    assert.equal(f.stored.document.error_code, null);
+    assert.equal(f.stored.retrieval.error_code, null);
+    assert.equal(f.stored.retrieval.adapter_version, 1);
+    assert.equal(f.stored.candidate!.normalizer_version, 1);
+    assert.equal(f.stored.candidate!.candidate_schema_version, 1);
+    assert.equal(f.stored.candidate!.candidate.candidate_schema_version, 1);
+    assert.equal(f.stored.candidate!.candidate.authoritative, false);
+    assert.equal(f.stored.candidate!.diagnostics.length, 4);
+    const first = JSON.stringify(f.stored);
+    await f.service.externalSourceIngestion!.retrieve({
+        ...f.request,
+        external_card_id: '13036',
+    });
+    assert.equal(
+        JSON.stringify(
+            f.service.externalSourceIngestion!.detail(
+                f.stored.retrieval.retrieval_id,
+                true,
+            ),
+        ),
+        first,
+    );
+    assert.deepEqual(counts(f.service), [1, 2, 2, 2]);
+    if (process.env.YU3DOH_QA_OUTPUT) {
+        const output = process.env.YU3DOH_QA_OUTPUT;
+        await mkdir(output, { recursive: true });
+        await writeFile(
+            path.join(output, 'captured-13036-normalized.json'),
+            JSON.stringify(
+                {
+                    kind: 'DETERMINISTIC_REPLAY_OF_ACCEPTED_CAPTURE',
+                    sha: execFileSync('git', ['rev-parse', 'HEAD'], {
+                        encoding: 'utf8',
+                    }).trim(),
+                    fixture_id: '13036',
+                    fixture_bytes: captured13036.byteLength,
+                    fixture_sha256: captured13036Hash,
+                    new_provider_requests: 0,
+                    authoritative_domains_unchanged: true,
+                    versions: {
+                        adapter: 1,
+                        normalizer: 1,
+                        candidate_schema: 1,
+                    },
+                    serialized_http_result: f.serialized,
+                    persisted_detail: f.stored,
+                },
+                null,
+                2,
+            ),
+        );
+    }
+    console.log(
+        'RUN020 captured13036 8611 bytes SHA256 ' +
+            captured13036Hash +
+            ' PARTIAL / versions 1 / zero authoritative writes / no provider request',
+    );
+});
+test('QA-020-LIVE-04 properties absent preserves genuine absence and never falls back to other locales', () => {
+    const p = JSON.parse(captured13036.toString('utf8'));
+    delete p.cardData.en.properties;
+    const normalized = normalizeYgoResources(p, '13036', 'doc');
+    for (const [field, source] of [
+        ['summon_kind', 'summonKind'],
+        ['race_code', 'race'],
+        ['abilities', 'abilities'],
+    ] as const) {
+        assert.deepEqual(normalized.candidate.blocks.STRUCTURE.fields[field], {
+            state: 'ABSENT',
+            evidence: {
+                document_id: 'doc',
+                locale: 'EN',
+                source_path: `$.cardData.en.${source}`,
+            },
+        });
+    }
+});
+test('QA-020-LIVE-04 existing explicit direct-field normalization is preserved when properties is also present', () => {
+    const p = JSON.parse(captured13036.toString('utf8'));
+    Object.assign(p.cardData.en, {
+        summonKind: 'Link',
+        race: 'Cyberse',
+        abilities: ['Effect'],
+    });
+    const normalized = normalizeYgoResources(p, '13036', 'doc');
+    for (const [field, source, value] of [
+        ['summon_kind', 'summonKind', 'LINK'],
+        ['race_code', 'race', 'CYBERSE'],
+        ['abilities', 'abilities', ['EFFECT']],
+    ] as const) {
+        assert.deepEqual(normalized.candidate.blocks.STRUCTURE.fields[field], {
+            state: 'PRESENT',
+            value,
+            evidence: {
+                document_id: 'doc',
+                locale: 'EN',
+                source_path: `$.cardData.en.${source}`,
+            },
+        });
+    }
+});
+test('QA-020-LIVE-04 opaque properties observations are retained without numeric interpretation or reordering', () => {
+    for (const properties of [
+        [4, 30, 23],
+        [],
+        null,
+        'opaque',
+        { encoded: [30, 23, 4] },
+    ]) {
+        const p = JSON.parse(captured13036.toString('utf8'));
+        p.cardData.en.properties = properties;
+        const normalized = normalizeYgoResources(p, '13036', 'doc');
+        for (const field of affectedPropertiesFields) {
+            assert.deepEqual(
+                normalized.candidate.blocks.STRUCTURE.fields[field],
+                {
+                    state: 'UNMAPPED',
+                    raw_value: properties,
+                    evidence: {
+                        document_id: 'doc',
+                        locale: 'EN',
+                        source_path: '$.cardData.en.properties',
+                    },
+                },
+            );
+        }
+    }
 });

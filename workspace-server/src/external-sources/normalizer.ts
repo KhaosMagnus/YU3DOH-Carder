@@ -294,7 +294,9 @@ export function normalizeYgoResources(
                 block,
                 field,
                 locale,
-                `Source field is ${result.state.toLowerCase()}.`,
+                names[0] === 'properties'
+                    ? `Source observation ${paths[0]} is unmapped for ${field}; normalizer v1 has no proven provider-code dictionary.`
+                    : `Source field is ${result.state.toLowerCase()}.`,
             );
         return { ...result, evidence } as Claim;
     };
@@ -414,21 +416,29 @@ export function normalizeYgoResources(
                 family.value === 'MONSTER' &&
                 summon?.state === 'PRESENT' &&
                 summon.value === 'LINK');
+        const directNames = aliases[field] ?? keys[field] ?? [field];
+        // properties is an opaque provider observation, not a dictionary or a direct-field alias.
+        const unresolvedProperties =
+            ['summon_kind', 'race_code', 'abilities'].includes(field) &&
+            !directNames.some((name) => own(source, name)) &&
+            own(source, 'properties');
         fields[field] = claim(
             source,
             'STRUCTURE',
             field,
             'EN',
             'en',
-            aliases[field] ?? keys[field] ?? [field],
-            notApplicable
-                ? () => ({ state: 'ABSENT' })
-                : unresolvedSubtype
-                  ? (value) =>
-                        typeof value === 'string'
-                            ? { state: 'UNMAPPED', raw_value: value }
-                            : invalid(value)
-                  : converters[field]!,
+            unresolvedProperties ? ['properties'] : directNames,
+            unresolvedProperties
+                ? (value) => ({ state: 'UNMAPPED', raw_value: value })
+                : notApplicable
+                  ? () => ({ state: 'ABSENT' })
+                  : unresolvedSubtype
+                    ? (value) =>
+                          typeof value === 'string'
+                              ? { state: 'UNMAPPED', raw_value: value }
+                              : invalid(value)
+                    : converters[field]!,
         );
     }
     // Property is applicable only to its explicit family, not both Spell and Trap.

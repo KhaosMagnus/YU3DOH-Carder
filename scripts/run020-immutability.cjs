@@ -7,7 +7,7 @@ const assert = require('node:assert/strict'),
 const base = 'e83de9793c26f78834f748b320161a168943d4ed';
 const git = (...args) => execFileSync('git', args);
 const sha = git('rev-parse', 'HEAD').toString().trim();
-const reviewed = '6caa1204df52aaa7dc811d50dfe5b22cb834555d';
+const reviewed = '33a5c07b5ad1ee7b6c777e733dd99f5f7a82b6f2';
 const migration007 =
     'workspace-server/migrations/007_external_source_ingestion.sql';
 assert(

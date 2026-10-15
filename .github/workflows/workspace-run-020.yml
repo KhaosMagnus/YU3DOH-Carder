@@ -41,6 +41,8 @@ jobs:
           yarn test:library
         shell: bash
       - name: Workspace compile and full suite
+        env:
+          YU3DOH_QA_OUTPUT: ${{ runner.temp }}/run020-immutability
         run: |
           yarn --cwd workspace-server compile
           yarn --cwd workspace-server test
