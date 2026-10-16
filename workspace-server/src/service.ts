@@ -1,3 +1,4 @@
+import type { ExternalStructureAcceptanceService } from './external-sources/structure-acceptance';
 import { ExternalSourceAcceptanceService } from './external-sources/acceptance';
 import { WorkspaceInitializationService, type InitializationHooks } from './workspace/initialization';
 import type { ExternalSourceIngestionService } from './external-sources/service';
@@ -27,6 +28,7 @@ import type { WorkspaceStatus } from './workspace/types';
 export type WorkspaceService = {
     externalSourceIngestion: ExternalSourceIngestionService | null;
     externalSourceAcceptance: ExternalSourceAcceptanceService | null;
+    externalStructureAcceptance: ExternalStructureAcceptanceService | null;
     app: FastifyInstance;
     runtime: WorkspaceRuntimeManager;
     recovery: WorkspaceRecoveryService;
@@ -96,6 +98,7 @@ export const createWorkspaceService = async (
         app, runtime, recovery, initialization,
         get status() { return runtime.current.status; },
         get persistence() { return runtime.current.persistence; },
+        get externalStructureAcceptance() { return runtime.current.externalStructureAcceptance; },
         get externalSourceAcceptance() { return runtime.current.externalSourceAcceptance; },
         get externalSourceIngestion() { return runtime.current.externalSourceIngestion; },
         get canonical() { return runtime.current.canonical; },

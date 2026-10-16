@@ -1,3 +1,4 @@
+import { registerStructureAcceptanceRoutes } from './external-sources/structure-acceptance-http';
 import { registerExternalAcceptanceRoute } from './external-sources/acceptance-http';
 import { WorkspaceInitializationError, type WorkspaceInitializationService } from './workspace/initialization';
 import { ExternalSourceError } from './external-sources/errors';
@@ -661,6 +662,7 @@ export const buildWorkspaceApp = (
     if (runtimeManager) {
         registerExternalSourceRoutes(app,runtimeManager);
         registerExternalAcceptanceRoute(app,runtimeManager);
+        registerStructureAcceptanceRoutes(app,runtimeManager);
         const lifecycle = () => {
             const service = runtimeManager.current.variantLifecycle;
             if (runtimeManager.current.status.state !== 'READY' || !service) throw new VariantLifecycleError('WORKSPACE_NOT_READY', 'Workspace is not READY.', 503);

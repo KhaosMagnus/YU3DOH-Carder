@@ -101,12 +101,12 @@ async function run() {
         assert.equal(await box('Select TEXT:ES/card_text').isEnabled(), true);
         await shot('UI-21-02-eligible-text-selection');
         for (const name of [
-            'STRUCTURE/family',
             'TEXT:ES/name',
             'TEXT:ES/pendulum_text',
             'TEXT:JP/name',
         ])
             assert.equal(await box('Select ' + name).isEnabled(), false, name);
+        assert.equal(await box('Select STRUCTURE/family').count(), 0);
         await shot('UI-21-03-structure-absent-unmapped-invalid-disabled');
         assert.equal(
             await box('Select TEXT:EN/pendulum_text').isEnabled(),

@@ -1,3 +1,4 @@
+import { ExternalStructureAcceptancePanel } from './external-structure-acceptance-panel';
 import {
     externalTextSelectable,
     externalApplyReview,
@@ -388,66 +389,72 @@ export function ExternalSourcesPanel({
                                                 ([field, claim]) => (
                                                     <tr key={field}>
                                                         <td>
-                                                            <input
-                                                                type="checkbox"
-                                                                aria-label={`Select ${block}/${field}`}
-                                                                checked={selected.some(
-                                                                    (s) =>
-                                                                        selectionKey(
-                                                                            s,
-                                                                        ) ===
-                                                                        `${block}/${field}`,
-                                                                )}
-                                                                disabled={
-                                                                    busy ||
-                                                                    dirty ||
-                                                                    !enabled ||
-                                                                    stale ||
-                                                                    !candidateCompatible ||
-                                                                    !externalTextSelectable(
-                                                                        detail,
-                                                                        block,
-                                                                        field,
-                                                                        claim,
-                                                                    )
-                                                                }
-                                                                onChange={(
-                                                                    e,
-                                                                ) => {
-                                                                    const next =
-                                                                        {
+                                                            {block.startsWith(
+                                                                'TEXT:',
+                                                            ) && (
+                                                                <input
+                                                                    type="checkbox"
+                                                                    aria-label={`Select ${block}/${field}`}
+                                                                    checked={selected.some(
+                                                                        (s) =>
+                                                                            selectionKey(
+                                                                                s,
+                                                                            ) ===
+                                                                            `${block}/${field}`,
+                                                                    )}
+                                                                    disabled={
+                                                                        busy ||
+                                                                        dirty ||
+                                                                        !enabled ||
+                                                                        stale ||
+                                                                        !candidateCompatible ||
+                                                                        !externalTextSelectable(
+                                                                            detail,
                                                                             block,
                                                                             field,
-                                                                        } as ExternalTextSelection;
-                                                                    setReviewOpen(
-                                                                        false,
-                                                                    );
-                                                                    setAck([]);
-                                                                    setSelected(
-                                                                        (
-                                                                            current,
-                                                                        ) =>
-                                                                            e
-                                                                                .target
-                                                                                .checked
-                                                                                ? [
-                                                                                      ...current,
-                                                                                      next,
-                                                                                  ]
-                                                                                : current.filter(
-                                                                                      (
-                                                                                          s,
-                                                                                      ) =>
-                                                                                          selectionKey(
+                                                                            claim,
+                                                                        )
+                                                                    }
+                                                                    onChange={(
+                                                                        e,
+                                                                    ) => {
+                                                                        const next =
+                                                                            {
+                                                                                block,
+                                                                                field,
+                                                                            } as ExternalTextSelection;
+                                                                        setReviewOpen(
+                                                                            false,
+                                                                        );
+                                                                        setAck(
+                                                                            [],
+                                                                        );
+                                                                        setSelected(
+                                                                            (
+                                                                                current,
+                                                                            ) =>
+                                                                                e
+                                                                                    .target
+                                                                                    .checked
+                                                                                    ? [
+                                                                                          ...current,
+                                                                                          next,
+                                                                                      ]
+                                                                                    : current.filter(
+                                                                                          (
                                                                                               s,
-                                                                                          ) !==
-                                                                                          selectionKey(
-                                                                                              next,
-                                                                                          ),
-                                                                                  ),
-                                                                    );
-                                                                }}
-                                                            />
+                                                                                          ) =>
+                                                                                              selectionKey(
+                                                                                                  s,
+                                                                                              ) !==
+                                                                                              selectionKey(
+                                                                                                  next,
+                                                                                              ),
+                                                                                      ),
+                                                                        );
+                                                                    }}
+                                                                />
+                                                            )}
                                                         </td>
                                                         <td>{field}</td>
                                                         <td>{claim.state}</td>
@@ -646,6 +653,32 @@ export function ExternalSourcesPanel({
                         </>
                     )}
                 </article>
+            )}
+            {snapshot?.candidate && (
+                <ExternalStructureAcceptancePanel
+                    detail={detail}
+                    snapshot={snapshot}
+                    dirty={dirty}
+                    enabled={enabled}
+                    busy={busy}
+                    onBusy={(value) => {
+                        setBusy(value);
+                        onApplyingChange?.(value);
+                    }}
+                    onRefresh={onRefresh}
+                    onChanged={async () => {
+                        setDiff(null);
+                        setSelected([]);
+                        setReviewOpen(false);
+                        setAck([]);
+                        setForcedStale(true);
+                        const ticket = version.current;
+                        const value = await getExternalSourceHistory(
+                            detail.card_id,
+                        );
+                        if (ticket === version.current) setHistory(value);
+                    }}
+                />
             )}
             {diff && (
                 <div className="library-external-sources__diff">

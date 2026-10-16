@@ -175,8 +175,8 @@ async function run() {
             assert.equal(
                 await panel()
                     .getByLabel('Select STRUCTURE/' + field, { exact: true })
-                    .isDisabled(),
-                true,
+                    .count(),
+                0,
             );
         pass('UI-22-10-no-structure-actions');
         await page.screenshot({

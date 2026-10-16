@@ -27,12 +27,16 @@ import type {ExternalHistory,ExternalDetail,ExternalDiff} from './external-sourc
 export class LibraryHttpError extends Error {
     readonly status: number;
     readonly code: string;
+    readonly reasonCodes: string[];
+    readonly blockingBlocks: string[];
 
-    constructor({ status, code, message }: LibraryApiError) {
+    constructor({ status, code, message, reasonCodes = [], blockingBlocks = [] }: LibraryApiError & {reasonCodes?: string[]; blockingBlocks?: string[]}) {
         super(message);
         this.name = 'LibraryHttpError';
         this.status = status;
         this.code = code;
+        this.reasonCodes = reasonCodes;
+        this.blockingBlocks = blockingBlocks;
     }
 }
 
@@ -50,7 +54,8 @@ const parseError = async (response: Response): Promise<LibraryHttpError> => {
         && 'message' in payload
         && typeof payload.message === 'string'
     ) ? payload.message : `Request failed with HTTP ${response.status}.`;
-    return new LibraryHttpError({ status: response.status, code, message });
+    const values=(key:string)=>payload&&typeof payload==='object'&&key in payload&&Array.isArray((payload as Record<string,unknown>)[key])?((payload as Record<string,unknown>)[key] as unknown[]).filter((v):v is string=>typeof v==='string'):[];
+    return new LibraryHttpError({ status: response.status, code, message,reasonCodes:values('reason_codes'),blockingBlocks:values('blocking_blocks') });
 };
 
 const fetchJson = async <T>(
@@ -59,7 +64,7 @@ const fetchJson = async <T>(
     signal?: AbortSignal,
 ): Promise<T> => {
     if (maintenanceFence !== 'NONE' && !url.startsWith('/api/v1/workspace/')) {
-        const read = !init?.method || init.method === 'GET' || (init.method === 'POST' && (url === '/api/v1/library/batch/classification/preview' || /^\/api\/v1\/library\/external-sources\/candidates\/[^/]+\/diff$/.test(url)));
+        const read = !init?.method || init.method === 'GET' || (init.method === 'POST' && (url === '/api/v1/library/batch/classification/preview' || /^\/api\/v1\/library\/external-sources\/candidates\/[^/]+\/(?:diff|preview-structure)$/.test(url)));
         if (!read || maintenanceFence !== 'BACKUP') {
             throw new LibraryHttpError({status:409,code:'WORKSPACE_MAINTENANCE_ACTIVE',message:'Wait for the active Workspace maintenance operation to finish.'});
         }
@@ -226,3 +231,6 @@ export const initializeWorkspace = () => fetchJson<import('./workspace-managemen
 
 export const applyExternalSourceText=(candidateId:string,body:import('./external-acceptance-state').ExternalTextApplyRequest)=>
     fetchJson<import('./external-acceptance-state').ExternalTextApplyResult>(`/api/v1/library/external-sources/candidates/${encodeURIComponent(candidateId)}/apply-text`,{method:'POST',body:JSON.stringify(body)});
+
+export const previewExternalStructure=(candidateId:string,body:{target_card_id:string;target_expected_revision:string})=>fetchJson<import('./external-structure-acceptance-state').StructurePreview>(`/api/v1/library/external-sources/candidates/${encodeURIComponent(candidateId)}/preview-structure`,{method:'POST',body:JSON.stringify(body)});
+export const applyExternalStructure=(candidateId:string,body:{target_card_id:string;target_expected_revision:string;acknowledge_move_to_draft:boolean;note?:string})=>fetchJson<import('./external-structure-acceptance-state').StructureApplyResult>(`/api/v1/library/external-sources/candidates/${encodeURIComponent(candidateId)}/apply-structure`,{method:'POST',body:JSON.stringify(body)});

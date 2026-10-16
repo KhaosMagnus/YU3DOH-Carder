@@ -1,3 +1,4 @@
+import { ExternalStructureAcceptanceService } from '../external-sources/structure-acceptance';
 import { ExternalSourceAcceptanceService } from '../external-sources/acceptance';
 import { CarderWriteGrantRegistry } from '../carder/write-grants';
 import { ExternalSourceIngestionService } from '../external-sources/service';
@@ -23,6 +24,7 @@ import type { WorkspaceStatus } from './types';
 export type WorkspaceRuntime = {
     externalSourceIngestion: ExternalSourceIngestionService | null;
     externalSourceAcceptance: ExternalSourceAcceptanceService | null;
+    externalStructureAcceptance: ExternalStructureAcceptanceService | null;
     status: WorkspaceStatus;
     persistence: WorkspacePersistence | null;
     canonical: CanonicalDomainService | null;
@@ -66,6 +68,9 @@ export class WorkspaceRuntimeManager {
         const externalSourceAcceptance = persistence && canonical ? guard(new ExternalSourceAcceptanceService(
             persistence,canonical,this.maintenance,
             ()=>this.runtime.persistence===persistence && this.runtime.status.state==='READY' && !this.runtime.status.read_only),['applyText']) : null;
+        const externalStructureAcceptance = persistence && canonical ? guard(new ExternalStructureAcceptanceService(
+            persistence,canonical,this.maintenance,
+            ()=>this.runtime.persistence===persistence && this.runtime.status.state==='READY' && !this.runtime.status.read_only),['applyStructure']) : null;
         const carderWriteBack = canonical ? guard(new CarderWriteBackService(canonical, writeGrants), ['writeBack']) : null;
         const libraryBatchClassification = canonical && persistence
             ? guard(new LibraryBatchClassificationService(canonical, () => loadBatchRegistry(persistence)), ['apply']) : null;
@@ -82,7 +87,7 @@ export class WorkspaceRuntimeManager {
                 message => this.recoveryRequired(message), this.lifecycleHooks), ['setPreferred', 'rename', 'remove']) : null;
         const carderPrepare = persistence && assets && canonical
             ? guard(new CarderPrepareService(canonical, assets, grants, writeGrants)) : null;
-        return { status, persistence, canonical, externalSourceIngestion, externalSourceAcceptance, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare, variantLifecycle,
+        return { status, persistence, canonical, externalSourceIngestion, externalSourceAcceptance, externalStructureAcceptance, assets, managedAssets, library, libraryAssets, assetMutations, carderPrepare, variantLifecycle,
             carderAssetGrants: grants, carderWriteGrants:writeGrants, carderWriteBack, libraryBatchClassification };
     }
 
