@@ -404,4 +404,5 @@ import { runProvenanceChecks } from './test-library-provenance';
 import { runExternalSourceChecks } from './test-library-external-sources';
 import { runExternalAcceptanceChecks } from './test-library-external-acceptance';
 import { runStructureAcceptanceChecks } from './test-library-structure-acceptance';
-void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).then(runBatchClassificationChecks).then(runProvenanceChecks).then(runExternalSourceChecks).then(runExternalAcceptanceChecks).then(runStructureAcceptanceChecks).catch(error => { console.error(error); process.exitCode = 1; });
+import { runRcEditorChecks } from './test-rc-canonical-editor';
+void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).then(runBatchClassificationChecks).then(runProvenanceChecks).then(runExternalSourceChecks).then(runExternalAcceptanceChecks).then(runStructureAcceptanceChecks).then(runRcEditorChecks).catch(error => { console.error(error); process.exitCode = 1; });

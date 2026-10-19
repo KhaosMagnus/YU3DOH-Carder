@@ -52,24 +52,17 @@ import { SUPPORTED_DATABASE_SCHEMA_VERSION } from './persistence/constants';
 import { WORKSPACE_LIFECYCLE_STATES, type WorkspaceStatus } from './workspace/types';
 
 const nullableStringSchema = {
-    anyOf: [
-        { type: 'string' },
-        { type: 'null' },
-    ],
+    type: ['string', 'null'],
 } as const;
 
 const nullableIntegerSchema = {
-    anyOf: [
-        { type: 'integer' },
-        { type: 'null' },
-    ],
+    type: ['integer', 'null'],
 } as const;
 
 const printedStatSchema = {
     anyOf: [
-        { type: 'integer' },
+        { type: ['integer', 'null'] },
         { type: 'string', const: '?' },
-        { type: 'null' },
     ],
 } as const;
 
@@ -105,10 +98,8 @@ const monsterStructureResponseSchema = {
     properties: {
         kind: { type: 'string', const: 'MONSTER' },
         summon_kind: {
-            anyOf: [
-                { type: 'string', enum: [...SUMMON_KINDS] },
-                { type: 'null' },
-            ],
+            type: ['string', 'null'],
+            enum: [...SUMMON_KINDS, null],
         },
         attribute_code: nullableStringSchema,
         race_code: nullableStringSchema,
@@ -178,10 +169,8 @@ const monsterStructureInputSchema = {
     properties: {
         kind: { type: 'string', const: 'MONSTER' },
         summon_kind: {
-            anyOf: [
-                { type: 'string', enum: [...SUMMON_KINDS] },
-                { type: 'null' },
-            ],
+            type: ['string', 'null'],
+            enum: [...SUMMON_KINDS, null],
         },
         attribute_code: nullableStringSchema,
         race_code: nullableStringSchema,

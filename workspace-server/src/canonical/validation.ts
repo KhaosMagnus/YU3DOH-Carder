@@ -86,6 +86,30 @@ const assertLocalizationMutation = (localizations: LocalizedTextInput[]) => {
     }
 };
 
+/** Incomplete Drafts are allowed; known applicability must not contradict them. */
+export const assertDraftStructureCoherence = (structure: CanonicalStructureInput) => {
+    if (structure.kind !== 'MONSTER') return;
+    const { summonKind, rank, level, def, pendulumScale, abilities, linkMarkers } = structure;
+    if (summonKind !== null && summonKind !== 'XYZ' && rank !== null) {
+        fail(`rank is not applicable to ${summonKind}.`);
+    }
+    if (summonKind === 'XYZ' && level !== null) {
+        fail('level is not applicable to XYZ.');
+    }
+    if (summonKind !== null && summonKind !== 'LINK' && linkMarkers.length > 0) {
+        fail(`link_markers are not applicable to ${summonKind}.`);
+    }
+    if (summonKind === 'LINK') {
+        if (level !== null) fail('level is not applicable to LINK.');
+        if (def !== null) fail('def is not applicable to LINK.');
+        if (abilities.includes('PENDULUM')) fail('PENDULUM is not supported for LINK.');
+        if (pendulumScale !== null) fail('pendulum_scale is not applicable to LINK.');
+    }
+    if (!abilities.includes('PENDULUM') && pendulumScale !== null) {
+        fail('pendulum_scale requires PENDULUM.');
+    }
+};
+
 const assertRelationMutation = (relations: RelationInput[]) => {
     const keys = relations.map(relation => `${relation.relationTypeCode}\u0000${relation.targetCardId}`);
     if (hasDuplicates(keys)) {
@@ -109,6 +133,7 @@ export const assertMutationShape = (
 
     if (mutation.structure) {
         assertStructureInputShape(family, mutation.structure);
+        assertDraftStructureCoherence(mutation.structure);
     }
 
     if (mutation.localizations) {

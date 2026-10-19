@@ -968,13 +968,16 @@ test('RUN023 Link derived clearings and source provenance order/ref/note; stale 
         CanonicalStructureInput,
         { kind: 'MONSTER' }
     >;
-    current.rank = 6;
     current.abilities = ['PENDULUM', 'EFFECT'];
     current.pendulumScale = 0;
     const f = await setup(t, { current, summon: 'LINK' }),
         beforeHistory = JSON.stringify(
             f.service.externalSourceIngestion!.detail(f.rid, true),
         );
+    // Historical contradictory Draft: new STRUCTURE submissions now reject it.
+    f.service.persistence!.runRepositoryOperation(db => db).prepare(
+        'UPDATE canonical_monster_structure SET rank = 6 WHERE card_id = ?',
+    ).run(f.card.cardId);
     const p = await preview(f);
     assert.equal(p.decision, 'READY');
     assert.deepEqual(

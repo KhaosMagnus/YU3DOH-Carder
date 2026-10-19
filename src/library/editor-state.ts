@@ -157,6 +157,44 @@ export const emptyStructureForFamily = (family: LibraryCardDetail['family']): Re
     return null;
 };
 
+export const monsterApplicability = (structure: Record<string, unknown> | null) => {
+    const kind = structure?.summon_kind;
+    const link = kind === 'LINK';
+    return {
+        level: ['MAIN_DECK', 'RITUAL', 'FUSION', 'SYNCHRO'].includes(String(kind)),
+        rank: kind === 'XYZ',
+        link,
+        pendulum: !link && ((structure?.abilities as string[] | undefined) ?? []).includes('PENDULUM'),
+    };
+};
+
+/** Proposal only: populated clearings require confirmation before adoption. */
+export const proposeMonsterApplicability = (working: WorkingCardForm, patch: Record<string, unknown>) => {
+    const structure: Record<string, unknown> = { ...(working.structure ?? emptyStructureForFamily('MONSTER')), ...patch };
+    const clearings: Array<{ field: string; value: unknown }> = [];
+    const clear = (field: string, empty: unknown = null) => {
+        const value = structure[field];
+        if (value !== null && value !== undefined && (!Array.isArray(value) || value.length > 0)) {
+            clearings.push({ field, value });
+            structure[field] = empty;
+        }
+    };
+    const kind = structure.summon_kind;
+    if (kind !== null && kind !== undefined && kind !== 'XYZ') clear('rank');
+    if (kind === 'XYZ' || kind === 'LINK') clear('level');
+    if (kind !== null && kind !== undefined && kind !== 'LINK') clear('link_markers', []);
+    if (kind === 'LINK') {
+        clear('def');
+        const abilities = (structure.abilities as string[]) ?? [];
+        if (abilities.includes('PENDULUM')) {
+            clearings.push({ field: 'abilities.PENDULUM', value: 'PENDULUM' });
+            structure.abilities = abilities.filter(value => value !== 'PENDULUM');
+        }
+    }
+    if (!((structure.abilities as string[]) ?? []).includes('PENDULUM')) clear('pendulum_scale');
+    return { next: { ...working, structure }, clearings };
+};
+
 /**
  * Adopt a server detail snapshot as both the authoritative detail and the
  * complete working form. Prevents stale unedited fields from remaining dirty
