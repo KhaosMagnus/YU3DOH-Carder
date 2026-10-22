@@ -32,6 +32,7 @@ import {
     assertConfirmedBlocksExplicitlyTransitioned,
     assertConfirmedBlocksValid,
     assertMutationShape,
+    assertLevelRankDomain,
     assertNonBlankCode,
     assertSupportedFamily,
 } from './validation';
@@ -130,6 +131,9 @@ export class CanonicalDomainService {
 
             assertMutationShape(row.family, mutation);
             const current = requireSnapshot(loadCanonicalCardSnapshot(database, cardId), cardId);
+            if (mutation.password !== undefined && !mutation.structure) {
+                assertLevelRankDomain(current.structure);
+            }
             assertConfirmedBlocksExplicitlyTransitioned(current, mutation);
             const timestamp = now();
 
@@ -230,6 +234,11 @@ export class CanonicalDomainService {
             });
 
             const candidate = requireSnapshot(loadCanonicalCardSnapshot(database, cardId), cardId);
+            for (const confirmation of mutation.confirmations ?? []) {
+                if (confirmation.state === 'CONFIRMED') {
+                    assertBlockForConfirmation(candidate, confirmation.block);
+                }
+            }
             assertConfirmedBlocksValid(candidate);
 
             try {

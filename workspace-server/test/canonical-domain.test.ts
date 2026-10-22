@@ -759,3 +759,70 @@ test('Unicode Workspace path retains Canonical persistence behavior on Windows-c
     assert.equal(service.canonical.getCard(card.cardId)?.cardId, card.cardId);
     await service.close();
 });
+
+const domainStructure = (kind: 'MONSTER' | 'TOKEN', summon = 'MAIN_DECK', value: number | null = null): import('../src/canonical/types').CanonicalStructureInput => kind === 'TOKEN'
+    ? { kind, attributeCode: 'LIGHT', raceCode: 'DRAGON', level: value, atk: 0, def: 0 }
+    : { kind, summonKind: summon as 'MAIN_DECK', attributeCode: 'LIGHT', raceCode: 'DRAGON', level: summon === 'XYZ' ? null : value, rank: summon === 'XYZ' ? value : null, atk: 0, def: 0, pendulumScale: null, abilities: [], linkMarkers: [] };
+
+for (const kind of ['MAIN_DECK', 'RITUAL', 'FUSION', 'SYNCHRO', 'TOKEN', 'XYZ'])
+    test(`CR-0001.2 A-D ${kind} current domain, Draft null and exact zero; invalid writes are atomic`, async () => {
+        const { service, canonical: c } = await createReadyService('CR-0001-2-domain');
+        try {
+            const family = kind === 'TOKEN' ? 'TOKEN' : 'MONSTER';
+            const field = kind === 'XYZ' ? 'rank' : 'level';
+            const max = kind === 'XYZ' ? 13 : 12;
+            let card = c.createCard({ family });
+            for (const value of [null, 0, max]) {
+                card = c.mutateCard(card.cardId, card.revision, { structure: domainStructure(family, kind, value) });
+                assert.equal((c.getCard(card.cardId)!.structure as any)[field], value);
+            }
+            for (const value of [-6, -1, max + 1, 18, 1.5]) {
+                const before = c.getCard(card.cardId);
+                assert.throws(() => c.mutateCard(card.cardId, card.revision, { structure: domainStructure(family, kind, value) }),
+                    (error: unknown) => error instanceof CanonicalDomainError && error.code === 'DOMAIN_VALIDATION' && error.message.includes(`${field} must be an integer in 0..${max}`));
+                assert.deepEqual(c.getCard(card.cardId), before);
+            }
+            // Exercise the ordinary HTTP boundary as well as direct Canonical mutation.
+            const structure = kind === 'TOKEN'
+                ? { kind: 'TOKEN', attribute_code: 'LIGHT', race_code: 'DRAGON', level: 13, atk: 0, def: 0 }
+                : { kind: 'MONSTER', summon_kind: kind, attribute_code: 'LIGHT', race_code: 'DRAGON', level: kind === 'XYZ' ? null : 13, rank: kind === 'XYZ' ? 14 : null, atk: 0, def: 0, pendulum_scale: null, abilities: [], link_markers: [] };
+            const r = await service.app.inject({ method: 'PATCH', url: `/api/v1/library/cards/${card.cardId}`, payload: { expected_revision: card.revision, structure } });
+            assert.equal(r.statusCode, 422, r.body);
+            assert.equal(r.json().code, 'DOMAIN_VALIDATION');
+            assert.equal(c.getCard(card.cardId)!.revision, card.revision);
+        } finally { await service.close(); }
+    });
+
+for (const [summon, field, legacy, repaired] of [['MAIN_DECK', 'level', 18, 12], ['MAIN_DECK', 'level', -6, 0], ['XYZ', 'rank', 14, 13]] as const)
+    test(`CR-0001.2 E historical ${field} ${legacy}: reads/reload and non-STRUCTURE writes preserve exact confirmed state`, async () => {
+        const { service } = await createReadyService('CR-0001-2-legacy');
+        try {
+            let c = service.canonical!;
+            let card = c.createCard({ family: 'MONSTER', password: '12345678' });
+            card = c.mutateCard(card.cardId, card.revision, { structure: domainStructure('MONSTER', summon, 0), confirmations: [{ block: 'STRUCTURE', state: 'CONFIRMED', provenance: source }] });
+            service.persistence!.runRepositoryOperation(db => db.prepare(`UPDATE canonical_monster_structure SET ${field}=? WHERE card_id=?`).run(legacy, card.cardId));
+            const historical = c.getCard(card.cardId)!;
+            await service.runtime.reload();
+            c = service.canonical!;
+            assert.deepEqual(c.getCard(card.cardId), historical);
+            for (const mutation of [
+                { localizations: [{ language: 'EN' as const, name: 'Updated', cardText: 'Text', pendulumText: null }] },
+                { classification: { effectReviewed: true } }, { relations: [] },
+                { provenance: [{ targetKind: 'BLOCK' as const, targetKey: 'STRUCTURE', sourceKind: 'MANUAL' }] },
+            ]) {
+                card = c.mutateCard(card.cardId, c.getCard(card.cardId)!.revision, mutation);
+                assert.deepEqual(card.structure, historical.structure);
+                assert.deepEqual(card.confirmations, historical.confirmations);
+            }
+            for (const mutation of [
+                { password: '87654321' },
+                { structure: { ...domainStructure('MONSTER', summon, legacy), atk: 10 } },
+            ]) {
+                const before = c.getCard(card.cardId)!;
+                assert.throws(() => c.mutateCard(card.cardId, before.revision, { ...mutation, confirmations: [{ block: 'STRUCTURE', state: 'DRAFT' }] }), /0\.\.(12|13)/);
+                assert.deepEqual(c.getCard(card.cardId), before);
+            }
+            const fixed = c.mutateCard(card.cardId, card.revision, { structure: domainStructure('MONSTER', summon, repaired), password: '87654321', confirmations: [{ block: 'STRUCTURE', state: 'DRAFT' }] });
+            assert.equal((fixed.structure as any)[field], repaired);
+        } finally { await service.close(); }
+    });
