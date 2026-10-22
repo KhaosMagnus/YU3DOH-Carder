@@ -8,6 +8,8 @@ import {
     detectDirtySections,
     impactedConfirmedBlocks,
     isWorkingFormDirty,
+    levelRankErrors,
+    structureSaveErrors,
 } from '../src/library/editor-state';
 import {
     formatIngestError,
@@ -406,3 +408,32 @@ import { runExternalAcceptanceChecks } from './test-library-external-acceptance'
 import { runStructureAcceptanceChecks } from './test-library-structure-acceptance';
 import { runRcEditorChecks } from './test-rc-canonical-editor';
 void runAssetResolutionChecks().then(runVariantLifecycleChecks).then(runConfirmationChecks).then(runWorkspaceManagementChecks).then(runInitializationChecks).then(runCarderWriteChecks).then(runBatchClassificationChecks).then(runProvenanceChecks).then(runExternalSourceChecks).then(runExternalAcceptanceChecks).then(runStructureAcceptanceChecks).then(runRcEditorChecks).catch(error => { console.error(error); process.exitCode = 1; });
+
+// CR-0001.2 G: exact hydration, no clamp, null/zero, structure/password-only gate.
+for (const [kind, field, max, legacy] of [['MONSTER', 'level', 12, 18], ['MONSTER', 'rank', 13, 14], ['TOKEN', 'level', 12, -6]] as const) {
+    const detail: LibraryCardDetail = { ...sampleDetail, family: kind, structure: { kind, [field]: legacy } as LibraryCardDetail['structure'] };
+    const form = detailToWorkingForm(detail);
+    assert.equal(form.structure![field], legacy);
+    assert.equal(levelRankErrors(form.structure).length, 1);
+    assert.equal(structureSaveErrors(detail, form).length, 0);
+    form.localizations = [{ language: 'EN', name: 'Text edit', card_text: null, pendulum_text: null }];
+    assert.equal(structureSaveErrors(detail, form).length, 0);
+    assert.equal('structure' in buildPatchPayload(detail, form), false);
+    form.password = 'changed';
+    assert.equal(structureSaveErrors(detail, form).length, 1);
+    form.password = detail.password;
+    form.structure = { ...form.structure, atk: 5 };
+    assert.equal(structureSaveErrors(detail, form).length, 1);
+    assert.equal(form.structure[field], legacy); // Never normalized by validation.
+    for (const value of [null, 0, max]) {
+        form.structure[field] = value;
+        assert.equal(structureSaveErrors(detail, form).length, 0);
+        assert.equal((buildPatchPayload(detail, form).structure as Record<string, unknown>)[field], value);
+    }
+    for (const value of [-1, max + 1, 1.5, NaN, 'bad']) {
+        form.structure[field] = value;
+        assert.equal(structureSaveErrors(detail, form).length, 1);
+    }
+    assert.equal(adoptServerSnapshot(detail).working.structure![field], legacy);
+}
+console.log('CR-0001.2 G Level/Rank client validation and historical gating: PASS');
