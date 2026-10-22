@@ -53,6 +53,8 @@ const markers = ['1', '2', '3', '4', '6', '7', '8', '9'];
 const monsterFields = SOURCE_STRUCTURE_FIELDS.slice(0, 10);
 const numeric = (v: unknown): v is number =>
     typeof v === 'number' && Number.isSafeInteger(v) && v >= 0;
+const levelValue = (v: unknown) => numeric(v) && v <= 12;
+const rankValue = (v: unknown) => numeric(v) && v <= 13;
 const stat = (v: unknown) => numeric(v) || v === '?';
 const code = (v: unknown): v is string =>
     typeof v === 'string' && v.trim().length > 0;
@@ -108,8 +110,8 @@ export function coherentStructure(s: CanonicalStructureInput): boolean {
     )
         return false;
     return s.summonKind === 'XYZ'
-        ? numeric(s.rank) && s.level === null
-        : numeric(s.level) && s.rank === null;
+        ? rankValue(s.rank) && s.level === null
+        : levelValue(s.level) && s.rank === null;
 }
 export function buildStructureResult(
     fields: Record<string, Claim>,
@@ -178,10 +180,10 @@ export function buildStructureResult(
                 reasons.add('STRUCTURE_VALUE_INVALID');
         } else {
             if (summon === 'XYZ') {
-                rank = present('rank', numeric);
+                rank = present('rank', rankValue);
                 absent('level', 'summon_kind');
             } else {
-                level = present('level', numeric);
+                level = present('level', levelValue);
                 absent('rank', 'summon_kind');
             }
             def = present('def', stat);

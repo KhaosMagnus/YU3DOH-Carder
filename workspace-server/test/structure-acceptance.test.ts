@@ -1300,3 +1300,30 @@ test('RUN023 applicability/build reasons use exact frozen order independently of
     ]);
     await error(f, 'EXTERNAL_STRUCTURE_NOT_ELIGIBLE');
 });
+
+for (const [summon, field, values] of [['MAIN_DECK', 'level', [0, 12, -1, 13, 18]], ['XYZ', 'rank', [0, 13, -1, 14]]] as const)
+    for (const value of values)
+        test(`CR-0001.2 I External ${field} ${value} bounds at acceptance; source evidence immutable`, async t => {
+            const fields = sourceFields('MONSTER', summon);
+            fields[field] = present(value);
+            const f = await setup(t, { fields });
+            const history = JSON.stringify(f.service.externalSourceIngestion!.detail(f.rid, true));
+            const p = await preview(f);
+            const valid = value >= 0 && value <= (field === 'level' ? 12 : 13);
+            if (valid) {
+                assert.equal(p.decision, 'READY');
+                const r = await f.send(true);
+                assert.equal(r.statusCode, 200, r.body);
+                assert.equal((f.service.canonical!.getCard(f.card.cardId)!.structure as any)[field], value);
+            } else {
+                assert.equal(p.decision, 'INELIGIBLE');
+                assert(p.reason_codes.includes('STRUCTURE_VALUE_INVALID'));
+                const before = f.snapshot();
+                const r = await f.send(true);
+                assert.equal(r.statusCode, 422, r.body);
+                assert.deepEqual(f.snapshot(), before);
+            }
+            assert.equal(JSON.stringify(f.service.externalSourceIngestion!.detail(f.rid, true)), history);
+            assert.equal(f.stored.normalizer_version, 2);
+            assert.equal(f.stored.candidate_schema_version, 1);
+        });
