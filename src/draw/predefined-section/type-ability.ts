@@ -26,6 +26,17 @@ const sizeMap: Record<TypeAbilityCoordinateType, number> = {
     highPendulumNormal: 1,
     highPendulumSmaller: 0,
 };
+
+/** NORMAL remains a write-back semantic; only Spell/Trap icon drawing is suppressed. */
+export const shouldDrawTypeAbilityIcon = ({ frame, isMonster, size, subFamily }: {
+    frame: string,
+    isMonster: boolean,
+    size: TypeAbilityCoordinateType,
+    subFamily: string,
+}) => subFamily !== NO_ICON
+    && size === 'large'
+    && !(!isMonster && (frame === 'spell' || frame === 'trap') && subFamily === 'NORMAL');
+
 export const drawTypeAbilityText = async ({
     ctx,
     format,
@@ -171,7 +182,7 @@ export const drawTypeAbility = async ({
     if (!clearCanvas(ctx)) return;
 
     const willDrawTypeAbility = typeAbility.length > 0;
-    const willDrawIcon = subFamily !== NO_ICON && size === 'large';
+    const willDrawIcon = shouldDrawTypeAbilityIcon({ frame, isMonster, size, subFamily });
     const typeAbilityWithIcon = typeAbility
         + (willDrawIcon ? ST_ICON_SYMBOL : '');
     const normalizedTypeAbilityText = willDrawTypeAbility
