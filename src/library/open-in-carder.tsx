@@ -111,7 +111,9 @@ export const OpenInCarderPanel = ({ detail, variants, dirty, preferredVariantId 
             <h3>Open in Carder</h3>
             <p className="library-muted">
                 Prepares a read-only Workspace snapshot and opens Carder working state.
-                Working edits are not saved back to Workspace in RUN 009.
+                Supported Carder edits can be selectively saved back to Workspace;
+                changes to confirmed blocks require explicit acknowledgement before
+                those blocks move to Draft.
             </p>
             {preferredVariantId && selectedVariant?.variant_id === preferredVariantId && <Alert type="info" message={`Preferred Variant selected: ${selectedVariant.display_label}`} />}
             {preferredVariantId && selectedVariant?.variant_id === preferredVariantId && (!standardReady || !overframeReady) && <Alert type="warning" message="Preferred Variant has unavailable composition. It remains selected; choose another variant manually if needed." />}
