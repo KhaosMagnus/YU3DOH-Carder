@@ -8,6 +8,7 @@ import type {
 import type { WorkingCardForm } from './editor-state';
 import {
     emptyStructureForFamily,
+    levelRankErrors,
     monsterApplicability,
     proposeMonsterApplicability,
 } from './editor-state';
@@ -140,6 +141,11 @@ export const EditorForm = ({ family, working, metadata, onChange }: Props) => {
 
             <section>
                 <h3>Structure</h3>
+                {levelRankErrors(structure).map(error => (
+                    <p role="alert" key={error.field} id={`library-${error.field}-error`}>
+                        {error.message}
+                    </p>
+                ))}
                 {(family === 'MONSTER' || family === 'TOKEN') && (
                     <div className="library-field-grid">
                         {family === 'MONSTER' && (
@@ -215,30 +221,38 @@ export const EditorForm = ({ family, working, metadata, onChange }: Props) => {
                         {(family === 'TOKEN' || applicability.level) && (
                             <label>
                                 Level
-                                <InputNumber
+                                <Input
+                                    type="number"
+                                    min={0}
+                                    max={12}
+                                    step={1}
+                                    aria-label="Level"
+                                    aria-invalid={levelRankErrors(structure).some(error => error.field === 'level')}
+                                    aria-describedby="library-level-error"
                                     style={{ width: '100%' }}
-                                    value={
-                                        (structure?.level as number | null) ??
-                                        undefined
-                                    }
-                                    onChange={(value) =>
-                                        setStructure({ level: value ?? null })
-                                    }
+                                    value={(structure?.level as number | null) ?? ''}
+                                    onChange={event => setStructure({
+                                        level: event.target.value === '' ? null : Number(event.target.value),
+                                    })}
                                 />
                             </label>
                         )}
                         {family === 'MONSTER' && applicability.rank && (
                             <label>
                                 Rank
-                                <InputNumber
+                                <Input
+                                    type="number"
+                                    min={0}
+                                    max={13}
+                                    step={1}
+                                    aria-label="Rank"
+                                    aria-invalid={levelRankErrors(structure).some(error => error.field === 'rank')}
+                                    aria-describedby="library-rank-error"
                                     style={{ width: '100%' }}
-                                    value={
-                                        (structure?.rank as number | null) ??
-                                        undefined
-                                    }
-                                    onChange={(value) =>
-                                        setStructure({ rank: value ?? null })
-                                    }
+                                    value={(structure?.rank as number | null) ?? ''}
+                                    onChange={event => setStructure({
+                                        rank: event.target.value === '' ? null : Number(event.target.value),
+                                    })}
                                 />
                             </label>
                         )}

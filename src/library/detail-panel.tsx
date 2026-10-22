@@ -25,6 +25,7 @@ import {
     detailToWorkingForm,
     impactedConfirmedBlocks,
     isWorkingFormDirty,
+    structureSaveErrors,
     type WorkingCardForm,
 } from './editor-state';
 import {
@@ -245,6 +246,11 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
         }>,
     ) => {
         if (!mutationEnabled || !authoritative || !working) return;
+        const errors = structureSaveErrors(authoritative, working);
+        if (errors.length) {
+            setSaveError(errors.map(error => error.message).join(' '));
+            return;
+        }
         setSaving(true);
         setSaveError(null);
         setConflict(false);
@@ -271,6 +277,11 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
 
     const onSave = () => {
         if (!mutationEnabled || !authoritative || !working) return;
+        const errors = structureSaveErrors(authoritative, working);
+        if (errors.length) {
+            setSaveError(errors.map(error => error.message).join(' '));
+            return;
+        }
         const impacted = impactedConfirmedBlocks(authoritative, working);
         if (impacted.length > 0) {
             setPendingConfirmations(impacted);

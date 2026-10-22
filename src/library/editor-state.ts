@@ -217,3 +217,24 @@ export const conflictReloadWouldDiscardEdits = (
     authoritative: LibraryCardDetail,
     working: WorkingCardForm,
 ): boolean => isWorkingFormDirty(authoritative, working);
+
+/** Local input remains exact; validation never clamps or changes hydrated values. */
+export const levelRankErrors = (structure: WorkingCardForm['structure']) => {
+    const errors: Array<{ field: 'level' | 'rank'; message: string }> = [];
+    if (structure?.kind !== 'MONSTER' && structure?.kind !== 'TOKEN') return errors;
+    const check = (field: 'level' | 'rank', max: number) => {
+        const value = structure[field];
+        if (value !== null && value !== undefined &&
+            (typeof value !== 'number' || !Number.isInteger(value) || value < 0 || value > max)) {
+            errors.push({ field, message: `${field === 'level' ? 'Level' : 'Rank'} must be an integer in 0–${max} or blank (null). Out-of-domain values must be repaired before saving Structure or Password.` });
+        }
+    };
+    check('level', 12);
+    if (structure.kind === 'MONSTER') check('rank', 13);
+    return errors;
+};
+
+export const structureSaveErrors = (authoritative: LibraryCardDetail, working: WorkingCardForm) => {
+    const dirty = detectDirtySections(authoritative, working);
+    return dirty.structure || dirty.password ? levelRankErrors(working.structure) : [];
+};
