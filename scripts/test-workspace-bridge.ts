@@ -32,6 +32,8 @@ import { LibraryHttpError } from '../src/library/api';
 import type { LibraryVariantDetail } from '../src/library/model';
 import { isWorkingFormDirty, detailToWorkingForm } from '../src/library/editor-state';
 import type { InternalCard } from '../src/model';
+import { shouldDrawTypeAbilityIcon } from '../src/draw/predefined-section/type-ability';
+import { classifyWrite } from '../src/service/workspace-bridge/write-projection';
 
 const baseDto = (overrides: Partial<PrepareWorkingCardDto> = {}): PrepareWorkingCardDto => ({
     identity: {
@@ -991,6 +993,62 @@ checkSync('A-20 typeAbility only race/summon/ability registry labels', () => {
         assert.equal(part.includes('CLASSIFIER'), false);
         assert.equal(part.includes('TAG_'), false);
     }
+});
+
+// CR-0001.1: preserve subtype semantics through preparation and suppress only the icon.
+for (const [family, subtype, semantic, icon] of [
+    ['SPELL', 'NORMAL', 'NORMAL', false],
+    ['TRAP', 'NORMAL', 'NORMAL', false],
+    ['SPELL', null, 'NO ICON', false],
+    ['TRAP', null, 'NO ICON', false],
+    ['SPELL', 'CONTINUOUS', 'CONTINUOUS', true],
+    ['SPELL', 'EQUIP', 'EQUIP', true],
+    ['SPELL', 'FIELD', 'FIELD', true],
+    ['SPELL', 'QUICK_PLAY', 'QUICK-PLAY', true],
+    ['SPELL', 'RITUAL', 'RITUAL', true],
+    ['TRAP', 'CONTINUOUS', 'CONTINUOUS', true],
+    ['TRAP', 'COUNTER', 'COUNTER', true],
+] as const) {
+    checkSync(`CR-0001.1 ${family} ${subtype} icon=${icon} with unchanged prepare/write semantics`, () => {
+        const dto = baseDto();
+        dto.identity.write_grant = 'deterministic-test-grant';
+        dto.structure = {
+            ...dto.structure, family, subtype_code: subtype,
+            summon_kind: null, attribute_code: null, race_code: null,
+            level: null, rank: null, atk: null, def: null, pendulum_scale: null,
+            abilities: [], link_markers: [], link_rating: null,
+        };
+        const source = JSON.stringify(dto);
+        const { card, session } = prepareWorkingCard(dto);
+        assert.equal(card.frame, family.toLowerCase());
+        assert.equal(card.attribute, family);
+        assert.deepEqual(card.typeAbility, [family === 'SPELL' ? 'Spell Card' : 'Trap Card']);
+        assert.equal(card.subFamily, semantic);
+        assert.equal(shouldDrawTypeAbilityIcon({ frame: card.frame, isMonster: false, size: 'large', subFamily: card.subFamily }), icon);
+        assert.equal(JSON.stringify(dto), source);
+        const noop = classifyWrite(session, card);
+        assert.deepEqual(noop.unsupported, []);
+        assert.deepEqual(noop.changedBlocks, []);
+        card.name = 'Supported text-only edit';
+        const textOnly = classifyWrite(session, card);
+        assert.deepEqual(textOnly.unsupported, []);
+        assert.deepEqual(textOnly.changedBlocks, ['TEXT:EN']);
+        assert.deepEqual(textOnly.required, ['TEXT:EN']);
+        assert.equal(card.subFamily, semantic);
+    });
+}
+for (const [family, subtype] of [
+    ['SPELL', 'COUNTER'], ['TRAP', 'QUICK_PLAY'], ['TRAP', 'EQUIP'],
+    ['TRAP', 'FIELD'], ['TRAP', 'RITUAL'],
+] as const) checkSync(`CR-0001.1 invalid ${family} ${subtype} still rejected`, () => {
+    assert.throws(() => mapSpellTrapSubFamily(family, subtype),
+        (error: unknown) => error instanceof WorkspaceBridgeError && error.code === 'CARDER_MAPPING_UNSUPPORTED');
+});
+checkSync('CR-0001.1 unrelated Monster/Skill and non-large icon decisions unchanged', () => {
+    assert.equal(shouldDrawTypeAbilityIcon({ frame: 'normal', isMonster: true, size: 'large', subFamily: 'NORMAL' }), true);
+    assert.equal(shouldDrawTypeAbilityIcon({ frame: 'speed-skill', isMonster: false, size: 'large', subFamily: 'NORMAL' }), true);
+    for (const size of ['normal', 'smaller', 'highPendulumNormal', 'highPendulumSmaller'] as const)
+        assert.equal(shouldDrawTypeAbilityIcon({ frame: 'spell', isMonster: false, size, subFamily: 'FIELD' }), false);
 });
 
 runAsyncAdded()

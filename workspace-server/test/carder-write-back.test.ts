@@ -350,13 +350,14 @@ import {
 const fixture = async (
     kind = 'MONSTER',
     extras: Parameters<typeof confirmMonsterStandard>[3] = {},
+    subtype?: string | null,
 ) => {
     const ctx = await readyService('write-back');
     let card;
     if (kind === 'MONSTER')
         card = confirmMonsterStandard(ctx.canonical, '17000001', 'EN', extras);
     else if (kind === 'SPELL')
-        card = confirmSpell(ctx.canonical, '17000001', 'EN');
+        card = confirmSpell(ctx.canonical, '17000001', 'EN', subtype === undefined ? 'QUICK_PLAY' : subtype);
     else {
         registerBasics(ctx.canonical);
         const initial = ctx.canonical.createCard({
@@ -374,7 +375,7 @@ const fixture = async (
                           atk: 1000,
                           def: 1000,
                       }
-                    : { kind: 'TRAP', subtypeCode: 'NORMAL' },
+                    : { kind: 'TRAP', subtypeCode: subtype === undefined ? 'NORMAL' : subtype },
             localizations: [
                 {
                     language: 'EN',
@@ -416,7 +417,7 @@ const fixture = async (
             url: '/api/v1/carder/write-back',
             payload: r,
         });
-    return { ...ctx, card, request, send };
+    return { ...ctx, card, prepared, request, send };
 };
 const snapshot = (ctx: Awaited<ReturnType<typeof fixture>>) =>
     ctx.service.persistence!.runRepositoryOperation((db) =>
@@ -1125,4 +1126,108 @@ test('RUN017 in-flight ordinary mutation fences write-back', async () => {
     } finally {
         await ctx.service.close();
     }
+});
+
+// CR-0001.1: renderer suppression must not alter the real prepare/write-back contract.
+for (const [family, subtype, semantic] of [
+    ['SPELL', 'NORMAL', 'NORMAL'],
+    ['TRAP', 'NORMAL', 'NORMAL'],
+    ['SPELL', 'CONTINUOUS', 'CONTINUOUS'],
+    ['SPELL', 'EQUIP', 'EQUIP'],
+    ['SPELL', 'FIELD', 'FIELD'],
+    ['SPELL', 'QUICK_PLAY', 'QUICK-PLAY'],
+    ['SPELL', 'RITUAL', 'RITUAL'],
+    ['TRAP', 'CONTINUOUS', 'CONTINUOUS'],
+    ['TRAP', 'COUNTER', 'COUNTER'],
+] as const) test('CR-0001.1 ' + family + ' ' + subtype + ' prepare, no-op and TEXT-only retain subtype/STRUCTURE', async () => {
+    const ctx = await fixture(family, {}, subtype);
+    try {
+        assert.equal(ctx.prepared.structure.subtype_code, subtype);
+        assert.equal(ctx.request.projection.attribute, family);
+        assert.equal(ctx.request.projection.sub_family, semantic);
+        const before = snapshot(ctx);
+        const response = await ctx.send();
+        assert.equal(response.statusCode, 200, response.body);
+        const noop = response.json();
+        assert.equal(noop.changed, false);
+        assert.deepEqual(noop.changed_blocks, []);
+        assert.deepEqual(noop.moved_to_draft, []);
+        assert.equal(noop.revision, ctx.card.revision);
+        assert.deepEqual(snapshot(ctx), before);
+
+        ctx.request.write_grant = noop.write_grant;
+        ctx.request.expected_revision = noop.revision;
+        ctx.request.projection.name = 'Supported localized name edit';
+        ctx.request.acknowledge_move_to_draft = ['TEXT:EN'];
+        const saved = await ctx.send();
+        assert.equal(saved.statusCode, 200, saved.body);
+        const result = saved.json();
+        assert.deepEqual(result.changed_blocks, ['TEXT:EN']);
+        assert.deepEqual(result.moved_to_draft, ['TEXT:EN']);
+        assert.equal(BigInt(result.revision), BigInt(ctx.card.revision) + 1n);
+        const after = ctx.canonical.getCard(ctx.card.cardId)!;
+        assert.deepEqual(after.structure, ctx.card.structure);
+        assert.equal(after.confirmations.find(c => c.block === 'STRUCTURE')!.state, 'CONFIRMED');
+        assert.equal(after.confirmations.find(c => c.block === 'TEXT:EN')!.state, 'DRAFT');
+        assert.equal(after.localizations.find(l => l.language === 'EN')!.name, 'Supported localized name edit');
+        const events = after.provenance.filter(p => p.sourceKind === 'CARDER_WRITE_BACK');
+        assert.deepEqual(events.map(p => p.targetKey), ['TEXT:EN']);
+        const afterTables = snapshot(ctx);
+        for (const table of ['canonical_spell_structure', 'canonical_trap_structure'])
+            assert.deepEqual(afterTables[table], before[table]);
+    } finally { await ctx.service.close(); }
+});
+
+for (const [family, target] of [['SPELL', 'FIELD'], ['TRAP', 'COUNTER']] as const)
+    test('CR-0001.1 ' + family + ' NORMAL -> ' + target + ' -> NO ICON -> null; null no-op/TEXT remain distinct', async () => {
+        const ctx = await fixture(family, {}, 'NORMAL');
+        try {
+            ctx.request.projection.sub_family = target;
+            ctx.request.acknowledge_move_to_draft = ['STRUCTURE'];
+            const changed = await ctx.send();
+            assert.equal(changed.statusCode, 200, changed.body);
+            assert.deepEqual(changed.json().changed_blocks, ['STRUCTURE']);
+            assert.deepEqual(changed.json().moved_to_draft, ['STRUCTURE']);
+            assert.equal((ctx.canonical.getCard(ctx.card.cardId)!.structure as { subtypeCode: string | null }).subtypeCode, target);
+
+            ctx.request.write_grant = changed.json().write_grant;
+            ctx.request.expected_revision = changed.json().revision;
+            ctx.request.projection.sub_family = 'NO ICON';
+            ctx.request.acknowledge_move_to_draft = [];
+            const cleared = await ctx.send();
+            assert.equal(cleared.statusCode, 200, cleared.body);
+            assert.deepEqual(cleared.json().changed_blocks, ['STRUCTURE']);
+            assert.deepEqual(cleared.json().moved_to_draft, []);
+            assert.equal((ctx.canonical.getCard(ctx.card.cardId)!.structure as { subtypeCode: string | null }).subtypeCode, null);
+
+            ctx.request.write_grant = cleared.json().write_grant;
+            ctx.request.expected_revision = cleared.json().revision;
+            const beforeNoop = snapshot(ctx);
+            const noop = await ctx.send();
+            assert.equal(noop.statusCode, 200, noop.body);
+            assert.equal(noop.json().changed, false);
+            assert.equal(noop.json().revision, cleared.json().revision);
+            assert.deepEqual(snapshot(ctx), beforeNoop);
+
+            ctx.request.write_grant = noop.json().write_grant;
+            ctx.request.projection.name = 'Null subtype text only';
+            ctx.request.acknowledge_move_to_draft = ['TEXT:EN'];
+            const textOnly = await ctx.send();
+            assert.equal(textOnly.statusCode, 200, textOnly.body);
+            assert.deepEqual(textOnly.json().changed_blocks, ['TEXT:EN']);
+            assert.deepEqual(textOnly.json().moved_to_draft, ['TEXT:EN']);
+            assert.equal((ctx.canonical.getCard(ctx.card.cardId)!.structure as { subtypeCode: string | null }).subtypeCode, null);
+        } finally { await ctx.service.close(); }
+    });
+
+for (const [family, invalid] of [
+    ['SPELL', 'COUNTER'], ['TRAP', 'QUICK-PLAY'], ['TRAP', 'EQUIP'],
+    ['TRAP', 'FIELD'], ['TRAP', 'RITUAL'],
+] as const) test('CR-0001.1 ' + family + ' rejects invalid subtype ' + invalid + ' without writes', async () => {
+    const ctx = await fixture(family, {}, 'NORMAL');
+    try {
+        ctx.request.projection.sub_family = invalid;
+        ctx.request.acknowledge_move_to_draft = ['STRUCTURE'];
+        await expectError(ctx, 'UNSUPPORTED_WRITE_FIELD');
+    } finally { await ctx.service.close(); }
 });
