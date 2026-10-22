@@ -1,1 +1,0 @@
-export type KeyWithRecommend<T> = T | (string & Record<never, never>);

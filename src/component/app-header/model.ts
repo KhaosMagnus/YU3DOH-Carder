@@ -1,1 +1,0 @@
-export const FAQ_BUTTON_ID = 'faq-button';

@@ -1,1 +1,0 @@
-export const CROPPER_WIDTH = 375;
