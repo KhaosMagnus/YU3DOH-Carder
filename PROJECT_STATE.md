@@ -11,63 +11,62 @@ YU3DOH
 
 Repository: `KhaosMagnus/YU3DOH-Carder`
 
-## Code truth — pre-integration checkpoint
+## Code truth — no integration performed
 
 - `main` = `54cc3aad246c89a29f2a18be63c539db68cae041`
 - `feature/workspace-v0.1` = `4c9b0228bb47ac074c49a977b48dbf0844c33a94`
-- database schema = `8`
-- workspace format = `1`
-- migrations = `001–008`
+- Candidate A = `61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c`
+- Candidate B = `59fb2924b2240f005fb3e9e6d5afbd8aaca39596`
+- database schema = 8
+- Workspace format = 1
+- migrations = 001–008
 
 ## Control truth
 
-- control branch = `meta/project-control`
-- protocol version = `1.0`
-- Forward Control = **ACTIVE**
-- concurrent publication policy = **ACTIVE**
-- active chat registry = `chats/CHAT_REGISTRY.md`
-- current P5 routing = `routing/ROUTE-P5-QA-GATE-001.md`
-
-## Pilot 001
-
-**COMPLETE — PROTOCOL PILOT PASS**
+- Forward Control = ACTIVE
+- concurrent publication policy = ACTIVE
+- current active ledger = `requests/CR-0001-v3.md`
 
 ## P5 — Forward Control operationalization
 
-**Status: QA GATE — TWO CANDIDATES READY**
+**CLOSED / PASS**
 
-### Candidate A — CR-0001.1 + CR-0001.5
+Closure artifact:
+`milestones/P5_FORWARD_CONTROL_CLOSURE.md`
 
-Development: complete / READY FOR EXTERNAL QA
+P5 closure means the protocol completed independent Scope/Development/QA cycles with exact SHA traceability. It does not mean every product candidate passed QA.
 
-- branch: `fix/workspace-rc-normal-subtype-icon`
+### Candidate A
+
 - exact SHA: `61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c`
-- implementation report CONTROL SHA: `f026cd085548aba83025b1b93874e3932188e118`
-- implementation report: `implementations/IMPLEMENTATION-CR-0001.1-CR-0001.5-001.md`
+- official QA: PARTIAL
+- implementation defect identified: NO
+- missing gate: bounded independent visual/operational evidence
+- route: DEPLOY-001 → DQA-001
+- integration: NOT AUTHORIZED
 
-### Candidate B — CR-0001.2
+### Candidate B
 
-Development: complete / READY FOR EXTERNAL QA
-
-- branch: `feature/workspace-cr-0001-2-level-rank-domain`
 - exact SHA: `59fb2924b2240f005fb3e9e6d5afbd8aaca39596`
-- implementation report CONTROL SHA: `2331376eae8de28244b39f54544ba37d2eb61d94`
-- implementation report: `implementations/CR-0001.2_LEVEL_RANK_IMPLEMENTATION_REPORT.md`
+- official QA: PASS
+- Deployment Validation: NOT REQUIRED
+- state: VALIDATED / HOLD
+- integration: NOT AUTHORIZED BY P5
 
-## Current gate
+## P6 — Historical Documentation Migration
 
-Both candidates → DQA-001 for independent External QA.
+**OPEN — INVENTORY FIRST**
 
-P5 closes after both QA dispositions are published with exact candidate SHA traceability.
+Plan:
+`migration/P6_HISTORICAL_MIGRATION_PLAN.md`
 
-Integration is not required for P5 closure.
+P6 may progress independently of Candidate A's bounded evidence loop.
 
-## Release state
+## Active product-validation route
 
-- baseline complete readiness remains blocked until Candidate A receives QA disposition;
-- RUN 024: NOT AUTHORIZED;
-- main integration: NOT AUTHORIZED;
-- no candidate integration has occurred.
+`routing/ROUTE-P5-CANDIDATE-A-DEPLOY-001.md`
+
+DEPLOY-001 executes only A-OP-01 through A-OP-06, then returns evidence to DQA-001 for a superseding final disposition.
 
 ## Held items
 
@@ -77,11 +76,9 @@ Integration is not required for P5 closure.
 - CR-0001.7: WITHDRAWN
 - CR-0001.8: historical/currently satisfactory
 
-## Next gates
+## Non-authorizations
 
-1. DQA-001 validates Candidate A independently;
-2. DQA-001 validates Candidate B independently;
-3. Project Control receives both QA artifacts;
-4. close P5 if both protocol cycles completed correctly;
-5. decide integration ordering separately from P5;
-6. open P6 historical-document migration.
+- RUN 024: NOT AUTHORIZED
+- main integration: NOT AUTHORIZED
+- feature/workspace-v0.1 integration: NOT AUTHORIZED at this gate
+- Candidate A + Candidate B combination: NOT AUTHORIZED

@@ -1,19 +1,30 @@
 # CHAT INSTANCE — DEPLOY-001
 
 role: DEPLOYMENT_VALIDATION
-status: AVAILABLE
+status: ACTIVE — BOUNDED DELTA
 protocol_version: 1.0
 
-birth_reason: first Deployment Validation instance formally registered under Project Control v1.0
-continuation_of: HISTORICAL-ID-PENDING
-successor: null
+assignment:
+  candidate_branch: fix/workspace-rc-normal-subtype-icon
+  candidate_sha: 61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
+  qa_request: validations/P5-CANDIDATE-A-001/EVIDENCE_REQUEST.md
+  cases:
+    - A-OP-01
+    - A-OP-02
+    - A-OP-03
+    - A-OP-04
+    - A-OP-05
+    - A-OP-06
 
-pilot_output:
-  path: validations/VAL-RC-LOCAL-001/VALIDATION_EVIDENCE.md
-  control_sha: 62a6b223e80c4c9a2a629e78c5d93a7377b04fa1
+scope:
+  independent visual/operational delta evidence only.
 
-last_result:
-  EVIDENCE READY
+expected_return:
+  EVIDENCE READY or VALIDATION BLOCKED, followed by routing back to DQA-001.
 
-next_expected_work:
-  independent operational evidence when DESIGN_QA requests it for a future candidate.
+prohibitions:
+  - no code modification
+  - no unrelated retest
+  - no Candidate B combination
+  - no integration
+  - no RUN 024
