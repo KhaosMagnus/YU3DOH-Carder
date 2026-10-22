@@ -25,53 +25,73 @@ Repository: `KhaosMagnus/YU3DOH-Carder`
 
 - control branch = `meta/project-control`
 - protocol version = `1.0`
-- Pilot 001 source evidence = `validations/VAL-RC-LOCAL-001/VALIDATION_EVIDENCE.md`
-- Pilot 001 QA review = `validations/VAL-RC-LOCAL-001/DESIGN_QA_REVIEW.md`
-- canonical finding ledger = `requests/CR-0001.md`
-- routing decision = `routing/ROUTE-VAL-RC-LOCAL-001.md`
+- canonical active ledger = `requests/CR-0001-v2.md`
+- prior frozen ledger = `requests/CR-0001.md`
+- parallel routing = `routing/ROUTE-CR-0001-PARALLEL-001.md`
 
 ## Pilot 001
 
-**Status: COMPLETE — PROTOCOL PILOT PASS**
+**COMPLETE — PROTOCOL PILOT PASS**
 
-The first incremental transfer completed successfully:
-
-`DEPLOYMENT_VALIDATION → CONTROL artifact → DESIGN_QA → CONTROL artifact → PROJECT_CONTROL`
-
-The owner did not need to copy the full validation report between roles. Both roles consumed exact CONTROL SHA references and preserved exact CODE SHA identity.
+Validated flow:
+`DEPLOYMENT_VALIDATION → CONTROL → DESIGN_QA → CONTROL → PROJECT_CONTROL`
 
 ## Official candidate state
 
-- Original RC correction `RC-LOCAL-DEFECT-001`: **PASS**
+- Original RC null/zero correction: **PASS**
 - Complete candidate readiness at `4c9b0228...`: **FAIL / BLOCKED**
 - Blocking reason: `CR-0001.1 / F-01`
-- Regression caused by the RC correction: **NOT ESTABLISHED**
+- Regression caused by RC correction: **NOT ESTABLISHED**
 - RUN 024: **NOT AUTHORIZED**
 - main integration: **NOT AUTHORIZED**
 
-## Active routing
+## Active parallel routing
 
-### Immediate
-`CR-0001.1` → DESIGN_QA correction contract → DEVELOPMENT.
+### Route A — correction implementation
 
-`CR-0001.5` is a confirmed non-blocking copy defect and may be separately included in bounded correction design if it does not broaden or delay the blocking correction.
+`CR-0001.1 + CR-0001.5 → DEVELOPMENT`
 
-### Product decision
-`CR-0001.2` → SCOPE_ARCHITECTURE / OWNER.
+Execution authority:
+`handoffs/CR-0001.1_CORRECTION_HANDOFF.md`
 
-### Held
-`CR-0001.3` and `CR-0001.4` remain DEFERRED until explicit OWNER reactivation.
+Authoritative CONTROL SHA:
+`fd5c49e071e89f3e19a378ccc544f9b2272f1391`
 
-`CR-0001.6` remains ACKNOWLEDGED backlog.
+Expected branch:
+`fix/workspace-rc-normal-subtype-icon`
 
-`CR-0001.7` is WITHDRAWN / NO DEFECT.
+Expected return:
+`READY FOR EXTERNAL QA` or `IMPLEMENTATION BLOCKED`.
 
-`CR-0001.8` is historical/currently satisfactory.
+### Route B — Level/Rank technical design
+
+`CR-0001.2 → DESIGN_QA`
+
+Scope authority:
+`scopes/SCOPE-CR-0001-2-F02-LEVEL-RANK-DOMAIN.md`
+
+Authoritative Scope CONTROL SHA:
+`9ea55675b3b1cfef6d4a3ad801892467f1fd470f`
+
+Frozen domain:
+Level 0..12 or null; Rank 0..13 or null; zero distinct from null; no silent clamp; server and client enforcement; historical compatibility without migration.
+
+Expected return:
+frozen Design+QA technical contract and acceptance matrix.
+
+## Held items
+
+- CR-0001.3: DEFERRED
+- CR-0001.4: DEFERRED
+- CR-0001.6: ACKNOWLEDGED backlog
+- CR-0001.7: WITHDRAWN
+- CR-0001.8: historical/currently satisfactory
 
 ## Next Project Control priorities
 
-1. issue exact Transfer Envelope for Route A to DESIGN_QA;
-2. issue independent Scope/Owner transfer for CR-0001.2;
-3. register active chat instances after current routing is stable;
-4. declare Forward Control mandatory for all new transfers;
-5. begin prioritized historical documentation migration.
+1. send Route A envelope to Development;
+2. send Route B envelope to Design+QA;
+3. receive/publish both downstream results independently;
+4. register active chat instances;
+5. activate Forward Control policy for all new transfers;
+6. begin prioritized historical documentation migration.
