@@ -28,6 +28,18 @@ const assertIntegerOrNull = (value: number | null, field: string) => {
     }
 };
 
+/** Current write/Review contract only; historical reads retain their stored values. */
+export const assertLevelRankDomain = (structure: CanonicalStructureInput | null) => {
+    if (structure?.kind !== 'MONSTER' && structure?.kind !== 'TOKEN') return;
+    const bounded = (value: number | null, field: string, max: number) => {
+        if (value !== null && (!Number.isInteger(value) || value < 0 || value > max)) {
+            fail(`${field} must be an integer in 0..${max} or null.`);
+        }
+    };
+    bounded(structure.level, 'level', 12);
+    if (structure.kind === 'MONSTER') bounded(structure.rank, 'rank', 13);
+};
+
 const assertPrintedStat = (value: number | '?' | null, field: string) => {
     if (value !== null && value !== '?' && !Number.isInteger(value)) {
         fail(`${field} must be an integer, '?', or null.`);
@@ -132,6 +144,7 @@ export const assertMutationShape = (
     }
 
     if (mutation.structure) {
+        assertLevelRankDomain(mutation.structure);
         assertStructureInputShape(family, mutation.structure);
         assertDraftStructureCoherence(mutation.structure);
     }
@@ -332,12 +345,12 @@ export const assertConfirmedBlocksValid = (snapshot: CanonicalCardSnapshot) => {
             fail(`Confirmed block ${confirmation.block} must retain provenance.`);
         }
 
-        assertBlockForConfirmation(snapshot, confirmation.block);
+        assertPersistedBlockValid(snapshot, confirmation.block);
     }
 };
 
-/** Shared persisted-block rules for read-only Review and actual confirmation. */
-export const assertBlockForConfirmation = (snapshot: CanonicalCardSnapshot, block: SemanticBlockKey) => {
+/** Existing persisted-block invariants, including pre-contract confirmed structures. */
+const assertPersistedBlockValid = (snapshot: CanonicalCardSnapshot, block: SemanticBlockKey) => {
     if (!SEMANTIC_BLOCK_KEYS.includes(block)) fail(`Unsupported semantic block: ${block}`);
     if (block === 'STRUCTURE') return assertStructureConfirmed(snapshot);
     if (block.startsWith('TEXT:')) return assertTextConfirmed(snapshot, block);
@@ -345,4 +358,10 @@ export const assertBlockForConfirmation = (snapshot: CanonicalCardSnapshot, bloc
         fail('Confirmed CLASSIFICATION requires Effect Classification review state.');
     }
     // RELATIONS are already persisted using the existing validated positive-assertion model.
+};
+
+/** New Review/Confirm must satisfy the current domain, even for historical records. */
+export const assertBlockForConfirmation = (snapshot: CanonicalCardSnapshot, block: SemanticBlockKey) => {
+    if (block === 'STRUCTURE') assertLevelRankDomain(snapshot.structure);
+    assertPersistedBlockValid(snapshot, block);
 };

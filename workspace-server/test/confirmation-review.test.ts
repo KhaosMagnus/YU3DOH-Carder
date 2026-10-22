@@ -376,3 +376,32 @@ test('RUN014 positive persisted RELATIONS review/confirm retains targets and int
     assert.deepEqual(next.relations, card.relations);
     assert.equal(next.relations.length, 1);
 });
+
+for (const [summon, field, max, legacy] of [['MAIN_DECK', 'level', 12, 18], ['XYZ', 'rank', 13, 14]] as const)
+    test(`CR-0001.2 F ${field} Review/Confirm current domain, legacy confirmed compatibility and demotion`, async () => {
+        const f = await setup();
+        let card = f.c.createCard({ family: 'MONSTER', password: '12345678' });
+        const structure = (value: number): CanonicalStructureInput => ({ kind: 'MONSTER', summonKind: summon, attributeCode: 'LIGHT', raceCode: 'DRAGON', level: field === 'level' ? value : null, rank: field === 'rank' ? value : null, atk: 0, def: 0, pendulumScale: null, abilities: [], linkMarkers: [] });
+        for (const value of [0, max]) {
+            card = f.c.mutateCard(card.cardId, card.revision, { structure: structure(value), confirmations: [{ block: 'STRUCTURE', state: 'DRAFT' }] });
+            assert.equal(f.c.reviewConfirmation(card.cardId, card.revision, 'STRUCTURE').validation.status, 'PASS');
+            card = f.c.mutateCard(card.cardId, card.revision, { confirmations: [{ block: 'STRUCTURE', state: 'CONFIRMED', provenance: source }] });
+        }
+        f.service.persistence!.runRepositoryOperation(db => db.prepare(`UPDATE canonical_monster_structure SET ${field}=? WHERE card_id=?`).run(legacy, card.cardId));
+        card = f.c.mutateCard(card.cardId, card.revision, { localizations: [{ language: 'EN', name: 'Legacy', cardText: 'Text', pendulumText: null }] });
+        assert.equal(card.confirmations.find(c => c.block === 'STRUCTURE')!.state, 'CONFIRMED');
+        for (const demote of [false, true]) {
+            if (demote) card = f.c.mutateCard(card.cardId, card.revision, { confirmations: [{ block: 'STRUCTURE', state: 'DRAFT' }] });
+            const before = snapshot(f.service);
+            const review = f.c.reviewConfirmation(card.cardId, card.revision, 'STRUCTURE');
+            assert.equal(review.validation.status, 'FAIL');
+            assert.equal(review.validation.code, 'DOMAIN_VALIDATION');
+            assert.match(review.validation.message!, new RegExp(`${field}.*0\\.\\.${max}`));
+            const response = await f.service.app.inject({ method: 'PATCH', url: `/api/v1/library/cards/${card.cardId}`, payload: { expected_revision: card.revision, confirmations: [{ block: 'STRUCTURE', state: 'CONFIRMED', provenance: { source_kind: 'MANUAL' } }] } });
+            assert.equal(response.statusCode, 422, response.body);
+            assert.equal(response.json().code, 'DOMAIN_VALIDATION');
+            assert.deepEqual(snapshot(f.service), before);
+        }
+        card = f.c.mutateCard(card.cardId, card.revision, { structure: structure(max) });
+        assert.equal(f.c.reviewConfirmation(card.cardId, card.revision, 'STRUCTURE').validation.status, 'PASS');
+    });

@@ -1126,3 +1126,50 @@ test('RUN017 in-flight ordinary mutation fences write-back', async () => {
         await ctx.service.close();
     }
 });
+
+for (const [summon, field, values] of [['MAIN_DECK', 'level', [0, 12, -1, 13, 18]], ['XYZ', 'rank', [0, 13, -1, 14]]] as const)
+    for (const value of values)
+        test(`CR-0001.2 H Carder ${field} ${value} enforced atomically by Canonical`, async () => {
+            const f = await fixture('MONSTER', { summonKind: summon });
+            try {
+                f.request.projection.star = String(value);
+                f.request.acknowledge_move_to_draft = ['STRUCTURE'];
+                const before = snapshot(f);
+                const r = await f.send();
+                const valid = value >= 0 && value <= (field === 'level' ? 12 : 13);
+                assert.equal(r.statusCode, valid ? 200 : 422, r.body);
+                if (valid) assert.equal((f.canonical.getCard(f.card.cardId)!.structure as any)[field], value);
+                else {
+                    assert.equal(r.json().code, 'DOMAIN_VALIDATION');
+                    assert.deepEqual(snapshot(f), before);
+                    assert.equal(f.canonical.getCard(f.card.cardId)!.revision, f.card.revision);
+                }
+            } finally { await f.service.close(); }
+        });
+
+for (const mode of ['text', 'repair', 'invalid'] as const)
+    test(`CR-0001.2 H Carder legacy Level 18 ${mode}`, async () => {
+        const f = await fixture();
+        try {
+            f.persistence.runRepositoryOperation(db => db.prepare('UPDATE canonical_monster_structure SET level=18 WHERE card_id=?').run(f.card.cardId));
+            const historical = f.canonical.getCard(f.card.cardId)!;
+            f.request.projection = authoritativeProjection(historical, 'EN');
+            if (mode === 'text') {
+                f.request.projection.name = 'Updated legacy text';
+                f.request.acknowledge_move_to_draft = ['TEXT:EN'];
+            } else {
+                f.request.projection.star = mode === 'repair' ? '12' : '19';
+                f.request.acknowledge_move_to_draft = ['STRUCTURE'];
+            }
+            const before = snapshot(f);
+            const r = await f.send();
+            assert.equal(r.statusCode, mode === 'invalid' ? 422 : 200, r.body);
+            if (mode === 'invalid') {
+                assert.equal(r.json().code, 'DOMAIN_VALIDATION');
+                assert.deepEqual(snapshot(f), before);
+            } else if (mode === 'text') {
+                assert.deepEqual(f.canonical.getCard(f.card.cardId)!.structure, historical.structure);
+                assert.equal(f.canonical.getCard(f.card.cardId)!.confirmations.find(c => c.block === 'STRUCTURE')!.state, 'CONFIRMED');
+            } else assert.equal((f.canonical.getCard(f.card.cardId)!.structure as any).level, 12);
+        } finally { await f.service.close(); }
+    });
