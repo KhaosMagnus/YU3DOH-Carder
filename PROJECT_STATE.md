@@ -11,12 +11,10 @@ YU3DOH
 
 Repository: `KhaosMagnus/YU3DOH-Carder`
 
-## Code truth — current checkpoint
+## Code truth — checkpoint before current Development results
 
 - `main` = `54cc3aad246c89a29f2a18be63c539db68cae041`
 - `feature/workspace-v0.1` = `4c9b0228bb47ac074c49a977b48dbf0844c33a94`
-- `fix/workspace-rc-canonical-null-zero` = `4c9b0228bb47ac074c49a977b48dbf0844c33a94`
-- `feature/workspace-run-023` = `c929a6020760525d5cf6daf695b2f44c1d3cd1ca`
 - database schema = `8`
 - workspace format = `1`
 - migrations = `001–008`
@@ -25,59 +23,42 @@ Repository: `KhaosMagnus/YU3DOH-Carder`
 
 - control branch = `meta/project-control`
 - protocol version = `1.0`
-- canonical active ledger = `requests/CR-0001-v2.md`
-- prior frozen ledger = `requests/CR-0001.md`
-- parallel routing = `routing/ROUTE-CR-0001-PARALLEL-001.md`
+- Forward Control = **ACTIVE**
+- concurrent publication policy = **ACTIVE**
+- active chat registry = `chats/CHAT_REGISTRY.md`
 
 ## Pilot 001
 
 **COMPLETE — PROTOCOL PILOT PASS**
 
-Validated flow:
+Validated:
 `DEPLOYMENT_VALIDATION → CONTROL → DESIGN_QA → CONTROL → PROJECT_CONTROL`
 
-## Official candidate state
+## Active technical work
 
-- Original RC null/zero correction: **PASS**
-- Complete candidate readiness at `4c9b0228...`: **FAIL / BLOCKED**
-- Blocking reason: `CR-0001.1 / F-01`
-- Regression caused by RC correction: **NOT ESTABLISHED**
-- RUN 024: **NOT AUTHORIZED**
-- main integration: **NOT AUTHORIZED**
+### Route A
+`CR-0001.1 + CR-0001.5 → DEV-001`
 
-## Active parallel routing
+Authority:
+`handoffs/CR-0001.1_CORRECTION_HANDOFF.md @ fd5c49e071e89f3e19a378ccc544f9b2272f1391`
 
-### Route A — correction implementation
-
-`CR-0001.1 + CR-0001.5 → DEVELOPMENT`
-
-Execution authority:
-`handoffs/CR-0001.1_CORRECTION_HANDOFF.md`
-
-Authoritative CONTROL SHA:
-`fd5c49e071e89f3e19a378ccc544f9b2272f1391`
-
-Expected branch:
+Observed branch:
 `fix/workspace-rc-normal-subtype-icon`
 
-Expected return:
-`READY FOR EXTERNAL QA` or `IMPLEMENTATION BLOCKED`.
+### Route B
+`CR-0001.2 → DEV-002`
 
-### Route B — Level/Rank technical design
+Authority:
+`handoffs/CR-0001.2_LEVEL_RANK_DOMAIN_HANDOFF.md @ 1e454fe97b2ffeeeee8e14c9afaf5f1d32604868`
 
-`CR-0001.2 → DESIGN_QA`
+Execution reported active by owner. Expected branch was not yet observed in GitHub at this checkpoint.
 
-Scope authority:
-`scopes/SCOPE-CR-0001-2-F02-LEVEL-RANK-DOMAIN.md`
+## Release state
 
-Authoritative Scope CONTROL SHA:
-`9ea55675b3b1cfef6d4a3ad801892467f1fd470f`
-
-Frozen domain:
-Level 0..12 or null; Rank 0..13 or null; zero distinct from null; no silent clamp; server and client enforcement; historical compatibility without migration.
-
-Expected return:
-frozen Design+QA technical contract and acceptance matrix.
+- original RC null/zero correction: PASS
+- complete candidate readiness at baseline: FAIL / blocked by CR-0001.1
+- RUN 024: NOT AUTHORIZED
+- main integration: NOT AUTHORIZED
 
 ## Held items
 
@@ -87,11 +68,11 @@ frozen Design+QA technical contract and acceptance matrix.
 - CR-0001.7: WITHDRAWN
 - CR-0001.8: historical/currently satisfactory
 
-## Next Project Control priorities
+## Next gates
 
-1. send Route A envelope to Development;
-2. send Route B envelope to Design+QA;
-3. receive/publish both downstream results independently;
-4. register active chat instances;
-5. activate Forward Control policy for all new transfers;
-6. begin prioritized historical documentation migration.
+1. receive whichever Development result finishes first;
+2. verify its exact code branch/commits and Project Control publication;
+3. route exact candidate to DQA-001 for External QA;
+4. process the second Development result independently;
+5. only after both routes have QA dispositions decide controlled integration ordering;
+6. start prioritized historical-document inventory when no active control publication is being reconciled.
