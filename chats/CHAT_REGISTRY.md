@@ -9,7 +9,7 @@ Tracks protocol-era chat/agent lineage without requiring full transcripts.
 
 IDs below start at **Project Control v1.0 activation**.
 
-Therefore `DQA-001` means "first Design+QA instance formally registered under Project Control v1.0", not "first Design+QA chat in project history".
+`DQA-001` means the first Design+QA instance formally registered under Project Control v1.0, not the first historical QA chat.
 
 Pre-v1 predecessors remain `HISTORICAL-ID-PENDING` until evidence-backed migration.
 
@@ -17,21 +17,17 @@ Pre-v1 predecessors remain `HISTORICAL-ID-PENDING` until evidence-backed migrati
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | Project Control v1.0 governance and routing | GitHub/control evidence |
+| PC-001 | PROJECT_CONTROL | ACTIVE | P5 QA gate and routing | GitHub/control evidence |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0001.2 domain freeze completed | GitHub/control evidence |
-| DQA-001 | DESIGN_QA | AVAILABLE / QA GATE | CR-0001.2 handoff frozen; awaiting Development outputs | GitHub/control evidence |
-| DEPLOY-001 | DEPLOYMENT_VALIDATION | AVAILABLE | Pilot 001 evidence published | GitHub/control evidence |
-| DEV-001 | DEVELOPMENT | ACTIVE | CR-0001.1 + CR-0001.5 | GitHub branch observed |
-| DEV-002 | DEVELOPMENT | ACTIVE — OWNER REPORTED | CR-0001.2 | branch not yet observed in GitHub at registration |
+| DQA-001 | DESIGN_QA | ACTIVE — DUAL QA GATE | Validate Candidate A and Candidate B independently | GitHub/control evidence |
+| DEPLOY-001 | DEPLOYMENT_VALIDATION | AVAILABLE | Await QA evidence requests | GitHub/control evidence |
+| DEV-001 | DEVELOPMENT | READY FOR EXTERNAL QA | CR-0001.1 + CR-0001.5 candidate `61503c6e...` | GitHub/control evidence |
+| DEV-002 | DEVELOPMENT | READY FOR EXTERNAL QA | CR-0001.2 candidate `59fb2924...` | GitHub/control evidence |
 
 ## Historical lineage
 
-Known pre-v1 chat generations, including earlier Design+QA replacements caused by conversation limits, are intentionally not numbered yet.
+Known pre-v1 chat generations are intentionally not numbered yet.
 
-Their lineage will be reconstructed during historical migration using:
-- control artifacts;
-- Project conversation evidence;
-- prior handoffs;
-- exact code/control checkpoints where available.
+Their lineage will be reconstructed during historical migration using control artifacts, Project conversation evidence, prior handoffs and exact checkpoints.
 
 No historical sequence is inferred from memory alone.

@@ -11,7 +11,7 @@ YU3DOH
 
 Repository: `KhaosMagnus/YU3DOH-Carder`
 
-## Code truth — checkpoint before current Development results
+## Code truth — pre-integration checkpoint
 
 - `main` = `54cc3aad246c89a29f2a18be63c539db68cae041`
 - `feature/workspace-v0.1` = `4c9b0228bb47ac074c49a977b48dbf0844c33a94`
@@ -26,39 +26,48 @@ Repository: `KhaosMagnus/YU3DOH-Carder`
 - Forward Control = **ACTIVE**
 - concurrent publication policy = **ACTIVE**
 - active chat registry = `chats/CHAT_REGISTRY.md`
+- current P5 routing = `routing/ROUTE-P5-QA-GATE-001.md`
 
 ## Pilot 001
 
 **COMPLETE — PROTOCOL PILOT PASS**
 
-Validated:
-`DEPLOYMENT_VALIDATION → CONTROL → DESIGN_QA → CONTROL → PROJECT_CONTROL`
+## P5 — Forward Control operationalization
 
-## Active technical work
+**Status: QA GATE — TWO CANDIDATES READY**
 
-### Route A
-`CR-0001.1 + CR-0001.5 → DEV-001`
+### Candidate A — CR-0001.1 + CR-0001.5
 
-Authority:
-`handoffs/CR-0001.1_CORRECTION_HANDOFF.md @ fd5c49e071e89f3e19a378ccc544f9b2272f1391`
+Development: complete / READY FOR EXTERNAL QA
 
-Observed branch:
-`fix/workspace-rc-normal-subtype-icon`
+- branch: `fix/workspace-rc-normal-subtype-icon`
+- exact SHA: `61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c`
+- implementation report CONTROL SHA: `f026cd085548aba83025b1b93874e3932188e118`
+- implementation report: `implementations/IMPLEMENTATION-CR-0001.1-CR-0001.5-001.md`
 
-### Route B
-`CR-0001.2 → DEV-002`
+### Candidate B — CR-0001.2
 
-Authority:
-`handoffs/CR-0001.2_LEVEL_RANK_DOMAIN_HANDOFF.md @ 1e454fe97b2ffeeeee8e14c9afaf5f1d32604868`
+Development: complete / READY FOR EXTERNAL QA
 
-Execution reported active by owner. Expected branch was not yet observed in GitHub at this checkpoint.
+- branch: `feature/workspace-cr-0001-2-level-rank-domain`
+- exact SHA: `59fb2924b2240f005fb3e9e6d5afbd8aaca39596`
+- implementation report CONTROL SHA: `2331376eae8de28244b39f54544ba37d2eb61d94`
+- implementation report: `implementations/CR-0001.2_LEVEL_RANK_IMPLEMENTATION_REPORT.md`
+
+## Current gate
+
+Both candidates → DQA-001 for independent External QA.
+
+P5 closes after both QA dispositions are published with exact candidate SHA traceability.
+
+Integration is not required for P5 closure.
 
 ## Release state
 
-- original RC null/zero correction: PASS
-- complete candidate readiness at baseline: FAIL / blocked by CR-0001.1
-- RUN 024: NOT AUTHORIZED
-- main integration: NOT AUTHORIZED
+- baseline complete readiness remains blocked until Candidate A receives QA disposition;
+- RUN 024: NOT AUTHORIZED;
+- main integration: NOT AUTHORIZED;
+- no candidate integration has occurred.
 
 ## Held items
 
@@ -70,9 +79,9 @@ Execution reported active by owner. Expected branch was not yet observed in GitH
 
 ## Next gates
 
-1. receive whichever Development result finishes first;
-2. verify its exact code branch/commits and Project Control publication;
-3. route exact candidate to DQA-001 for External QA;
-4. process the second Development result independently;
-5. only after both routes have QA dispositions decide controlled integration ordering;
-6. start prioritized historical-document inventory when no active control publication is being reconciled.
+1. DQA-001 validates Candidate A independently;
+2. DQA-001 validates Candidate B independently;
+3. Project Control receives both QA artifacts;
+4. close P5 if both protocol cycles completed correctly;
+5. decide integration ordering separately from P5;
+6. open P6 historical-document migration.
