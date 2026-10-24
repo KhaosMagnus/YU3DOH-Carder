@@ -4,89 +4,52 @@ status: ACTIVE
 protocol_version: 1.0
 phase: P6 — INVENTORY FIRST
 
-Classification:
-- AUTHORITATIVE
-- SUPERSEDED
-- HISTORICAL
-- SUPPORTING
-- DUPLICATE
-- UNKNOWN
+Classification: AUTHORITATIVE, SUPERSEDED, HISTORICAL, SUPPORTING, DUPLICATE, UNKNOWN.
 
 ## Rules
 
 1. Do not promote a document because its filename looks final.
 2. Prefer exact GitHub/code evidence and explicit owner/QA decisions.
-3. Preserve source provenance.
-4. Record hashes/blob SHAs when available.
-5. Do not reinterpret historical product decisions.
-6. A QA guide is not an official QA verdict unless the artifact explicitly declares one.
-7. Current Project Control artifacts are not re-imported as historical material.
+3. Preserve source provenance and exact SHAs.
+4. A QA guide is not an official QA verdict unless it explicitly declares one.
+5. Frozen historical authority is not rewritten when later refs move.
 
-## Verified GitHub sources — current Workspace line
+## Verified supporting material
 
-The following files exist at:
+At `feature/workspace-v0.1 @ 4c9b0228...`:
 
-`feature/workspace-v0.1 @ 4c9b0228bb47ac074c49a977b48dbf0844c33a94`
+- `library/RUN-012-QA.md` through `library/RUN-020-QA.md` exist and are classified **SUPPORTING** QA guides, not official verdicts.
+- `workspace-server/BACKUP-RECOVERY.md` is **SUPPORTING** RUN 010 technical history.
+- `workspace-server/ASSET-MUTATION.md` is **SUPPORTING** RUN 011 technical history.
+- `workspace-server/VARIANT-LIFECYCLE.md` is **SUPPORTING** RUN 013 technical history.
 
-### Operational QA guides
-
-| Source | Blob SHA | Classification | Canonical target | Notes |
-|---|---|---|---|---|
-| `library/RUN-012-QA.md` | `04a7ab555ea30e7497dc84d0a6b06ca6f2060a13` | SUPPORTING | historical RUN 012 record | Operational QA guide; explicitly states it does not declare PASS. |
-| `library/RUN-013-QA.md` | `102c3f18c37056c0064d128cda97a8c5369ba573` | SUPPORTING | historical RUN 013 record | Variant Lifecycle QA procedure/evidence instructions. |
-| `library/RUN-014-QA.md` | `f95b3a6b431d45f246b7b581cdff1c59e8d7261d` | SUPPORTING | historical RUN 014 record | Canonical Block Review/Confirmation QA procedure. |
-| `library/RUN-015-QA.md` | `b39c9eb1c5b43f0f302bc504f437efd9f1a47e73` | SUPPORTING | historical RUN 015 record | Recovery/Maintenance UI QA procedure. |
-| `library/RUN-016-QA.md` | verified in current Workspace tree | SUPPORTING | historical RUN 016 record | QA procedure; official disposition still requires separate evidence/artifact recovery. |
-| `library/RUN-017-QA.md` | verified in current Workspace tree | SUPPORTING | historical RUN 017 record | QA procedure; not promoted to verdict. |
-| `library/RUN-018-QA.md` | verified in current Workspace tree | SUPPORTING | historical RUN 018 record | QA procedure; not promoted to verdict. |
-| `library/RUN-019-QA.md` | verified in current Workspace tree | SUPPORTING | historical RUN 019 record | QA procedure; not promoted to verdict. |
-| `library/RUN-020-QA.md` | verified in current Workspace tree | SUPPORTING | historical RUN 020 record | QA procedure; final QA/correction lineage must be recovered separately. |
-
-Blob SHAs for RUN 016–020 will be recorded when those files are individually reviewed during the next inventory slice.
-
-### Technical historical documentation
-
-| Source | Blob SHA | Classification | Canonical target | Notes |
-|---|---|---|---|---|
-| `workspace-server/BACKUP-RECOVERY.md` | `1cb3f54a34f7b226af22f54b94f2645122dcc037` | SUPPORTING | RUN 010 technical history | Describes Backup & Recovery behavior; not by itself an integration/QA verdict. |
-| `workspace-server/ASSET-MUTATION.md` | verified in current Workspace tree | SUPPORTING | RUN 011 technical history | Asset mutation/resolution technical contract; authority relationship requires historical handoff/QA recovery. |
-| `workspace-server/VARIANT-LIFECYCLE.md` | `166fabd6f3a971932dfe2e7053c36ae9da853661` | SUPPORTING | RUN 013 technical history | Variant Lifecycle service documentation; not treated as present-day control authority. |
-
-## Verified historical Git refs
-
-All Workspace RUN branches 001–023 still exist in GitHub. Their exact branch-head checkpoints are recorded in:
-
+Exact branch-head checkpoints for RUN 001–023:
 `migration/P6_BRANCH_CHECKPOINTS.md`
 
-These refs are SUPPORTING code evidence. A branch head does not by itself establish the final QA-validated SHA, integration disposition, or canonical design artifact for that RUN.
+Recent code lineage:
+`migration/P6_RECENT_LINEAGE_020_023_RC.md`
 
-## Material already under Project Control
+## Known unresolved authority
 
-Current v1.0 artifacts—including CR-0001, P5 closure, current Scope/QA/Development/Deployment artifacts and active routing—are already authoritative under `meta/project-control` and are not migration targets.
+- RUN 020 current branch HEAD is `318e310f...`.
+- `33a5c07b...` is its direct parent and a historically referenced correction checkpoint.
+- Which SHA held the relevant final External QA disposition remains **UNKNOWN** until the historical report is recovered.
 
-## Historical material still to recover / reconcile
+## Material still to recover
 
-The following classes are known to be relevant but are not yet promoted into Project Control history:
+- Scope 001–004 handoffs and Scope Recovery;
+- Workspace roadmap / detailed Library design;
+- RUN 001–011 implementation reports and QA verdicts;
+- RUN 012–020 official QA verdicts distinct from QA guides;
+- RUN 021–023 implementation/QA/integration reports;
+- historical integration records into `feature/workspace-v0.1`;
+- pre-v1 chat lineage.
 
-| Material class | Current classification | Expected source | Required P6 action |
-|---|---|---|---|
-| Scope 001–004 handoffs | UNKNOWN | prior chats/files | locate exact artifacts, establish chronology and supersession |
-| Scope Recovery material | UNKNOWN | prior chats/files | locate and classify |
-| Workspace roadmap / detailed Library design | UNKNOWN | prior chats/files | locate; determine whether historical or superseded |
-| Codex/Development protocol history | UNKNOWN | prior chats/files | recover role/process history only where decision-relevant |
-| RUN 001–011 implementation reports / QA verdicts | UNKNOWN | prior chats + Git history | link exact RUN branch SHAs to authoritative verdicts |
-| RUN 012–020 official QA verdicts | UNKNOWN | prior chats/files | distinguish verdicts from in-repo QA guides |
-| RUN 021–023 implementation/QA/integration reports | UNKNOWN | prior chats/files + Git history | recover exact candidate/final SHA lineage |
-| RC correction reports around `4c9b0228...` | PARTLY RECOVERED | Project Control + prior chats | reconcile current CR-0001 provenance with pre-v1 records |
-| Historical integration reports into `feature/workspace-v0.1` | UNKNOWN | prior chats/Git history | reconstruct fast-forward/merge decisions and exact SHAs |
-| Pre-v1 chat lineage | UNKNOWN | Project conversation history | reconstruct predecessor/successor chain without guessing IDs |
+## Next slice
 
-## Next inventory slice
+1. recover RUN 020 authority around `33a5c07b...` vs `318e310f...`;
+2. recover RUN 021–023 official reports;
+3. reconstruct integration checkpoints backward from current `feature/workspace-v0.1`;
+4. then begin targeted import of verified historical artifacts.
 
-Priority:
-1. review RUN 016–020 QA-guide blobs and record exact hashes;
-2. inspect RUN 021–023 Git history and identify likely report/validation commits;
-3. recover exact historical integration checkpoints for RUN 009–023;
-4. then request/chat-recover missing official handoffs/verdicts only where GitHub cannot answer the question.
-
-No bulk historical import is authorized yet.
+No bulk import is authorized yet.
