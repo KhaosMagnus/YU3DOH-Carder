@@ -11,6 +11,9 @@ permissions:
 jobs:
   retrieve:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        group: [meta, render1, render2, render3, render4, spellwrite, trapwrite]
     steps:
       - name: Download existing disposable validation evidence
         uses: actions/download-artifact@v4
@@ -21,8 +24,10 @@ jobs:
           path: evidence
       - name: Inspect only generated fixtures and redact transient grants
         shell: python
+        env:
+          EVIDENCE_GROUP: ${{ matrix.group }}
         run: |
-          import pathlib, hashlib, base64, json
+          import pathlib, hashlib, base64, json, os
           root = pathlib.Path('evidence')
           verified = 0
           for line in (root/'manifest.sha256').read_text().splitlines():
@@ -34,14 +39,21 @@ jobs:
               if isinstance(value, dict):
                   return {k:('[REDACTED TRANSIENT GRANT]' if any(x in k.lower() for x in ['grant','token','authorization']) else redact(v)) for k,v in value.items()}
               if isinstance(value, list): return [redact(v) for v in value]
-              if isinstance(value, str) and '/api/v1/carder/asset-content/' in value: return '[REDACTED TRANSIENT ASSET URL]'
+              if isinstance(value, str) and '/api/v1/carder/' in value and ('?' in value or '/asset-content' in value): return value.split('?')[0] + '?[REDACTED TRANSIENT QUERY]'
               return value
           names = ['git-preflight.json','git-final.json','environment.json','browser.json','workspace-status.json','fixtures.json','execution-status.json','manifest.sha256','C-OP-06-library-copy.png','C-OP-06-visible-copy.txt']
           for i in range(1,5):
               names += ['C-OP-0'+str(i)+s for s in ['-carder.png','-canvas-1.png','-prepare.json','-working.json','-canonical-before.json','-canonical-after.json','-canvases.json']]
           for family in ['SPELL','TRAP']:
               names += ['C-OP-05-'+family+s for s in ['-before.json','-working-edited.json','-ack-visible.txt','-ack.png','-http.json','-after.json','-visible-result.txt','-result.png']]
-          for name in names:
+          group = os.environ['EVIDENCE_GROUP']
+          def filegroup(name):
+              for i in range(1,5):
+                  if name.startswith('C-OP-0'+str(i)+'-'): return 'render'+str(i)
+              if name.startswith('C-OP-05-SPELL-'): return 'spellwrite'
+              if name.startswith('C-OP-05-TRAP-'): return 'trapwrite'
+              return 'meta'
+          for name in [n for n in names if filegroup(n) == group]:
               p = root/name
               raw = p.read_bytes()
               data = json.dumps(redact(json.loads(raw)),indent=2).encode() if p.suffix == '.json' else raw
