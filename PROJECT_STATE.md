@@ -11,25 +11,60 @@ protocol_version: 1.0
 - feature/workspace-v0.1 = `4c9b0228bb47ac074c49a977b48dbf0844c33a94`
 - Candidate A = `61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c` / PASS
 - Candidate B = `59fb2924b2240f005fb3e9e6d5afbd8aaca39596` / PASS
-- Combined = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281` / QA PARTIAL
+- Combined = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281` / PASS
 
-## Combined candidate current gate
+## Combined candidate final validation
 
-Pending only:
-C-OP-01..C-OP-06 exact-SHA operational evidence.
+State:
+`VALIDATED / PASS / HOLD`
 
-Target:
-`DEPLOYMENT_VALIDATION / DEPLOY-004`
+External QA:
+`PASS`
 
-Route:
-`routing/ROUTE-CR-0001-COMBINED-DEPLOY-004.md`
+DEPLOY-004:
+`EVIDENCE READY`
 
-Operational branch:
-`ops/cr-0001-combined-deploy-004-actions`
+C-OP-01..C-OP-06:
+`6 / 6 SATISFACTORY`
 
-DEPLOY-003 remains closed as the original Candidate A operational-validation instance.
+Implementation defect:
+NOT IDENTIFIED.
 
-The earlier DEPLOY-003 combined route was superseded before execution.
+Operational defect:
+NOT IDENTIFIED.
+
+Regression:
+NOT IDENTIFIED.
+
+Unresolved acceptance gap:
+NONE.
+
+Additional Deployment:
+NOT REQUIRED.
+
+## Integration eligibility
+
+Current `feature/workspace-v0.1`:
+
+`4c9b0228bb47ac074c49a977b48dbf0844c33a94`
+
+Combined:
+
+`64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
+
+GitHub ancestry:
+ahead 5 / behind 0 / merge-base exact current workspace-v0.1.
+
+Therefore direct fast-forward is technically eligible.
+
+Current route:
+
+`routing/ROUTE-CR-0001-COMBINED-INTEGRATION-DECISION.md`
+
+Status:
+`AWAITING OWNER AUTHORIZATION`
+
+No ref has been moved.
 
 ## P6
 
@@ -37,7 +72,6 @@ IN PROGRESS independently.
 
 ## Non-authorizations
 
-- combined integration: NOT AUTHORIZED
-- feature/workspace-v0.1 movement: NOT AUTHORIZED
-- main movement: NOT AUTHORIZED
+- feature/workspace-v0.1 integration: AWAITING OWNER AUTHORIZATION
+- main integration: NOT AUTHORIZED
 - RUN 024: NOT AUTHORIZED

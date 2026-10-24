@@ -1,33 +1,30 @@
 # BACKLOG
 
 Current canonical ledger:
-`requests/CR-0001-v12.md`
+`requests/CR-0001-v13.md`
 
-## Combined candidate active validation
+## Combined candidate — validated / hold
 
 Combined:
 `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 
-External QA:
-PARTIAL.
+Official External QA:
+`PASS`
 
-Accepted:
-- source/automated gate;
-- Candidate B A–J.
+All in-scope CR-0001 corrections:
+`VALIDATED / PASS`
 
-Pending:
-C-OP-01..C-OP-06 via DEPLOY-004.
+Operational evidence:
+6 / 6 SATISFACTORY.
 
-No integration authorized.
+Current administrative gate:
+Owner authorization for fast-forward integration to `feature/workspace-v0.1`.
 
-## Independently validated inputs
-
-- CR-0001.1 PASS
-- CR-0001.2 PASS
-- CR-0001.5 PASS
+No integration has been performed yet.
 
 ## Program
 
-- P5 CLOSED / PASS
-- P6 IN PROGRESS
-- RUN 024 NOT AUTHORIZED
+- P5: CLOSED / PASS
+- P6: IN PROGRESS
+- RUN 024: NOT AUTHORIZED
+- main integration: NOT AUTHORIZED
