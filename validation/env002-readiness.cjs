@@ -259,6 +259,8 @@ async function main() {
   await card.click();
   const drawer = page.locator('.ant-drawer:visible');
   await drawer.waitFor({ state: 'visible' });
+  await drawer.getByRole('button', { name: 'Variants / Assets', exact: true }).click();
+  await drawer.locator('.library-variant-card').first().waitFor({ state: 'visible', timeout: 60000 });
   const openButton = drawer.getByRole('button', { name: 'Open Standard', exact: true });
   await openButton.waitFor({ state: 'visible' });
 
