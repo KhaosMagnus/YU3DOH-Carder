@@ -1,0 +1,103 @@
+name: Candidate A ENV-002 readiness
+
+on:
+  push:
+    branches:
+      - ops/candidate-a-env-002-actions
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout operational harness
+        uses: actions/checkout@v4
+        with:
+          path: ops-control
+
+      - name: Checkout exact Candidate A
+        uses: actions/checkout@v4
+        with:
+          ref: 61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
+          fetch-depth: 0
+          path: candidate-a
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.22
+
+      - name: Create external evidence directory
+        shell: bash
+        run: mkdir -p "$RUNNER_TEMP/env002-evidence"
+
+      - name: Candidate exact-SHA preflight
+        shell: bash
+        run: |
+          test -d candidate-a/.git
+          test "$(git -C candidate-a rev-parse HEAD)" = "61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c"
+          test -z "$(git -C candidate-a status --porcelain)"
+          git -C candidate-a ls-remote origin refs/heads/fix/workspace-rc-normal-subtype-icon
+          git -C candidate-a rev-parse --abbrev-ref HEAD
+          git -C candidate-a rev-parse HEAD
+          git -C candidate-a status --porcelain
+
+      - name: Install Candidate root from immutable lockfile
+        working-directory: candidate-a
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Install Candidate Workspace Service from immutable lockfile
+        working-directory: candidate-a
+        run: yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+
+      - name: Compile Candidate Workspace Service
+        working-directory: candidate-a
+        run: yarn --cwd workspace-server compile
+
+      - name: Install isolated Chromium tool
+        shell: bash
+        run: |
+          npm install --prefix "$RUNNER_TEMP/env002-tools" --no-audit --no-fund playwright-core@1.58.2
+          node "$RUNNER_TEMP/env002-tools/node_modules/playwright-core/cli.js" install chromium
+
+      - name: Execute readiness only
+        shell: bash
+        env:
+          CANDIDATE_ROOT: ${{ github.workspace }}/candidate-a
+          ENV002_OUTPUT: ${{ runner.temp }}/env002-evidence
+          ENV002_WORKSPACE: ${{ runner.temp }}/env002-workspace
+          NODE_PATH: ${{ runner.temp }}/env002-tools/node_modules
+        run: node ops-control/validation/env002-readiness.cjs
+
+      - name: Candidate final integrity
+        if: always()
+        shell: bash
+        run: |
+          git -C candidate-a rev-parse HEAD
+          git -C candidate-a status --porcelain
+          git -C candidate-a diff --exit-code
+          git -C candidate-a diff --cached --exit-code
+
+      - name: Hash readiness evidence
+        if: always()
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/env002-evidence"
+          find . -type f ! -name manifest.sha256 -print0 | sort -z | xargs -0 sha256sum > manifest.sha256
+          cat manifest.sha256
+
+      - name: Preserve ENV-002 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: env002-readiness-${{ github.run_id }}-61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
+          path: ${{ runner.temp }}/env002-evidence
+          if-no-files-found: error
