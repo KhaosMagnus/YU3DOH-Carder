@@ -31,35 +31,43 @@ Repository: KhaosMagnus/YU3DOH-Carder
 
 CLOSED / PASS
 
-The protocol milestone remains closed. Candidate A's open evidence loop is product validation, not a reopening of P5.
+Candidate A remains a product-validation loop and does not reopen P5.
 
 ## Candidate A
 
 - QA disposition: PARTIAL
-- exact SHA: 61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
-- implementation defect identified: NO
-- first Deployment attempt: VALIDATION BLOCKED
-- cases executed: 0 / 6
-- blocker: ENVIRONMENT / EXECUTION ACCESS
-- new route: DEPLOY-002 → DQA-001
-- frozen evidence request: unchanged
+- first deployment attempt: VALIDATION BLOCKED / environment
+- current route: DEPLOY-002 → DQA-001
+- exact candidate: 61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
 - integration: NOT AUTHORIZED
-
-Route:
-routing/ROUTE-P5-CANDIDATE-A-DEPLOY-002.md
 
 ## Candidate B
 
-- exact SHA: 59fb2924b2240f005fb3e9e6d5afbd8aaca39596
 - QA: PASS
+- exact candidate: 59fb2924b2240f005fb3e9e6d5afbd8aaca39596
 - state: VALIDATED / HOLD
 - integration: NOT AUTHORIZED
 
 ## P6 — Historical Documentation Migration
 
-OPEN — INVENTORY FIRST
+**IN PROGRESS — INVENTORY SLICE 001 COMPLETE**
 
-P6 remains independent of Candidate A evidence reprovision.
+Artifacts:
+- `migration/INVENTORY.md`
+- `migration/P6_BRANCH_CHECKPOINTS.md`
+- `migration/P6_HISTORICAL_MIGRATION_PLAN.md`
+
+Verified so far:
+- all Workspace RUN refs 001–023 still exist in GitHub;
+- RUN 012–020 QA guides exist in the current Workspace line and are classified SUPPORTING, not official verdicts;
+- Backup/Recovery, Asset Mutation and Variant Lifecycle technical documents exist and are classified SUPPORTING pending linkage to historical frozen authority;
+- missing official handoffs/verdicts/integration reports remain UNKNOWN until recovered.
+
+Next P6 slice:
+1. exact blob/hash review for RUN 016–020 QA guides;
+2. RUN 021–023 Git-history reconstruction;
+3. integration-checkpoint reconstruction;
+4. targeted chat/file recovery only for unresolved authority questions.
 
 ## Non-authorizations
 
