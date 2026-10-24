@@ -14,22 +14,40 @@ protocol_version: 1.0
 
 ## Candidate A
 
-QA: PARTIAL.
+External QA:
+`PARTIAL`
 
-ENV-001: ENVIRONMENT BLOCKED after proving exact-SHA service execution.
+Environment gate:
+`SATISFIED`
 
-ENV-002: ACTIVE on GitHub-hosted Actions.
+ENV-002:
+`ENVIRONMENT READY`
+
+Readiness Actions run:
+`40073048304`
+
+Readiness artifact:
+`12551219292`
+
+Candidate A remained exact and clean before/after readiness.
+
+Current route:
+
+`DEPLOY-003 → DQA-001`
+
+Deployment route:
+`routing/ROUTE-P5-CANDIDATE-A-DEPLOY-003.md`
 
 Operational branch:
-`ops/candidate-a-env-002-actions`
+`ops/candidate-a-deploy-003-actions`
 
-Candidate A itself is checked out separately by exact SHA inside the job and remains unchanged.
-
-No DEPLOY-003 until ENVIRONMENT READY is verified.
+DEPLOY-003 executes only A-OP-01..A-OP-06 against the exact candidate using the proven GitHub-hosted Actions topology.
 
 ## Candidate B
 
 PASS / VALIDATED / HOLD.
+
+No integration authorized.
 
 ## P5
 
@@ -43,11 +61,10 @@ Recovered:
 - RUN 009–013 integration/checkpoint authority;
 - RUN 020–023 + RC final authority.
 
-Important provenance distinction:
-RUN 011 and RUN 012 exact integrated checkpoints are established from downstream authorized baselines, while their original primary final QA artifacts remain archival gaps.
+Next historical tranche:
+RUN 014–019, then RUN 001–008, plus archival recovery of missing primary QA/integration artifacts.
 
-Next:
-RUN 014–019, then RUN 001–008, plus targeted archival recovery of missing role-owned QA/integration reports.
+P6 continues independently while DEPLOY-003 executes Candidate A validation.
 
 ## Non-authorizations
 
