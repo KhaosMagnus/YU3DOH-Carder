@@ -2,16 +2,19 @@
 
 Current canonical ledger:
 
-`requests/CR-0001-v8.md`
+`requests/CR-0001-v9.md`
 
-## Final QA
+## Validated corrections awaiting Owner integration decision
 
-- **CR-0001.1 / F-01** — Candidate A operational gate complete; DEPLOY-003 6/6 SATISFACTORY; DQA-001 final superseding disposition pending.
-- **CR-0001.5 / F-05** — A-OP-06 SATISFACTORY; final DQA disposition pending with Candidate A.
+- **CR-0001.1 / F-01** — Candidate A External QA PASS @ `61503c6e...`.
+- **CR-0001.2 / F-02** — Candidate B External QA PASS @ `59fb2924...`.
+- **CR-0001.5 / F-05** — Candidate A External QA PASS @ `61503c6e...`.
 
-## Validated / hold
+Administrative gate:
 
-- **CR-0001.2 / F-02** — External QA PASS at `59fb2924...`; integration not authorized.
+`routing/ROUTE-CR-0001-INTEGRATION-DECISION.md`
+
+Independent candidates remain on HOLD until Owner selects an integration path.
 
 ## Held
 
@@ -30,4 +33,5 @@ Current canonical ledger:
 - P5: CLOSED / PASS.
 - P6: IN PROGRESS.
 
-Frozen artifacts are never rewritten; current-state changes use superseding artifacts.
+No RUN 024.
+No main integration authorization.
