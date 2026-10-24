@@ -1,37 +1,44 @@
 # BACKLOG
 
 Current canonical ledger:
+`requests/CR-0001-v10.md`
 
-`requests/CR-0001-v9.md`
+## Combined-candidate active work
 
-## Validated corrections awaiting Owner integration decision
+Owner authorized Option C.
 
-- **CR-0001.1 / F-01** — Candidate A External QA PASS @ `61503c6e...`.
-- **CR-0001.2 / F-02** — Candidate B External QA PASS @ `59fb2924...`.
-- **CR-0001.5 / F-05** — Candidate A External QA PASS @ `61503c6e...`.
+DEV-003 is authorized to prepare:
+`feature/workspace-cr-0001-combined`
 
-Administrative gate:
+from exact baseline:
+`4c9b0228...`
 
-`routing/ROUTE-CR-0001-INTEGRATION-DECISION.md`
+using independently validated:
+- Candidate A `61503c6...`
+- Candidate B `59fb292...`
 
-Independent candidates remain on HOLD until Owner selects an integration path.
+Combined candidate has no QA disposition yet and may not be integrated.
+
+## Independently validated inputs
+
+- CR-0001.1 / F-01 — PASS
+- CR-0001.2 / F-02 — PASS
+- CR-0001.5 / F-05 — PASS
 
 ## Held
 
-- **CR-0001.3** — DEFERRED.
-- **CR-0001.4** — DEFERRED.
-- **CR-0001.6** — ACKNOWLEDGED UX backlog.
+- CR-0001.3 — DEFERRED
+- CR-0001.4 — DEFERRED
+- CR-0001.6 — ACKNOWLEDGED
 
 ## Closed/currently satisfied
 
-- **CR-0001.7** — REJECTED / WITHDRAWN.
-- **CR-0001.8** — VALIDATED / HISTORICAL.
-- **CR-0001.9** — IMPLEMENTED.
+- CR-0001.7 — REJECTED / WITHDRAWN
+- CR-0001.8 — VALIDATED / HISTORICAL
+- CR-0001.9 — IMPLEMENTED
 
 ## Program
 
-- P5: CLOSED / PASS.
-- P6: IN PROGRESS.
-
-No RUN 024.
-No main integration authorization.
+- P5: CLOSED / PASS
+- P6: IN PROGRESS
+- RUN 024: NOT AUTHORIZED

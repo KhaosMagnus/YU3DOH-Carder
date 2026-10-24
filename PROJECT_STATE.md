@@ -9,72 +9,57 @@ protocol_version: 1.0
 
 - main = `54cc3aad246c89a29f2a18be63c539db68cae041`
 - feature/workspace-v0.1 = `4c9b0228bb47ac074c49a977b48dbf0844c33a94`
-- Candidate A = `61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c`
-- Candidate B = `59fb2924b2240f005fb3e9e6d5afbd8aaca39596`
+- Candidate A = `61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c` / PASS
+- Candidate B = `59fb2924b2240f005fb3e9e6d5afbd8aaca39596` / PASS
 
-## Candidate A
+## Owner decision
 
-`VALIDATED / PASS / HOLD`
+`OPTION C AUTHORIZED — PREPARE COMBINED CANDIDATE A+B`
 
-Validated requests:
-- CR-0001.1 / F-01
-- CR-0001.5 / F-05
+Authority artifact:
+`control/OWNER_DECISION_CR_0001_COMBINED.md`
 
-Final QA artifact:
-`validations/P5-CANDIDATE-A-001/DESIGN_QA_FINAL_DISPOSITION.md`
+This is preparation authority only, not integration authority.
 
-Additional Deployment:
-NOT REQUIRED.
+## Combined candidate gate
 
-## Candidate B
+Target:
+`DEVELOPMENT / DEV-003`
 
-`VALIDATED / PASS / HOLD`
+Frozen handoff:
+`handoffs/CR-0001_COMBINED_CANDIDATE_HANDOFF.md`
 
-Validated request:
-- CR-0001.2 / F-02
+Route:
+`routing/ROUTE-CR-0001-COMBINED-DEV-003.md`
 
-Final QA artifact:
-`validations/P5-CANDIDATE-B-001/DESIGN_QA_REPORT.md`
+Expected branch:
+`feature/workspace-cr-0001-combined`
 
-## Integration decision gate
+Current branch status at routing time:
+ABSENT.
 
-Current route:
+Required flow:
 
-`routing/ROUTE-CR-0001-INTEGRATION-DECISION.md`
+```text
+baseline 4c9b0228...
+→ DEV-003 minimal A+B reconciliation
+→ exact combined SHA
+→ DQA-001 combined External QA
+→ only after combined PASS may an integration authorization be considered
+```
 
-A and B both descend from `feature/workspace-v0.1 @ 4c9b0228...` and are mutually diverged.
-
-Known file overlap:
-`workspace-server/test/carder-write-back.test.ts`
-
-Therefore independent PASS results do not establish a validated combined tree.
-
-Project Control recommendation:
-prepare a dedicated combined candidate only after explicit Owner authorization, then obtain exact-SHA combined QA before moving `feature/workspace-v0.1`.
-
-No integration has been performed.
+No combined PASS exists yet.
 
 ## P5
 
 CLOSED / PASS.
 
-Both Candidate A and Candidate B now hold final independent PASS dispositions.
-
 ## P6
 
-IN PROGRESS.
-
-Historical authority recovery continues independently after the Owner integration decision is recorded.
-
-Current reconstructed tranches:
-- RUN 009–013
-- RUN 020–023 + RC
-
-RUN 014–019 is next.
+IN PROGRESS independently.
 
 ## Non-authorizations
 
-- RUN 024: NOT AUTHORIZED
-- feature/workspace-v0.1 integration: AWAITING OWNER DECISION
+- feature/workspace-v0.1 integration: NOT AUTHORIZED
 - main integration: NOT AUTHORIZED
-- Candidate A + B combination: NOT AUTHORIZED UNTIL EXPLICIT OWNER DECISION
+- RUN 024: NOT AUTHORIZED
