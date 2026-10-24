@@ -77,8 +77,9 @@ const spawnLogged = async (name, command, args, cwd) => {
 
 const canonical = async () => {
   const response = await fetch('http://127.0.0.1:4312/api/v1/library/cards/' + cardId);
-  assert.equal(response.status, 200, await response.text());
-  return response.json();
+  const body = await response.text();
+  assert.equal(response.status, 200, body);
+  return JSON.parse(body);
 };
 
 const writeReport = async (status, details = {}) => {
