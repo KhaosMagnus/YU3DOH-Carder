@@ -114,7 +114,7 @@ A proposed runner is ACCEPTABLE FOR ROUTING only after an environment-readiness 
 ### C. Capture capability
 
 11. Demonstrate a browser-driven capture mechanism for actual pixels/screenshots and prepared/working projections; no renderer substitution.
-12. Demonstrate HTTP request/response capture of actual Carder acknowledged write-back, including body/status/acknowledgement information and error responses, without mocking the write route.
+12. Demonstrate that network interception/logging is configured to capture real Carder acknowledged write-back HTTP requests and responses (body/status/acknowledgement, including errors) **when A-OP-05 executes**, without mocking the write route. The readiness check itself must **not** perform an additional write-back or an unrequested behavioral case.
 13. Demonstrate authoritative query/export access to Canonical state, confirmation flags, revision and provenance **before and after** each write-back.
 14. Store an artifact manifest containing candidate SHA, pre/post Git proof, runner/toolchain versions, fixture identifiers, timestamps, screenshot case IDs, API-trace paths and hashes of captured artifacts. Exclude secrets and private owner data.
 15. Confirm the executor can publish immutable evidence (or its cryptographic hashes plus durable references) for DQA's independent review.
