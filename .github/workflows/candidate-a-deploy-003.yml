@@ -1,0 +1,105 @@
+name: Candidate A DEPLOY-003 operational evidence
+
+on:
+  push:
+    branches:
+      - ops/candidate-a-deploy-003-actions
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout operational harness
+        uses: actions/checkout@v4
+        with:
+          path: ops-control
+
+      - name: Checkout exact Candidate A
+        uses: actions/checkout@v4
+        with:
+          ref: 61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
+          fetch-depth: 0
+          path: candidate-a
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.22
+
+      - name: Create external evidence directory
+        shell: bash
+        run: mkdir -p "$RUNNER_TEMP/deploy003-evidence"
+
+      - name: Candidate exact-SHA preflight
+        shell: bash
+        run: |
+          test -d candidate-a/.git
+          test "$(git -C candidate-a rev-parse HEAD)" = "61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c"
+          test -z "$(git -C candidate-a status --porcelain)"
+          git -C candidate-a ls-remote origin refs/heads/fix/workspace-rc-normal-subtype-icon
+          git -C candidate-a rev-parse --abbrev-ref HEAD
+          git -C candidate-a rev-parse HEAD
+          git -C candidate-a status --porcelain
+
+      - name: Install Candidate root from immutable lockfile
+        working-directory: candidate-a
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Install Candidate Workspace Service from immutable lockfile
+        working-directory: candidate-a
+        run: yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+
+      - name: Compile Candidate Workspace Service
+        working-directory: candidate-a
+        run: yarn --cwd workspace-server compile
+
+      - name: Install isolated Chromium tool
+        shell: bash
+        run: |
+          npm install --prefix "$RUNNER_TEMP/deploy003-tools" --no-audit --no-fund playwright-core@1.58.2
+          node "$RUNNER_TEMP/deploy003-tools/node_modules/playwright-core/cli.js" install chromium
+
+      - name: Execute frozen A-OP-01 through A-OP-06
+        shell: bash
+        env:
+          CANDIDATE_ROOT: ${{ github.workspace }}/candidate-a
+          DEPLOY003_OUTPUT: ${{ runner.temp }}/deploy003-evidence
+          DEPLOY003_WORKSPACE: ${{ runner.temp }}/deploy003-workspace
+          NODE_PATH: ${{ runner.temp }}/deploy003-tools/node_modules
+        run: node ops-control/validation/deploy003.cjs
+
+      - name: Candidate final integrity
+        if: always()
+        shell: bash
+        run: |
+          test "$(git -C candidate-a rev-parse HEAD)" = "61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c"
+          test -z "$(git -C candidate-a status --porcelain)"
+          git -C candidate-a rev-parse HEAD
+          git -C candidate-a status --porcelain
+          git -C candidate-a diff --exit-code
+          git -C candidate-a diff --cached --exit-code
+
+      - name: Hash validation evidence
+        if: always()
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/deploy003-evidence"
+          find . -type f ! -name manifest.sha256 -print0 | sort -z | xargs -0 sha256sum > manifest.sha256
+          cat manifest.sha256
+
+      - name: Preserve ENV-002 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy003-validation-${{ github.run_id }}-61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
+          path: ${{ runner.temp }}/deploy003-evidence
+          if-no-files-found: error
