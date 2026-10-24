@@ -1,39 +1,34 @@
 # BACKLOG
 
-This is a routing/index surface, not a substitute for frozen Change Request artifacts.
+Current canonical ledger:
+`requests/CR-0001-v5.md`
 
-## Canonical active ledger
+## Active validation / infrastructure gate
 
-Current:
-requests/CR-0001-v4.md
+- CR-0001.1 / F-01 — Candidate A PARTIAL; DEPLOY-001 and DEPLOY-002 both blocked before execution; ENV-001 readiness gate now required.
+- CR-0001.5 / F-05 — same Candidate A infrastructure gate; source/copy contract already satisfactory.
 
-### Active validation
+## Validated / hold
 
-- CR-0001.1 / F-01 — VALIDATING — Candidate A PARTIAL; DEPLOY-001 blocked by environment; rerouted to DEPLOY-002.
-- CR-0001.5 / F-05 — VALIDATING — source/copy QA satisfactory; operational UI evidence rerouted with Candidate A to DEPLOY-002.
+- CR-0001.2 / F-02 — External QA PASS at `59fb2924...`; no integration authorized.
 
-### Validated / hold
+## Held
 
-- CR-0001.2 / F-02 — VALIDATED / External QA PASS at 59fb2924...; no integration authorized yet.
+- CR-0001.3 — DEFERRED.
+- CR-0001.4 — DEFERRED.
+- CR-0001.6 — ACKNOWLEDGED UX backlog.
 
-### Held
+## Closed/currently satisfied
 
-- CR-0001.3 / F-03 — DEFERRED.
-- CR-0001.4 / F-04 — DEFERRED.
-- CR-0001.6 / F-06 — ACKNOWLEDGED UX backlog.
+- CR-0001.7 — REJECTED / WITHDRAWN.
+- CR-0001.8 — VALIDATED / HISTORICAL.
+- CR-0001.9 — IMPLEMENTED / control-plane traceability.
 
-### Closed/currently satisfied
-
-- CR-0001.7 / F-07 — REJECTED / WITHDRAWN.
-- CR-0001.8 / F-08 — VALIDATED / HISTORICAL.
-- CR-0001.9 / F-09 — IMPLEMENTED / control-plane traceability.
-
-## Program work
+## Program
 
 - P5: CLOSED / PASS.
-- P6: OPEN — historical inventory first.
+- P6: IN PROGRESS.
 
-## Rule
-
-DEFERRED is not IMPLEMENTED and not RESOLVED.
+Rule:
+DEFERRED is not IMPLEMENTED or RESOLVED.
 Frozen artifacts are never rewritten; current-state changes use superseding artifacts.

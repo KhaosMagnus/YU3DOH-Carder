@@ -12,6 +12,9 @@ Turns frozen scope into implementable contract and later validates exact candida
 ## DEVELOPMENT
 Implements frozen handoff on exact baseline and returns IMPLEMENTATION_REPORT + exact candidate SHA. Does not self-integrate.
 
+## ENVIRONMENT_READINESS
+Proves that a materially different execution substrate can establish exact-SHA custody, run the real application, launch browser tooling and capture required evidence before DEPLOYMENT_VALIDATION is assigned. Does not execute product acceptance cases or issue QA verdicts.
+
 ## DEPLOYMENT_VALIDATION
 Produces reproducible local/manual/visual evidence tied to exact CODE SHA. Final operational state is EVIDENCE READY or VALIDATION BLOCKED; does not issue official RUN verdict.
 

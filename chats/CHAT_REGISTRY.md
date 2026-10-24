@@ -7,12 +7,13 @@ Protocol-era IDs begin at Project Control v1.0. Pre-v1 predecessors remain HISTO
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | P6 inventory + Candidate A reprovision routing | GitHub/control evidence |
+| PC-001 | PROJECT_CONTROL | ACTIVE | P6 inventory + Candidate A substrate provisioning | GitHub/control evidence |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0001.2 scope complete | GitHub/control evidence |
-| DQA-001 | DESIGN_QA | WAITING FOR DEPLOY-002 EVIDENCE | Candidate A PARTIAL; Candidate B PASS | GitHub/control evidence |
-| DEPLOY-001 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED FOR CANDIDATE A | 0/6 cases; environment unsuitable | GitHub/control evidence |
-| DEPLOY-002 | DEPLOYMENT_VALIDATION | ACTIVE — INDEPENDENT REPROVISION | Candidate A A-OP-01..A-OP-06 | Project Control routing |
+| DQA-001 | DESIGN_QA | WAITING FOR PROVEN SUBSTRATE | Candidate A PARTIAL; Candidate B PASS | GitHub/control evidence |
+| ENV-001 | ENVIRONMENT_READINESS | READY TO PROVISION | Candidate A environment readiness | Project Control routing |
+| DEPLOY-001 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | 0/6; environment unsuitable | GitHub/control evidence |
+| DEPLOY-002 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | 0/6; repeated environment blocker | GitHub/control evidence |
 | DEV-001 | DEVELOPMENT | COMPLETE / AWAITING FINAL QA | Candidate A implemented | GitHub/control evidence |
 | DEV-002 | DEVELOPMENT | COMPLETE / QA PASS | Candidate B validated | GitHub/control evidence |
 
-Historical lineage reconstruction is a P6 workstream. No historical sequence is inferred from memory alone.
+Historical lineage reconstruction is a P6 workstream.
