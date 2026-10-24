@@ -12,31 +12,15 @@ protocol_version: 1.0
 - Candidate A = `61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c`
 - Candidate B = `59fb2924b2240f005fb3e9e6d5afbd8aaca39596`
 
-## P5
+## Candidate A
 
-CLOSED / PASS.
+External QA: PARTIAL.
 
-Candidate A remains product-validation PARTIAL.
+Execution-substrate gate:
 
-DEPLOY-001 and DEPLOY-002 both returned VALIDATION BLOCKED with 0/6 behavioral cases executed because their runtimes could not establish exact-SHA executable custody.
+`ENV-001 / ENVIRONMENT_READINESS`
 
-DQA-001 requires a proven materially different execution substrate before any further Deployment routing.
-
-## Candidate A current gate
-
-Route:
-`routing/ROUTE-CANDIDATE-A-ENV-001.md`
-
-Readiness request:
-`validations/P5-CANDIDATE-A-001/ENVIRONMENT_READINESS_REQUEST.md`
-
-Target:
-`ENVIRONMENT_READINESS / ENV-001`
-
-No DEPLOY-003 is authorized until ENV-001 returns ENVIRONMENT READY and Project Control verifies it.
-
-Preferred proposed substrate:
-ChatGPT Work cloud computer/browser or equivalent dedicated VM/CI runner.
+No further Deployment instance is authorized until ENVIRONMENT READY is verified.
 
 ## Candidate B
 
@@ -44,11 +28,34 @@ PASS / VALIDATED / HOLD.
 
 No integration authorized.
 
-## P6
+## P5
 
-IN PROGRESS.
+CLOSED / PASS.
 
-Historical inventory and lineage reconstruction may continue independently of Candidate A substrate provisioning.
+## P6 — Historical Documentation Migration
+
+**IN PROGRESS — RECENT AUTHORITY RECOVERY COMPLETE FOR RUN 020–023 + RC**
+
+Artifacts:
+
+- `migration/P6_BRANCH_CHECKPOINTS.md`
+- `migration/P6_RECENT_LINEAGE_020_023_RC.md`
+- `migration/P6_RECOVERED_AUTHORITY_020_023_RC.md`
+- `migration/INVENTORY.md`
+
+Recovered final historical checkpoints:
+
+- RUN 020 = `318e310f3a7f475de00bc427b6654192d615486d` / PASS / INTEGRATED / CLOSED.
+- RUN 021 = `ec838d9ea0626d52e133937fb790150575ab623e` / PASS / INTEGRATED / CLOSED.
+- RUN 022 = `4b0aa0d6afdbd07d155844d38b2832ea0acfa201` / PASS / INTEGRATED / CLOSED.
+- RUN 023 = `c929a6020760525d5cf6daf695b2f44c1d3cd1ca` / PASS / INTEGRATED / CLOSED.
+- post-RUN-023 RC = `4c9b0228bb47ac074c49a977b48dbf0844c33a94` / PASS / INTEGRATED.
+
+RUN 020 ambiguity resolved:
+`33a5c07b...` was an intermediate correction candidate; final authority advanced to `318e310f...`.
+
+Next P6 target:
+reconstruct RUN 019 backward, prioritizing RUN 009–013 historical authority and integration because those contracts still materially influence present Workspace behavior.
 
 ## Non-authorizations
 
