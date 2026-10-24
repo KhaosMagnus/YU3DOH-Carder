@@ -1,0 +1,105 @@
+name: Combined candidate DEPLOY-004 operational evidence
+
+on:
+  push:
+    branches:
+      - ops/cr-0001-combined-deploy-004-actions
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout operational harness
+        uses: actions/checkout@v4
+        with:
+          path: ops-control
+
+      - name: Checkout exact combined candidate
+        uses: actions/checkout@v4
+        with:
+          ref: 64cb5f4ca42348c6c403e64e0d61bdff8c32a281
+          fetch-depth: 0
+          path: combined-candidate
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.22
+
+      - name: Create external evidence directory
+        shell: bash
+        run: mkdir -p "$RUNNER_TEMP/deploy004-evidence"
+
+      - name: Candidate exact-SHA preflight
+        shell: bash
+        run: |
+          test -d combined-candidate/.git
+          test "$(git -C combined-candidate rev-parse HEAD)" = "64cb5f4ca42348c6c403e64e0d61bdff8c32a281"
+          test -z "$(git -C combined-candidate status --porcelain)"
+          git -C combined-candidate ls-remote origin refs/heads/feature/workspace-cr-0001-combined
+          git -C combined-candidate rev-parse --abbrev-ref HEAD
+          git -C combined-candidate rev-parse HEAD
+          git -C combined-candidate status --porcelain
+
+      - name: Install Candidate root from immutable lockfile
+        working-directory: combined-candidate
+        run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Install Candidate Workspace Service from immutable lockfile
+        working-directory: combined-candidate
+        run: yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+
+      - name: Compile Candidate Workspace Service
+        working-directory: combined-candidate
+        run: yarn --cwd workspace-server compile
+
+      - name: Install isolated Chromium tool
+        shell: bash
+        run: |
+          npm install --prefix "$RUNNER_TEMP/deploy004-tools" --no-audit --no-fund playwright-core@1.58.2
+          node "$RUNNER_TEMP/deploy004-tools/node_modules/playwright-core/cli.js" install chromium
+
+      - name: Execute frozen C-OP-01 through C-OP-06
+        shell: bash
+        env:
+          CANDIDATE_ROOT: ${{ github.workspace }}/combined-candidate
+          DEPLOY004_OUTPUT: ${{ runner.temp }}/deploy004-evidence
+          DEPLOY004_WORKSPACE: ${{ runner.temp }}/deploy004-workspace
+          NODE_PATH: ${{ runner.temp }}/deploy004-tools/node_modules
+        run: node ops-control/validation/deploy004.cjs
+
+      - name: Candidate final integrity
+        if: always()
+        shell: bash
+        run: |
+          test "$(git -C combined-candidate rev-parse HEAD)" = "64cb5f4ca42348c6c403e64e0d61bdff8c32a281"
+          test -z "$(git -C combined-candidate status --porcelain)"
+          git -C combined-candidate rev-parse HEAD
+          git -C combined-candidate status --porcelain
+          git -C combined-candidate diff --exit-code
+          git -C combined-candidate diff --cached --exit-code
+
+      - name: Hash validation evidence
+        if: always()
+        shell: bash
+        run: |
+          cd "$RUNNER_TEMP/deploy004-evidence"
+          find . -type f ! -name manifest.sha256 -print0 | sort -z | xargs -0 sha256sum > manifest.sha256
+          cat manifest.sha256
+
+      - name: Preserve DEPLOY-004 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy004-validation-${{ github.run_id }}-64cb5f4ca42348c6c403e64e0d61bdff8c32a281
+          path: ${{ runner.temp }}/deploy004-evidence
+          if-no-files-found: error
