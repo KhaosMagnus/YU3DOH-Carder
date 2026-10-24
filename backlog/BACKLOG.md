@@ -1,23 +1,27 @@
 # BACKLOG
 
 Current canonical ledger:
-`requests/CR-0001-v10.md`
+`requests/CR-0001-v11.md`
 
-## Combined-candidate active work
+## Combined candidate active validation
 
-Owner authorized Option C.
+Combined candidate:
 
-DEV-003 is authorized to prepare:
-`feature/workspace-cr-0001-combined`
+`feature/workspace-cr-0001-combined @ 64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 
-from exact baseline:
-`4c9b0228...`
+Current External QA:
+`PARTIAL`
 
-using independently validated:
-- Candidate A `61503c6...`
-- Candidate B `59fb292...`
+Source/automated gate:
+SATISFACTORY.
 
-Combined candidate has no QA disposition yet and may not be integrated.
+Candidate B A–J on exact combined SHA:
+PASS.
+
+Pending bounded evidence:
+C-OP-01..C-OP-06 via DEPLOY-003.
+
+No integration authorized.
 
 ## Independently validated inputs
 

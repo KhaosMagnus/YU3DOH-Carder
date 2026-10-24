@@ -7,16 +7,16 @@ Protocol-era IDs begin at Project Control v1.0. Pre-v1 predecessors remain HISTO
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | Combined candidate routing + P6 | GitHub/control evidence |
+| PC-001 | PROJECT_CONTROL | ACTIVE | combined evidence routing + P6 | GitHub/control evidence |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0001.2 scope complete | GitHub/control evidence |
-| DQA-001 | DESIGN_QA | AVAILABLE | A PASS; B PASS; awaiting combined candidate | GitHub/control evidence |
+| DQA-001 | DESIGN_QA | WAITING FOR COMBINED DEPLOY EVIDENCE | combined PARTIAL; B A–J PASS | GitHub/control evidence |
 | ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | GitHub/control evidence |
 | ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | GitHub Actions substrate proven | GitHub Actions + control evidence |
-| DEPLOY-001 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | 0/6 | GitHub/control evidence |
-| DEPLOY-002 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | 0/6 | GitHub/control evidence |
-| DEPLOY-003 | DEPLOYMENT_VALIDATION | COMPLETE / EVIDENCE READY | 6/6 Candidate A | GitHub/control evidence |
+| DEPLOY-001 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | historical Candidate A attempt | GitHub/control evidence |
+| DEPLOY-002 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | historical Candidate A attempt | GitHub/control evidence |
+| DEPLOY-003 | DEPLOYMENT_VALIDATION | ACTIVE — COMBINED C-OP-01..06 | second assignment; proven Actions substrate | Project Control routing |
 | DEV-001 | DEVELOPMENT | COMPLETE / QA PASS | Candidate A | GitHub/control evidence |
 | DEV-002 | DEVELOPMENT | COMPLETE / QA PASS | Candidate B | GitHub/control evidence |
-| DEV-003 | DEVELOPMENT | READY TO START | Combined Candidate A+B | Project Control routing |
+| DEV-003 | DEVELOPMENT | COMPLETE / COMBINED QA PARTIAL | combined SHA 64cb5f4c... | GitHub/control evidence |
 
 Historical lineage reconstruction remains a P6 workstream.
