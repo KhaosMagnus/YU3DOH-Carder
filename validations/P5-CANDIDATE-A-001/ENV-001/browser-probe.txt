@@ -1,0 +1,9 @@
+ENV-001 cloud-browser observations, 2026-10-24.
+Inventory: apps=[]; browser name=Chrome; type=cdp; id=1; initial tabs=[].
+Created browser tab 2 at about:blank successfully.
+Attempted chrome://version/: browser URL policy rejected non-http(s) protocol. No workaround attempted.
+While the actual Workspace Service session remained running after its startup log:
+Navigation to http://127.0.0.1:4312/api/v1/workspace/status failed:
+Browser Use cannot open http://127.0.0.1:4312/api/v1/workspace/status in tab 2. Browser reported: net::ERR_CONNECTION_REFUSED
+No application UI loaded. No Candidate A screenshot captured. No A-OP case executed.
+Exact browser executable/version unavailable through the permitted observations used.

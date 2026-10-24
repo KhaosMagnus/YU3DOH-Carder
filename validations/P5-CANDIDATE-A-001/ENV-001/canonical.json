@@ -1,0 +1,20 @@
+{
+  "status": 200,
+  "body": {
+    "card_id": "ac10466f-d5ff-4128-a979-828e745766ba",
+    "revision": "1",
+    "family": "MONSTER",
+    "password": "10000001",
+    "structure": null,
+    "localizations": [],
+    "confirmations": [],
+    "classification": {
+      "effect_reviewed": false,
+      "archetypes": [],
+      "effect_classifiers": [],
+      "functional_tags": []
+    },
+    "relations": [],
+    "provenance": []
+  }
+}

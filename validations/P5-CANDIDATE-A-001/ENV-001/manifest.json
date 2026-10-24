@@ -1,0 +1,75 @@
+{
+  "candidate_sha": "61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c",
+  "control_input_sha": "ad108b5601dfa93e1fdf981e7088993f7e0c5512",
+  "timestamp_utc": "2026-10-24T06:57:02.061627+00:00",
+  "fixture_id": "ac10466f-d5ff-4128-a979-828e745766ba",
+  "screenshot_case_ids": [],
+  "behavioral_cases_executed": 0,
+  "artifacts": [
+    {
+      "path": "browser-probe.txt",
+      "sha256": "2716de6b20ea22daf03991c83eeb92d12f555a14501213f6ecf037161dbe9336",
+      "bytes": 725
+    },
+    {
+      "path": "canonical.json",
+      "sha256": "69f7a161f645a13a08e56fdb4aea6b534998a5d59624b88e7a5ffdb2fce56c99",
+      "bytes": 427
+    },
+    {
+      "path": "environment.json",
+      "sha256": "7ea9a0f6bce663ab46bf5b76e6e3549547fa1630cc38b35109b3dfd1ac1321a8",
+      "bytes": 1006
+    },
+    {
+      "path": "fixture.json",
+      "sha256": "f45630b16a319729cd4543353c5da79f0e0e3010ccae60142a72e71305ff499d",
+      "bytes": 360
+    },
+    {
+      "path": "git-final.json",
+      "sha256": "2a01b38be55a845b362949039d732fd722e54cc185d6819460dc99dc9e365870",
+      "bytes": 593
+    },
+    {
+      "path": "health.json",
+      "sha256": "0b84dfd5192df0c1459927994c6e8c6bfd16b1f7e1839aabbc91171cd70c608b",
+      "bytes": 286
+    },
+    {
+      "path": "http-trace.jsonl",
+      "sha256": "92c7e371946b90e99de32ded295c59dbc6d09d386080c2eabacfc3b03ebdd6e6",
+      "bytes": 878
+    },
+    {
+      "path": "install-client.log",
+      "sha256": "f1aaf0cfb73855c4345e8940a2a90c6d59ca316fe5e5c2cdf8095cf2c8e4733c",
+      "bytes": 696
+    },
+    {
+      "path": "install-service.log",
+      "sha256": "ed65ae2bd01f456ffaaae36291c9d5719f4f76c6a7d330d60d5a275e8a375f54",
+      "bytes": 486
+    },
+    {
+      "path": "readiness.cjs",
+      "sha256": "3745d60df723808a9192f4f7ca83df520614f5f65f02ac9ac1d006072f68ea76",
+      "bytes": 2488
+    },
+    {
+      "path": "service-health.log",
+      "sha256": "f5ca3cdda326692198c11a1b4c87c8f2440d3f1e6b2cf46f640db8460658695c",
+      "bytes": 1307
+    },
+    {
+      "path": "service.log",
+      "sha256": "9005b4021cf2ef3203e2d86211424de3c810ebcc4f103002f40e09ce8355518c",
+      "bytes": 463
+    },
+    {
+      "path": "transport-probe.txt",
+      "sha256": "47c367f55cd58fc10e36db4c3ba47848f20b8fa54efe95022270dfbb472498e6",
+      "bytes": 1377
+    }
+  ]
+}

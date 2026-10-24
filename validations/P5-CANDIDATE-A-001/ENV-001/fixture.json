@@ -1,0 +1,17 @@
+{
+  "cardId": "ac10466f-d5ff-4128-a979-828e745766ba",
+  "family": "MONSTER",
+  "password": "10000001",
+  "revision": "1",
+  "structure": null,
+  "localizations": [],
+  "confirmations": [],
+  "provenance": [],
+  "classification": {
+    "effectReviewed": false,
+    "archetypes": [],
+    "effectClassifiers": [],
+    "functionalTags": []
+  },
+  "relations": []
+}

@@ -1,0 +1,2 @@
+{"level":30,"time":1792824887568,"pid":5,"hostname":"f17f51a1f666","msg":"Server listening at http://127.0.0.1:4312"}
+{"root":"/workspace/scratch/1ace49e975f4/evidence/disposable-workspace","status":{"workspace_id":"env-001-smoke","name":null,"workspace_format_version":1,"database_schema_version":8,"state":"READY","read_only":false,"health_summary":"Workspace database schema 8 is current and operational."},"fixture_id":"ac10466f-d5ff-4128-a979-828e745766ba"}

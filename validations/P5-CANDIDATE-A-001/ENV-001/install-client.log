@@ -1,0 +1,6 @@
+yarn install v1.22.22
+(node:6) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+warning Pattern ["react-is@^18.2.0"] is trying to unpack in the same destination "/usr/local/share/.cache/yarn/v6/npm-react-is-18-18.3.1-e83557dc12eae63a99e003a46388b1dcbb44db7e-integrity/node_modules/react-is-18" as pattern ["react-is-18@npm:react-is@^18.3.1"]. This could result in non-deterministic behavior, skipping.

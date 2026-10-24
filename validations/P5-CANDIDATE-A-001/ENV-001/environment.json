@@ -1,0 +1,13 @@
+{
+  "os": "PRETTY_NAME=\"Ubuntu 24.04.3 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.3 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+  "git": "git version 2.51.1",
+  "node": "v24.22.1",
+  "yarn": "1.22.22",
+  "checkout": "/workspace/scratch/1ace49e975f4/candidate-a",
+  "workspace": "/workspace/scratch/1ace49e975f4/evidence/disposable-workspace",
+  "candidate_sha": "61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c",
+  "control_input_sha": "ad108b5601dfa93e1fdf981e7088993f7e0c5512",
+  "captured_at_utc": "2026-10-24T06:57:02.061627+00:00",
+  "service_install_exit": 0,
+  "client_install": "Interrupted with exit 130 while fetching, after connectivity blocker; not a demonstrated dependency defect."
+}

@@ -1,0 +1,17 @@
+2026-10-24 ENV-001 observations.
+GitHub connector reads verified both remote refs:
+meta/project-control = ad108b5601dfa93e1fdf981e7088993f7e0c5512
+fix/workspace-rc-normal-subtype-icon = 61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c
+Direct command:
+GIT_TERMINAL_PROMPT=0 timeout 25 git ls-remote https://github.com/KhaosMagnus/YU3DOH-Carder.git refs/heads/fix/workspace-rc-normal-subtype-icon
+Output:
+61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c refs/heads/fix/workspace-rc-normal-subtype-icon
+git clone --single-branch --branch fix/workspace-rc-normal-subtype-icon https://github.com/KhaosMagnus/YU3DOH-Carder.git candidate-a
+Exit 0. Real filesystem .git created, exact HEAD verified.
+Earlier mirror probes were unsuccessful (authentication required / Invalid Git namespace). They do not negate the successful direct clone.
+While Workspace Service command session was running and logging its listening URL, a separate command invocation executed:
+curl -sS http://127.0.0.1:4312/api/v1/workspace/status
+Output:
+curl: (7) Failed to connect to 127.0.0.1 port 4312 after 0 ms: Couldn't connect to server
+Later same-process real HTTP health and Canonical reads succeeded; see health.json, canonical.json, http-trace.jsonl and service-health.log.
+Inference: command/browser execution surfaces did not provide a proven shared reachable listener. Exact isolation mechanism was not established.

@@ -1,0 +1,32 @@
+[
+  {
+    "command": "git rev-parse --abbrev-ref HEAD",
+    "exit": 0,
+    "stdout": "fix/workspace-rc-normal-subtype-icon\n",
+    "stderr": ""
+  },
+  {
+    "command": "git rev-parse HEAD",
+    "exit": 0,
+    "stdout": "61503c6eb7973bfaf2a3ccfbdcd1e6701007b07c\n",
+    "stderr": ""
+  },
+  {
+    "command": "git status --porcelain",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": "git diff --exit-code",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": "git diff --cached --exit-code",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]
