@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - ops/cr-0001-combined-deploy-004-actions
+    paths:
+      - validation/deploy004.cjs
   workflow_dispatch:
 
 permissions:

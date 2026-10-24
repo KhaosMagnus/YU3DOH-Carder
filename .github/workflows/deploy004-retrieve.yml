@@ -1,0 +1,48 @@
+name: DEPLOY-004 inspect disposable evidence
+on:
+  push:
+    branches:
+      - ops/cr-0001-combined-deploy-004-actions
+    paths:
+      - .github/workflows/deploy004-retrieve.yml
+permissions:
+  actions: read
+  contents: read
+jobs:
+  retrieve:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download existing disposable validation evidence
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          run-id: 40079213445
+          name: deploy004-validation-40079213445-64cb5f4ca42348c6c403e64e0d61bdff8c32a281
+          path: evidence
+      - name: Inspect only generated fixtures and redact transient grants
+        shell: python
+        run: |
+          import pathlib, hashlib, base64, json
+          root = pathlib.Path('evidence')
+          verified = 0
+          for line in (root/'manifest.sha256').read_text().splitlines():
+              digest, name = line.split('  ',1)
+              assert hashlib.sha256((root/name).read_bytes()).hexdigest() == digest, name
+              verified += 1
+          print('D004_VERIFY|' + json.dumps({'manifest_files_verified':verified,'source_run':40079213445,'candidate_sha':'64cb5f4ca42348c6c403e64e0d61bdff8c32a281'}))
+          def redact(value):
+              if isinstance(value, dict):
+                  return {k:('[REDACTED TRANSIENT GRANT]' if any(x in k.lower() for x in ['grant','token','authorization']) else redact(v)) for k,v in value.items()}
+              if isinstance(value, list): return [redact(v) for v in value]
+              if isinstance(value, str) and '/api/v1/carder/asset-content/' in value: return '[REDACTED TRANSIENT ASSET URL]'
+              return value
+          names = ['git-preflight.json','git-final.json','environment.json','browser.json','workspace-status.json','fixtures.json','execution-status.json','manifest.sha256','C-OP-06-library-copy.png','C-OP-06-visible-copy.txt']
+          for i in range(1,5):
+              names += ['C-OP-0'+str(i)+s for s in ['-carder.png','-canvas-1.png','-prepare.json','-working.json','-canonical-before.json','-canonical-after.json','-canvases.json']]
+          for family in ['SPELL','TRAP']:
+              names += ['C-OP-05-'+family+s for s in ['-before.json','-working-edited.json','-ack-visible.txt','-ack.png','-http.json','-after.json','-visible-result.txt','-result.png']]
+          for name in names:
+              p = root/name
+              raw = p.read_bytes()
+              data = json.dumps(redact(json.loads(raw)),indent=2).encode() if p.suffix == '.json' else raw
+              print('D004_FILE|' + name + '|' + hashlib.sha256(raw).hexdigest() + '|' + base64.b64encode(data).decode())
