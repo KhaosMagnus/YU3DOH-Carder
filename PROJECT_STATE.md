@@ -16,21 +16,16 @@ protocol_version: 1.0
 
 QA: PARTIAL.
 
-ENV-001:
-ENVIRONMENT BLOCKED.
+ENV-001: ENVIRONMENT BLOCKED after proving exact-SHA service execution.
 
-ENV-001 nevertheless proved real exact-SHA checkout, clean tree, Workspace dependencies, schema-8 disposable Workspace and actual Workspace Service execution.
+ENV-002: ACTIVE on GitHub-hosted Actions.
 
-Remaining blocker:
-browser/UI and service did not share reachable transport in Work.
+Operational branch:
+`ops/candidate-a-env-002-actions`
 
-Current gate:
-`ENV-002 / GitHub-hosted Actions`
+Candidate A itself is checked out separately by exact SHA inside the job and remains unchanged.
 
-Route:
-`routing/ROUTE-CANDIDATE-A-ENV-002-ACTIONS.md`
-
-No DEPLOY-003 until ENVIRONMENT READY.
+No DEPLOY-003 until ENVIRONMENT READY is verified.
 
 ## Candidate B
 
@@ -42,10 +37,17 @@ CLOSED / PASS.
 
 ## P6
 
-IN PROGRESS.
+**IN PROGRESS — AUTHORITY RECOVERY**
 
-RUN 020–023 + RC authority recovered.
-RUN 009–013 reconstruction is in progress independently.
+Recovered:
+- RUN 009–013 integration/checkpoint authority;
+- RUN 020–023 + RC final authority.
+
+Important provenance distinction:
+RUN 011 and RUN 012 exact integrated checkpoints are established from downstream authorized baselines, while their original primary final QA artifacts remain archival gaps.
+
+Next:
+RUN 014–019, then RUN 001–008, plus targeted archival recovery of missing role-owned QA/integration reports.
 
 ## Non-authorizations
 
