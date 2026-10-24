@@ -14,34 +14,27 @@ protocol_version: 1.0
 
 ## Candidate A
 
-External QA:
+Current External QA:
 `PARTIAL`
 
-Environment gate:
-`SATISFIED`
+Operational evidence:
+`COMPLETE`
 
-ENV-002:
-`ENVIRONMENT READY`
+DEPLOY-003:
+`EVIDENCE READY`
 
-Readiness Actions run:
-`40073048304`
+Cases:
+`6 / 6 SATISFACTORY`
 
-Readiness artifact:
-`12551219292`
-
-Candidate A remained exact and clean before/after readiness.
+No operational defect observed.
 
 Current route:
+`DQA-001 → superseding final Candidate A QA disposition`
 
-`DEPLOY-003 → DQA-001`
+Routing artifact:
+`routing/ROUTE-P5-CANDIDATE-A-FINAL-QA.md`
 
-Deployment route:
-`routing/ROUTE-P5-CANDIDATE-A-DEPLOY-003.md`
-
-Operational branch:
-`ops/candidate-a-deploy-003-actions`
-
-DEPLOY-003 executes only A-OP-01..A-OP-06 against the exact candidate using the proven GitHub-hosted Actions topology.
+Candidate A integration remains NOT AUTHORIZED pending DQA final disposition and separate Project Control/Owner integration decision.
 
 ## Candidate B
 
@@ -55,16 +48,13 @@ CLOSED / PASS.
 
 ## P6
 
-**IN PROGRESS — AUTHORITY RECOVERY**
+IN PROGRESS.
 
 Recovered:
-- RUN 009–013 integration/checkpoint authority;
-- RUN 020–023 + RC final authority.
+- RUN 009–013;
+- RUN 020–023 + RC.
 
-Next historical tranche:
-RUN 014–019, then RUN 001–008, plus archival recovery of missing primary QA/integration artifacts.
-
-P6 continues independently while DEPLOY-003 executes Candidate A validation.
+RUN 014–019 reconstruction remains the next historical tranche after Candidate A final QA routing.
 
 ## Non-authorizations
 
