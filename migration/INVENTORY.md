@@ -18,17 +18,27 @@ Classification: AUTHORITATIVE, SUPERSEDED, HISTORICAL, SUPPORTING, DUPLICATE, UN
 ## Recovered authority records
 
 - `migration/P6_RECOVERED_AUTHORITY_009_013.md`
+- `migration/P6_RECOVERED_AUTHORITY_014_019.md`
 - `migration/P6_RECOVERED_AUTHORITY_020_023_RC.md`
 - `migration/P6_RECENT_LINEAGE_020_023_RC.md`
 - `migration/P6_BRANCH_CHECKPOINTS.md`
 
 ## RUN 009–013
 
-- RUN 009 integrated checkpoint: `3d1a566ceaabdb1eb9bf3346ba87541f26a66782`; PASS/INTEGRATED/CLOSED recovered; primary final QA artifact remains archival gap.
-- RUN 010: `609126af1b0062ca198bcd32e7d21396bb225549`; CLOSED/PASS/INTEGRATED explicitly recovered.
-- RUN 011: `1f4b93ee9a3c322b808e8db3f87076b95d6f8d2e`; integration checkpoint established by RUN 012 baseline; primary final QA artifact pending.
-- RUN 012: `590f11f62476a504164055c47aa918e80666ce2c`; integration checkpoint established by RUN 013 baseline; primary final QA artifact pending.
-- RUN 013: `366fea433d6eccde9b2848dee2f9b53297926a69`; CLOSED/PASS/INTEGRATED explicitly recovered.
+- RUN 009 = `3d1a566ceaabdb1eb9bf3346ba87541f26a66782`; PASS / INTEGRATED / CLOSED recovered.
+- RUN 010 = `609126af1b0062ca198bcd32e7d21396bb225549`; CLOSED / PASS / INTEGRATED explicitly recovered.
+- RUN 011 = `1f4b93ee9a3c322b808e8db3f87076b95d6f8d2e`; integrated checkpoint established; primary final QA artifact pending.
+- RUN 012 = `590f11f62476a504164055c47aa918e80666ce2c`; integrated checkpoint established; primary final QA artifact pending.
+- RUN 013 = `366fea433d6eccde9b2848dee2f9b53297926a69`; CLOSED / PASS / INTEGRATED explicitly recovered.
+
+## RUN 014–019
+
+- RUN 014 = `fd13018c881f63764efb60bc1c88b4eb0a400018`; PASS / INTEGRATED / CLOSED recovered through downstream authorized baseline; primary final QA/integration artifacts pending archival recovery.
+- RUN 015 = `191454d44f3273cf2efba254bddd8ba5275a08aa`; PASS / INTEGRATED / CLOSED recovered through downstream authorized baseline; primary final QA/integration artifacts pending archival recovery.
+- RUN 016 = `163799a60772da69ecabbae03d8b2966a50d6c46`; CLOSED / PASS / INTEGRATED explicitly recovered.
+- RUN 017 = `0c94aa7990c227690b5d90e2d73ae892a37930ee`; CLOSED / PASS / INTEGRATED explicitly recovered.
+- RUN 018 = `d7f5d567856503a42d14543d876eb7d1e0c2b311`; CLOSED / PASS / INTEGRATED explicitly recovered.
+- RUN 019 = `e83de9793c26f78834f748b320161a168943d4ed`; CLOSED / PASS / INTEGRATED explicitly recovered.
 
 ## RUN 020–023 + RC
 
@@ -41,12 +51,24 @@ Classification: AUTHORITATIVE, SUPERSEDED, HISTORICAL, SUPPORTING, DUPLICATE, UN
 ## Supporting in-tree material
 
 - `library/RUN-012-QA.md` through `library/RUN-020-QA.md`: SUPPORTING QA guides.
-- `workspace-server/BACKUP-RECOVERY.md`: SUPPORTING RUN 010 technical history.
-- `workspace-server/ASSET-MUTATION.md`: SUPPORTING RUN 011 technical history.
-- `workspace-server/VARIANT-LIFECYCLE.md`: SUPPORTING RUN 013 technical history.
+- `workspace-server/BACKUP-RECOVERY.md`: SUPPORTING RUN 010.
+- `workspace-server/ASSET-MUTATION.md`: SUPPORTING RUN 011.
+- `workspace-server/VARIANT-LIFECYCLE.md`: SUPPORTING RUN 013.
+
+## Current P6 coverage
+
+Historical Workspace authority is now reconstructed continuously from:
+
+`RUN 009 → RUN 023 → post-RUN-023 RC`
+
+with explicit provenance caveats recorded for checkpoints whose primary role-owned QA/integration artifact has not yet been imported.
 
 ## Next P6 target
 
-Reconstruct RUN 014–019 authority and then RUN 001–008, while separately recovering original role-owned artifacts for the archival gaps above.
+Reconstruct:
+
+`RUN 001–008`
+
+Then perform targeted archival recovery for missing primary role-owned artifacts across the already reconstructed RUNs.
 
 No bulk transcript import is authorized.
