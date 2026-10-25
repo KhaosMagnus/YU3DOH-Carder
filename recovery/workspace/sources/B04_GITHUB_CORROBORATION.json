@@ -1,0 +1,210 @@
+{
+  "control_sha_consumed": "bd11cbcdbb94ea9209af358b2df336e6b52040f1",
+  "date": "2026-10-25",
+  "compares": [
+    {
+      "repository_full_name": "KhaosMagnus/YU3DOH-Carder",
+      "base": "45d85b6cfd4a28f1b4f241f540159fac076f3978",
+      "head": "1ba9518c402cb5005632b8fc364c20d508f2dc03",
+      "status": "ahead",
+      "ahead_by": 5,
+      "behind_by": 0,
+      "total_commits": 5,
+      "too_large": null,
+      "base_commit": {
+        "sha": "45d85b6cfd4a28f1b4f241f540159fac076f3978",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/45d85b6cfd4a28f1b4f241f540159fac076f3978",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/45d85b6cfd4a28f1b4f241f540159fac076f3978"
+      },
+      "merge_base_commit": {
+        "sha": "45d85b6cfd4a28f1b4f241f540159fac076f3978",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/45d85b6cfd4a28f1b4f241f540159fac076f3978",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/45d85b6cfd4a28f1b4f241f540159fac076f3978"
+      },
+      "files": [
+        {
+          "filename": "scripts/test-library-client.ts",
+          "status": "modified",
+          "additions": 156,
+          "deletions": 0,
+          "changes": 156,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/api.ts",
+          "status": "modified",
+          "additions": 39,
+          "deletions": 0,
+          "changes": 39,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/app.tsx",
+          "status": "modified",
+          "additions": 70,
+          "deletions": 0,
+          "changes": 70,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/asset-channels.ts",
+          "status": "added",
+          "additions": 63,
+          "deletions": 0,
+          "changes": 63,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/asset-state.ts",
+          "status": "added",
+          "additions": 88,
+          "deletions": 0,
+          "changes": 88,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/detail-panel.tsx",
+          "status": "modified",
+          "additions": 70,
+          "deletions": 5,
+          "changes": 75,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/ingest-form.tsx",
+          "status": "added",
+          "additions": 105,
+          "deletions": 0,
+          "changes": 105,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/library.scss",
+          "status": "modified",
+          "additions": 98,
+          "deletions": 0,
+          "changes": 98,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/model.ts",
+          "status": "modified",
+          "additions": 93,
+          "deletions": 0,
+          "changes": 93,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/needs-attention-panel.tsx",
+          "status": "added",
+          "additions": 139,
+          "deletions": 0,
+          "changes": 139,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/variants-panel.tsx",
+          "status": "added",
+          "additions": 124,
+          "deletions": 0,
+          "changes": 124,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/package.json",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1,
+          "changes": 2,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/app.ts",
+          "status": "modified",
+          "additions": 153,
+          "deletions": 0,
+          "changes": 153,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/assets/repository.ts",
+          "status": "modified",
+          "additions": 125,
+          "deletions": 1,
+          "changes": 126,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/library/asset-dto.ts",
+          "status": "added",
+          "additions": 233,
+          "deletions": 0,
+          "changes": 233,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/library/asset-service.ts",
+          "status": "added",
+          "additions": 186,
+          "deletions": 0,
+          "changes": 186,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/service.ts",
+          "status": "modified",
+          "additions": 15,
+          "deletions": 1,
+          "changes": 16,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/test/library-assets.test.ts",
+          "status": "added",
+          "additions": 658,
+          "deletions": 0,
+          "changes": 658,
+          "previous_filename": null
+        }
+      ]
+    },
+    {
+      "repository_full_name": "KhaosMagnus/YU3DOH-Carder",
+      "base": "c14811188f2dd05d77a59b4ee327b4904defaee6",
+      "head": "1ba9518c402cb5005632b8fc364c20d508f2dc03",
+      "status": "ahead",
+      "ahead_by": 1,
+      "behind_by": 0,
+      "total_commits": 1,
+      "too_large": null,
+      "base_commit": {
+        "sha": "c14811188f2dd05d77a59b4ee327b4904defaee6",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/c14811188f2dd05d77a59b4ee327b4904defaee6",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/c14811188f2dd05d77a59b4ee327b4904defaee6"
+      },
+      "merge_base_commit": {
+        "sha": "c14811188f2dd05d77a59b4ee327b4904defaee6",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/c14811188f2dd05d77a59b4ee327b4904defaee6",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/c14811188f2dd05d77a59b4ee327b4904defaee6"
+      },
+      "files": [
+        {
+          "filename": ".github/workflows/run008-validation.yml",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 96,
+          "changes": 96,
+          "previous_filename": null
+        }
+      ]
+    }
+  ],
+  "actions": {
+    "url": "https://github.com/KhaosMagnus/YU3DOH-Carder/actions/runs/37591850645",
+    "head_sha": "c14811188f2dd05d77a59b4ee327b4904defaee6",
+    "status": "completed",
+    "conclusion": "success",
+    "name": "RUN 008 validation"
+  },
+  "note": "Corroborates initial rejected candidate's technical lineage, not External QA acceptance. No tests rerun."
+}

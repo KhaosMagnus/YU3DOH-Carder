@@ -50,3 +50,13 @@ RUN 008: correction-return text was promoted by PC after B02. Full initial QA re
 B03 is an incomplete mixed-epoch export (ellipsis at lines 607, 2615, 3311, 3719); title alone does not establish original speaker identity or completeness. The source starts at RUN 006; no missing RUN 005/008 interval is invented. Next request should target original role-owned decisions rather than additional copies of already-known implementation reports.
 
 RECOVERY READY FOR PROJECT CONTROL REVIEW — bounded batch processed, primary gaps remain.
+
+## B04 update — Library references followed
+
+Control consumed: `bd11cbcdbb94ea9209af358b2df336e6b52040f1`. Four uploads processed: two Serial histories excluded, one early Workspace RUN 001–003 and one later RUN 013–014 history outside pilot. Library follow-up recovered initial RUN 008 implementation report (AR-001-015) and exact duplicate correction report (AR-001-016), plus read the two referenced early architecture/API drafts.
+
+No original RUN 005 target closure or corrected RUN 008 final External QA/integration decision recovered. Final target checkpoints remain reconstructed as already established by PC; new initial-report support does not close primary gaps. Original report's child handoff/design filenames and RUN-014-QA.md did not resolve in exact-title/alternate-title searches; Library-wide absence is not established. Referenced later roadmaps/scope handoff were located but are outside pilot and not normalized.
+
+Source provenance and reference-search outcomes: sources/B04_SOURCE_MANIFEST.json and sources/B04_REFERENCED_FILE_SEARCH.md. No current role/ref operation was adopted from historical content.
+
+RECOVERY READY FOR PROJECT CONTROL REVIEW — bounded batch complete; archival closure gaps remain.

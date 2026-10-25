@@ -1,0 +1,89 @@
+{
+  "batch": "B04",
+  "date": "2026-10-25",
+  "control_sha_consumed": "bd11cbcdbb94ea9209af358b2df336e6b52040f1",
+  "staging_parent": "d6be14a95cd78b7a34837290e8a23d0e0ac3ebb3",
+  "attached_files": 4,
+  "additional_library_documents_inspected": 4,
+  "sources": [
+    {
+      "source_id": "B04-S01",
+      "filename": "Pasted text(20261025-234647).txt",
+      "library_file_id": "libfile_a9bd4e1dae7c81919d74eef0e2ac37bb",
+      "bytes": 66354,
+      "lines": 3280,
+      "sha256": "6d6d9dfd0ef109ffe9cc9cb41eeb3faee621e30d9b86c9fd294f5a000cc29caa",
+      "classification": "Workspace RUN 001–003; outside target RUNs; no target SHA"
+    },
+    {
+      "source_id": "B04-S02",
+      "filename": "chat princioal.md",
+      "library_file_id": "libfile_9fb0b3ad18f4819188640061be51a791",
+      "bytes": 7703,
+      "lines": 175,
+      "sha256": "c384e9c35340053f714b8e87884936139f3c4e57bf55991cdebe7c246ef10482",
+      "classification": "OUT_OF_SCOPE_SERIAL"
+    },
+    {
+      "source_id": "B04-S03",
+      "filename": "Pasted markdown (2).md",
+      "library_file_id": "libfile_6db63eacd704819193d69de945ea7106",
+      "bytes": 47577,
+      "lines": 1768,
+      "sha256": "acf3171758d7da8e35a909a714b7b5a5316b6edc7202aaadac32808ccf84ce7a",
+      "classification": "OUT_OF_SCOPE_SERIAL; RUN 004/005 numbers refer to Serial, not Workspace"
+    },
+    {
+      "source_id": "B04-S04",
+      "filename": "Pasted markdown (3).md",
+      "library_file_id": "libfile_8c81016e2dcc8191b3a76dfe5658a0ab",
+      "bytes": 49786,
+      "lines": 2144,
+      "sha256": "d3113b409d964a09bd823ffd216d2cd64db0d6b75ea553e3082218866ee4be9c",
+      "classification": "Workspace RUN 013–014 continuation; outside pilot except provenance references"
+    },
+    {
+      "source_id": "B04-S05",
+      "filename": "IMPLEMENTATION_REPORT_RUN_008.md",
+      "library_file_id": "libfile_6fa7d0e3075881919075eea2ba89854d",
+      "bytes": 11901,
+      "lines": 242,
+      "sha256": "4ecfb3ffbd104e0235d391b89855cb1d83c01cd077a25ffa1857330b220ef68a",
+      "classification": "SUPPORTING / original Development candidate, later rejected"
+    },
+    {
+      "source_id": "B04-S06",
+      "filename": "IMPLEMENTATION_REPORT_RUN_008_EXTERNAL_QA_CORRECTION.md",
+      "library_file_id": "libfile_b163abc1be788191a385b530e25e508f",
+      "bytes": 11061,
+      "lines": 259,
+      "sha256": "39f722754934d078d06e316380f61cc36197b9ecac4602c9fcee6d9a54652bfa",
+      "classification": "DUPLICATE / byte-identical to B02 correction report"
+    },
+    {
+      "source_id": "B04-S07",
+      "filename": "YU3DOH_WORKSPACE_IMPLEMENTATION_ARCHITECTURE_DRAFT_v1.md",
+      "library_file_id": "libfile_ef44346bbb6c81919c36f1114bea348b",
+      "bytes": 14249,
+      "lines": 796,
+      "access": "Library full text read, complete; raw bytes not materialized, no raw digest asserted",
+      "classification": "SUPPORTING architectural/API context; no target final QA/integration decision"
+    },
+    {
+      "source_id": "B04-S08",
+      "filename": "YU3DOH_WORKSPACE_SERVICE_API_CONTRACT_DRAFT_v1.md",
+      "library_file_id": "libfile_d291007f8d408191a8bd0a1afae9a8d6",
+      "bytes": 11463,
+      "lines": 472,
+      "access": "Library full text read, complete; raw bytes not materialized, no raw digest asserted",
+      "classification": "SUPPORTING architectural/API context; no target final QA/integration decision"
+    }
+  ],
+  "inspection": "All four uploads inventoried and searched for target RUNs, exact target SHAs and attachment references. Relevant lineage passages inspected. Two Library reports accessed as exact local bytes after Library text reads yielded no content; two referenced drafts read through Library. Outside-target histories are indexed, not promoted.",
+  "duplicate": {
+    "source": "B04-S06",
+    "matches": "B02-S02",
+    "byte_identical": true,
+    "sha256": "39f722754934d078d06e316380f61cc36197b9ecac4602c9fcee6d9a54652bfa"
+  }
+}

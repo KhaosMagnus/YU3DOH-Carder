@@ -26,3 +26,7 @@ Control consumed: `fd6a7e66341bb936c3b1cc188767b8b0669fb800`. No new material co
 ## B03 update
 
 No material contradiction with control `2a2675718a36705922575ec2a1164ed7b0ad3daa`. RUN 006 READY FOR QA, later RUN 009 PARTIAL at the e5480062… baseline, RUN 010 integration and much later CR-0001 integration belong to different historical moments. They must not be treated as simultaneous conflicting refs or present permissions. B03's downstream RUN 005 PASS dependency statement does not replace the missing original final External QA disposition. Duplicate report content is recorded explicitly in AR-001-014; not an independent corroborator. Source omissions and unauthenticated attribution remain unresolved.
+
+## B04 update — lineage collision avoided
+
+No new material contradiction with control `bd11cbcdbb94ea9209af358b2df336e6b52040f1`. B04-S03's RUN 005 PASS concerns Serial v0.1 custom-border stacking; it is OUT_OF_SCOPE_SERIAL, not evidence for Workspace Managed Asset Ingest. B04-S02 likewise belongs to Serial. Two Library identities for the RUN 008 correction report match byte-for-byte and are recorded as DUPLICATE, not independent verification. Initial Internal QA PASS at 1ba9518c… does not conflict with later External QA PARTIAL: different authorities and a real-flow defect missed by the initial checks. No missing final acceptance is inferred from green Actions.

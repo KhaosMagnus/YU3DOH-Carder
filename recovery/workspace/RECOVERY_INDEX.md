@@ -8,8 +8,8 @@ staging_parent: `c49ad51c2948481daa6cdc5f7da0142608fc47a3`
 date: 2026-10-25 (America/Mexico_City)
 targets: RUN 004, RUN 005, RUN 008
 
-latest_batch: B03
-latest_control_sha_consumed: `2a2675718a36705922575ec2a1164ed7b0ad3daa`
+latest_batch: B04
+latest_control_sha_consumed: `bd11cbcdbb94ea9209af358b2df336e6b52040f1`
 
 ## Source batches
 
@@ -95,3 +95,24 @@ No new PRIMARY final QA or integration records for RUN 005/008 found. B03 begins
 Cumulative 14 items: 6 PRIMARY candidates (B01/B02 now reviewed/promoted by PC with limitations as recorded in control), 2 SUPPORTING, 3 CORROBORATING, 2 UNRESOLVED, 1 DUPLICATE. No new material contradiction or newly superseded target candidate in B03. Previously rejected candidates remain preserved. No primary promotion recommended from B03; optionally retain AR-001-012/013 as corroborating context only.
 
 Remaining highest-priority sources: original RUN 005 final QA/correction/integration sequence, and corrected RUN 008 final External QA PASS plus administrative authorization/report. No Internal QA, downstream PASS statement, or current lineage is upgraded to the missing original final decision.
+
+## B04 — Mixed historical sources and linked Library follow-up
+
+Control consumed: `bd11cbcdbb94ea9209af358b2df336e6b52040f1`; current PC review of B03 accepts AR-001-012/013 as CORROBORATING and AR-001-014 as DUPLICATE, no primary promotions. The original routing control remains historical above. Owner explicitly authorized following generated/attached-file clues into project Library.
+
+| Batch | Supplied files | Additional Library documents inspected | Result |
+|---|---:|---:|---|
+| B04 | 4 | 4 | 1 new SUPPORTING original RUN 008 report; 1 exact-byte DUPLICATE correction report; no new PRIMARY target closure |
+
+| Item | Class | Action |
+|---|---|---|
+| [AR-001-015](candidates/AR-001-015.md) | SUPPORTING | Initial 1ba9518c… Development report; preserve rejected/superseded target, Internal QA only |
+| [AR-001-016](candidates/AR-001-016.md) | DUPLICATE | Library correction report exactly matches B02-S02 / AR-001-011; retain original identity |
+
+[Source manifest](sources/B04_SOURCE_MANIFEST.json), [Library reference investigation](sources/B04_REFERENCED_FILE_SEARCH.md), [excerpts](sources/B04_SELECTED_EXCERPTS.md), [GitHub corroboration](sources/B04_GITHUB_CORROBORATION.json).
+
+Two supplied histories are OUT_OF_SCOPE_SERIAL (B04-S02/S03); their RUN 004/005 labels must never be confused with Workspace targets. Other uploads cover Workspace RUN 001–003 and RUN 013–014; no target final closure found. Two linked early architecture/API drafts were located/read for context; later roadmap/RUN 014 links were indexed by identity only, outside pilot. Negative Library searches are retrieval limits, not proof of absence.
+
+Cumulative 16 normalized items: 6 PRIMARY candidates (previous PC promotions with limitations), 3 SUPPORTING, 3 CORROBORATING, 2 UNRESOLVED, 2 DUPLICATE. No new PRIMARY authority, material contradiction or new target SHA discovered in B04. Rejected 1ba9518c… is preserved, not erased by corrected e5480062…. No primary promotion recommended; retain AR-001-015 as technical support and AR-001-016 as duplicate provenance.
+
+RUN 005 primary QA/correction/integration and RUN 008 corrected final External QA PASS/integration authorization/report remain open. Next source priority remains those original role-owned closure decisions.
