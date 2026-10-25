@@ -1,30 +1,30 @@
 # BACKLOG
 
 Current canonical ledger:
-`requests/CR-0001-v13.md`
+`requests/CR-0001-v14.md`
 
-## Combined candidate — validated / hold
+## Authorized administrative integration
 
-Combined:
+Combined candidate:
 `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 
-Official External QA:
-`PASS`
+Target:
+`feature/workspace-v0.1`
 
-All in-scope CR-0001 corrections:
-`VALIDATED / PASS`
+Owner authorized exact fast-forward from:
+`4c9b0228...`
 
-Operational evidence:
-6 / 6 SATISFACTORY.
+to:
+`64cb5f4c...`
 
-Current administrative gate:
-Owner authorization for fast-forward integration to `feature/workspace-v0.1`.
+Current owner:
+`INTEGRATION_ADMIN / IA-001`
 
-No integration has been performed yet.
+No integration report exists yet.
 
 ## Program
 
-- P5: CLOSED / PASS
-- P6: IN PROGRESS
-- RUN 024: NOT AUTHORIZED
-- main integration: NOT AUTHORIZED
+- P5 CLOSED / PASS
+- P6 IN PROGRESS
+- RUN 024 NOT AUTHORIZED
+- main integration NOT AUTHORIZED

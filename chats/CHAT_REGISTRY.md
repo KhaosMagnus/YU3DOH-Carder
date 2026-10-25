@@ -7,7 +7,7 @@ Protocol-era IDs begin at Project Control v1.0. Pre-v1 predecessors remain HISTO
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | combined integration decision + P6 | GitHub/control evidence |
+| PC-001 | PROJECT_CONTROL | ACTIVE | authorized integration routing + P6 | GitHub/control evidence |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0001.2 scope complete | GitHub/control evidence |
 | DQA-001 | DESIGN_QA | AVAILABLE | combined final PASS | GitHub/control evidence |
 | ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | GitHub/control evidence |
@@ -18,6 +18,7 @@ Protocol-era IDs begin at Project Control v1.0. Pre-v1 predecessors remain HISTO
 | DEPLOY-004 | DEPLOYMENT_VALIDATION | COMPLETE / EVIDENCE READY | combined 6/6 SATISFACTORY | GitHub/control evidence |
 | DEV-001 | DEVELOPMENT | COMPLETE / QA PASS | Candidate A | GitHub/control evidence |
 | DEV-002 | DEVELOPMENT | COMPLETE / QA PASS | Candidate B | GitHub/control evidence |
-| DEV-003 | DEVELOPMENT | COMPLETE / QA PASS | combined candidate 64cb5f4c... | GitHub/control evidence |
+| DEV-003 | DEVELOPMENT | COMPLETE / QA PASS | combined candidate | GitHub/control evidence |
+| IA-001 | INTEGRATION_ADMIN | READY TO START | fast-forward combined → feature/workspace-v0.1 | Owner + Project Control authority |
 
 Historical lineage reconstruction remains a P6 workstream.
