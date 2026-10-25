@@ -7,7 +7,8 @@ Protocol-era IDs begin at Project Control v1.0. Pre-v1 predecessors remain HISTO
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | P6 historical reconstruction | GitHub/control evidence |
+| PC-001 | PROJECT_CONTROL | ACTIVE | P6 archival recovery control | GitHub/control evidence |
+| AR-001 | ARCHIVAL_RECOVERY | READY TO START | P6 QA pilot — RUN 004/005/008 | non-authoritative staging |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0001.2 scope complete | GitHub/control evidence |
 | DQA-001 | DESIGN_QA | AVAILABLE | combined final PASS complete | GitHub/control evidence |
 | ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | GitHub/control evidence |
@@ -20,5 +21,3 @@ Protocol-era IDs begin at Project Control v1.0. Pre-v1 predecessors remain HISTO
 | DEV-002 | DEVELOPMENT | COMPLETE / QA PASS | Candidate B | GitHub/control evidence |
 | DEV-003 | DEVELOPMENT | COMPLETE / QA PASS | combined candidate | GitHub/control evidence |
 | IA-001 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | combined → feature/workspace-v0.1 | GitHub/control evidence |
-
-Historical lineage reconstruction remains the active P6 workstream.

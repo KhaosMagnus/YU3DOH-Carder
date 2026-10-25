@@ -11,61 +11,56 @@ protocol_version: 1.0
 - feature/workspace-v0.1 = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 - CR-0001 Combined = INTEGRATED / PASS
 
-## CR-0001
-
-Integrated into `feature/workspace-v0.1`:
-
-- CR-0001.1 / F-01
-- CR-0001.2 / F-02
-- CR-0001.5 / F-05
-
-Other dispositions remain unchanged.
-
-## P5
-
-CLOSED / PASS.
-
 ## P6 — Historical Documentation Migration
 
-`IN PROGRESS — AUTHORITY RECONSTRUCTION COMPLETE / ARCHIVAL RECOVERY ACTIVE`
+`IN PROGRESS — TARGETED ARCHIVAL RECOVERY`
 
-Recovered authority tranches:
+Authority reconstruction by RUN is complete.
 
-- RUN 001–008
-- RUN 009–013
-- RUN 014–019
-- RUN 020–023
-- post-RUN-023 RC
+Current pilot:
 
-Newest artifact:
+`P6 ARCHIVAL RECOVERY PILOT 001`
 
-`migration/P6_RECOVERED_AUTHORITY_001_008.md`
+Target:
 
-P6 now has a continuous reconstructed Workspace checkpoint chain from RUN 001 through RUN 023 and the post-RUN-023 RC.
+- RUN 004
+- RUN 005
+- RUN 008
 
-Each recovered authority artifact records whether the historical state comes from:
+Worker:
 
-- explicit final authority;
-- a correction cycle;
-- or a downstream authorized integration baseline.
+`ARCHIVAL_RECOVERY / AR-001`
 
-Missing primary documents remain archival/provenance gaps and are not silently treated as recovered.
+Authoritative branch:
 
-## Next active P6 phase
+`meta/project-control`
 
-`TARGETED ARCHIVAL RECOVERY`
+Non-authoritative staging:
 
-Priority:
+`recovery/p6-archival-staging`
 
-1. primary External QA/integration artifacts for reconstructed checkpoints with provenance gaps;
-2. pre-v1 Scope / Architecture / Design / Development / QA lineage;
-3. supersession and duplicate mapping;
-4. final migration index closure.
+Protocol:
 
-No new implementation RUN is implied by P6.
+`migration/P6_ARCHIVAL_RECOVERY_PROTOCOL.md`
+
+Route:
+
+`routing/ROUTE-P6-ARCHIVAL-QA-PILOT-AR-001.md`
+
+## Historical-lineage separation
+
+Workspace archival recovery and Serial v0.1 archival recovery are distinct lineages.
+
+Current P6 pilot:
+Workspace only.
+
+Serial v0.1:
+OUT OF SCOPE / no recovery action authorized by this route.
 
 ## Non-authorizations
 
-- main integration: NOT AUTHORIZED
-- RUN 024: NOT AUTHORIZED
-- unrelated code/ref movement: NOT AUTHORIZED
+- staging findings are not authority;
+- staging must not be merged wholesale into meta/project-control;
+- main integration: NOT AUTHORIZED;
+- RUN 024: NOT AUTHORIZED;
+- unrelated product/ref movement: NOT AUTHORIZED.
