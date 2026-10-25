@@ -1,0 +1,86 @@
+{
+  "batch": "B01 / Owner attachments supplied 2026-10-25",
+  "control_sha": "58165a1b00fbe6efc4664ca8aabb593a3821e6e5",
+  "sources": [
+    {
+      "source_id": "B01-S01",
+      "filename": "AR-001 - P6 Archival Recovery Pilot.md",
+      "library_file_id": "libfile_9ab6166ca4248191b5e9bfe2cdf03b96",
+      "sha256": "f6767baebe35e48a7db49c7a729010398f8c979750dc6bbc86a3284e4a99c099",
+      "bytes": 4879,
+      "lines": 142
+    },
+    {
+      "source_id": "B01-S02",
+      "filename": "IMPLEMENTATION_REPORT_RUN_007(1).md",
+      "library_file_id": "libfile_6b12f9c2ea508191b234683b4e534b96",
+      "sha256": "c5b3ff8709bcab2f4987d7f95b4bb9b8252f24e5e5e6c6511c886203d2d0e33d",
+      "bytes": 9901,
+      "lines": 230
+    },
+    {
+      "source_id": "B01-S03",
+      "filename": "IMPLEMENTATION_REPORT_RUN_007_EXTERNAL_QA_CORRECTION(1).md",
+      "library_file_id": "libfile_6b417ac2c4088191b1e389389cc8de23",
+      "sha256": "90953467a5b1f860538a8919909a476f93b2ec4be8c0b1fd41049f0cca08906d",
+      "bytes": 9670,
+      "lines": 247
+    },
+    {
+      "source_id": "B01-S04",
+      "filename": "Pasted text(20261005-000235)(1).txt",
+      "library_file_id": "libfile_88728b9cddd88191bc2bc5ebdad00138",
+      "sha256": "b5a5a89c2633e361eb9d53e21ddaa78a28350befaebf69d104480331b4ae0aee",
+      "bytes": 20483,
+      "lines": 968
+    },
+    {
+      "source_id": "B01-S05",
+      "filename": "Pasted text(20261005-005052)(1).txt",
+      "library_file_id": "libfile_b3f80f17deb0819198e74fa48cd5034f",
+      "sha256": "ca606a3303edccf054da41b2eeb65bb0ac5ebfade8a6cd0c873d967213aced33",
+      "bytes": 10331,
+      "lines": 643
+    },
+    {
+      "source_id": "B01-S06",
+      "filename": "Pasted text(20261006-091705)(1).txt",
+      "library_file_id": "libfile_4e7ba24cc59c81919bfd6979f727eb52",
+      "sha256": "19bd815876fb6656c06293e5b9e0c9422519de61599f9fc45c915c10b05215f3",
+      "bytes": 24690,
+      "lines": 1016
+    },
+    {
+      "source_id": "B01-S07",
+      "filename": "Pasted text(20261007-053840)(1).txt",
+      "library_file_id": "libfile_239f4a563f608191ab4c31565f9f6477",
+      "sha256": "0e67a30d67b8fdb9bf15cbf59e2ab1b7de4f1f24fb98923de86e227bb7196c79",
+      "bytes": 24491,
+      "lines": 1582
+    },
+    {
+      "source_id": "B01-S08",
+      "filename": "QA_OLD_01_CHAT_PART_001.md",
+      "library_file_id": "libfile_e716d49d80b081919c91f4231df21595",
+      "sha256": "a33c7e62cd4c0c7c6fe501eeb8b2e2e0095d8f7952cc2a7506e26c4c015fcfaf",
+      "bytes": 41955,
+      "lines": 1652
+    },
+    {
+      "source_id": "B01-S09",
+      "filename": "QA_OLD_01_CHAT_PART_002.md",
+      "library_file_id": "libfile_726896d952788191a40ff161d317af05",
+      "sha256": "b75ca7e386799c538a61b7bdf50c744926d313462ea28a263fd8a1834fc5aaec",
+      "bytes": 239999,
+      "lines": 10366
+    },
+    {
+      "source_id": "B01-S10",
+      "filename": "QA_OLD_01_SOURCE.txt",
+      "library_file_id": "libfile_728f645d49788191a90c4d4a14b8a136",
+      "sha256": "5e07a70faff0796a2da64aba9ae53156431c8d9b3533f1810a3d43fe8c9d2d74",
+      "bytes": 218,
+      "lines": 8
+    }
+  ]
+}
