@@ -24,3 +24,17 @@ QA_OLD_01_SOURCE.txt is an unfilled descriptor. Part 002 lines 8220–8236 show 
 ## Review readiness
 
 RECOVERY READY FOR PROJECT CONTROL REVIEW means this bounded package is ready for independent assessment; it does not mean every archival gap has closed. No findings are authoritative until PC promotes them.
+
+## B02 update — supersedes current RUN 008 search status above
+
+Control consumed: `fd6a7e66341bb936c3b1cc188767b8b0669fb800`. B01 statements above describe only B01 findings.
+
+- RUN 004: current Project Control records primary sequence promoted with provenance limitation; worker does not re-promote or modify authority.
+- RUN 008 correction handoff / PARTIAL statement on `1ba9518c402cb5005632b8fc364c20d508f2dc03`: RECOVERED in B02-S01 / AR-001-010, pending PC review. A separate full initial QA report is still missing.
+- RUN 008 implementation redelivery / Internal QA: RECOVERED as SUPPORTING in B02-S02 / AR-001-011. Final SHA `e54800629e46f8fccd653b0bef637dd71e9b97a3`. Not official External QA PASS.
+- RUN 008 final corrected External QA disposition/PASS: NOT FOUND IN B01+B02.
+- RUN 008 administrative integration authorization/report: NOT FOUND IN B01+B02.
+- RUN 005 primary gaps and B01 original-chat completeness issues: unchanged.
+- B02 original sender/message provenance is unverified; actual role inferred from document content, never filename alone.
+
+RECOVERY READY FOR PROJECT CONTROL REVIEW — bounded additional package ready, archival gaps remain.

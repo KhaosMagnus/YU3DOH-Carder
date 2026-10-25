@@ -1,0 +1,24 @@
+{
+  "batch": "B02",
+  "date": "2026-10-25",
+  "control_sha_consumed": "fd6a7e66341bb936c3b1cc188767b8b0669fb800",
+  "staging_parent": "6b175a4beed870971554aac44d271ff47cf5b11e",
+  "sources": [
+    {
+      "source_id": "B02-S01",
+      "filename": "DEVELOPMENT HANDOFF — RUN 008.md",
+      "library_file_id": "libfile_63c141192e5c8191a1e572c59a119417",
+      "bytes": 4752,
+      "lines": 315,
+      "sha256": "29475bd2ff5cb60bd0a523b9366fdfe305b6c143c81a905590eeb6c0fa3a3c6f"
+    },
+    {
+      "source_id": "B02-S02",
+      "filename": "IMPLEMENTATION_REPORT_RUN_008_EXTERNAL_QA_CORRECTION(1).md",
+      "library_file_id": "libfile_328768875b648191a2bd4d880fe82af2",
+      "bytes": 11061,
+      "lines": 259,
+      "sha256": "39f722754934d078d06e316380f61cc36197b9ecac4602c9fcee6d9a54652bfa"
+    }
+  ]
+}

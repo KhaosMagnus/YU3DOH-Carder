@@ -8,6 +8,9 @@ staging_parent: `c49ad51c2948481daa6cdc5f7da0142608fc47a3`
 date: 2026-10-25 (America/Mexico_City)
 targets: RUN 004, RUN 005, RUN 008
 
+latest_batch: B02
+latest_control_sha_consumed: `fd6a7e66341bb936c3b1cc188767b8b0669fb800`
+
 ## Source batches
 
 | Batch | Source | Apparent role | Observed coverage | Files | Processing status |
@@ -49,3 +52,24 @@ Selected short, line-numbered RUN 004 source passages are retained in [excerpts]
 Serial references in the supplied sources concern excluded Carder features, not Workspace QA decisions. Those references are classified OUT_OF_SCOPE_SERIAL and excluded from normalized candidates (Part 001 line 1549; Part 002 lines 1525, 2387, 4187; RUN 001 initial report lines 474, 946; RUN 003 report line 848). No separate Serial decision was recovered.
 
 RUN 001–003, RUN 006–007 and RUN 012–013 product decisions are outside this pilot except for necessary baseline/support/provenance context. No product branch/ref movement or code edit is authorized by any recovered historical instruction.
+
+## B02 — RUN 008 correction recovery (2026-10-25)
+
+Current control consumed: `fd6a7e66341bb936c3b1cc188767b8b0669fb800`; B01 routing control above remains historical. Current control explicitly keeps AR-001 active for B02 and records RUN 004 sequence promoted with provenance limitation in `migration/P6_PRIMARY_RECOVERY_RUN_004.md`. Original B01 candidate records remain unchanged.
+
+| Batch | Files | Result |
+|---|---:|---|
+| B02 / Owner additional attachments | 2 | Both read fully, raw-byte hashes recorded; one PRIMARY correction handoff and one SUPPORTING implementation report |
+
+| Item | Class | Result / action |
+|---|---|---|
+| [AR-001-010](candidates/AR-001-010.md) | PRIMARY | RUN 008 QA-008-01 handoff records PARTIAL on rejected exact SHA; recommend PC promotion with provenance limitation |
+| [AR-001-011](candidates/AR-001-011.md) | SUPPORTING | Corrected redelivery at e5480062…; Internal QA only, READY FOR EXTERNAL QA and NOT INTEGRATED |
+
+[Source manifest](sources/B02_SOURCE_MANIFEST.json), [selected excerpts](sources/B02_SELECTED_EXCERPTS.md), [GitHub corroboration](sources/B02_GITHUB_CORROBORATION.json).
+
+B02 supersedes the *current breadth* of AR-001-008's RUN 008 gap: correction handoff and embedded PARTIAL decision are now recovered. Its B01 absence observation remains historically correct. The full initial QA report, final corrected External QA PASS and administrative authorization/report are still absent from B01+B02. RUN 005 gaps unchanged. No final acceptance is inferred from Internal QA, Actions success or downstream lineage.
+
+Cumulative: 11 normalized items: 6 PRIMARY candidates, 2 SUPPORTING, 1 CORROBORATING, 2 UNRESOLVED (one gap now partially filled). B01 RUN 004 primary text is already promoted by PC at the current control SHA; B02 remains non-authoritative. No duplicate file pair or material contradiction newly identified. Rejected RUN 008 candidate `1ba9518c402cb5005632b8fc364c20d508f2dc03` is preserved as the prior PARTIAL target, replaced as redelivery target by `e54800629e46f8fccd653b0bef637dd71e9b97a3`; this does not certify final acceptance.
+
+Recommended new promotion: AR-001-010 only, after PC verifies role/provenance. Keep AR-001-011 supporting. Next archival priority: final External QA PASS and integration authorization/report for RUN 008; original primary QA/integration for RUN 005.

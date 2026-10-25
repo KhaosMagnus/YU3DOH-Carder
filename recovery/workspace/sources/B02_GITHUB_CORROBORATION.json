@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-25",
+  "control_sha_consumed": "fd6a7e66341bb936c3b1cc188767b8b0669fb800",
+  "note": "Repository corroboration only. No historical test reruns or external QA adjudication by AR-001.",
+  "compares": [
+    {
+      "repository_full_name": "KhaosMagnus/YU3DOH-Carder",
+      "base": "1ba9518c402cb5005632b8fc364c20d508f2dc03",
+      "head": "e54800629e46f8fccd653b0bef637dd71e9b97a3",
+      "status": "ahead",
+      "ahead_by": 5,
+      "behind_by": 0,
+      "total_commits": 5,
+      "too_large": null,
+      "base_commit": {
+        "sha": "1ba9518c402cb5005632b8fc364c20d508f2dc03",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/1ba9518c402cb5005632b8fc364c20d508f2dc03",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/1ba9518c402cb5005632b8fc364c20d508f2dc03"
+      },
+      "merge_base_commit": {
+        "sha": "1ba9518c402cb5005632b8fc364c20d508f2dc03",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/1ba9518c402cb5005632b8fc364c20d508f2dc03",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/1ba9518c402cb5005632b8fc364c20d508f2dc03"
+      },
+      "files": [
+        {
+          "filename": "scripts/test-library-client.ts",
+          "status": "modified",
+          "additions": 4,
+          "deletions": 0,
+          "changes": 4,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/assets/indexer.ts",
+          "status": "modified",
+          "additions": 45,
+          "deletions": 15,
+          "changes": 60,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/assets/repository.ts",
+          "status": "modified",
+          "additions": 30,
+          "deletions": 3,
+          "changes": 33,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/library/asset-dto.ts",
+          "status": "modified",
+          "additions": 20,
+          "deletions": 0,
+          "changes": 20,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/library/asset-service.ts",
+          "status": "modified",
+          "additions": 25,
+          "deletions": 5,
+          "changes": 30,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/test/asset-indexer.test.ts",
+          "status": "modified",
+          "additions": 40,
+          "deletions": 4,
+          "changes": 44,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/test/library-assets.test.ts",
+          "status": "modified",
+          "additions": 97,
+          "deletions": 1,
+          "changes": 98,
+          "previous_filename": null
+        }
+      ]
+    },
+    {
+      "repository_full_name": "KhaosMagnus/YU3DOH-Carder",
+      "base": "4a14bec39b5142462557b36d3c0ba708b86bdd32",
+      "head": "e54800629e46f8fccd653b0bef637dd71e9b97a3",
+      "status": "ahead",
+      "ahead_by": 1,
+      "behind_by": 0,
+      "total_commits": 1,
+      "too_large": null,
+      "base_commit": {
+        "sha": "4a14bec39b5142462557b36d3c0ba708b86bdd32",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/4a14bec39b5142462557b36d3c0ba708b86bdd32",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/4a14bec39b5142462557b36d3c0ba708b86bdd32"
+      },
+      "merge_base_commit": {
+        "sha": "4a14bec39b5142462557b36d3c0ba708b86bdd32",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/4a14bec39b5142462557b36d3c0ba708b86bdd32",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/4a14bec39b5142462557b36d3c0ba708b86bdd32"
+      },
+      "files": [
+        {
+          "filename": ".github/workflows/run008-qa-correction-validation.yml",
+          "status": "removed",
+          "additions": 0,
+          "deletions": 96,
+          "changes": 96,
+          "previous_filename": null
+        }
+      ]
+    }
+  ],
+  "actions": {
+    "url": "https://github.com/KhaosMagnus/YU3DOH-Carder/actions/runs/37595782096",
+    "head_sha": "4a14bec39b5142462557b36d3c0ba708b86bdd32",
+    "status": "completed",
+    "conclusion": "success",
+    "name": "RUN 008 External QA correction validation"
+  }
+}
