@@ -38,3 +38,15 @@ Control consumed: `fd6a7e66341bb936c3b1cc188767b8b0669fb800`. B01 statements abo
 - B02 original sender/message provenance is unverified; actual role inferred from document content, never filename alone.
 
 RECOVERY READY FOR PROJECT CONTROL REVIEW — bounded additional package ready, archival gaps remain.
+
+## B03 update (current control 2a2675718a36705922575ec2a1164ed7b0ad3daa)
+
+B03 adds downstream RUN 006 handoff corroboration for RUN 005 (AR-001-012) and later RUN 009 QA baseline corroboration for RUN 008 (AR-001-013). Repeated RUN 006 Development report is DUPLICATE (AR-001-014). No primary final QA/integration gap closes in this batch.
+
+RUN 005: original QA, correction decisions if any, final External QA PASS and administrative authorization/report remain NOT FOUND IN B01+B02+B03.
+
+RUN 008: correction-return text was promoted by PC after B02. Full initial QA report, corrected final External QA PASS, administrative authorization/report remain NOT FOUND IN B01+B02+B03. Its downstream integration checkpoint remains reconstructed, now additionally corroborated.
+
+B03 is an incomplete mixed-epoch export (ellipsis at lines 607, 2615, 3311, 3719); title alone does not establish original speaker identity or completeness. The source starts at RUN 006; no missing RUN 005/008 interval is invented. Next request should target original role-owned decisions rather than additional copies of already-known implementation reports.
+
+RECOVERY READY FOR PROJECT CONTROL REVIEW — bounded batch processed, primary gaps remain.

@@ -8,8 +8,8 @@ staging_parent: `c49ad51c2948481daa6cdc5f7da0142608fc47a3`
 date: 2026-10-25 (America/Mexico_City)
 targets: RUN 004, RUN 005, RUN 008
 
-latest_batch: B02
-latest_control_sha_consumed: `fd6a7e66341bb936c3b1cc188767b8b0669fb800`
+latest_batch: B03
+latest_control_sha_consumed: `2a2675718a36705922575ec2a1164ed7b0ad3daa`
 
 ## Source batches
 
@@ -73,3 +73,25 @@ B02 supersedes the *current breadth* of AR-001-008's RUN 008 gap: correction han
 Cumulative: 11 normalized items: 6 PRIMARY candidates, 2 SUPPORTING, 1 CORROBORATING, 2 UNRESOLVED (one gap now partially filled). B01 RUN 004 primary text is already promoted by PC at the current control SHA; B02 remains non-authoritative. No duplicate file pair or material contradiction newly identified. Rejected RUN 008 candidate `1ba9518c402cb5005632b8fc364c20d508f2dc03` is preserved as the prior PARTIAL target, replaced as redelivery target by `e54800629e46f8fccd653b0bef637dd71e9b97a3`; this does not certify final acceptance.
 
 Recommended new promotion: AR-001-010 only, after PC verifies role/provenance. Keep AR-001-011 supporting. Next archival priority: final External QA PASS and integration authorization/report for RUN 008; original primary QA/integration for RUN 005.
+
+## B03 — Development history / downstream baseline evidence
+
+Control consumed: `2a2675718a36705922575ec2a1164ed7b0ad3daa`. Current PC state has promoted B02 AR-001-010 as RUN 008 correction-return text with provenance limitation; AR-001-011 remains SUPPORTING. B01/B02 recommendations above describe their historical submission state.
+
+| Batch | Source | Files | Processing result |
+|---|---|---:|---|
+| B03 | Owner-supplied Development / Programming history, B03-S01 | 1 | Complete source inventoried/searched; target-bearing passages inspected; two CORROBORATING items and one material DUPLICATE report |
+
+| Item | Class | Claim / action |
+|---|---|---|
+| [AR-001-012](candidates/AR-001-012.md) | CORROBORATING | RUN 006 handoff requires RUN 005 checkpoint and lists RUN 005 PASS; retain downstream context |
+| [AR-001-013](candidates/AR-001-013.md) | CORROBORATING | RUN 009 QA report preserves RUN 008 checkpoint as integration baseline; retain downstream context |
+| [AR-001-014](candidates/AR-001-014.md) | DUPLICATE | Embedded RUN 006 Development report repeats B01 report used by AR-001-007; do not count as independent verification |
+
+[Manifest](sources/B03_SOURCE_MANIFEST.json), [excerpts](sources/B03_SELECTED_EXCERPTS.md), [GitHub corroboration](sources/B03_GITHUB_CORROBORATION.json).
+
+No new PRIMARY final QA or integration records for RUN 005/008 found. B03 begins at RUN 006 and jumps from its report to RUN 009 QA; later RUN 010 and CR-0001 administrative sections are outside this pilot and not executed or normalized as target authority. Mixed historical refs reflect different epochs, not current product instructions. Serial exclusion at source line 218 is OUT_OF_SCOPE_SERIAL.
+
+Cumulative 14 items: 6 PRIMARY candidates (B01/B02 now reviewed/promoted by PC with limitations as recorded in control), 2 SUPPORTING, 3 CORROBORATING, 2 UNRESOLVED, 1 DUPLICATE. No new material contradiction or newly superseded target candidate in B03. Previously rejected candidates remain preserved. No primary promotion recommended from B03; optionally retain AR-001-012/013 as corroborating context only.
+
+Remaining highest-priority sources: original RUN 005 final QA/correction/integration sequence, and corrected RUN 008 final External QA PASS plus administrative authorization/report. No Internal QA, downstream PASS statement, or current lineage is upgraded to the missing original final decision.

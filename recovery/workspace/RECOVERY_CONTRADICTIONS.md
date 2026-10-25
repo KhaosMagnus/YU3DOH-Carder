@@ -22,3 +22,7 @@ RUN 004 PARTIAL on `fa592117ccf4408a1a8e8552acafeae3b8e04d17` and later PASS on 
 ## B02 update
 
 Control consumed: `fd6a7e66341bb936c3b1cc188767b8b0669fb800`. No new material contradiction. B01 documented an absence in B01 only; recovery of the correction handoff in B02 fills part of that gap and does not retroactively make the earlier bounded observation false. B02 Development NOT INTEGRATED and Internal QA-only statements concern pre-external-review redelivery; they do not contradict the later RECONSTRUCTED integrated checkpoint. Final External QA/integration primary records remain missing. C-001 source completeness issue is not resolved by these two attachments.
+
+## B03 update
+
+No material contradiction with control `2a2675718a36705922575ec2a1164ed7b0ad3daa`. RUN 006 READY FOR QA, later RUN 009 PARTIAL at the e5480062… baseline, RUN 010 integration and much later CR-0001 integration belong to different historical moments. They must not be treated as simultaneous conflicting refs or present permissions. B03's downstream RUN 005 PASS dependency statement does not replace the missing original final External QA disposition. Duplicate report content is recorded explicitly in AR-001-014; not an independent corroborator. Source omissions and unauthenticated attribution remain unresolved.

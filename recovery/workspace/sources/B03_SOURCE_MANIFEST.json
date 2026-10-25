@@ -1,0 +1,21 @@
+{
+  "batch": "B03",
+  "source_id": "B03-S01",
+  "filename": "DESARROLLO- PROGRAMACIÓN de la etapa YU3DOH Workspace.md",
+  "library_file_id": "libfile_06c38598ee3481919e1f8d8d3c9c31a1",
+  "bytes": 67885,
+  "lines": 3821,
+  "sha256": "de978c0d8fe60a3d6fbe7e7de98757fc7fffff163092738ecdb143fedbd2c024",
+  "coverage": "RUN 006 partial handoff, development narrative/report; RUN 009 QA/correction; RUN 010 integration; later CR-0001 administrative material. No RUN 005/008 original final records.",
+  "ellipsis_lines": [
+    607,
+    2615,
+    3311,
+    3719
+  ],
+  "scope_exclusions": "RUN 006 product decisions, RUN 009 finding/implementation details, RUN 010 and CR-0001 administrative decisions not normalized outside target-baseline context. Serial mention line 218 is exclusion-only, OUT_OF_SCOPE_SERIAL.",
+  "date": "2026-10-25",
+  "control_sha_consumed": "2a2675718a36705922575ec2a1164ed7b0ad3daa",
+  "staging_parent": "b3130d21599bebd54be7d70f9a7a3990033525f6",
+  "inspection": "Complete file inventoried/searched; target-bearing handoff, QA and integration-baseline passages inspected. Unrelated product decisions not normalized."
+}

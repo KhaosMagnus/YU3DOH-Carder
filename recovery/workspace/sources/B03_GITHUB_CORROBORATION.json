@@ -1,0 +1,435 @@
+{
+  "date": "2026-10-25",
+  "control_sha_consumed": "2a2675718a36705922575ec2a1164ed7b0ad3daa",
+  "note": "Topology corroborates downstream baselines, not original final QA decisions or past ref-update events. No tests rerun.",
+  "compares": [
+    {
+      "repository_full_name": "KhaosMagnus/YU3DOH-Carder",
+      "base": "94c4fed2c114a8d5b38626b48722237d9ec8263d",
+      "head": "b484f0d5c620dd4fb57054f261a22aaf6e557f0d",
+      "status": "ahead",
+      "ahead_by": 8,
+      "behind_by": 0,
+      "total_commits": 8,
+      "too_large": null,
+      "base_commit": {
+        "sha": "94c4fed2c114a8d5b38626b48722237d9ec8263d",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/94c4fed2c114a8d5b38626b48722237d9ec8263d",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/94c4fed2c114a8d5b38626b48722237d9ec8263d"
+      },
+      "merge_base_commit": {
+        "sha": "94c4fed2c114a8d5b38626b48722237d9ec8263d",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/94c4fed2c114a8d5b38626b48722237d9ec8263d",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/94c4fed2c114a8d5b38626b48722237d9ec8263d"
+      },
+      "files": [
+        {
+          "filename": "library/index.html",
+          "status": "added",
+          "additions": 14,
+          "deletions": 0,
+          "changes": 14,
+          "previous_filename": null
+        },
+        {
+          "filename": "package.json",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 1,
+          "changes": 3,
+          "previous_filename": null
+        },
+        {
+          "filename": "scripts/test-library-client.ts",
+          "status": "added",
+          "additions": 60,
+          "deletions": 0,
+          "changes": 60,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/api.ts",
+          "status": "added",
+          "additions": 48,
+          "deletions": 0,
+          "changes": 48,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/app.tsx",
+          "status": "added",
+          "additions": 300,
+          "deletions": 0,
+          "changes": 300,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/index.tsx",
+          "status": "added",
+          "additions": 10,
+          "deletions": 0,
+          "changes": 10,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/library.scss",
+          "status": "added",
+          "additions": 131,
+          "deletions": 0,
+          "changes": 131,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/model.ts",
+          "status": "added",
+          "additions": 95,
+          "deletions": 0,
+          "changes": 95,
+          "previous_filename": null
+        },
+        {
+          "filename": "vite.config.ts",
+          "status": "modified",
+          "additions": 10,
+          "deletions": 0,
+          "changes": 10,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/package.json",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1,
+          "changes": 2,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/app.ts",
+          "status": "modified",
+          "additions": 157,
+          "deletions": 1,
+          "changes": 158,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/library/repository.ts",
+          "status": "added",
+          "additions": 190,
+          "deletions": 0,
+          "changes": 190,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/library/service.ts",
+          "status": "added",
+          "additions": 60,
+          "deletions": 0,
+          "changes": 60,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/library/types.ts",
+          "status": "added",
+          "additions": 46,
+          "deletions": 0,
+          "changes": 46,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/service.ts",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 1,
+          "changes": 6,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/test/library.test.ts",
+          "status": "added",
+          "additions": 454,
+          "deletions": 0,
+          "changes": 454,
+          "previous_filename": null
+        }
+      ]
+    },
+    {
+      "repository_full_name": "KhaosMagnus/YU3DOH-Carder",
+      "base": "e54800629e46f8fccd653b0bef637dd71e9b97a3",
+      "head": "c40ffd12d0c84ed9c2eaef6b2e3e4a12e847257b",
+      "status": "ahead",
+      "ahead_by": 15,
+      "behind_by": 0,
+      "total_commits": 15,
+      "too_large": null,
+      "base_commit": {
+        "sha": "e54800629e46f8fccd653b0bef637dd71e9b97a3",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/e54800629e46f8fccd653b0bef637dd71e9b97a3",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/e54800629e46f8fccd653b0bef637dd71e9b97a3"
+      },
+      "merge_base_commit": {
+        "sha": "e54800629e46f8fccd653b0bef637dd71e9b97a3",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/e54800629e46f8fccd653b0bef637dd71e9b97a3",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/e54800629e46f8fccd653b0bef637dd71e9b97a3"
+      },
+      "files": [
+        {
+          "filename": "package.json",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1,
+          "changes": 2,
+          "previous_filename": null
+        },
+        {
+          "filename": "scripts/test-workspace-bridge.ts",
+          "status": "added",
+          "additions": 957,
+          "deletions": 0,
+          "changes": 957,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/app.tsx",
+          "status": "modified",
+          "additions": 45,
+          "deletions": 6,
+          "changes": 51,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/component/index.ts",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 1,
+          "changes": 3,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/component/workspace-bridge-status.tsx",
+          "status": "added",
+          "additions": 51,
+          "deletions": 0,
+          "changes": 51,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/api.ts",
+          "status": "modified",
+          "additions": 14,
+          "deletions": 0,
+          "changes": 14,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/detail-panel.tsx",
+          "status": "modified",
+          "additions": 21,
+          "deletions": 13,
+          "changes": 34,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/library.scss",
+          "status": "modified",
+          "additions": 22,
+          "deletions": 0,
+          "changes": 22,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/model.ts",
+          "status": "modified",
+          "additions": 34,
+          "deletions": 0,
+          "changes": 34,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/library/open-in-carder.tsx",
+          "status": "added",
+          "additions": 177,
+          "deletions": 0,
+          "changes": 177,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/model/app.ts",
+          "status": "modified",
+          "additions": 5,
+          "deletions": 4,
+          "changes": 9,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/index.ts",
+          "status": "modified",
+          "additions": 2,
+          "deletions": 1,
+          "changes": 3,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/errors.ts",
+          "status": "added",
+          "additions": 19,
+          "deletions": 0,
+          "changes": 19,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/fetch-prepare.ts",
+          "status": "added",
+          "additions": 49,
+          "deletions": 0,
+          "changes": 49,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/index.ts",
+          "status": "added",
+          "additions": 28,
+          "deletions": 0,
+          "changes": 28,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/intent.ts",
+          "status": "added",
+          "additions": 148,
+          "deletions": 0,
+          "changes": 148,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/mapping-matrix.ts",
+          "status": "added",
+          "additions": 358,
+          "deletions": 0,
+          "changes": 358,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/prepare-working-card.ts",
+          "status": "added",
+          "additions": 136,
+          "deletions": 0,
+          "changes": 136,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/session.ts",
+          "status": "added",
+          "additions": 34,
+          "deletions": 0,
+          "changes": 34,
+          "previous_filename": null
+        },
+        {
+          "filename": "src/service/workspace-bridge/startup.ts",
+          "status": "added",
+          "additions": 44,
+          "deletions": 0,
+          "changes": 44,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/package.json",
+          "status": "modified",
+          "additions": 1,
+          "deletions": 1,
+          "changes": 2,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/app.ts",
+          "status": "modified",
+          "additions": 163,
+          "deletions": 0,
+          "changes": 163,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/asset-content.ts",
+          "status": "added",
+          "additions": 177,
+          "deletions": 0,
+          "changes": 177,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/asset-grants.ts",
+          "status": "added",
+          "additions": 146,
+          "deletions": 0,
+          "changes": 146,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/errors.ts",
+          "status": "added",
+          "additions": 17,
+          "deletions": 0,
+          "changes": 17,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/index.ts",
+          "status": "added",
+          "additions": 18,
+          "deletions": 0,
+          "changes": 18,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/mapping-precheck.ts",
+          "status": "added",
+          "additions": 167,
+          "deletions": 0,
+          "changes": 167,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/prepare-dto.ts",
+          "status": "added",
+          "additions": 80,
+          "deletions": 0,
+          "changes": 80,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/prepare-service.ts",
+          "status": "added",
+          "additions": 247,
+          "deletions": 0,
+          "changes": 247,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/carder/safe-path.ts",
+          "status": "added",
+          "additions": 80,
+          "deletions": 0,
+          "changes": 80,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/src/service.ts",
+          "status": "modified",
+          "additions": 21,
+          "deletions": 1,
+          "changes": 22,
+          "previous_filename": null
+        },
+        {
+          "filename": "workspace-server/test/carder-prepare.test.ts",
+          "status": "added",
+          "additions": 1709,
+          "deletions": 0,
+          "changes": 1709,
+          "previous_filename": null
+        }
+      ]
+    }
+  ]
+}
