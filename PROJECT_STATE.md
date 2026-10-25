@@ -15,42 +15,39 @@ protocol_version: 1.0
 
 `IN PROGRESS — TARGETED ARCHIVAL RECOVERY`
 
-### Pilot 001 / Batch B02 review
+### Pilot 001 / Batch B03 review
 
 Staging reviewed:
 
-`recovery/p6-archival-staging @ b3130d21599bebd54be7d70f9a7a3990033525f6`
+`recovery/p6-archival-staging @ d6be14a95cd78b7a34837290e8a23d0e0ac3ebb3`
 
-Project Control promoted:
-
-`AR-001-010`
-
-as primary RUN 008 correction-return authority with provenance limitation.
-
-New artifact:
-
-`migration/P6_PRIMARY_RECOVERY_RUN_008_CORRECTION.md`
-
-AR-001-011 remains SUPPORTING only.
-
-Recovered RUN 008 history now includes:
+Project Control disposition:
 
 ```text
-1ba9518c...  External QA PARTIAL
-      ↓ QA-008-01 correction
-e5480062...  Development redelivery / READY FOR EXTERNAL QA
-              NOT YET FINAL EXTERNAL QA PASS at that historical point
+AR-001-012  CORROBORATING
+AR-001-013  CORROBORATING
+AR-001-014  DUPLICATE
+PRIMARY PROMOTIONS: NONE
 ```
 
-The later final PASS/integration remains reconstructed from downstream authority until primary final records are recovered.
+Review artifact:
+
+`migration/P6_ARCHIVAL_REVIEW_B03.md`
+
+B03 reinforces:
+
+- RUN 005 exact integrated checkpoint via RUN 006 baseline;
+- RUN 008 exact integrated checkpoint via downstream RUN 009 QA baseline.
+
+It does not replace missing original External QA or integration records.
 
 ### Remaining Pilot 001 targets
 
-- RUN 005 primary QA/integration
-- RUN 008 final External QA PASS
-- RUN 008 integration authorization/report
+- RUN 005 primary QA/correction/integration sequence
+- RUN 008 final corrected External QA PASS
+- RUN 008 administrative integration authorization/report
 
-AR-001 remains active.
+AR-001 remains active for B04.
 
 ## Separation
 
@@ -59,7 +56,7 @@ Serial v0.1 remains out of scope for this campaign.
 
 ## Non-authorizations
 
-- staging findings are not authority until promoted;
+- corroborating evidence is not primary authority;
 - no wholesale staging merge;
 - main integration: NOT AUTHORIZED;
 - RUN 024: NOT AUTHORIZED;
