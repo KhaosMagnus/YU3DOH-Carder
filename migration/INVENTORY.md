@@ -15,10 +15,12 @@ Classification: AUTHORITATIVE, SUPERSEDED, HISTORICAL, SUPPORTING, DUPLICATE, UN
 5. Frozen historical authority is not rewritten when later refs move.
 6. Downstream authorized baselines may establish an accepted/integrated checkpoint without pretending the missing primary QA/integration artifact has been recovered.
 7. Correction-cycle evidence must preserve rejected/PARTIAL candidates as historical ancestors rather than silently replacing them.
+8. Recovered chat-copy decision text must retain any missing speaker/timestamp provenance limitation.
 
 ## Recovered authority records
 
 - `migration/P6_RECOVERED_AUTHORITY_001_008.md`
+- `migration/P6_PRIMARY_RECOVERY_RUN_004.md`
 - `migration/P6_RECOVERED_AUTHORITY_009_013.md`
 - `migration/P6_RECOVERED_AUTHORITY_014_019.md`
 - `migration/P6_RECOVERED_AUTHORITY_020_023_RC.md`
@@ -30,7 +32,7 @@ Classification: AUTHORITATIVE, SUPERSEDED, HISTORICAL, SUPPORTING, DUPLICATE, UN
 - RUN 001 = `dce133edb3bb64d72ea54434fb4e40a5bf3c04a3`; PASS / INTEGRATED / CLOSED checkpoint recovered; primary final QA/integration artifacts pending archival recovery.
 - RUN 002 = `070b5ea002211a3bf26a34f80473201495d0b781`; PASS / INTEGRATED / CLOSED checkpoint recovered; schema 1; primary role-owned QA/integration artifacts pending archival recovery.
 - RUN 003 = `017c904c22c7842fa1209e3e39885453dda1e63a`; PASS / INTEGRATED / CLOSED checkpoint recovered after confirmed-block correction; primary final QA/integration artifacts pending.
-- RUN 004 = `81c20eb1477e1a0151b6e590d1e31390d82c6de4`; PASS / INTEGRATED / CLOSED checkpoint recovered after QA-correction lineage; primary final QA/integration artifacts pending.
+- RUN 004 = `81c20eb1477e1a0151b6e590d1e31390d82c6de4`; PRIMARY decision sequence recovered and promoted: PARTIAL on `fa592117...` → correction handoff → final PASS → direct fast-forward authorization → reported integration. Provenance limitation: source chat copy lacks machine-verifiable speaker/timestamp metadata. See `migration/P6_PRIMARY_RECOVERY_RUN_004.md`.
 - RUN 005 = `94c4fed2c114a8d5b38626b48722237d9ec8263d`; PASS / INTEGRATED / CLOSED checkpoint recovered after Managed Asset Ingest correction; primary final QA/integration artifacts pending.
 - RUN 006 = `b484f0d5c620dd4fb57054f261a22aaf6e557f0d`; PASS / INTEGRATED / CLOSED checkpoint recovered through RUN 007 authorized baseline; primary final QA/integration artifacts pending.
 - RUN 007 = `45d85b6cfd4a28f1b4f241f540159fac076f3978`; External QA PASS explicitly recovered after PARTIAL/correction; integrated checkpoint established; primary admin integration artifact still desirable.
@@ -63,22 +65,19 @@ Classification: AUTHORITATIVE, SUPERSEDED, HISTORICAL, SUPPORTING, DUPLICATE, UN
 
 ## Current P6 coverage
 
-Historical Workspace authority is now reconstructed continuously from:
+Historical Workspace authority is reconstructed continuously from:
 
 `RUN 001 → RUN 023 → post-RUN-023 RC`
 
-with exact checkpoint SHAs and explicit evidence-class caveats.
+Targeted primary recovery is now improving the provenance class of reconstructed checkpoints without rewriting the frozen reconstruction artifacts.
 
-Current product/control history after that RC is separately captured by CR-0001 Project Control artifacts and its final integration to `feature/workspace-v0.1 @ 64cb5f4ca42348c6c403e64e0d61bdff8c32a281`.
+## Active recovery gaps
 
-## Next P6 target
+Pilot 001 remaining priority:
 
-Authority reconstruction by RUN number is complete.
+- RUN 005 primary External QA/integration sequence;
+- RUN 008 primary final External QA/integration sequence.
 
-Next phase:
-
-1. targeted recovery/import of missing primary role-owned External QA and integration artifacts;
-2. pre-v1 Scope / Design / Development / QA chat lineage and document provenance;
-3. deduplication/supersession mapping for recovered historical documents.
+Then continue targeted recovery for other documented provenance gaps.
 
 No bulk transcript import is authorized.

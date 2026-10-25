@@ -17,49 +17,51 @@ protocol_version: 1.0
 
 Authority reconstruction by RUN is complete.
 
-Current pilot:
+### Pilot 001 / Batch B01 review
 
-`P6 ARCHIVAL RECOVERY PILOT 001`
+Staging reviewed:
 
-Target:
+`recovery/p6-archival-staging @ 6b175a4beed870971554aac44d271ff47cf5b11e`
 
-- RUN 004
-- RUN 005
-- RUN 008
+Project Control promoted RUN 004 primary decision text with provenance limitation.
 
-Worker:
+New authority artifact:
 
-`ARCHIVAL_RECOVERY / AR-001`
+`migration/P6_PRIMARY_RECOVERY_RUN_004.md`
 
-Authoritative branch:
+Recovered RUN 004 sequence:
 
-`meta/project-control`
+```text
+fa592117...  External QA PARTIAL / SUPERSEDED
+      ↓ correction
+81c20eb1...  External QA PASS
+      ↓ authorized direct fast-forward
+feature/workspace-v0.1 @ 81c20eb1...
+```
 
-Non-authoritative staging:
+Administrative integration report also recovered.
 
-`recovery/p6-archival-staging`
+Source limitation:
 
-Protocol:
+Owner-supplied QA chat copy lacks machine-verifiable speaker identity/timestamps and original chat title. Exact-SHA sequence is GitHub-corroborated; provenance limitation remains recorded.
 
-`migration/P6_ARCHIVAL_RECOVERY_PROTOCOL.md`
+### Pilot 001 remaining targets
 
-Route:
+- RUN 005 primary QA/integration evidence
+- RUN 008 primary final QA/integration evidence
 
-`routing/ROUTE-P6-ARCHIVAL-QA-PILOT-AR-001.md`
+AR-001 remains active for additional source batches.
 
 ## Historical-lineage separation
 
-Workspace archival recovery and Serial v0.1 archival recovery are distinct lineages.
+Workspace recovery and Serial v0.1 recovery remain separate.
 
-Current P6 pilot:
+Current campaign:
 Workspace only.
-
-Serial v0.1:
-OUT OF SCOPE / no recovery action authorized by this route.
 
 ## Non-authorizations
 
-- staging findings are not authority;
+- staging findings are not authority until promoted;
 - staging must not be merged wholesale into meta/project-control;
 - main integration: NOT AUTHORIZED;
 - RUN 024: NOT AUTHORIZED;
