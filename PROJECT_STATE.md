@@ -11,58 +11,56 @@ protocol_version: 1.0
 - feature/workspace-v0.1 = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 - CR-0001 Combined = INTEGRATED / PASS
 
-## P6 — Historical Documentation Migration
+## P6
 
 `IN PROGRESS — TARGETED ARCHIVAL RECOVERY`
 
-Authority reconstruction by RUN is complete.
-
-### Pilot 001 / Batch B01 review
+### Pilot 001 / Batch B02 review
 
 Staging reviewed:
 
-`recovery/p6-archival-staging @ 6b175a4beed870971554aac44d271ff47cf5b11e`
+`recovery/p6-archival-staging @ b3130d21599bebd54be7d70f9a7a3990033525f6`
 
-Project Control promoted RUN 004 primary decision text with provenance limitation.
+Project Control promoted:
 
-New authority artifact:
+`AR-001-010`
 
-`migration/P6_PRIMARY_RECOVERY_RUN_004.md`
+as primary RUN 008 correction-return authority with provenance limitation.
 
-Recovered RUN 004 sequence:
+New artifact:
+
+`migration/P6_PRIMARY_RECOVERY_RUN_008_CORRECTION.md`
+
+AR-001-011 remains SUPPORTING only.
+
+Recovered RUN 008 history now includes:
 
 ```text
-fa592117...  External QA PARTIAL / SUPERSEDED
-      ↓ correction
-81c20eb1...  External QA PASS
-      ↓ authorized direct fast-forward
-feature/workspace-v0.1 @ 81c20eb1...
+1ba9518c...  External QA PARTIAL
+      ↓ QA-008-01 correction
+e5480062...  Development redelivery / READY FOR EXTERNAL QA
+              NOT YET FINAL EXTERNAL QA PASS at that historical point
 ```
 
-Administrative integration report also recovered.
+The later final PASS/integration remains reconstructed from downstream authority until primary final records are recovered.
 
-Source limitation:
+### Remaining Pilot 001 targets
 
-Owner-supplied QA chat copy lacks machine-verifiable speaker identity/timestamps and original chat title. Exact-SHA sequence is GitHub-corroborated; provenance limitation remains recorded.
+- RUN 005 primary QA/integration
+- RUN 008 final External QA PASS
+- RUN 008 integration authorization/report
 
-### Pilot 001 remaining targets
+AR-001 remains active.
 
-- RUN 005 primary QA/integration evidence
-- RUN 008 primary final QA/integration evidence
+## Separation
 
-AR-001 remains active for additional source batches.
-
-## Historical-lineage separation
-
-Workspace recovery and Serial v0.1 recovery remain separate.
-
-Current campaign:
-Workspace only.
+Workspace recovery only.
+Serial v0.1 remains out of scope for this campaign.
 
 ## Non-authorizations
 
 - staging findings are not authority until promoted;
-- staging must not be merged wholesale into meta/project-control;
+- no wholesale staging merge;
 - main integration: NOT AUTHORIZED;
 - RUN 024: NOT AUTHORIZED;
 - unrelated product/ref movement: NOT AUTHORIZED.

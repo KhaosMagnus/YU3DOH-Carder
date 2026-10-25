@@ -3,12 +3,10 @@
 status: ACTIVE
 protocol_version: 1.0
 
-Protocol-era IDs begin at Project Control v1.0. Pre-v1 predecessors remain HISTORICAL-ID-PENDING until P6 reconstruction.
-
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
 | PC-001 | PROJECT_CONTROL | ACTIVE | P6 archival recovery control | GitHub/control evidence |
-| AR-001 | ARCHIVAL_RECOVERY | READY FOR NEXT SOURCE BATCH | Pilot 001 — RUN 005/008 remaining | RUN 004 primary sequence promoted |
+| AR-001 | ARCHIVAL_RECOVERY | READY FOR NEXT SOURCE BATCH | Pilot 001 — RUN 005 + RUN 008 final authority | RUN 004 primary + RUN 008 correction promoted |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0001.2 scope complete | GitHub/control evidence |
 | DQA-001 | DESIGN_QA | AVAILABLE | combined final PASS complete | GitHub/control evidence |
 | ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | GitHub/control evidence |
