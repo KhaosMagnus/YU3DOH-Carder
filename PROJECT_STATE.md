@@ -14,68 +14,58 @@ protocol_version: 1.0
 
 ## Project Control
 
-Active instance:
-
-`PC-002`
+Active instance: `PC-002`
 
 ## Tranche 1 / RUN 024
 
 Scope:
-
 - CR-0001.3 / F-03
 - CR-0001.6 / F-06
 
 Status:
 
-`AUTHORIZED / DEVELOPMENT RESUMED / DEV-006 ASSIGNED`
-
-Historical Development:
-
-- DEV-004 — IMPLEMENTATION BLOCKED / executor transport
-- DEV-005 — IMPLEMENTATION BLOCKED / executor transport
+`AUTHORIZED / DEV-006 CONTINUATION AUTHORIZED`
 
 Environment:
-
 - ENV-003 — ENVIRONMENT BLOCKED
 - ENV-004 — ENVIRONMENT READY
 
-ENV-004 proven substrate:
+Development:
+- DEV-004 — BLOCKED / executor transport
+- DEV-005 — BLOCKED / executor transport
+- DEV-006 — initial resumption BLOCKED before implementation by transfer-text validation-command inconsistency
+- DEV-006 — SAME INSTANCE continuation authorized after Project Control correction
 
-`GitHub-hosted Actions`
-
-Successful readiness:
-
-- run `40289640257`;
-- job `121461404019`;
-- ops head `5aa54988eec0d8c07626f178677660f817640b2a`;
-- Service tests `1088/1088 PASS`;
-- Service + Library + Carder + Chromium;
-- screenshots + DOM/accessibility + HTTP capture;
-- exact clean custody + Canonical preservation.
-
-RUN branch resumption head:
+RUN branch:
 
 `feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
 
-Current Development:
+No implementation candidate exists yet.
 
-`DEVELOPMENT / DEV-006`
+Corrected route:
 
-Authorization:
+`routing/ROUTE-RUN-024-RESUME-DEV-006-CORRECTED.md`
 
-`runs/RUN-024_DEV-006_RESUMPTION_AUTHORIZATION.md`
+Authoritative candidate validation:
 
-Route:
+```text
+yarn compile
+yarn build
+yarn test:sc
+yarn test:library
+yarn --cwd workspace-server compile
+yarn --cwd workspace-server test
+```
 
-`routing/ROUTE-RUN-024-RESUME-DEV-006.md`
+No root `yarn test` command is required or authorized.
 
-Execution model:
+All T1-OP-01..07 remain mandatory.
 
-`GitHub exact authoring/publication + GitHub-hosted Actions exact-SHA validation/evidence`
+Final DEV-006 continuation report must be NEW:
 
-No implementation candidate exists until DEV-006 returns one.
+`implementations/RUN-024_DEV-006_CONTINUATION_IMPLEMENTATION_REPORT.md`
 
-After a READY FOR EXTERNAL QA Development return, Project Control must route the exact candidate to DQA-001.
+After READY FOR EXTERNAL QA, route exact candidate to DQA-001.
 
 ## Tranche 2
 
@@ -91,32 +81,29 @@ after Tranche 1 External QA PASS + authorized integration.
 
 CR-0002 — Library Dark Theme:
 
-`IN_SCOPE / SCOPE FROZEN / SELECTED / DESIGN ROUTED / IMPLEMENTATION NOT AUTHORIZED`
+`IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED`
 
 Canonical Scope:
 
 `scopes/CR-0002_LIBRARY_DARK_THEME-v2.md`
 
-Frozen essentials:
+Frozen Design contract:
 
-- Library only;
-- LIGHT + DARK;
-- default/fallback DARK;
-- browser-local persistence;
-- SYSTEM/AUTO OUT;
-- Carder OUT;
-- client/UI only;
-- no API/schema/persistence/migration change.
+`handoffs/CR-0002_LIBRARY_DARK_THEME_IMPLEMENTATION_HANDOFF.md`
 
-Sequence:
+Project Control Design disposition:
 
-`CR-0001.4 validated + integrated → CR-0002 implementation`
+`control/CR-0002_DESIGN_DISPOSITION.md`
 
-Design assignment:
+Implementation baseline:
 
-`DESIGN_QA / DQA-002`
+`UNASSIGNED / POST-F04`
 
-DQA-001 remains reserved for RUN 024 exact-SHA External QA.
+Required sequence:
+
+`CR-0001.4 QA-PASS + authorized integration → post-F04 compatibility review → exact baseline assignment → CR-0002 implementation authorization`
+
+DQA-002 design mission is complete.
 
 ## Pre-Release-Hardening documentation gate
 
