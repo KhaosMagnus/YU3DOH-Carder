@@ -1,0 +1,93 @@
+{
+  "branch": {
+    "command": [
+      "git",
+      "branch",
+      "--show-current"
+    ],
+    "exit_code": 0,
+    "stdout": "feature/workspace-run-024\n",
+    "stderr": ""
+  },
+  "head": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "219ac252d50ae11b836a93baa20cc7f7d872367f\n",
+    "stderr": ""
+  },
+  "status": {
+    "command": [
+      "git",
+      "status",
+      "--porcelain"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "merge_base": {
+    "command": [
+      "git",
+      "merge-base",
+      "HEAD",
+      "64cb5f4ca42348c6c403e64e0d61bdff8c32a281"
+    ],
+    "exit_code": 0,
+    "stdout": "64cb5f4ca42348c6c403e64e0d61bdff8c32a281\n",
+    "stderr": ""
+  },
+  "count": {
+    "command": [
+      "git",
+      "rev-list",
+      "--count",
+      "64cb5f4ca42348c6c403e64e0d61bdff8c32a281..HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "1\n",
+    "stderr": ""
+  },
+  "delta": {
+    "command": [
+      "git",
+      "diff",
+      "--name-status",
+      "64cb5f4ca42348c6c403e64e0d61bdff8c32a281",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "A\timplementations/RUN-024_IMPLEMENTATION_REPORT.md\n",
+    "stderr": ""
+  },
+  "parent": {
+    "command": [
+      "git",
+      "show",
+      "-s",
+      "--format=%H %P",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "219ac252d50ae11b836a93baa20cc7f7d872367f 64cb5f4ca42348c6c403e64e0d61bdff8c32a281\n",
+    "stderr": ""
+  },
+  "remote": {
+    "command": [
+      "git",
+      "ls-remote",
+      "origin",
+      "refs/heads/main",
+      "refs/heads/feature/workspace-run-024",
+      "refs/heads/feature/workspace-v0.1",
+      "refs/heads/meta/project-control"
+    ],
+    "exit_code": 0,
+    "stdout": "219ac252d50ae11b836a93baa20cc7f7d872367f\trefs/heads/feature/workspace-run-024\n64cb5f4ca42348c6c403e64e0d61bdff8c32a281\trefs/heads/feature/workspace-v0.1\n54cc3aad246c89a29f2a18be63c539db68cae041\trefs/heads/main\nf52a91a550ee4c7137944693334977617aa4b44c\trefs/heads/meta/project-control\n",
+    "stderr": ""
+  },
+  "git_directory": true
+}

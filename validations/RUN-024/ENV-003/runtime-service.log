@@ -1,0 +1,8 @@
+{"level":30,"time":1792999954340,"pid":6,"hostname":"fabecc78a1f1","msg":"Server listening at http://127.0.0.1:4312"}
+{"level":30,"time":1792999954387,"pid":6,"hostname":"fabecc78a1f1","reqId":"req-1","req":{"method":"GET","url":"/api/v1/workspace/status","host":"127.0.0.1:4312","remoteAddress":"127.0.0.1","remotePort":33416},"msg":"incoming request"}
+{"level":30,"time":1792999954394,"pid":6,"hostname":"fabecc78a1f1","reqId":"req-1","res":{"statusCode":200},"responseTime":5.78403800000001,"msg":"request completed"}
+{"level":30,"time":1792999954407,"pid":6,"hostname":"fabecc78a1f1","reqId":"req-2","req":{"method":"GET","url":"/api/v1/library/cards/e7464836-6846-49b2-af4f-5488fb257628","host":"127.0.0.1:4312","remoteAddress":"127.0.0.1","remotePort":33426},"msg":"incoming request"}
+{"level":30,"time":1792999954459,"pid":6,"hostname":"fabecc78a1f1","reqId":"req-2","res":{"statusCode":200},"responseTime":51.19391899999982,"msg":"request completed"}
+{"level":30,"time":1792999954465,"pid":6,"hostname":"fabecc78a1f1","reqId":"req-3","req":{"method":"GET","url":"/api/v1/library/cards/e7464836-6846-49b2-af4f-5488fb257628","host":"127.0.0.1:4312","remoteAddress":"127.0.0.1","remotePort":33416},"msg":"incoming request"}
+{"level":30,"time":1792999954467,"pid":6,"hostname":"fabecc78a1f1","reqId":"req-3","res":{"statusCode":200},"responseTime":1.2650109999999586,"msg":"request completed"}
+ENV003_SERVICE_LISTENING

@@ -1,0 +1,37 @@
+{
+  "date_utc": "2026-10-26T07:34:06.102841+00:00",
+  "clone": {
+    "command": "git clone --single-branch --branch feature/workspace-run-024 https://github.com/KhaosMagnus/YU3DOH-Carder.git run-024",
+    "exit_code": 0
+  },
+  "root_install": {
+    "command": "corepack yarn install --frozen-lockfile --non-interactive",
+    "cwd": "/workspace/scratch/ee76a4be47a2/run-024",
+    "exit_code": 130,
+    "finding": "Operator interrupted in Fetching packages after browser/shared-transport blocker established. No completed install or definitive dependency failure claimed."
+  },
+  "service_install": {
+    "command": "corepack yarn install --frozen-lockfile --non-interactive",
+    "cwd": "/workspace/scratch/ee76a4be47a2/run-024/workspace-server",
+    "exit_code": 0,
+    "seconds": 54.56
+  },
+  "service_compile": {
+    "command": "corepack yarn compile",
+    "cwd": "/workspace/scratch/ee76a4be47a2/run-024/workspace-server",
+    "exit_code": 0,
+    "seconds": 6.0
+  },
+  "browser_install": {
+    "command": "node $CODEX_PRIMARY_RUNTIME_NODE_MODULES/playwright/cli.js install chromium",
+    "exit_code": 1
+  },
+  "service_smoke": {
+    "command": "node evidence/service-smoke.cjs",
+    "exit_code": 130,
+    "finding": "Expected operator stop after HTTP 200 health and two Canonical reads. Not a service crash."
+  },
+  "root_compile_build": "NOT EXECUTED \u2014 root install incomplete",
+  "full_development_validation": "NOT EXECUTED \u2014 environment-only mission",
+  "T1-OP-01..07": "NOT EXECUTED \u2014 explicitly prohibited"
+}

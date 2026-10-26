@@ -1,0 +1,86 @@
+{
+  "control_input_sha": "f52a91a550ee4c7137944693334977617aa4b44c",
+  "execution_sha": "219ac252d50ae11b836a93baa20cc7f7d872367f",
+  "files": [
+    {
+      "path": "canonical-after.json",
+      "size": 1410,
+      "sha256": "cd490875dbe6bdd8b31decdc28bd7ae705c82e27094ac421115ed4a296a5f164"
+    },
+    {
+      "path": "canonical-before.json",
+      "size": 1410,
+      "sha256": "cd490875dbe6bdd8b31decdc28bd7ae705c82e27094ac421115ed4a296a5f164"
+    },
+    {
+      "path": "command-results.json",
+      "size": 1532,
+      "sha256": "0c4003c5a55d787a35eff080cf59d95e05b64ee6a2ba972b37bf4709d53afe98"
+    },
+    {
+      "path": "compile-service.log",
+      "size": 353,
+      "sha256": "5b30eebbf19d1a48249971b71503a1cbb289d7be93e4e88c08abe526c41ed68d"
+    },
+    {
+      "path": "environment.json",
+      "size": 397,
+      "sha256": "839d608b39730dee7260f37cde860439d282413cdd3d13c45a09505d13dfb2e5"
+    },
+    {
+      "path": "fixture.json",
+      "size": 1246,
+      "sha256": "bdcc4e42fff6351b4e2f4a57f8aa1422caaf21014c1ec1eb408ac08c939f41d4"
+    },
+    {
+      "path": "git-final.json",
+      "size": 853,
+      "sha256": "8101e1268ef00ad16819a0ec3859599e7b118614b37f8b7912919a1f14842f01"
+    },
+    {
+      "path": "git-preflight.json",
+      "size": 2088,
+      "sha256": "9a891750e151c7cf69f8f52da188c1e465574e5c24ce9c0b116f5a7ec3e02140"
+    },
+    {
+      "path": "http-trace.jsonl",
+      "size": 2851,
+      "sha256": "570547310a313dc77560cbef2d05be1095324def5ca541509c5e44dc2e906480"
+    },
+    {
+      "path": "install-browser.log",
+      "size": 5225,
+      "sha256": "076be7ac326c36d331ee5fc47718b7ee22ec8a9f4c6f4cb4e6aee5216f2a0ed8"
+    },
+    {
+      "path": "install-root.log",
+      "size": 696,
+      "sha256": "c82b67b94e3d1b62bd317618c5e18b9bc827d46840e76e17bca102e3a690a7b2"
+    },
+    {
+      "path": "install-service.log",
+      "size": 561,
+      "sha256": "fed4fc18d8ad5eb7119b5ac6948fd308722c3571a1b34666f5290acb3bb30182"
+    },
+    {
+      "path": "runtime-service.log",
+      "size": 1423,
+      "sha256": "e25dff0639d680b538fef6e1f2340c244bd6fa6f4309a17615bf80a67b06c566"
+    },
+    {
+      "path": "service-smoke.cjs",
+      "size": 2287,
+      "sha256": "dd6520da3e2f8190642298f6a7c2e965d5c01dd377e33b7039b366c2b8b45c64"
+    },
+    {
+      "path": "transport-probe.json",
+      "size": 439,
+      "sha256": "df20e3d4cdb58b53f96f9d6d9d42ac0c4b9ca15c6e2c9f3ea06664ffcecb7e88"
+    },
+    {
+      "path": "workspace-status.json",
+      "size": 298,
+      "sha256": "1e20345f8a6955d487f964a1e93b735ef477c17cf231e0932a9084b4cd3093f5"
+    }
+  ]
+}

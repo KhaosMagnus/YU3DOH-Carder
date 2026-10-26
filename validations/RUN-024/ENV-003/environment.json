@@ -1,0 +1,12 @@
+{
+  "os": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "node": "v24.22.1",
+  "git": "git version 2.51.1",
+  "yarn": "1.22.22",
+  "playwright": "1.62.1",
+  "browser_executable_available": false,
+  "browser_install_exit": 1,
+  "checkout": "/workspace/scratch/ee76a4be47a2/run-024",
+  "control_sha": "f52a91a550ee4c7137944693334977617aa4b44c",
+  "target_sha": "219ac252d50ae11b836a93baa20cc7f7d872367f"
+}

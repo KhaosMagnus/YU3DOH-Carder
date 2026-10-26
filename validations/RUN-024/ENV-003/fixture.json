@@ -1,0 +1,57 @@
+{
+  "cardId": "e7464836-6846-49b2-af4f-5488fb257628",
+  "family": "SPELL",
+  "password": "12990003",
+  "revision": "2",
+  "structure": {
+    "kind": "SPELL",
+    "subtypeCode": "CONTINUOUS"
+  },
+  "localizations": [
+    {
+      "language": "EN",
+      "name": "ENV003 Neutral Smoke",
+      "cardText": "Disposable environment fixture only.",
+      "pendulumText": null
+    }
+  ],
+  "confirmations": [
+    {
+      "block": "STRUCTURE",
+      "state": "CONFIRMED",
+      "provenanceId": 1
+    },
+    {
+      "block": "TEXT:EN",
+      "state": "CONFIRMED",
+      "provenanceId": 2
+    }
+  ],
+  "provenance": [
+    {
+      "provenanceId": 1,
+      "targetKind": "BLOCK",
+      "targetKey": "STRUCTURE",
+      "sourceKind": "MANUAL",
+      "sourceRef": "env-003-neutral-readiness",
+      "note": null,
+      "createdAt": "2026-10-26T07:32:33.970Z"
+    },
+    {
+      "provenanceId": 2,
+      "targetKind": "BLOCK",
+      "targetKey": "TEXT:EN",
+      "sourceKind": "MANUAL",
+      "sourceRef": "env-003-neutral-readiness",
+      "note": null,
+      "createdAt": "2026-10-26T07:32:33.970Z"
+    }
+  ],
+  "classification": {
+    "effectReviewed": false,
+    "archetypes": [],
+    "effectClassifiers": [],
+    "functionalTags": []
+  },
+  "relations": []
+}

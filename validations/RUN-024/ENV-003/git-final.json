@@ -1,0 +1,33 @@
+{
+  "head": {
+    "exit_code": 0,
+    "stdout": "219ac252d50ae11b836a93baa20cc7f7d872367f\n",
+    "stderr": ""
+  },
+  "branch": {
+    "exit_code": 0,
+    "stdout": "feature/workspace-run-024\n",
+    "stderr": ""
+  },
+  "status": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "diff": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "cached_diff": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "frozen_files_sha256": {
+    "package.json": "391cac6302d9993235318e44a40c1a2daebc506796b142f29787b9abc1a26275",
+    "yarn.lock": "7b1b702811b5932aeb1c4375ecac6eed02cf51b2cb4dd500a0a2e972d917b0a7",
+    "workspace-server/package.json": "e52e8717fa714b1c7b499d599a1d733d9f55fa7f8a3387f9f05ac50140dcd490",
+    "workspace-server/yarn.lock": "3209163e59d04e1fb53caebded582b4d74bcb69918d89376adeb0e01b7fbb98b"
+  }
+}
