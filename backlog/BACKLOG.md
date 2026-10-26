@@ -2,69 +2,54 @@
 
 Current canonical CR ledger:
 
-`requests/CR-0001-v15.md`
+`requests/CR-0001-v16.md`
 
-## Integrated
+## Complete / integrated
 
-The validated CR-0001 combined correction is integrated into:
+- CR-0001.1 / F-01 — INTEGRATED / PASS
+- CR-0001.2 / F-02 — INTEGRATED / PASS
+- CR-0001.5 / F-05 — INTEGRATED / PASS
 
-`feature/workspace-v0.1 @ 64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
+## Post-P6 IN_SCOPE roadmap
 
-Integrated request items:
+### Tranche 1 — FIRST
 
-- CR-0001.1 / F-01
-- CR-0001.2 / F-02
-- CR-0001.5 / F-05
+`Focused Editor / Variant UX Completion`
 
-Final QA:
-`PASS`
+- CR-0001.3 / F-03 — graphical Link Marker selector
+- CR-0001.6 / F-06 — Preferred Variant warning clarity
 
-Integration:
-`INTEGRATED`
+Current state:
 
-## Remaining CR-0001 dispositions
+`ROUTED TO EXTERNAL DESIGN + QA / IMPLEMENTATION NOT AUTHORIZED`
 
-- CR-0001.3 / F-03 — DEFERRED — graphical Link Marker selector
-- CR-0001.4 / F-04 — DEFERRED — Library Grid/List
-- CR-0001.6 / F-06 — ACKNOWLEDGED UX backlog — Preferred Variant warning clarity
+### Tranche 2 — SECOND
+
+`Library Browse Grid / List Modes`
+
+- CR-0001.4 / F-04
+
+Current state:
+
+`IN_SCOPE / SEQUENCED / NOT YET ROUTED FOR IMPLEMENTATION`
+
+## Closed
+
 - CR-0001.7 / F-07 — REJECTED / WITHDRAWN
 - CR-0001.8 / F-08 — VALIDATED / HISTORICAL
 - CR-0001.9 / F-09 — IMPLEMENTED
 
 ## P6
 
-Historical documentation migration:
-
 `CLOSED`
 
-Canonical final index:
+## Release path
 
-`migration/P6_FINAL_MIGRATION_INDEX.md`
-
-Residual archival gaps are not product backlog items.
-
-## Active program work
-
-`POST-P6 ROADMAP REVIEW`
-
-Owner-selected sequence:
-
-```text
-ROADMAP REVIEW
-   ↓
-RELEASE HARDENING
-   ↓
-RELEASE / MAIN INTEGRATION
-```
-
-Roadmap Review ↔ Release Hardening iteration is permitted as needed.
-
-Current route:
-
-`routing/ROUTE-POST-P6-ROADMAP-REVIEW-SCOPE-001.md`
+`Tranche 1 → Tranche 2 → Release Hardening ↔ Roadmap Review as needed → separate release/main decision`
 
 ## Guards
 
-- main integration: NOT AUTHORIZED
 - RUN 024: NOT AUTHORIZED
-- implementation work: NOT AUTHORIZED until Roadmap Review disposition + Project Control authorization
+- implementation branch: NOT AUTHORIZED
+- Development: NOT AUTHORIZED
+- main integration: NOT AUTHORIZED

@@ -1,7 +1,7 @@
 # CHAT INSTANCE — SCOPE-001
 
 role: SCOPE_ARCHITECTURE
-status: ASSIGNED
+status: AVAILABLE
 protocol_version: 1.0
 
 birth_reason: first Scope instance formally registered under Project Control v1.0
@@ -11,25 +11,25 @@ successor: null
 first_registered_assignment:
   CR-0001.2 / F-02 Level/Rank domain contract
 
-prior_authority_output:
-  path: scopes/SCOPE-CR-0001-2-F02-LEVEL-RANK-DOMAIN.md
-  control_sha: 9ea55675b3b1cfef6d4a3ad801892467f1fd470f
-
-current_assignment:
+post_p6_assignment:
   POST-P6 ROADMAP REVIEW
 
-current_route:
-  routing/ROUTE-POST-P6-ROADMAP-REVIEW-SCOPE-001.md
+post_p6_output:
+  path: scopes/POST_P6_ROADMAP_REVIEW.md
+  result: COMPLETE / ACCEPTED BY PROJECT CONTROL
 
-code_baseline:
-  branch: feature/workspace-v0.1
-  sha: 64cb5f4ca42348c6c403e64e0d61bdff8c32a281
+roadmap_result:
+  tranche_1:
+    title: Focused Editor / Variant UX Completion
+    items:
+      - CR-0001.3
+      - CR-0001.6
+    disposition: IN_SCOPE / FIRST
+  tranche_2:
+    title: Library Browse Grid / List Modes
+    items:
+      - CR-0001.4
+    disposition: IN_SCOPE / SECOND
 
-mission:
-  inventory and disposition pending improvements before release hardening;
-  propose ordered improvement tranche(s);
-  define Roadmap↔Hardening return criteria;
-  do not authorize RUN 024 or implementation.
-
-expected_output:
-  scopes/POST_P6_ROADMAP_REVIEW.md
+current_state:
+  AVAILABLE
