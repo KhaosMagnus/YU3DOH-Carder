@@ -226,7 +226,7 @@ async function main() {
   const popup = await popupPromise;
 
   await popup.waitForLoadState('domcontentloaded');
-  await popup.locator('#export-canvas').waitFor({state: 'visible', timeout: 60000});
+  await popup.locator('#preview-canvas.js-export-available').waitFor({state: 'visible', timeout: 60000});
   await popup.waitForTimeout(5000);
   await captureDom(popup, 'carder');
   await popup.screenshot({ path: path.join(output, 'carder-smoke.png'), fullPage: true, animations: 'disabled' });
