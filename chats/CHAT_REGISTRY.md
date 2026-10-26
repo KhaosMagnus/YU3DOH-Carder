@@ -5,10 +5,11 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | post-P6 tranche sequencing / implementation gates | Roadmap accepted |
+| PC-001 | PROJECT_CONTROL | ACTIVE | RUN 024 implementation control | Development authorized |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
-| SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | POST-P6 ROADMAP REVIEW complete | frozen scope artifact |
-| DQA-001 | DESIGN_QA | ASSIGNED / DESIGN MODE | Post-P6 Tranche 1 contract | exact baseline 64cb5f4... |
+| SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | Post-P6 Roadmap Review complete | frozen scope |
+| DQA-001 | DESIGN_QA | AVAILABLE / CONTRACT FROZEN | Tranche 1 design complete | waiting for exact RUN 024 candidate |
+| DEV-004 | DEVELOPMENT | ASSIGNED | RUN 024 — Focused Editor / Variant UX Completion | implementation pending |
 | ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | historical |
 | ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | GitHub Actions substrate proven | historical |
 | DEPLOY-001 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | historical Candidate A attempt | historical |

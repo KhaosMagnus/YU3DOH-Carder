@@ -2,7 +2,7 @@
 
 Current canonical CR ledger:
 
-`requests/CR-0001-v16.md`
+`requests/CR-0001-v17.md`
 
 ## Complete / integrated
 
@@ -10,28 +10,42 @@ Current canonical CR ledger:
 - CR-0001.2 / F-02 — INTEGRATED / PASS
 - CR-0001.5 / F-05 — INTEGRATED / PASS
 
-## Post-P6 IN_SCOPE roadmap
+## Active implementation
 
-### Tranche 1 — FIRST
+### RUN 024
 
 `Focused Editor / Variant UX Completion`
+
+Authorized:
 
 - CR-0001.3 / F-03 — graphical Link Marker selector
 - CR-0001.6 / F-06 — Preferred Variant warning clarity
 
-Current state:
+Development:
 
-`ROUTED TO EXTERNAL DESIGN + QA / IMPLEMENTATION NOT AUTHORIZED`
+`DEV-004`
 
-### Tranche 2 — SECOND
+Implementation branch:
 
-`Library Browse Grid / List Modes`
+`feature/workspace-run-024`
 
-- CR-0001.4 / F-04
+Required start:
 
-Current state:
+`64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 
-`IN_SCOPE / SEQUENCED / NOT YET ROUTED FOR IMPLEMENTATION`
+Status:
+
+`AUTHORIZED / DEVELOPMENT PENDING`
+
+## Sequenced next
+
+### Tranche 2
+
+- CR-0001.4 / F-04 — Library Grid/List
+
+Status:
+
+`IN_SCOPE / NOT YET AUTHORIZED FOR IMPLEMENTATION`
 
 ## Closed
 
@@ -39,17 +53,8 @@ Current state:
 - CR-0001.8 / F-08 — VALIDATED / HISTORICAL
 - CR-0001.9 / F-09 — IMPLEMENTED
 
-## P6
-
-`CLOSED`
-
-## Release path
-
-`Tranche 1 → Tranche 2 → Release Hardening ↔ Roadmap Review as needed → separate release/main decision`
-
 ## Guards
 
-- RUN 024: NOT AUTHORIZED
-- implementation branch: NOT AUTHORIZED
-- Development: NOT AUTHORIZED
 - main integration: NOT AUTHORIZED
+- migration 009: NOT AUTHORIZED
+- Tranche 2 implementation: NOT AUTHORIZED
