@@ -12,46 +12,38 @@ Current canonical CR ledger:
 
 ## Active implementation
 
-### RUN 024
-
-`Focused Editor / Variant UX Completion`
+### RUN 024 — Focused Editor / Variant UX Completion
 
 Authorized:
 
-- CR-0001.3 / F-03 — graphical Link Marker selector
-- CR-0001.6 / F-06 — Preferred Variant warning clarity
+- CR-0001.3 / F-03
+- CR-0001.6 / F-06
 
-Development:
+DEV-004:
 
-`DEV-004`
+`IMPLEMENTATION BLOCKED — EXECUTOR TRANSPORT`
 
-Implementation branch:
+No product implementation was produced.
 
-`feature/workspace-run-024`
+Existing branch:
 
-Required start:
+`feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
 
-`64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
+The only delta from the product baseline is the DEV-004 blocker report.
 
-Status:
+Resumption:
 
-`AUTHORIZED / DEVELOPMENT PENDING`
+`DEV-005 — AUTHORIZED TO CONTINUE SAME RUN 024`
+
+Route:
+
+`routing/ROUTE-RUN-024-RESUME-DEV-005.md`
 
 ## Sequenced next
 
-### Tranche 2
+CR-0001.4 / F-04:
 
-- CR-0001.4 / F-04 — Library Grid/List
-
-Status:
-
-`IN_SCOPE / NOT YET AUTHORIZED FOR IMPLEMENTATION`
-
-## Closed
-
-- CR-0001.7 / F-07 — REJECTED / WITHDRAWN
-- CR-0001.8 / F-08 — VALIDATED / HISTORICAL
-- CR-0001.9 / F-09 — IMPLEMENTED
+`IN_SCOPE / TRANCHE 2 / NOT YET AUTHORIZED FOR IMPLEMENTATION`
 
 ## Guards
 

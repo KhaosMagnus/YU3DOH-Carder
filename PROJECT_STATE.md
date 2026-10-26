@@ -10,77 +10,52 @@ protocol_version: 1.0
 - main = `54cc3aad246c89a29f2a18be63c539db68cae041`
 - feature/workspace-v0.1 = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 - feature/workspace-cr-0001-combined = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
-- feature/workspace-run-024 = ABSENT at authorization publication
+- feature/workspace-run-024 = `219ac252d50ae11b836a93baa20cc7f7d872367f`
 
-## P6
+## RUN 024
 
-`CLOSED`
-
-## Post-P6 roadmap
-
-`COMPLETE / ACCEPTED`
-
-## Current active work
-
-`RUN 024 — AUTHORIZED FOR DEVELOPMENT`
-
-Title:
-
-`Focused Editor / Variant UX Completion`
+`AUTHORIZED / RESUMPTION ROUTED`
 
 Scope:
 
 - CR-0001.3 / F-03
 - CR-0001.6 / F-06
 
-Authorization:
+DEV-004 result:
 
-`runs/RUN-024_AUTHORIZATION.md`
+`IMPLEMENTATION BLOCKED — EXECUTOR TRANSPORT`
 
-Route:
+No implementation candidate exists.
 
-`routing/ROUTE-RUN-024-DEV-004.md`
+Independent comparison confirms RUN 024 is exactly one report-only commit ahead of the authorized baseline.
 
-Development instance:
+Blocker disposition:
 
-`DEV-004`
+`runs/RUN-024_BLOCKER_DISPOSITION.md`
 
-Required branch:
+Resumption route:
 
-`feature/workspace-run-024`
+`routing/ROUTE-RUN-024-RESUME-DEV-005.md`
 
-Required branch start:
+Current Development instance:
 
-`64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
+`DEV-005`
 
-Design contract:
+Required existing branch head:
 
-`handoffs/POST_P6_TRANCHE_1_IMPLEMENTATION_HANDOFF.md`
+`219ac252d50ae11b836a93baa20cc7f7d872367f`
+
+The branch must not be recreated/reset/force-pushed.
 
 ## Tranche 2
-
-`Library Browse Grid / List Modes`
 
 CR-0001.4 / F-04:
 
 `IN_SCOPE / SEQUENCED / IMPLEMENTATION NOT AUTHORIZED`
 
-## Release path
-
-```text
-RUN 024 Development
-→ External QA
-→ explicit integration decision
-→ Tranche 2
-→ External QA/integration
-→ Release Hardening
-↔ Roadmap Review if required
-→ separate release/main decision
-```
-
 ## Non-authorizations
 
-- modification of feature/workspace-v0.1 by Development: NOT AUTHORIZED;
+- feature/workspace-v0.1 movement: NOT AUTHORIZED;
 - main integration: NOT AUTHORIZED;
 - Tranche 2 implementation: NOT AUTHORIZED;
 - migration 009: NOT AUTHORIZED;
