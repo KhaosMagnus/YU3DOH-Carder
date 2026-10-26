@@ -1,0 +1,1782 @@
+{
+  "batch": "B05 / post-closure concrete-source supplement",
+  "date": "2026-10-25",
+  "control_sha_consumed": "b149b810415a5633b28e6de1bbe198fb3dd7f7b2",
+  "staging_parent": "3332950f547125a686fdee6a511b7ec7eb06c33e",
+  "source_id": "B05-ZIP",
+  "filename": "YU3DOH_Carder_Evidencia_Documental_2026-10-25.zip",
+  "library_file_id": "libfile_c5cd886f1a1c81919217012141e87ec7",
+  "sha256": "47b43e618dec091d430f8ead8ad412d56d93ea5ae7ccedb17f43609589c52ce2",
+  "owner_provenance": "User identifies archive as from Grok Bot.",
+  "archive_root": "YU3DOH_Carder_Evidencia_Documental_2026-10-25",
+  "entry_count": 216,
+  "uncompressed_bytes": 921301,
+  "archive_checksum_verification": {
+    "listed": 215,
+    "matched": 215,
+    "missing": 0,
+    "mismatched": 0,
+    "unlisted_member": "SHA256SUMS.txt (self excluded, as documented)"
+  },
+  "origin_manifest_verification_note": "39 origin hash records: 37 present members match; 2 Actions log filenames absent, explicitly excluded in 00_INDICE.md. Absence of excluded files is not checksum corruption. Hashes establish package integrity, not independent historical authenticity or completeness.",
+  "origin_manifest_records": [
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-actions-37673000433.log",
+      "match_count": 0,
+      "verified": false
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-mutation.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-root-build.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-root-compile.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-root-install.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-root-testlib.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-ws-compile.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-ws-install.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-eqa-ws-test.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-actions-37700792501.log",
+      "match_count": 0,
+      "verified": false
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-mutation.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-root-build.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-root-compile.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-root-install.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-root-testlib.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-validation-summary.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-ws-compile.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-ws-install.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "source_path": "run009-q08-ws-test.log",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "YU3DOH_GROKBOT_MASTER_PROTOCOL_v1.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/CORRECTION_HANDOFF_RUN_008_EXTERNAL_QA.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/CORRECTION_HANDOFF_RUN_009_EXTERNAL_QA.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_DESIGN_RUN_007.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_DESIGN_RUN_008.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_DESIGN_RUN_008_EXTERNAL_QA_CORRECTION.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_DESIGN_RUN_009.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_DESIGN_RUN_009_EXTERNAL_QA_CORRECTION.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_DESIGN_RUN_009_QA-009-08.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_REPORT_RUN_007.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_REPORT_RUN_007_EXTERNAL_QA_CORRECTION.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_REPORT_RUN_008.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_REPORT_RUN_008_EXTERNAL_QA_CORRECTION.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_REPORT_RUN_009.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_REPORT_RUN_009_EXTERNAL_QA_CORRECTION.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_REPORT_RUN_009_QA-009-08.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_RUN_007.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_RUN_008.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/IMPLEMENTATION_RUN_009.md",
+      "match_count": 1,
+      "verified": true
+    },
+    {
+      "manifest": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "source_path": "runs/QA_RETURN_RUN_009_QA-009-08.md",
+      "match_count": 1,
+      "verified": true
+    }
+  ],
+  "members": [
+    {
+      "path": "00_INDICE.md",
+      "bytes": 11226,
+      "lines": 107,
+      "sha256": "5f5f8d18d8ea43d20d8fd1b575bc49a9a9279f0473a33f9d45e3592dd4afb33f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/01_solicitud_2026-10-07_0008_Master_Protocol.md",
+      "bytes": 1348,
+      "lines": 29,
+      "sha256": "f4d3c90dd539526876e2a0a4ed9f8b1614dca24ef8a0c7e3566f0501c32191b9",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/02_solicitud_2026-10-07_0014_RUN007.md",
+      "bytes": 2974,
+      "lines": 67,
+      "sha256": "33e60a707653ab82efbe7c46f727e97ff4ab78b1b1465a3c641fc1ed98f41e73",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/03_solicitud_2026-10-07_0112_RUN007_EQA_PARTIAL.md",
+      "bytes": 4191,
+      "lines": 207,
+      "sha256": "62e7fb6ad3afb87e19fb506d7ab8a8c236345a14328b497177d81f693cefd513",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/04_solicitud_2026-10-07_0158_RUN008.md",
+      "bytes": 4191,
+      "lines": 266,
+      "sha256": "e87bdb026411000f1d4238a6f493717459f7a0afec3fb6ad71584a8143ddf66f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/05_solicitud_2026-10-07_0237_RUN008_EQA_QA-008-01.md",
+      "bytes": 4187,
+      "lines": 263,
+      "sha256": "da950fddfb87488c854415e4eb838ff823f7ff488549978d819607119e906ff1",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/06_solicitud_2026-10-07_0321_RUN009.md",
+      "bytes": 4203,
+      "lines": 274,
+      "sha256": "43fc6779c1cee70281c5e05391e2963f4be887a93b6ca44543f6ca0c35c398c8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/07_solicitud_2026-10-07_1250_RUN009_EQA_FAIL_QA-009-01-07.md",
+      "bytes": 4187,
+      "lines": 254,
+      "sha256": "afe8d31bf6a3b92333e507c01b2259fd5c6f5423c528bfc7ba76e132186bbbf7",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "01_Solicitudes_Khaos/08_solicitud_2026-10-07_1655_RUN009_EQA_PARTIAL_QA-009-08.md",
+      "bytes": 4186,
+      "lines": 221,
+      "sha256": "6fbedfbbab496608e7670f3b709bc6ad56326fb338359226523808252b43e246",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/01_respuesta_2026-10-07_0008_Master_Protocol.md",
+      "bytes": 2201,
+      "lines": 36,
+      "sha256": "edda8bf296004ec8f30740ae8975dd0485a8007dda21b14150ab8f24d29ac7da",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/02_respuesta_2026-10-07_0014_RUN007.md",
+      "bytes": 4102,
+      "lines": 118,
+      "sha256": "9288849ed3d2a6684fe95e1a4051f17ffdcf545d17c3add74bd5301b9bcba868",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/03_respuesta_2026-10-07_0112_RUN007_EQA_PARTIAL.md",
+      "bytes": 4176,
+      "lines": 127,
+      "sha256": "534fb82e1285bba80a84a53e005f824b24bc92550b5083f4a031de36c053468e",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/04_respuesta_2026-10-07_0158_RUN008.md",
+      "bytes": 2039,
+      "lines": 74,
+      "sha256": "a8c7f265be192757a57a4f068397bd5586f63b5b88ba1d279d54bdfec0c5b786",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/05_respuesta_2026-10-07_0237_RUN008_EQA_QA-008-01.md",
+      "bytes": 1789,
+      "lines": 67,
+      "sha256": "897399877032784c82dcfa6aa7666d04990ed2ed8a43ce77ef45cc18b89156ce",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/06_respuesta_2026-10-07_0321_RUN009.md",
+      "bytes": 2738,
+      "lines": 93,
+      "sha256": "40c3d0b6e3e0dbb6764deb68cdb6ba1d9ef2b8959704ce8f859a2e7ffcf1f80a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/07_respuesta_2026-10-07_1250_RUN009_EQA_FAIL_QA-009-01-07.md",
+      "bytes": 4414,
+      "lines": 62,
+      "sha256": "4146948496289a34e64d92cc7d7fc7f3e40f88262b23ffa6cde4252fb1951b25",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "02_Respuestas_Jefe/08_respuesta_2026-10-07_1655_RUN009_EQA_PARTIAL_QA-009-08.md",
+      "bytes": 5540,
+      "lines": 70,
+      "sha256": "d11b9b92752be2d4fecfd8c569a6ca39def3fc2fb6b5884e070c08b57408a0bd",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/001_2026-10-07_0017_recibido_del_Jefe.md",
+      "bytes": 2784,
+      "lines": 49,
+      "sha256": "1ae64ed5031157c03229d33e4e4579103022a24995c748163e22fbc31838a19f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/002_2026-10-07_0017_aviso_al_usuario.md",
+      "bytes": 683,
+      "lines": 9,
+      "sha256": "97bdb2c24d93d68596f0ca173e1470d4dfff8ebdd4a94d773494099ce9a6ad3b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/003_2026-10-07_0017_encargo_a_ejecutor.md",
+      "bytes": 4246,
+      "lines": 54,
+      "sha256": "4f835cbd667602a15e65130c3f03a675b5855204b2a79c3444372b9db3b5f002",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/004_2026-10-07_0017_aviso_al_usuario.md",
+      "bytes": 751,
+      "lines": 9,
+      "sha256": "628bfc43ae18c2512c7ce528babe9dd183c7d513a7947bdede932b19b58fd5d7",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/005_2026-10-07_0017_enviado_al_Jefe.md",
+      "bytes": 3359,
+      "lines": 54,
+      "sha256": "c3c0152226bdda773d1b8bca79d52cf385a67450e25e2aca16bfa8cf0d9fd5ed",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/006_2026-10-07_0017_aviso_al_usuario.md",
+      "bytes": 851,
+      "lines": 13,
+      "sha256": "a98668d11a77fb511ccb49f9b6e694552bcc61186fc0ae9636aa5e7765155173",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/007_2026-10-07_0030_informe_ejecutor.md",
+      "bytes": 3434,
+      "lines": 41,
+      "sha256": "317bbd12c3e7db8895591b5029c6d701d01e6ad483bae7a9b9dc0597f596c09b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/008_2026-10-07_0030_recibido_del_Jefe.md",
+      "bytes": 624,
+      "lines": 9,
+      "sha256": "48a7546a67023f7f2e7d94497860a9526324f817539bf6b685b76821347d96d0",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/009_2026-10-07_0030_recibido_del_Jefe.md",
+      "bytes": 536,
+      "lines": 9,
+      "sha256": "f9cb9f1c660ac8672b0052164d8e4f8f6d98ad471d58a33bdbcea70b2a1ef729",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/010_2026-10-07_0112_recibido_del_Jefe.md",
+      "bytes": 3363,
+      "lines": 56,
+      "sha256": "b09b4ea35cebc6f96b78139c381e9a292d505f6fbdb331c86c0f33e190b14ff9",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/011_2026-10-07_0112_aviso_al_usuario.md",
+      "bytes": 874,
+      "lines": 14,
+      "sha256": "ea2361b44d8ad79de03bfe120640abe68e883daa8580b9644cfe0cd18a1407cf",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/012_2026-10-07_0112_enviado_al_Jefe.md",
+      "bytes": 872,
+      "lines": 9,
+      "sha256": "fc3f68dcb7caa0e352378aa5a62a63eda60a084986f83fdab5c9c5e0d46b8640",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/013_2026-10-07_0112_encargo_a_ejecutor.md",
+      "bytes": 4244,
+      "lines": 65,
+      "sha256": "d9553dfe5d923f5da3b558ec252c02882d12ef1304f3462a4748f9fc96e1c1e3",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/014_2026-10-07_0120_informe_ejecutor.md",
+      "bytes": 3407,
+      "lines": 62,
+      "sha256": "096784861994df7a6c0a767fe74aa389b49f77e6a5b61f5b9b7053990d445aec",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/015_2026-10-07_0120_enviado_al_Jefe.md",
+      "bytes": 3205,
+      "lines": 60,
+      "sha256": "42e6b07739dfdd97f53fe1cb45e0b6e7f4be267900d589477e6f1fa11a7d5dd8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/016_2026-10-07_0120_aviso_al_usuario.md",
+      "bytes": 884,
+      "lines": 15,
+      "sha256": "5ff730b20dd765115ab32644b09fc8ddccfadf282aa3f4d16ecdf5cd42a138b5",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/017_2026-10-07_0120_recibido_del_Jefe.md",
+      "bytes": 558,
+      "lines": 9,
+      "sha256": "96db07440a897954df672f4b76e70aebdd9809ad2cdd61b8b24507efd75f741b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/018_2026-10-07_0120_recibido_del_Jefe.md",
+      "bytes": 502,
+      "lines": 9,
+      "sha256": "10db1b13a13d046887eefafa7035464fc70c7536416305c31e5046501331be68",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/019_2026-10-07_0202_recibido_del_Jefe.md",
+      "bytes": 2615,
+      "lines": 37,
+      "sha256": "03b8c8aeed78a095ec7f64a48e476f97fd9d71f363612104935fa6b88bb2c517",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/020_2026-10-07_0202_aviso_al_usuario.md",
+      "bytes": 680,
+      "lines": 9,
+      "sha256": "52e0a0577198e889b224b5887e1fa55e2f67d5ec94db7a984ab4cde521140733",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/021_2026-10-07_0202_aviso_al_usuario.md",
+      "bytes": 748,
+      "lines": 9,
+      "sha256": "784d6c3b1cba6c0d07f7adf99b51df39489ab1a25f36fe223861ef6e7aa20e77",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/022_2026-10-07_0202_enviado_al_Jefe.md",
+      "bytes": 705,
+      "lines": 9,
+      "sha256": "04ac948c810604f5870fe1c905799d992fac5ea2635ab623e84d21363919d02b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/023_2026-10-07_0202_encargo_a_ejecutor.md",
+      "bytes": 4241,
+      "lines": 67,
+      "sha256": "d522c279182c38e964160b0886f76ac7d5e22e9a0a77e497367784efb967d06e",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/024_2026-10-07_0202_aviso_al_usuario.md",
+      "bytes": 569,
+      "lines": 9,
+      "sha256": "2d5d1f42cae33aaeb972bb5effbed76063cedf0fd4767bab71a1de3a0a55d588",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/025_2026-10-07_0214_informe_ejecutor.md",
+      "bytes": 3413,
+      "lines": 54,
+      "sha256": "a360845adc385b6806f8166c96350c85aa99da363e605f10d09c2d2dbe63002f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/026_2026-10-07_0214_enviado_al_Jefe.md",
+      "bytes": 3029,
+      "lines": 46,
+      "sha256": "03865eea6ad2f292fb72cc19cdcf82eee1b529b929bac2d3e4ad681924896287",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/027_2026-10-07_0214_aviso_al_usuario.md",
+      "bytes": 808,
+      "lines": 13,
+      "sha256": "3c6700a7e83c740dbcdd7d67b67da7b604ead9386faf60bb5b8674dce0d97788",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/028_2026-10-07_0214_recibido_del_Jefe.md",
+      "bytes": 553,
+      "lines": 9,
+      "sha256": "e084a0f08739bad5e9f61f30d62615ca3f8817ceeb93227e2a6a526b1b079321",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/029_2026-10-07_0240_recibido_del_Jefe.md",
+      "bytes": 2850,
+      "lines": 42,
+      "sha256": "6b3d50eb179145fc993fa7660f4100be03df18e1df158cee8aac3b0e7389d09e",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/030_2026-10-07_0240_aviso_al_usuario.md",
+      "bytes": 770,
+      "lines": 9,
+      "sha256": "d8d727ec2c83d9eefa8c66d70c9fcad73e7ceaf3559a663feffc021e8e765aae",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/031_2026-10-07_0240_enviado_al_Jefe.md",
+      "bytes": 822,
+      "lines": 9,
+      "sha256": "a8805e59b4f5289a2ecb0f25c04fe6a07ffdd1e3b5d14a5e73de03487cff8af4",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/032_2026-10-07_0240_encargo_a_ejecutor.md",
+      "bytes": 4260,
+      "lines": 61,
+      "sha256": "dd8046ff277141283307019902aa5811922d973db85beadb1feb35752de63ec8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/033_2026-10-07_0240_aviso_al_usuario.md",
+      "bytes": 593,
+      "lines": 9,
+      "sha256": "47ef7922031a5b302406b542f61b5fc2bef5787dd85f0b77c389a1f85eeffbd5",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/034_2026-10-07_0248_informe_ejecutor.md",
+      "bytes": 3417,
+      "lines": 51,
+      "sha256": "41e0f7705c774041079dbdd9be75a88592ec44ae48615f9b0ed2197a5c53e8da",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/035_2026-10-07_0248_enviado_al_Jefe.md",
+      "bytes": 2748,
+      "lines": 43,
+      "sha256": "28415fe46e5f49c19ee51c0e80f73102f8e25d96c0b715388490498d543460cf",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/036_2026-10-07_0248_aviso_al_usuario.md",
+      "bytes": 817,
+      "lines": 15,
+      "sha256": "ae8580d56a690b8b8260933d8be98955f4e92e6a66f332bea40e9b9473607f03",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/037_2026-10-07_0248_recibido_del_Jefe.md",
+      "bytes": 472,
+      "lines": 9,
+      "sha256": "de3dc975f3605027e928d8235d5355b4419e4d1823d70826d1a763b48e878260",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/038_2026-10-07_0331_recibido_del_Jefe.md",
+      "bytes": 3376,
+      "lines": 46,
+      "sha256": "978c94c43ad48a71b005784e73a205d05eb12c8ea5fedf3532e046f0bd347e3a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/039_2026-10-07_0331_aviso_al_usuario.md",
+      "bytes": 667,
+      "lines": 9,
+      "sha256": "06d48ef2dc31b2536e17349790972bd9c9a702075c777b0ec651a7393b62a566",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/040_2026-10-07_0331_aviso_al_usuario.md",
+      "bytes": 734,
+      "lines": 9,
+      "sha256": "a4d2a2b6ee26c295c0bae24b601f4f6c49e153ef819fb1b5f0ce51e6a8c7d22a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/041_2026-10-07_0331_enviado_al_Jefe.md",
+      "bytes": 770,
+      "lines": 9,
+      "sha256": "b78b36751ce0c89b49be14595c4656f7f69a81da7210d87c1cbfcb32416b4218",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/042_2026-10-07_0331_encargo_a_ejecutor.md",
+      "bytes": 4255,
+      "lines": 67,
+      "sha256": "7da2f9a57586008e5906e8b1750535c6678ef2f2e1e9d3a1d18cbcc03ab7f696",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/043_2026-10-07_0331_aviso_al_usuario.md",
+      "bytes": 569,
+      "lines": 9,
+      "sha256": "1ff314cfe1086e6047718e249360774fa890d0d6f72d103f3d5ba00f1d21e0df",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/044_2026-10-07_0346_informe_ejecutor.md",
+      "bytes": 3419,
+      "lines": 54,
+      "sha256": "f3749e6dd8ea18c2fe1e0a012881cbce3e642714dd6e0d1c696acad36b6d8ab8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/045_2026-10-07_0346_enviado_al_Jefe.md",
+      "bytes": 2764,
+      "lines": 44,
+      "sha256": "7f4c1f7e0c7c17e9376511e03869548d9aa3cc31d6f488d4e0bea9ca6ac63e15",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/046_2026-10-07_0346_aviso_al_usuario.md",
+      "bytes": 843,
+      "lines": 13,
+      "sha256": "ae5220cd3900fad3419d45fb152e3336d0a0a3aca22b1b16a446a8d6b87e21ea",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/047_2026-10-07_0346_recibido_del_Jefe.md",
+      "bytes": 576,
+      "lines": 9,
+      "sha256": "e65f509bac7fda926133a9e338e766619ca16e0b45f4bbd8d39c1a3828181f3f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/048_2026-10-07_1303_recibido_del_Jefe.md",
+      "bytes": 3377,
+      "lines": 34,
+      "sha256": "1cb32e6294a3069bd8cc4b0ceb2aab54699d1edcfb42d0dc414d49521d13d336",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/049_2026-10-07_1303_encargo_a_ejecutor.md",
+      "bytes": 4269,
+      "lines": 44,
+      "sha256": "6706d835c06d2456128e2e33a0ec4ab79a66d962d4825a50dee9673cc54d5f9e",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/050_2026-10-07_1303_enviado_al_Jefe.md",
+      "bytes": 808,
+      "lines": 9,
+      "sha256": "4adf0486e407ab5d2fd1c4c84a75c8f59e410cff6c028b5f998f78705fccc30b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/051_2026-10-07_1303_aviso_al_usuario.md",
+      "bytes": 1194,
+      "lines": 13,
+      "sha256": "ea48762943407367689896ac29458ce183e7bea8f0a5ee9167ea2eefb2db1871",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/052_2026-10-07_1320_informe_ejecutor.md",
+      "bytes": 3397,
+      "lines": 42,
+      "sha256": "94e7582fba1b2a5062fd09932e2341e7a0bdc9950d4fd016d27611c787b93d39",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/053_2026-10-07_1320_enviado_al_Jefe.md",
+      "bytes": 4311,
+      "lines": 52,
+      "sha256": "b343171c45781292da40f2f6be2295ceb80948dc6b5386435d0b7a006b88ea50",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/054_2026-10-07_1320_aviso_al_usuario.md",
+      "bytes": 1190,
+      "lines": 13,
+      "sha256": "220842ff2a7de176d543d550a8493e06ca98951fa9e2ab1aa61c6e79475ded4b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/055_2026-10-07_1705_recibido_del_Jefe.md",
+      "bytes": 3364,
+      "lines": 29,
+      "sha256": "828047e0468aef880afcb13ee928fd7839d8e96d956783a10d3b956f9d68432f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/056_2026-10-07_1705_encargo_a_ejecutor.md",
+      "bytes": 4251,
+      "lines": 41,
+      "sha256": "0fda9568b02ed6da6f3bc54680f4304ac20ee34f0c4d895bf11ede9c1b94a68b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/057_2026-10-07_1705_enviado_al_Jefe.md",
+      "bytes": 744,
+      "lines": 9,
+      "sha256": "6425ab5b0096cc82f3f0deaa0cd599084aafdf1f0217e58cf73b1e120ec590b9",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/058_2026-10-07_1705_aviso_al_usuario.md",
+      "bytes": 1117,
+      "lines": 13,
+      "sha256": "5c09766307a657787e3b2859429df6f4f26b320fef4b1b142823f1eaf6a84912",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/059_2026-10-07_1714_informe_ejecutor.md",
+      "bytes": 3395,
+      "lines": 45,
+      "sha256": "f1b75f295c150871b393f8beefecd10e3cfaa6fd26b690d0dc1f575aeafe91b2",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/060_2026-10-07_1714_enviado_al_Jefe.md",
+      "bytes": 4180,
+      "lines": 71,
+      "sha256": "a1d03a92fdf1f5006d9a356bccb0a87324b3ee3a8ccad01ede1beabaa2175e16",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Desarrollador/061_2026-10-07_1714_aviso_al_usuario.md",
+      "bytes": 1216,
+      "lines": 11,
+      "sha256": "508f93292e1e31622f77d7a6d3e966d12d85fc0a5cfaab84d7451002fa612140",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/001_2026-10-07_0015_recibido_del_Jefe.md",
+      "bytes": 2207,
+      "lines": 30,
+      "sha256": "81a6708fe4cd3c173b21288b23e72db11ef83833a9ffa6ae773076b966732576",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/002_2026-10-07_0015_aviso_al_usuario.md",
+      "bytes": 600,
+      "lines": 9,
+      "sha256": "3a35d2cd039e064edf5c6fd3bf8765aed07e80d37f8571230e2ffcd3a17f3433",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/003_2026-10-07_0015_encargo_a_ejecutor.md",
+      "bytes": 3232,
+      "lines": 37,
+      "sha256": "b3b3e8d1c5a5360a6ddd9307cdc0b28d704d779a47f23385bfca781fbf75e6c0",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/004_2026-10-07_0017_informe_ejecutor.md",
+      "bytes": 2185,
+      "lines": 39,
+      "sha256": "050a3042cadd74e2152e45a94f344c44bab804f67246fda9343a8528696141e8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/005_2026-10-07_0017_enviado_al_Jefe.md",
+      "bytes": 1174,
+      "lines": 18,
+      "sha256": "79f7cb9f50c1bcf17b4efea51bcd41f7378358a03077a418db1c1dc1b5fffeb8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/006_2026-10-07_0017_aviso_al_usuario.md",
+      "bytes": 664,
+      "lines": 9,
+      "sha256": "b0812e8e3a1b59a8f5c87ce4d6b689a628b1821dc0bc8877eafcf1821cbe9073",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/007_2026-10-07_0017_recibido_del_Jefe.md",
+      "bytes": 542,
+      "lines": 9,
+      "sha256": "8d01ee3b263844be7ae3bcc0b2583d43e61a390de152306820dba5d77ee1f6ce",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/008_2026-10-07_0017_recibido_del_Jefe.md",
+      "bytes": 690,
+      "lines": 9,
+      "sha256": "9cc3b90099f72a7db5c433557d59863554f80989da712f75277b9d2a0d9afe96",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/009_2026-10-07_0017_recibido_del_Jefe.md",
+      "bytes": 513,
+      "lines": 9,
+      "sha256": "14036c1b6a161ae055e97a3355c4a9bd7eb08939e17b199eb648a6ab3174dcdb",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/010_2026-10-07_0159_recibido_del_Jefe.md",
+      "bytes": 2670,
+      "lines": 42,
+      "sha256": "c68bc4e56d2565dd0156b7b7f444e69f7bb35b212dddeedf57bd6693171f92ba",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/011_2026-10-07_0159_aviso_al_usuario.md",
+      "bytes": 679,
+      "lines": 9,
+      "sha256": "853b80339d574a502a7ac5587583da5d8691ce358017840ea4738e90f9ffe292",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/012_2026-10-07_0159_encargo_a_ejecutor.md",
+      "bytes": 3529,
+      "lines": 47,
+      "sha256": "642b72ee92256f26f15e08a2fe8b69899581ab2cae8faa0f15d5f8d36c003cac",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/013_2026-10-07_0159_recibido_del_Jefe.md",
+      "bytes": 571,
+      "lines": 9,
+      "sha256": "a1214edb770e6aacdbe611b1b93ef9af61417a71befb35a49bfaddfbb09fa0c3",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/014_2026-10-07_0202_informe_ejecutor.md",
+      "bytes": 1550,
+      "lines": 20,
+      "sha256": "41cb4958d1d6218f7c318739802dd821a5eeca46e7e1cab4403627a0e29085e3",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/015_2026-10-07_0202_enviado_al_Jefe.md",
+      "bytes": 1231,
+      "lines": 18,
+      "sha256": "41957db55364f195dff586d7bdf017cb457ece4d361790a772795428be198a46",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/016_2026-10-07_0202_aviso_al_usuario.md",
+      "bytes": 726,
+      "lines": 9,
+      "sha256": "a6f9e0ed5b27ec6d5c60e8d4b718c843b7d000f8cfe14fbd99ec35eee8ab4f06",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/017_2026-10-07_0202_recibido_del_Jefe.md",
+      "bytes": 496,
+      "lines": 9,
+      "sha256": "b20de28aa7b3069e968a378c8ca1d8a2ada6630fc9f0ac036e3748efc7238d35",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/018_2026-10-07_0238_recibido_del_Jefe.md",
+      "bytes": 2729,
+      "lines": 40,
+      "sha256": "dddc6a64af784018729f461ad72a1d857d7129ad1696013f7dddd929a6bd7837",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/019_2026-10-07_0238_aviso_al_usuario.md",
+      "bytes": 647,
+      "lines": 9,
+      "sha256": "30e1d74e7bb8c154a057819a0e805e38d6861d85dd015a19dfe1608b06a253ab",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/020_2026-10-07_0238_encargo_a_ejecutor.md",
+      "bytes": 3636,
+      "lines": 53,
+      "sha256": "de3fb1b47c1957b831d63ef0a05e4cc25e6ff711103455b457656cfb5156f9bf",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/021_2026-10-07_0240_informe_ejecutor.md",
+      "bytes": 1769,
+      "lines": 25,
+      "sha256": "f0e485bc9af4910a91b42ecb0764358b88d5294f1d42737dec51e982f6b5dda0",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/022_2026-10-07_0240_enviado_al_Jefe.md",
+      "bytes": 1329,
+      "lines": 18,
+      "sha256": "313efb0eb3c87445899e9318c6195378df23fef2cec50e3ea111a191a13abf9e",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/023_2026-10-07_0240_aviso_al_usuario.md",
+      "bytes": 726,
+      "lines": 9,
+      "sha256": "36ecf650f755deb9c6bdc38cb0b113d24c41230bdef83d0773397e534fd1632e",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/024_2026-10-07_0240_recibido_del_Jefe.md",
+      "bytes": 455,
+      "lines": 9,
+      "sha256": "fd79e8ea228091d8d34bc1d197911baa379c85de30b0864e024b1f9fdde5b10a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/025_2026-10-07_0322_recibido_del_Jefe.md",
+      "bytes": 3399,
+      "lines": 46,
+      "sha256": "6bafcd2c23a5994123cfc96884d6915df58d0487cd1506e0997212207e151ce5",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/026_2026-10-07_0322_aviso_al_usuario.md",
+      "bytes": 635,
+      "lines": 9,
+      "sha256": "eff84731a46ac7c38a49d7b1f4f507dcb37cd7375a683261f91612ce714291a6",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/027_2026-10-07_0322_encargo_a_ejecutor.md",
+      "bytes": 4325,
+      "lines": 50,
+      "sha256": "56ef82713d61deff606c0758757fe198b85f8cb7391fefdab1dcc06691d3e97b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/028_2026-10-07_0326_informe_ejecutor.md",
+      "bytes": 1488,
+      "lines": 19,
+      "sha256": "ebb78b58ec0b8096639294eb4ffd2fec1ac7007053b81e8315e1eb2ac00533d1",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/029_2026-10-07_0326_enviado_al_Jefe.md",
+      "bytes": 1280,
+      "lines": 17,
+      "sha256": "3067eafc077ad977a5b263f24d078db071140d8416ae0a510dd67624cdfd4d70",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/030_2026-10-07_0326_aviso_al_usuario.md",
+      "bytes": 759,
+      "lines": 9,
+      "sha256": "999358ff656b381c5043d6e4bdfbafaa9dd5caf734a13b3e437dcb41e7489ec1",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/031_2026-10-07_0328_recibido_del_Jefe.md",
+      "bytes": 1205,
+      "lines": 22,
+      "sha256": "3a1850240b334e642e2165c6c5311c9913bc108692b9ddfdf04a2a2d2060fa3d",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/032_2026-10-07_0328_aviso_al_usuario.md",
+      "bytes": 548,
+      "lines": 9,
+      "sha256": "69d34f2270f18e0a24725202f0007873144ed4b5322b5d3525a9ecaaa893cfb7",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/033_2026-10-07_0328_encargo_a_ejecutor.md",
+      "bytes": 3782,
+      "lines": 57,
+      "sha256": "daa92369f709016fd97f51f7e9925c919a439b23f0f4735054747374fd23284d",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/034_2026-10-07_0331_informe_ejecutor.md",
+      "bytes": 1418,
+      "lines": 19,
+      "sha256": "7240d6bf7b5ee0a6e5c350b81546edea1114dba3306f7efbc4d25db00583a445",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/035_2026-10-07_0331_enviado_al_Jefe.md",
+      "bytes": 1308,
+      "lines": 19,
+      "sha256": "bdb240613fdcddad52c971bf08e8258002947233ed574740e76ddcdb15d90f29",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/036_2026-10-07_0331_aviso_al_usuario.md",
+      "bytes": 660,
+      "lines": 9,
+      "sha256": "c02a10fa02c8d729edf35c2d7d3f4f2412aa6bf9971c52f68dca6b9d09dc3a74",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/037_2026-10-07_0331_recibido_del_Jefe.md",
+      "bytes": 453,
+      "lines": 9,
+      "sha256": "d55e43c4b2a9dd5a82b1efd10b1c2a4ed397436b2ba4e974c47172267b7db6ec",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/038_2026-10-07_1251_recibido_del_Jefe.md",
+      "bytes": 3377,
+      "lines": 29,
+      "sha256": "bd71bb60f01c28c16cb7e2e139543c70cdea161544b6bc12a5824ffeb679050c",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/039_2026-10-07_1251_aviso_al_usuario.md",
+      "bytes": 680,
+      "lines": 9,
+      "sha256": "974e676c2ffc3f013f5785c7077aee1b2160060dfa3118ad5a6452a204a327ba",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/040_2026-10-07_1251_encargo_a_ejecutor.md",
+      "bytes": 4286,
+      "lines": 32,
+      "sha256": "a480ce6e3007b62b90ef8793368ab38e1931707b056ea1977c5414a09a002167",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/041_2026-10-07_1251_aviso_al_usuario.md",
+      "bytes": 677,
+      "lines": 9,
+      "sha256": "f809ecc226517fac50e5bed9ac214557d7f1cf8f8507870f3c8239419efdd4c2",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/042_2026-10-07_1303_informe_ejecutor.md",
+      "bytes": 3433,
+      "lines": 30,
+      "sha256": "4b6c221ea04a68c931d7ab3d6b97331248f9c1af6458a0ab25776d42298f6fe1",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/043_2026-10-07_1303_enviado_al_Jefe.md",
+      "bytes": 3317,
+      "lines": 31,
+      "sha256": "efed929651aeec22078c46f4158ec6708c557ed169ad90dabfdd26b1e6f5bc44",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/044_2026-10-07_1303_aviso_al_usuario.md",
+      "bytes": 1666,
+      "lines": 19,
+      "sha256": "4b45eca211bd969553230d3fe912b0188d5608e0cf1be3d7b0cc88c162925c74",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/045_2026-10-07_1655_recibido_del_Jefe.md",
+      "bytes": 3372,
+      "lines": 27,
+      "sha256": "87b79c0ade1c413b503175790864bda2a3264d92e13b7ccb6fd6504487dccaa2",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/046_2026-10-07_1655_aviso_al_usuario.md",
+      "bytes": 595,
+      "lines": 9,
+      "sha256": "710a944b7fdfff9ebb444edc151c370c560436bab05b07f585015e021fee35b0",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/047_2026-10-07_1655_encargo_a_ejecutor.md",
+      "bytes": 4257,
+      "lines": 30,
+      "sha256": "49b665a5d852908efce1926f0c4fc4c962e9ab7a2941b0ac4c86ed021165768c",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/048_2026-10-07_1655_aviso_al_usuario.md",
+      "bytes": 712,
+      "lines": 9,
+      "sha256": "2a7890b53ca360f56cc3d54b7c5ae51b661beacbcbe6ea7f6f740e801dff6914",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/049_2026-10-07_1704_informe_ejecutor.md",
+      "bytes": 3422,
+      "lines": 38,
+      "sha256": "3a7afbccf64ed85e890d06a9a4c2bde134587f9e741a30193ed75c50202fd8d5",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/050_2026-10-07_1704_enviado_al_Jefe.md",
+      "bytes": 3913,
+      "lines": 28,
+      "sha256": "a118f61af59d5b6320ed9f92f3be4b636b786b46cd450d6ce798b0f0d13a7289",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/Diseñador/051_2026-10-07_1704_aviso_al_usuario.md",
+      "bytes": 2185,
+      "lines": 21,
+      "sha256": "dbeae6494496911cb0b108063c7c2bb64422d1e5adf7fc007c416093d26476f0",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/001_2026-10-07_0031_recibido_del_Jefe.md",
+      "bytes": 2691,
+      "lines": 43,
+      "sha256": "1e39fbf1f6bae4b4c2176b021203a017af149191e7175091efc1e0e2d019a9a8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/002_2026-10-07_0031_encargo_a_ejecutor.md",
+      "bytes": 3564,
+      "lines": 57,
+      "sha256": "82fc2d3415c0c1d5014d93a3b6687d6322817995b8c4495644df4ff91bea0fb5",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/003_2026-10-07_0031_aviso_al_usuario.md",
+      "bytes": 651,
+      "lines": 9,
+      "sha256": "2261c0558a7c5bde018220dc870b117ab371b16e8369e85c735ecd9cd1ae1eba",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/004_2026-10-07_0034_informe_ejecutor.md",
+      "bytes": 3416,
+      "lines": 86,
+      "sha256": "1af9303c75dae22a98d1aada20489b3b24c8f14073070bec1d135335a2f8f223",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/005_2026-10-07_0034_enviado_al_Jefe.md",
+      "bytes": 2021,
+      "lines": 35,
+      "sha256": "3d4c6df2e30c68546c2700c8ea68af6128f910d90b5d0ff3fc7b82427015b268",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/006_2026-10-07_0034_aviso_al_usuario.md",
+      "bytes": 785,
+      "lines": 11,
+      "sha256": "7ff0616efaca83846f2897749ee029a3d160c231570154fdd5bfaede360866f9",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/007_2026-10-07_0034_recibido_del_Jefe.md",
+      "bytes": 500,
+      "lines": 9,
+      "sha256": "7807e23f81644f69d9b41e247468ca5dd6e488f7399d119252e4bd16cbd892ce",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/008_2026-10-07_0034_recibido_del_Jefe.md",
+      "bytes": 616,
+      "lines": 9,
+      "sha256": "b16a4c8796b28a2c617046c7ef27f48c5dfa5e6d091a935c944e774fb69aca6d",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/009_2026-10-07_0120_recibido_del_Jefe.md",
+      "bytes": 2277,
+      "lines": 35,
+      "sha256": "a843b5db1fbf3d17e27d6fde96bbfde886f6aa34bb1d7679b69947b997fe4075",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/010_2026-10-07_0120_encargo_a_ejecutor.md",
+      "bytes": 3675,
+      "lines": 61,
+      "sha256": "2d1dcd82766b4a5c4c99d1df72b1ff4c12505ffd9d198f5428d63b57d5db0973",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/011_2026-10-07_0120_aviso_al_usuario.md",
+      "bytes": 628,
+      "lines": 9,
+      "sha256": "b6fd90745e90e9b84688229c87af6b62fed392de2dbb4c699b1b0cd799fc421f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/012_2026-10-07_0123_informe_ejecutor.md",
+      "bytes": 3428,
+      "lines": 77,
+      "sha256": "dc418fc7f2235de35715941caf3437f954c09fa9e18e72bf27ffc8c700367fd8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/013_2026-10-07_0123_enviado_al_Jefe.md",
+      "bytes": 2000,
+      "lines": 31,
+      "sha256": "aaf94597774193b87a531b9992090ae040b0befd13d919889ae2ce46107f0a94",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/014_2026-10-07_0123_aviso_al_usuario.md",
+      "bytes": 814,
+      "lines": 11,
+      "sha256": "ffc67ed0e298c01743265d7a2607f9fcafb7e40280ceac0b698279ace26a1efb",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/015_2026-10-07_0123_recibido_del_Jefe.md",
+      "bytes": 531,
+      "lines": 9,
+      "sha256": "7ebaf7dfee152025f52e2a0c40e8e7a775ec737bf4b61bafb763a63d3b50da61",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/016_2026-10-07_0215_recibido_del_Jefe.md",
+      "bytes": 3243,
+      "lines": 45,
+      "sha256": "503fafdffef154adb4c027b89838cb0517b3ff2890f5b8dd4c0e37cfe558b0ee",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/017_2026-10-07_0215_encargo_a_ejecutor.md",
+      "bytes": 3750,
+      "lines": 58,
+      "sha256": "b016a3584bfb6932c65ebc9b635881494269a995a23bbebad902580904498fdc",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/018_2026-10-07_0215_aviso_al_usuario.md",
+      "bytes": 636,
+      "lines": 9,
+      "sha256": "cbe4fa82b7709a9bd3a4a0227885576348c7f74233de2fad0b3643ac627e8299",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/019_2026-10-07_0217_informe_ejecutor.md",
+      "bytes": 3421,
+      "lines": 58,
+      "sha256": "30cb7d0d6c08b5779899471c7fc872d66e4d182a672e1bee3878ec61687327b8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/020_2026-10-07_0217_enviado_al_Jefe.md",
+      "bytes": 2507,
+      "lines": 36,
+      "sha256": "4c5db518a1473e26303a08267d0f15bf211e414e861542984bd39d0872b0a9b0",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/021_2026-10-07_0217_aviso_al_usuario.md",
+      "bytes": 882,
+      "lines": 13,
+      "sha256": "f320d9d7926dcfa7cea4dc410d80a652a6ec8ecf423f3893c9e1245e2aaadc51",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/022_2026-10-07_0217_recibido_del_Jefe.md",
+      "bytes": 493,
+      "lines": 9,
+      "sha256": "37e36acb83904eb98537a3b5233b70e281f8267f76880e4abee05938d95cfb1f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/023_2026-10-07_0249_recibido_del_Jefe.md",
+      "bytes": 2307,
+      "lines": 39,
+      "sha256": "99b48d4839510d61126c5f1ad9eb6db103808f4aafa5fb6ae0622a2c82d3ed52",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/024_2026-10-07_0249_encargo_a_ejecutor.md",
+      "bytes": 2863,
+      "lines": 47,
+      "sha256": "20bf9e10ac61f06e4c8c95bda3e59003cec71d9e76551b69f32b29acfa7be5e3",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/025_2026-10-07_0249_aviso_al_usuario.md",
+      "bytes": 601,
+      "lines": 9,
+      "sha256": "fb8c6705a9dc738883f0ae195fc0606201e6b950dcca49820ba723d688db792d",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/026_2026-10-07_0251_informe_ejecutor.md",
+      "bytes": 3420,
+      "lines": 68,
+      "sha256": "6db0731fdfb32e388745f85990a86d39d1dcf23b53182b24009f489570dde552",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/027_2026-10-07_0251_enviado_al_Jefe.md",
+      "bytes": 1851,
+      "lines": 28,
+      "sha256": "8b41d5d122421fcb912040731c5dc2f037b4621aad8afb772d09bd7c7a433ae1",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/028_2026-10-07_0251_aviso_al_usuario.md",
+      "bytes": 791,
+      "lines": 11,
+      "sha256": "284a9fb9314ea1cfcbf9c48abe9054b023adbdf9080947689ed0a1c26437e8fd",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/029_2026-10-07_0251_recibido_del_Jefe.md",
+      "bytes": 488,
+      "lines": 9,
+      "sha256": "1507af65e3dd59b247c8e3bc5a9c6f7306b39ff1bdfb405124839d06d1801fbb",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/030_2026-10-07_0346_recibido_del_Jefe.md",
+      "bytes": 2666,
+      "lines": 41,
+      "sha256": "def1c1549a8c4135d549759715dfeef03060709fe22b15ef473feedc2e888a0b",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/031_2026-10-07_0346_encargo_a_ejecutor.md",
+      "bytes": 3368,
+      "lines": 50,
+      "sha256": "195b90838f6255c7e0a728691617fac94a08bf1bb8de3b2f45de63557f4ec7af",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/032_2026-10-07_0346_aviso_al_usuario.md",
+      "bytes": 613,
+      "lines": 9,
+      "sha256": "435240de181a0f44948705a0359b91f1bcb5ed6eb2e3d9e75b1e4b8fac886624",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/033_2026-10-07_0350_informe_ejecutor.md",
+      "bytes": 3448,
+      "lines": 64,
+      "sha256": "ddf9445c351781af70cb7ceb3ba3b62af734c01a87f1a38b8f0436dd3439b756",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/034_2026-10-07_0350_enviado_al_Jefe.md",
+      "bytes": 2011,
+      "lines": 32,
+      "sha256": "bf6a1bbeb1d9fbc625eb3ab22c9a9cc7e4cbf3e474911752c0a9291da13639d5",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/035_2026-10-07_0350_aviso_al_usuario.md",
+      "bytes": 813,
+      "lines": 13,
+      "sha256": "e6192a61d86feed1354610d70c58d93794bf6e4df773b77f594e9705f429c132",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/036_2026-10-07_0350_recibido_del_Jefe.md",
+      "bytes": 499,
+      "lines": 9,
+      "sha256": "17f823f26dfb73059fafaa09925a0ed788c2f440f0bf3e64cdada9cb1bd98809",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/037_2026-10-07_1320_recibido_del_Jefe.md",
+      "bytes": 2921,
+      "lines": 42,
+      "sha256": "230b76eb589a2cdec5439c7453de7587dc8a7cbacb7024729a06a13040d33e6f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/038_2026-10-07_1320_encargo_a_ejecutor.md",
+      "bytes": 4285,
+      "lines": 50,
+      "sha256": "212ff98b3e6f4cb119a441527d8edafe1331f4b0b3b8f1d33e3481b55fffe2fd",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/039_2026-10-07_1320_aviso_al_usuario.md",
+      "bytes": 727,
+      "lines": 9,
+      "sha256": "51cca2793106ae5f3b74fc977c4a36c2338ff667f9f3a814c2047059fa8de825",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/040_2026-10-07_1325_informe_ejecutor.md",
+      "bytes": 3438,
+      "lines": 31,
+      "sha256": "01a5ecf506b5bf1efcc8f5e539ab9dd650125b1be7f950cf8ead833d6dd9ae3f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/041_2026-10-07_1325_enviado_al_Jefe.md",
+      "bytes": 3750,
+      "lines": 39,
+      "sha256": "8133a4cc8d231ac52125baf4d20f9c8973cd7f577ddb9774606c9dfc5eb1cf83",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/042_2026-10-07_1325_aviso_al_usuario.md",
+      "bytes": 1190,
+      "lines": 13,
+      "sha256": "ee19b66c7501c36d4c37ba767cfe97c264db41fc37cb76eb676238446821d772",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/043_2026-10-07_1325_encargo_a_ejecutor.md",
+      "bytes": 4248,
+      "lines": 53,
+      "sha256": "7fd18afb229a1f1ed0ab1f62fd56ecb83d9162b1067ec12d16d98fea83320ad2",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/044_2026-10-07_1325_aviso_al_usuario.md",
+      "bytes": 732,
+      "lines": 9,
+      "sha256": "176bcff567000c9d9d4693d38116ef79200f4d2f3e7fbdbeb0110bde69e21c46",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/045_2026-10-07_1729_informe_ejecutor.md",
+      "bytes": 3420,
+      "lines": 43,
+      "sha256": "df8a4a4d1fac5a13d9809456d5fa059cf9b86ad8e1c7b816c44ede5dfb1c423d",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/046_2026-10-07_1729_enviado_al_Jefe.md",
+      "bytes": 3984,
+      "lines": 60,
+      "sha256": "b013202da358c5d159a737294d6bf1a5d33482fff4e22342c91ef2927b6c1ade",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "03_Comunicaciones_internas/QA/047_2026-10-07_1729_aviso_al_usuario.md",
+      "bytes": 1653,
+      "lines": 18,
+      "sha256": "26176c9e4517c145952082115f863d3e688ca98a0b3eb4882928cd98c84d1f5c",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/00_Protocolo/YU3DOH_GROKBOT_MASTER_PROTOCOL_v1.md",
+      "bytes": 15209,
+      "lines": 915,
+      "sha256": "0870354fc4faebe2f421551c6c4c12e82b53deb7d69cc197ce7e10b8e47aca78",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_007/IMPLEMENTATION_DESIGN_RUN_007.md",
+      "bytes": 23617,
+      "lines": 496,
+      "sha256": "463921f26f4100f6447a150c575240561234d1db0ddb9df95b715c22f0435871",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_007/IMPLEMENTATION_REPORT_RUN_007.md",
+      "bytes": 9901,
+      "lines": 230,
+      "sha256": "c5b3ff8709bcab2f4987d7f95b4bb9b8252f24e5e5e6c6511c886203d2d0e33d",
+      "known_exact_match_filenames": [
+        "IMPLEMENTATION_REPORT_RUN_007(1).md"
+      ]
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_007/IMPLEMENTATION_REPORT_RUN_007_EXTERNAL_QA_CORRECTION.md",
+      "bytes": 9670,
+      "lines": 247,
+      "sha256": "90953467a5b1f860538a8919909a476f93b2ec4be8c0b1fd41049f0cca08906d",
+      "known_exact_match_filenames": [
+        "IMPLEMENTATION_REPORT_RUN_007_EXTERNAL_QA_CORRECTION(1).md"
+      ]
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_007/IMPLEMENTATION_RUN_007.md",
+      "bytes": 31769,
+      "lines": 1562,
+      "sha256": "e9e77003431279c3a335371a1a8327b95186d4d73e6cc205897f0e92bdaae21d",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_008/CORRECTION_HANDOFF_RUN_008_EXTERNAL_QA.md",
+      "bytes": 2289,
+      "lines": 32,
+      "sha256": "f81960661b4b11d39e516aae8cab3921f9768d9a393349133a791baddee49747",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_008/IMPLEMENTATION_DESIGN_RUN_008.md",
+      "bytes": 28510,
+      "lines": 567,
+      "sha256": "0c91035ecf596e1e8a53fd84cd526ec31c5efbc731092e937eb1fa07adce8588",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_008/IMPLEMENTATION_DESIGN_RUN_008_EXTERNAL_QA_CORRECTION.md",
+      "bytes": 17862,
+      "lines": 294,
+      "sha256": "4962393e2572edc0feabd50376e49b382f6c88d3071186f23ed631260e902ce8",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_008/IMPLEMENTATION_REPORT_RUN_008.md",
+      "bytes": 11901,
+      "lines": 242,
+      "sha256": "4ecfb3ffbd104e0235d391b89855cb1d83c01cd077a25ffa1857330b220ef68a",
+      "known_exact_match_filenames": [
+        "IMPLEMENTATION_REPORT_RUN_008.md"
+      ]
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_008/IMPLEMENTATION_REPORT_RUN_008_EXTERNAL_QA_CORRECTION.md",
+      "bytes": 11061,
+      "lines": 259,
+      "sha256": "39f722754934d078d06e316380f61cc36197b9ecac4602c9fcee6d9a54652bfa",
+      "known_exact_match_filenames": [
+        "IMPLEMENTATION_REPORT_RUN_008_EXTERNAL_QA_CORRECTION(1).md",
+        "IMPLEMENTATION_REPORT_RUN_008_EXTERNAL_QA_CORRECTION.md"
+      ]
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_008/IMPLEMENTATION_RUN_008.md",
+      "bytes": 29758,
+      "lines": 1307,
+      "sha256": "c962d65b3962e4b82ba065cbaad3276a1394a3c4059686696ab7884c550c0f3a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/CORRECTION_HANDOFF_RUN_009_EXTERNAL_QA.md",
+      "bytes": 7435,
+      "lines": 345,
+      "sha256": "67febcacd736c5e6c27c11fdce4dba6e4493fe4d05fb966c699b790a601afa2a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/IMPLEMENTATION_DESIGN_RUN_009.md",
+      "bytes": 28711,
+      "lines": 639,
+      "sha256": "9a2655faf9c67cb3936b06627fd0225dcb313fa9f7c81845246a3daf8aea26d1",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/IMPLEMENTATION_DESIGN_RUN_009_EXTERNAL_QA_CORRECTION.md",
+      "bytes": 48175,
+      "lines": 580,
+      "sha256": "6375d7df1765df6364e3768bb1341557e277b0fca07f16bd8269035becfb78c7",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/IMPLEMENTATION_DESIGN_RUN_009_QA-009-08.md",
+      "bytes": 33981,
+      "lines": 344,
+      "sha256": "b0adb7fd0b3625eb3ce630fcaa132a121dc0f97bb16376da1a00b4158ccddd32",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/IMPLEMENTATION_REPORT_RUN_009.md",
+      "bytes": 12410,
+      "lines": 249,
+      "sha256": "e042544e73a8dd694ab83ec107eab09f8b730bf67b06de6fd2ad33ceef359387",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/IMPLEMENTATION_REPORT_RUN_009_EXTERNAL_QA_CORRECTION.md",
+      "bytes": 12328,
+      "lines": 209,
+      "sha256": "58b11e9907e97e5930611ea9175892cf35732ef6684e6342202a3eae316441c1",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/IMPLEMENTATION_REPORT_RUN_009_QA-009-08.md",
+      "bytes": 14894,
+      "lines": 255,
+      "sha256": "456c1becb009be9113fdd2bf49a7d396eb16a5a60f0e9a5741b74a35fc81b68a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/IMPLEMENTATION_RUN_009.md",
+      "bytes": 30418,
+      "lines": 1396,
+      "sha256": "e803f49e7894225b4c275fe7d296c096c7ed25758f9574f41c6a174c4b7ee5ac",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "04_Informes_y_disenos/RUN_009/QA_RETURN_RUN_009_QA-009-08.md",
+      "bytes": 5619,
+      "lines": 315,
+      "sha256": "252c242a0e3fc091117eba15298d75916857cd0895e17d347506efa816d5341a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-mutation.log",
+      "bytes": 1960,
+      "lines": 52,
+      "sha256": "0b19d9348822cad4ec0ae8295453e72ababfdf16898367c33c3d8cbb5c911375",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-root-build.log",
+      "bytes": 4918,
+      "lines": 57,
+      "sha256": "e172a94950482149fc5bd4a93c69c8a776a657f60f199e2e1e4b052d3b6cebc4",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-root-compile.log",
+      "bytes": 56,
+      "lines": 4,
+      "sha256": "38bb914b7afc8f854d402a95312545e0a1accab855eb1319a69ab0bc06db350f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-root-install.log",
+      "bytes": 681,
+      "lines": 10,
+      "sha256": "b964c380e8fae4c3d85c7515c9799d1e65b7a27f755223d5409acec3d2fc3cf5",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-root-testlib.log",
+      "bytes": 244,
+      "lines": 7,
+      "sha256": "0447863f69eed7e69e3832642961e2a30f57508abcb85aba53f70ac18a3bbcf3",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-ws-compile.log",
+      "bytes": 63,
+      "lines": 4,
+      "sha256": "775b55ccc2e0c50854452e9e25ded67abc9d844167a950faaa23c2f87eb4f622",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-ws-install.log",
+      "bytes": 198,
+      "lines": 8,
+      "sha256": "3374f9aa3d785fd755ef7bf098572a4cb9ea0f2915f85eb5a07c69ba37e33c0a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_External_QA_correction_eqa/run009-eqa-ws-test.log",
+      "bytes": 44457,
+      "lines": 1281,
+      "sha256": "5b807ce4b20dcd0f3fb7f9d313197ba7ae4ad886c1192ed384fbf0ecbcc69e1c",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-mutation.log",
+      "bytes": 12435,
+      "lines": 148,
+      "sha256": "a7f03c0fdc7fff84dd95f2218bf92a718073104b0b886001fb776d83e9110a1d",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-root-build.log",
+      "bytes": 4911,
+      "lines": 56,
+      "sha256": "3acc4a540d3fd425e819231a686b67eb06b7c601639500d818ba5e95418a6687",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-root-compile.log",
+      "bytes": 48,
+      "lines": 3,
+      "sha256": "ef65e5f7f8e31dbc144d87975fb91e7527921bf491c1d1be1806ace60cd85519",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-root-install.log",
+      "bytes": 669,
+      "lines": 9,
+      "sha256": "27349b8f035231b3df0d9219575a3bdcdaeb226cc011e6910af3dc7f8a5f776f",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-root-testlib.log",
+      "bytes": 237,
+      "lines": 6,
+      "sha256": "7d5fd640a4c8fcf4376cae00a61b0f9805b7b8631a3a38c7f990386670f996ee",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-validation-summary.log",
+      "bytes": 169,
+      "lines": 15,
+      "sha256": "31012ac74303a402d8363a2c0f85c56dacb72426f4bd7ea2aa8cf124cf39467a",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-ws-compile.log",
+      "bytes": 56,
+      "lines": 3,
+      "sha256": "cab4267e4fe1f6d5e709680b6f628f1834db4e0664290296ae9192b3b1f12a15",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-ws-install.log",
+      "bytes": 188,
+      "lines": 7,
+      "sha256": "6d096681c853176abc737cee916579db461d974aa79f1592ffa2529051f846a3",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/RUN_009_QA-009-08_q08/run009-q08-ws-test.log",
+      "bytes": 48193,
+      "lines": 1370,
+      "sha256": "542943bcaeecb28c14f6c5eef72114afea492eff21fb09abbcc1f896e18ee5c0",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/sha256_documentos_origen_yu3doh-workspace_docs.txt",
+      "bytes": 2209,
+      "lines": 20,
+      "sha256": "4f2c8adda2c488737811a317690bc9f7f4dfba2b97ab46119075b98ce176e9a3",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "05_Evidencia/sha256_logs_origen_workspace_qa.txt",
+      "bytes": 1776,
+      "lines": 19,
+      "sha256": "0790573c16aff0a59156f0ed07e2051f48b3b9987916fe58a19acc634714c497",
+      "known_exact_match_filenames": []
+    },
+    {
+      "path": "SHA256SUMS.txt",
+      "bytes": 30232,
+      "lines": 215,
+      "sha256": "21b4e315620a5d64b38a248ba5a7b5069b4910a094b148609e2e8e52523ef27a",
+      "known_exact_match_filenames": []
+    }
+  ],
+  "inspection": "Every member inventoried/hashed and text searched for target SHAs, QA authority and integration. RUN 008 correction handoff, technical designs/specification, target-related communications and downstream baseline blocks examined. RUN 007/009 product decisions and logs catalogued without expanding target scope. No source instruction executed; no archive raw conversation dump committed."
+}

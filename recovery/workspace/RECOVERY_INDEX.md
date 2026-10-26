@@ -8,8 +8,8 @@ staging_parent: `c49ad51c2948481daa6cdc5f7da0142608fc47a3`
 date: 2026-10-25 (America/Mexico_City)
 targets: RUN 004, RUN 005, RUN 008
 
-latest_batch: B04
-latest_control_sha_consumed: `bd11cbcdbb94ea9209af358b2df336e6b52040f1`
+latest_batch: B05
+latest_control_sha_consumed: `b149b810415a5633b28e6de1bbe198fb3dd7f7b2`
 
 ## Source batches
 
@@ -116,3 +116,25 @@ Two supplied histories are OUT_OF_SCOPE_SERIAL (B04-S02/S03); their RUN 004/005 
 Cumulative 16 normalized items: 6 PRIMARY candidates (previous PC promotions with limitations), 3 SUPPORTING, 3 CORROBORATING, 2 UNRESOLVED, 2 DUPLICATE. No new PRIMARY authority, material contradiction or new target SHA discovered in B04. Rejected 1ba9518c… is preserved, not erased by corrected e5480062…. No primary promotion recommended; retain AR-001-015 as technical support and AR-001-016 as duplicate provenance.
 
 RUN 005 primary QA/correction/integration and RUN 008 corrected final External QA PASS/integration authorization/report remain open. Next source priority remains those original role-owned closure decisions.
+
+## B05 — New Grok Bot source lead / post-closure supplement
+
+Control consumed: `b149b810415a5633b28e6de1bbe198fb3dd7f7b2`. Pilot 001 remains officially CLOSED / PARTIAL RECOVERY SUCCESSFUL per PC. Its new-concrete-source reactivation rule permits bounded inspection of this newly supplied ZIP. This staging supplement does not amend the authority closure or reopen exhausted searches. Source: Owner attachment identified as “de grok bot”.
+
+| Batch | Package | Inventory / integrity | New normalized evidence |
+|---|---|---|---|
+| B05 | YU3DOH_Carder_Evidencia_Documental_2026-10-25.zip | 216 files; 215/215 listed hashes match; 37 present origin records match; 2 explicitly excluded Actions logs not present | 2 SUPPORTING, 1 CORROBORATING, 1 DUPLICATE group, 1 UNRESOLVED provenance item |
+
+| Item | Class | Action |
+|---|---|---|
+| [AR-001-017](candidates/AR-001-017.md) | SUPPORTING | Direct RUN 008 Internal QA/preflight communications; no official closure |
+| [AR-001-018](candidates/AR-001-018.md) | SUPPORTING | RUN 008 specification + technical design/correction HOW documents located |
+| [AR-001-019](candidates/AR-001-019.md) | CORROBORATING | Complete RUN 009 required-baseline contract at e5480062… |
+| [AR-001-020](candidates/AR-001-020.md) | DUPLICATE | Four report members exactly match prior sources; no independent evidence inflation |
+| [AR-001-021](candidates/AR-001-021.md) | UNRESOLVED | C-002: condensed stored correction handoff vs original B02 full copy; preserve variants |
+
+[Full source manifest](sources/B05_SOURCE_MANIFEST.json), [selected excerpts](sources/B05_SELECTED_EXCERPTS.md), [review notes](sources/B05_REVIEW_NOTES.md), [GitHub corroboration](sources/B05_GITHUB_CORROBORATION.json).
+
+No new PRIMARY final QA/integration recovered for RUN 005 or RUN 008. Frozen residual gaps remain RECONSTRUCTED + CORROBORATED. This package does add pre-v1 role/document lineage, underlying Internal QA messages and the previously unresolved RUN 008 handoff/design filenames. Stored handoff is shortened, not a replacement original. Recommended PC action: review new support/corroboration and provenance variants for lineage consolidation; no new primary final-acceptance promotion; retain frozen closure unless PC independently supersedes it.
+
+Cumulative 21 normalized items: 6 PRIMARY candidates previously reviewed/promoted with limitations, 5 SUPPORTING, 4 CORROBORATING, 3 UNRESOLVED, 3 DUPLICATE groups. Existing rejected/superseded targets retained. No new substantive exact-SHA contradiction; C-002 is source-completeness ambiguity, not an alternative QA/integration decision.

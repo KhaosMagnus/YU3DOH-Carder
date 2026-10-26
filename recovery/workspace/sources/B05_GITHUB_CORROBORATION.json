@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-25",
+  "control_sha_consumed": "b149b810415a5633b28e6de1bbe198fb3dd7f7b2",
+  "compare": {
+    "repository_full_name": "KhaosMagnus/YU3DOH-Carder",
+    "base": "45d85b6cfd4a28f1b4f241f540159fac076f3978",
+    "head": "e54800629e46f8fccd653b0bef637dd71e9b97a3",
+    "status": "ahead",
+    "ahead_by": 10,
+    "behind_by": 0,
+    "total_commits": 10,
+    "too_large": null,
+    "base_commit": {
+      "sha": "45d85b6cfd4a28f1b4f241f540159fac076f3978",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/45d85b6cfd4a28f1b4f241f540159fac076f3978",
+      "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/45d85b6cfd4a28f1b4f241f540159fac076f3978"
+    },
+    "merge_base_commit": {
+      "sha": "45d85b6cfd4a28f1b4f241f540159fac076f3978",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/commits/45d85b6cfd4a28f1b4f241f540159fac076f3978",
+      "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/commit/45d85b6cfd4a28f1b4f241f540159fac076f3978"
+    },
+    "files": [
+      {
+        "filename": "scripts/test-library-client.ts",
+        "status": "modified",
+        "additions": 160,
+        "deletions": 0,
+        "changes": 160,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/api.ts",
+        "status": "modified",
+        "additions": 39,
+        "deletions": 0,
+        "changes": 39,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/app.tsx",
+        "status": "modified",
+        "additions": 70,
+        "deletions": 0,
+        "changes": 70,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/asset-channels.ts",
+        "status": "added",
+        "additions": 63,
+        "deletions": 0,
+        "changes": 63,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/asset-state.ts",
+        "status": "added",
+        "additions": 88,
+        "deletions": 0,
+        "changes": 88,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/detail-panel.tsx",
+        "status": "modified",
+        "additions": 70,
+        "deletions": 5,
+        "changes": 75,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/ingest-form.tsx",
+        "status": "added",
+        "additions": 105,
+        "deletions": 0,
+        "changes": 105,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/library.scss",
+        "status": "modified",
+        "additions": 98,
+        "deletions": 0,
+        "changes": 98,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/model.ts",
+        "status": "modified",
+        "additions": 93,
+        "deletions": 0,
+        "changes": 93,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/needs-attention-panel.tsx",
+        "status": "added",
+        "additions": 139,
+        "deletions": 0,
+        "changes": 139,
+        "previous_filename": null
+      },
+      {
+        "filename": "src/library/variants-panel.tsx",
+        "status": "added",
+        "additions": 124,
+        "deletions": 0,
+        "changes": 124,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/package.json",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1,
+        "changes": 2,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/src/app.ts",
+        "status": "modified",
+        "additions": 153,
+        "deletions": 0,
+        "changes": 153,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/src/assets/indexer.ts",
+        "status": "modified",
+        "additions": 45,
+        "deletions": 15,
+        "changes": 60,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/src/assets/repository.ts",
+        "status": "modified",
+        "additions": 155,
+        "deletions": 4,
+        "changes": 159,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/src/library/asset-dto.ts",
+        "status": "added",
+        "additions": 253,
+        "deletions": 0,
+        "changes": 253,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/src/library/asset-service.ts",
+        "status": "added",
+        "additions": 206,
+        "deletions": 0,
+        "changes": 206,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/src/service.ts",
+        "status": "modified",
+        "additions": 15,
+        "deletions": 1,
+        "changes": 16,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/test/asset-indexer.test.ts",
+        "status": "modified",
+        "additions": 40,
+        "deletions": 4,
+        "changes": 44,
+        "previous_filename": null
+      },
+      {
+        "filename": "workspace-server/test/library-assets.test.ts",
+        "status": "added",
+        "additions": 754,
+        "deletions": 0,
+        "changes": 754,
+        "previous_filename": null
+      }
+    ]
+  },
+  "note": "Independent GitHub confirms RUN 008 final target descends linearly from RUN 007 baseline (10 ahead, 0 behind). Existing B01/B02/B04 captures establish exact correction/initial cleanup and Windows observations. No historical tests rerun. Export's historical no-GitHub instruction is archive provenance, not a present restriction on AR-001 corroboration."
+}

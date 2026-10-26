@@ -30,3 +30,17 @@ No material contradiction with control `2a2675718a36705922575ec2a1164ed7b0ad3daa
 ## B04 update — lineage collision avoided
 
 No new material contradiction with control `bd11cbcdbb94ea9209af358b2df336e6b52040f1`. B04-S03's RUN 005 PASS concerns Serial v0.1 custom-border stacking; it is OUT_OF_SCOPE_SERIAL, not evidence for Workspace Managed Asset Ingest. B04-S02 likewise belongs to Serial. Two Library identities for the RUN 008 correction report match byte-for-byte and are recorded as DUPLICATE, not independent verification. Initial Internal QA PASS at 1ba9518c… does not conflict with later External QA PARTIAL: different authorities and a real-flow defect missed by the initial checks. No missing final acceptance is inferred from green Actions.
+
+## C-002 — B05 stored handoff completeness ambiguity
+
+- Decision: source provenance / RUN 008 correction return, AR-001-021.
+- Source A: B05 00_INDICE.md says full correction handoff text for truncated Owner requests is in 04; it claims 04 documents copied byte-for-byte from source disk.
+- Source B: B05 04_Informes_y_disenos/RUN_008/CORRECTION_HANDOFF_RUN_008_EXTERNAL_QA.md is 2289 bytes with condensed prose; B02 Owner-supplied DEVELOPMENT HANDOFF — RUN 008.md is 4752 bytes. The separate REPORT CORRECTION / actual AC numbering directive in B02 and B05 01_Solicitudes_Khaos/05_* is absent from 04 stored text.
+- Interpretation limit: copy-from-disk assertion may be true while stored disk text is a summarized variant. Do not certify stored 04 copy as the complete originally issued handoff merely from filename/index wording.
+- Supersession: none silently assigned. Keep B02 original longer issued text, truncated relay and stored condensed variant as distinct sources.
+- GitHub fact: known rejected/corrected lineage unchanged; no alternate accepted SHA is asserted.
+- Unresolved: whether local source handoff was deliberately condensed before export; original transcript authorship/time authenticity. PC review required; not a product-checkpoint conflict.
+
+## B05 authority-label ambiguity resolved by explicit context
+
+03_Comunicaciones_internas/QA/028_* headline “Corrección External QA … PASS” is not a recovered official External QA decision. Its next paragraph says closure is still External QA; 027_* says Internal QA / preflight only / NO cierro el RUN / Sin integración, and Chief response 05 ends READY FOR EXTERNAL QA. Preserve all context; no new final official PASS is inferred. Integrity checks match all archive-listed hashes; two absent origin Actions logs are explicitly excluded, not silently omitted as hash failures.

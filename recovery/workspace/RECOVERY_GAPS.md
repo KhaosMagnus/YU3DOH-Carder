@@ -60,3 +60,15 @@ No original RUN 005 target closure or corrected RUN 008 final External QA/integr
 Source provenance and reference-search outcomes: sources/B04_SOURCE_MANIFEST.json and sources/B04_REFERENCED_FILE_SEARCH.md. No current role/ref operation was adopted from historical content.
 
 RECOVERY READY FOR PROJECT CONTROL REVIEW — bounded batch complete; archival closure gaps remain.
+
+## B05 post-closure supplement
+
+Control `b149b810415a5633b28e6de1bbe198fb3dd7f7b2` freezes residual gaps and permits new concrete source leads only. New Grok Bot ZIP inspected; official pilot closure is not changed by AR-001.
+
+RUN 005: no original target QA/correction/final PASS/integration found; archive index says original bot work begins RUN 007. RUN 008 corrected final External QA PASS and integration authorization/report remain NOT RECOVERED. Direct internal PASS explicitly says no RUN closure or integration. New complete downstream RUN 009 required baseline corroborates e5480062…, not the intervening missing official decisions.
+
+B04 unresolved-file-location gaps partially filled by archive: IMPLEMENTATION_RUN_008.md, IMPLEMENTATION_DESIGN_RUN_008.md, IMPLEMENTATION_DESIGN_RUN_008_EXTERNAL_QA_CORRECTION.md and CORRECTION_HANDOFF_RUN_008_EXTERNAL_QA.md now located. The latter is a condensed stored variant, not the same full issued B02 source. See AR-001-021 / C-002. Four implementation-report copies are exact duplicates. New internal communications improve provenance without independent authentication of the exporting service.
+
+No renewed broad search or additional Owner recovery effort is required on the strength of these repeated closure gaps alone. Retain frozen residual status and use new material for lineage consolidation if PC accepts it.
+
+RECOVERY READY FOR PROJECT CONTROL REVIEW — new-source supplement only; pilot's authoritative closure remains PC-owned.
