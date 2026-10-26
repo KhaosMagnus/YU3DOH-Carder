@@ -18,9 +18,9 @@ jobs:
     timeout-minutes: 40
     env:
       CANDIDATE_ROOT: ${{ github.workspace }}/run-024
-      ENV004_OUTPUT: ${{ runner.temp }}/env004-evidence
-      ENV004_WORKSPACE: ${{ runner.temp }}/env004-workspace
-      NODE_PATH: ${{ runner.temp }}/env004-tools/node_modules
+      ENV004_OUTPUT: ${{ github.workspace }}/env004-evidence
+      ENV004_WORKSPACE: ${{ github.workspace }}/env004-workspace
+      NODE_PATH: ${{ github.workspace }}/env004-tools/node_modules
     steps:
       - name: Checkout operational harness
         uses: actions/checkout@v4
@@ -76,8 +76,8 @@ jobs:
         run: node ops-control/validation/env004-command.cjs test-service yarn --cwd workspace-server test
       - name: Install isolated Chromium tooling
         run: |
-          npm install --prefix "$RUNNER_TEMP/env004-tools" --no-audit --no-fund playwright-core@1.58.2
-          node "$RUNNER_TEMP/env004-tools/node_modules/playwright-core/cli.js" install --with-deps chromium
+          npm install --prefix "$GITHUB_WORKSPACE/env004-tools" --no-audit --no-fund playwright-core@1.58.2
+          node "$GITHUB_WORKSPACE/env004-tools/node_modules/playwright-core/cli.js" install --with-deps chromium
       - name: Execute neutral readiness probe
         run: node ops-control/validation/env004-readiness.cjs
       - name: Final custody
@@ -106,6 +106,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: env004-readiness-${{ github.run_id }}-219ac252d50ae11b836a93baa20cc7f7d872367f
-          path: ${{ runner.temp }}/env004-evidence
+          path: ${{ github.workspace }}/env004-evidence
           if-no-files-found: error
           retention-days: 90
