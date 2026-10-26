@@ -1,0 +1,40 @@
+- main:
+  - heading "YU3DOH Library" [level=1]
+  - paragraph: Canonical card browse/search + detail editor
+  - button "Workspace"
+  - button "Needs Attention"
+  - button "New Draft"
+  - text: "Workspace: READY"
+  - region "Library browse controls":
+    - textbox "Search name in EN / ES / JP or password"
+    - button "search":
+      - img "search"
+    - combobox "Preferred language"
+    - text: EN
+    - combobox
+    - text: Family
+    - combobox
+    - text: Archetype
+    - combobox
+    - text: Effect Classifier
+    - combobox
+    - text: Functional Tag
+  - region "Batch selection":
+    - strong: "Selected: 0"
+    - text: "Hidden from current view: 0"
+    - button "Select current page"
+    - button "Clear selection" [disabled]
+    - button "Batch Classification…" [disabled]
+    - button "Refresh Library"
+  - 'button "Select ENV004 Continuous Smoke for Batch ENV004 Continuous Smoke SPELL Password: 12990004 Display: EN Variants: 1 Standard READY Overframe incomplete"':
+    - checkbox "Select ENV004 Continuous Smoke for Batch"
+    - heading "ENV004 Continuous Smoke" [level=2]
+    - text: "SPELL Password: 12990004 Display: EN Variants: 1 Standard READY Overframe incomplete"
+  - list:
+    - listitem "Previous Page":
+      - button "left" [disabled]:
+        - img "left"
+    - listitem "1"
+    - listitem "Next Page":
+      - button "right" [disabled]:
+        - img "right"

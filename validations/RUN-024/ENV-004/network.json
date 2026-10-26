@@ -1,0 +1,216 @@
+{
+  "writebackExecuted": false,
+  "events": [
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/workspace/status",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-26T08:05:55.604Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/library/facets",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-26T08:05:55.645Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/workspace/status",
+      "status": 200,
+      "headers": {
+        "content-length": "245",
+        "date": "Mon, 26 Oct 2026 08:05:55 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"workspace_id\":\"env-004-actions-readiness\",\"name\":\"ENV-004 Actions readiness\",\"workspace_format_version\":1,\"database_schema_version\":8,\"state\":\"READY\",\"read_only\":false,\"health_summary\":\"Workspace database schema 8 is current and operational.\"}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:55.646Z"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/library/facets",
+      "status": 200,
+      "headers": {
+        "content-length": "137",
+        "date": "Mon, 26 Oct 2026 08:05:55 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"families\":[\"MONSTER\",\"SPELL\",\"TRAP\",\"TOKEN\"],\"archetypes\":[],\"effect_classifiers\":[],\"functional_tags\":[],\"languages\":[\"EN\",\"ES\",\"JP\"]}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:55.663Z"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards?preferred_language=EN&limit=50&offset=0",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-26T08:05:55.854Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards?preferred_language=EN&limit=50&offset=0",
+      "status": 200,
+      "headers": {
+        "content-length": "391",
+        "date": "Mon, 26 Oct 2026 08:05:55 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"items\":[{\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"revision\":\"2\",\"family\":\"SPELL\",\"password\":\"12990004\",\"display_name\":\"ENV004 Continuous Smoke\",\"display_language\":\"EN\",\"available_languages\":[\"EN\"],\"archetypes\":[],\"effect_classifiers\":[],\"functional_tags\":[],\"variant_count\":1,\"has_standard_ready_variant\":true,\"has_overframe_ready_variant\":false}],\"total\":1,\"limit\":50,\"offset\":0}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:55.891Z"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards/d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-26T08:05:56.175Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/library/editor-metadata",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-26T08:05:56.191Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards/d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf",
+      "status": 200,
+      "headers": {
+        "content-length": "919",
+        "date": "Mon, 26 Oct 2026 08:05:56 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"revision\":\"2\",\"family\":\"SPELL\",\"password\":\"12990004\",\"structure\":{\"kind\":\"SPELL\",\"subtype_code\":\"CONTINUOUS\"},\"localizations\":[{\"language\":\"EN\",\"name\":\"ENV004 Continuous Smoke\",\"card_text\":\"Environment readiness fixture only.\",\"pendulum_text\":null}],\"confirmations\":[{\"block\":\"STRUCTURE\",\"state\":\"CONFIRMED\",\"provenance_id\":1},{\"block\":\"TEXT:EN\",\"state\":\"CONFIRMED\",\"provenance_id\":2}],\"classification\":{\"effect_reviewed\":false,\"archetypes\":[],\"effect_classifiers\":[],\"functional_tags\":[]},\"relations\":[],\"provenance\":[{\"provenance_id\":1,\"target_kind\":\"BLOCK\",\"target_key\":\"STRUCTURE\",\"source_kind\":\"MANUAL\",\"source_ref\":\"env-004-readiness\",\"note\":null,\"created_at\":\"2026-10-26T08:05:52.885Z\"},{\"provenance_id\":2,\"target_kind\":\"BLOCK\",\"target_key\":\"TEXT:EN\",\"source_kind\":\"MANUAL\",\"source_ref\":\"env-004-readiness\",\"note\":null,\"created_at\":\"2026-10-26T08:05:52.885Z\"}]}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:56.198Z"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards/d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf/variants",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-26T08:05:56.206Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/library/editor-metadata",
+      "status": 200,
+      "headers": {
+        "content-length": "825",
+        "date": "Mon, 26 Oct 2026 08:05:56 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"languages\":[\"EN\",\"ES\",\"JP\"],\"summon_kinds\":[\"FUSION\",\"LINK\",\"MAIN_DECK\",\"RITUAL\",\"SYNCHRO\",\"XYZ\"],\"attributes\":[\"DARK\",\"DIVINE\",\"EARTH\",\"FIRE\",\"LIGHT\",\"WATER\",\"WIND\"],\"races\":[\"AQUA\",\"BEAST\",\"BEAST_WARRIOR\",\"CREATOR_GOD\",\"CYBERSE\",\"DINOSAUR\",\"DIVINE_BEAST\",\"DRAGON\",\"FAIRY\",\"FIEND\",\"FISH\",\"ILLUSION\",\"INSECT\",\"MACHINE\",\"PLANT\",\"PSYCHIC\",\"PYRO\",\"REPTILE\",\"ROCK\",\"SEA_SERPENT\",\"SPELLCASTER\",\"THUNDER\",\"WARRIOR\",\"WINGED_BEAST\",\"WYRM\",\"ZOMBIE\"],\"abilities\":[\"EFFECT\",\"FLIP\",\"GEMINI\",\"NORMAL\",\"PENDULUM\",\"SPECIAL_SUMMON\",\"SPIRIT\",\"TOON\",\"TUNER\",\"UNION\"],\"link_markers\":[\"1\",\"2\",\"3\",\"4\",\"6\",\"7\",\"8\",\"9\"],\"spell_subtypes\":[\"CONTINUOUS\",\"EQUIP\",\"FIELD\",\"NORMAL\",\"QUICK_PLAY\",\"RITUAL\"],\"trap_subtypes\":[\"CONTINUOUS\",\"COUNTER\",\"NORMAL\"],\"archetypes\":[],\"effect_classifiers\":[],\"functional_tags\":[],\"relation_types\":[\"CREATES_TOKEN\"]}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:56.209Z"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards/d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf/variants",
+      "status": 200,
+      "headers": {
+        "content-length": "1833",
+        "date": "Mon, 26 Oct 2026 08:05:56 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"variants\":[{\"variant_id\":\"f978e82a-be87-447c-840b-45ce98dd4ee9\",\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"variant_key\":\"default\",\"display_label\":\"Default\",\"standard\":{\"state\":\"READY\",\"sources\":[\"BS\"]},\"overframe\":{\"state\":\"INCOMPLETE\",\"sources\":[]},\"roles\":{\"BS\":{\"slot_state\":\"BOUND\",\"candidates\":[{\"assetId\":\"d271e85c-7ee9-458c-8430-9c26fa55f745\",\"relativePath\":\"Assets/Managed/d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf/default/BS.png\",\"fileName\":\"BS.png\",\"extension\":\"png\",\"sizeBytes\":74,\"modifiedTimeMs\":1793001952893.6868,\"contentHash\":\"998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946\",\"parsedCardName\":null,\"parsedPassword\":null,\"role\":\"BS\",\"variantLabel\":\"Default\",\"variantKey\":\"default\",\"associationState\":\"RESOLVED\",\"cardId\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"variantId\":\"f978e82a-be87-447c-840b-45ce98dd4ee9\",\"imageWidth\":2,\"imageHeight\":2,\"hasTransparency\":false,\"validAsset\":true,\"present\":true}],\"expected_state_token\":\"v8WVOhP5-apjHHRbUB8M1qyOuI99VZn3vKxBkYo3nIk\",\"asset\":{\"asset_id\":\"d271e85c-7ee9-458c-8430-9c26fa55f745\",\"relative_path\":\"Assets/Managed/d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf/default/BS.png\",\"file_name\":\"BS.png\",\"extension\":\"png\",\"image_width\":2,\"image_height\":2,\"has_transparency\":false,\"present\":true,\"valid_asset\":true,\"ownership\":\"managed\",\"managed_asset_id\":\"0bf4e629-f243-4b03-8e50-0d63d83f0087\"},\"issues\":[]},\"BG\":{\"slot_state\":\"EMPTY\",\"candidates\":[],\"expected_state_token\":\"v8WVOhP5-apjHHRbUB8M1qyOuI99VZn3vKxBkYo3nIk\",\"asset\":null,\"issues\":[]},\"OF\":{\"slot_state\":\"EMPTY\",\"candidates\":[],\"expected_state_token\":\"v8WVOhP5-apjHHRbUB8M1qyOuI99VZn3vKxBkYo3nIk\",\"asset\":null,\"issues\":[]}}}],\"preferred_variant_id\":\"f978e82a-be87-447c-840b-45ce98dd4ee9\",\"expected_state_token\":\"v8WVOhP5-apjHHRbUB8M1qyOuI99VZn3vKxBkYo3nIk\"}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:56.228Z"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/carder/prepare-working-card",
+      "method": "POST",
+      "postData": "{\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"variant_id\":\"f978e82a-be87-447c-840b-45ce98dd4ee9\",\"composition\":\"STANDARD\",\"content_language\":\"EN\",\"expected_revision\":\"2\"}",
+      "timestamp": "2026-10-26T08:05:56.668Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/carder/prepare-working-card",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://127.0.0.1:3000",
+        "content-length": "1069",
+        "date": "Mon, 26 Oct 2026 08:05:56 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"identity\":{\"write_grant\":\"YaOXBqECnIdiwHSz5cUnDQ.Ez0tEgusJOqHQZAMXUzZJX2gOBDuuHBsMtAAJWu8WPc\",\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"revision\":\"2\",\"variant_id\":\"f978e82a-be87-447c-840b-45ce98dd4ee9\",\"composition\":\"STANDARD\",\"content_language\":\"EN\"},\"localized\":{\"name\":\"ENV004 Continuous Smoke\",\"card_text\":\"Environment readiness fixture only.\",\"pendulum_text\":null},\"structure\":{\"family\":\"SPELL\",\"summon_kind\":null,\"attribute_code\":null,\"race_code\":null,\"level\":null,\"rank\":null,\"atk\":null,\"def\":null,\"pendulum_scale\":null,\"abilities\":[],\"link_markers\":[],\"link_rating\":null,\"subtype_code\":\"CONTINUOUS\",\"password\":\"12990004\"},\"artwork\":{\"composition\":\"STANDARD\",\"sources\":[\"BS\"],\"assets\":[{\"role\":\"BS\",\"asset_id\":\"d271e85c-7ee9-458c-8430-9c26fa55f745\",\"hash\":\"998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946\",\"content_url\":\"/api/v1/carder/assets/d271e85c-7ee9-458c-8430-9c26fa55f745/content?hash=998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946&grant=SeEuHXyK0RvTJvSdqjIUhw.j3PblwPep8ZwDoVt72XnwG9p_Um0ahOY3lN8Zk1V9Ds\"}]}}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:56.683Z"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/carder/prepare-working-card",
+      "method": "POST",
+      "postData": "{\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"variant_id\":\"f978e82a-be87-447c-840b-45ce98dd4ee9\",\"composition\":\"STANDARD\",\"content_language\":\"EN\",\"expected_revision\":\"2\"}",
+      "timestamp": "2026-10-26T08:05:57.718Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/carder/assets/d271e85c-7ee9-458c-8430-9c26fa55f745/content?hash=998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946&grant=1_rFadK91SUH-miRaYIDNg.k0q0TgLswh0UU2iHaVgup5H_sTK8Pu4MSrB29mS45jE",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-26T08:05:58.170Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/carder/prepare-working-card",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://127.0.0.1:3000",
+        "content-length": "1069",
+        "date": "Mon, 26 Oct 2026 08:05:57 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"identity\":{\"write_grant\":\"gEUwZaOKS685eRd1l8DAlw.RR8DMh3ywYp6XekHOM1ptbWdeLPZ1kxeudfSHnrM9cY\",\"card_id\":\"d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf\",\"revision\":\"2\",\"variant_id\":\"f978e82a-be87-447c-840b-45ce98dd4ee9\",\"composition\":\"STANDARD\",\"content_language\":\"EN\"},\"localized\":{\"name\":\"ENV004 Continuous Smoke\",\"card_text\":\"Environment readiness fixture only.\",\"pendulum_text\":null},\"structure\":{\"family\":\"SPELL\",\"summon_kind\":null,\"attribute_code\":null,\"race_code\":null,\"level\":null,\"rank\":null,\"atk\":null,\"def\":null,\"pendulum_scale\":null,\"abilities\":[],\"link_markers\":[],\"link_rating\":null,\"subtype_code\":\"CONTINUOUS\",\"password\":\"12990004\"},\"artwork\":{\"composition\":\"STANDARD\",\"sources\":[\"BS\"],\"assets\":[{\"role\":\"BS\",\"asset_id\":\"d271e85c-7ee9-458c-8430-9c26fa55f745\",\"hash\":\"998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946\",\"content_url\":\"/api/v1/carder/assets/d271e85c-7ee9-458c-8430-9c26fa55f745/content?hash=998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946&grant=1_rFadK91SUH-miRaYIDNg.k0q0TgLswh0UU2iHaVgup5H_sTK8Pu4MSrB29mS45jE\"}]}}",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:58.172Z"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/carder/assets/d271e85c-7ee9-458c-8430-9c26fa55f745/content?hash=998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946&grant=1_rFadK91SUH-miRaYIDNg.k0q0TgLswh0UU2iHaVgup5H_sTK8Pu4MSrB29mS45jE",
+      "status": 200,
+      "headers": {
+        "access-control-allow-origin": "http://127.0.0.1:3000",
+        "cache-control": "no-store",
+        "content-length": "74",
+        "date": "Mon, 26 Oct 2026 08:05:58 GMT",
+        "content-type": "image/png",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "�PNG\r\n\u001a\n\u0000\u0000\u0000\rIHDR\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0002\b\u0006\u0000\u0000\u0000r�\r$\u0000\u0000\u0000\u0011IDATx�cpӰ�\u000f�\f0\u0006\u00007X\u0006�t��T\u0000\u0000\u0000\u0000IEND�B`�",
+      "bodyError": null,
+      "timestamp": "2026-10-26T08:05:58.841Z"
+    }
+  ]
+}

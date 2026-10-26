@@ -1,0 +1,246 @@
+- status:
+  - strong: Opened from Workspace
+  - text: · composition STANDARD · language EN · revision 2 Save to Workspace available for supported Canonical fields. Renderer/artwork changes remain local.
+  - button "Save to Workspace"
+- button "Export"
+- button "download":
+  - img "download"
+- button "Import"
+- button "upload":
+  - img "upload"
+- button "retweet":
+  - img "retweet"
+- button "Download gateway 1185":
+  - text: Download
+  - img "gateway"
+  - text: "1185"
+- img "app-logo"
+- heading "Yugioh Carder" [level=1]
+- radio "简体中文"
+- text: 简体中文
+- radio "English" [checked]
+- text: English
+- radio "日本語"
+- text: 日本語
+- radio "Việt"
+- text: "Việt FAQ vunknown GUI:"
+- link "Lauqerm":
+  - /url: https://github.com/lauqerm/ygocarder
+- img "exclamation-circle"
+- text: "Template:"
+- link "Grezar":
+  - /url: https://www.deviantart.com/grezar/art/SKILL-UPDATE-Series-10-Card-Proxy-Template-686736691
+- text: ","
+- link "9558able":
+  - /url: https://www.deviantart.com/9558able/art/Yugioh-Series-10-Proxy-Template-DELUXE-EDITION-843282421
+- text: ","
+- link "SlackerMagician":
+  - /url: https://www.deviantart.com/slackermagician
+- text: ","
+- link "GeckoYGO":
+  - /url: https://www.deviantart.com/geckoygo
+- text: and others
+- img "info-circle"
+- img "setting"
+- text: Setting
+- img "database"
+- text: Manager
+- img "book"
+- text: Preset
+- img "snippets"
+- text: Sample
+- img "appstore-add"
+- text: Add Shortcut
+- link "github":
+  - /url: https://github.com/lauqerm/ygocarder
+  - img "github"
+- text: Format 简中 OCG TCG Foil
+- img "close-circle"
+- text: Finish
+- img "clear"
+- text: 1 2 3 4 5 6 7 8 9 10 11 12 13 Layout
+- img "exclamation-circle"
+- checkbox
+- text: Legacy Advanced
+- img "border-outer"
+- text: Background Card
+- button "Increase Value" [disabled]:
+  - img "up"
+- button "Decrease Value":
+  - img "down"
+- spinbutton: "100"
+- slider
+- text: Name
+- button "Increase Value" [disabled]:
+  - img "up"
+- button "Decrease Value":
+  - img "down"
+- spinbutton: "100"
+- slider
+- text: Effect
+- button "Increase Value" [disabled]:
+  - img "up"
+- button "Decrease Value":
+  - img "down"
+- spinbutton: "100"
+- slider
+- text: Normal Effect Ritual Fusion Synchro Xyz Link Spell Trap Token Dark Synchro Obelisk Osiris Ra Raviel Uria Hamon Lg Dragon Speed Skill Zarc
+- img "book"
+- text: Name
+- textbox: ENV004 Continuous Smoke
+- button "close-circle"
+- text: Set ID
+- img "sync"
+- textbox
+- text: Name Style
+- radio "Auto"
+- text: Auto
+- radio "Predefined"
+- text: Predefined
+- radio "Custom"
+- text: Custom Color
+- img "caret-down"
+- text: Shadow
+- img "caret-down"
+- text: Outline
+- img "caret-down"
+- text: Gradient
+- img "caret-down"
+- text: Pattern Font Emboss
+- button "Save preset"
+- img "caret-down"
+- text: Icon
+- img "caret-down"
+- img "close-circle"
+- img "Field"
+- img "Continuous"
+- img "Quick-Play"
+- img "Ritual"
+- img "Equip"
+- img "Counter"
+- img "Normal"
+- text: JP EN CH DE FR IT PT SP Attribute
+- img "close-circle"
+- img "Dark"
+- img "Earth"
+- img "Fire"
+- img "Light"
+- img "Water"
+- img "Wind"
+- img "Divine"
+- img "Spell"
+- img "Trap"
+- img "edit"
+- img "book"
+- img "Laugh"
+- img "Magic"
+- img "Boss 1"
+- img "Boss 2"
+- img "Boss 3"
+- img "Boss Start"
+- img "up"
+- checkbox "Pendulum"
+- text: Pendulum Blending
+- button
+- button
+- button
+- button
+- button
+- button "Foil"
+- text: Card Layout Type
+- textbox: Spell Card
+- button "close-circle"
+- button "Syntax bulb":
+  - text: Syntax
+  - img "bulb"
+- text: Paragraph Style Effect Auto Auto Auto Auto Auto Text Style
+- button "∞"
+- button "☆"
+- button "★"
+- button "●"
+- button "©"
+- button "™"
+- button "Ɐ"
+- button "Я"
+- button "Ø"
+- button "※"
+- img "exclamation-circle"
+- textbox: Environment readiness fixture only.
+- button "close-circle"
+- text: ATK
+- textbox
+- text: DEF
+- textbox
+- text: Password
+- img "sync"
+- textbox: "12990004"
+- button "close-circle"
+- text: Copyright
+- img "unordered-list"
+- textbox
+- text: Edition
+- checkbox
+- img "unordered-list"
+- textbox: 1<st> Edition
+- button "close-circle"
+- text: Corner Text
+- checkbox
+- textbox
+- checkbox "Legacy"
+- text: Legacy
+- checkbox "Limited Edition"
+- text: Limited Edition
+- checkbox "Speed"
+- text: Speed
+- checkbox "Duel Terminal"
+- text: Duel Terminal Sticker
+- img "close-circle"
+- img "gold"
+- img "silver"
+- img "beta"
+- img "holo5"
+- img "holo4"
+- img "holo3"
+- img "holo2"
+- img "holo1"
+- img "limited"
+- img "unlimited"
+- text: Card Art
+- img "download"
+- img "close"
+- radio "Link" [checked]
+- text: Link
+- radio "Offline"
+- text: Offline
+- textbox "Image link": /api/v1/carder/assets/d271e85c-7ee9-458c-8430-9c26fa55f745/content?hash=998e476e84c33eaeb5c880b64e89998000d5a979b90abcbd00501c4a00112946&grant=1_rFadK91SUH-miRaYIDNg.k0q0TgLswh0UU2iHaVgup5H_sTK8Pu4MSrB29mS45jE
+- button "close-circle"
+- checkbox "Markers"
+- text: Markers
+- img "close-circle"
+- text: "Finish: Art"
+- img "caret-down"
+- img "close-circle"
+- text: 1 2 3 4 5 6 7 8 9
+- img "arrow-right"
+- img "arrow-up"
+- img "fullscreen"
+- text: Made by Lauqerm
+- img "avatar"
+- text: 1 Template
+- img "file-text"
+- img "unordered-list"
+- img "retweet"
+- img "download"
+- img "upload"
+- img "close"
+- textbox "Card name or text"
+- button "Clear"
+- button "Select All"
+- text: Scheme
+- img "caret-down"
+- button "Export Card Images"
+- button "Import Card"
+- alert:
+  - img "info-circle"
+  - text: Feedback reminder Before sending feedback or a suggestion, check the FAQ to see whether it has already been addressed.
+- img "close"

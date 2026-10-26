@@ -1,0 +1,57 @@
+{
+  "card_id": "d4c1d70a-6b00-4115-bbe9-14e1a77b4ddf",
+  "revision": "2",
+  "family": "SPELL",
+  "password": "12990004",
+  "structure": {
+    "kind": "SPELL",
+    "subtype_code": "CONTINUOUS"
+  },
+  "localizations": [
+    {
+      "language": "EN",
+      "name": "ENV004 Continuous Smoke",
+      "card_text": "Environment readiness fixture only.",
+      "pendulum_text": null
+    }
+  ],
+  "confirmations": [
+    {
+      "block": "STRUCTURE",
+      "state": "CONFIRMED",
+      "provenance_id": 1
+    },
+    {
+      "block": "TEXT:EN",
+      "state": "CONFIRMED",
+      "provenance_id": 2
+    }
+  ],
+  "classification": {
+    "effect_reviewed": false,
+    "archetypes": [],
+    "effect_classifiers": [],
+    "functional_tags": []
+  },
+  "relations": [],
+  "provenance": [
+    {
+      "provenance_id": 1,
+      "target_kind": "BLOCK",
+      "target_key": "STRUCTURE",
+      "source_kind": "MANUAL",
+      "source_ref": "env-004-readiness",
+      "note": null,
+      "created_at": "2026-10-26T08:05:52.885Z"
+    },
+    {
+      "provenance_id": 2,
+      "target_kind": "BLOCK",
+      "target_key": "TEXT:EN",
+      "source_kind": "MANUAL",
+      "source_ref": "env-004-readiness",
+      "note": null,
+      "created_at": "2026-10-26T08:05:52.885Z"
+    }
+  ]
+}
