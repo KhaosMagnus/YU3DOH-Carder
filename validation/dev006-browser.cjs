@@ -158,7 +158,7 @@ async function main() {
   assert.deepEqual((await working()).structure.link_markers,initial.link.structure.link_markers);
   const positions=await page.locator('[data-marker-code]').evaluateAll(ns=>ns.map(n=>({code:n.dataset.markerCode,row:getComputedStyle(n).gridRowStart,column:getComputedStyle(n).gridColumnStart})));
   assert.deepEqual(positions.map(p=>[p.code,p.row,p.column]),[['1','1','1'],['2','1','2'],['3','1','3'],['4','2','1'],['6','2','3'],['7','3','1'],['8','3','2'],['9','3','3']]);
-  assert.equal(await page.locator('[data-marker-code="5"]').count(),0);await snapshot('T1-OP-01');await done('T1-OP-01',{authoritative:initial.link.structure,positions});
+  assert.equal(await page.locator('[data-marker-code="5"]').count(),0);await snapshot('T1-OP-01');await page.setViewportSize({width:1440,height:3000});await snapshot('T1-OP-01-full-editor');await page.setViewportSize({width:1440,height:1100});await done('T1-OP-01',{authoritative:initial.link.structure,positions});
   let count=writes();await page.locator('[data-marker-code="2"]').click();assert.deepEqual(await markers(),['1','2','4','9']);assert.equal(await rating(),'4');assert.equal(await saveButton().isDisabled(),false);await snapshot('T1-OP-02-added');
   await page.locator('[data-marker-code="2"]').click();assert.equal(await rating(),'3');assert.equal(await saveButton().isDisabled(),true);assert.equal(writes(),count);await snapshot('T1-OP-02-restored');await done('T1-OP-02');
   // Reach the first marker using Tab only, then prove every next target.
