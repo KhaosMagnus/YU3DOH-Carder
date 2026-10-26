@@ -1,0 +1,11 @@
+const {execFileSync}=require('node:child_process');const fs=require('node:fs');const path=require('node:path');const assert=require('node:assert/strict');const crypto=require('node:crypto');
+const root=process.env.CANDIDATE_ROOT,out=process.env.DEV006_OUTPUT;
+const sha='e07140d5a9555a17b7b2306a45625c14adfafc8e',start='219ac252d50ae11b836a93baa20cc7f7d872367f',baseline='64cb5f4ca42348c6c403e64e0d61bdff8c32a281';
+const git=(...args)=>execFileSync('git',['-C',root,...args],{encoding:'utf8'}).trim();
+const expected=['src/library/editor-form.tsx','src/library/detail-panel.tsx','src/library/open-in-carder.tsx','src/library/library.scss','src/library/link-marker-state.ts','src/library/link-marker-selector.tsx','src/library/preferred-variant-warning.ts','scripts/test-library-client.ts','scripts/test-library-tranche-one.ts'].sort();
+const data={head:git('rev-parse','HEAD'),status:git('status','--porcelain'),diff:git('diff','--exit-code'),cachedDiff:git('diff','--cached','--exit-code'),remote:git('ls-remote','origin','refs/heads/feature/workspace-run-024'),mergeBase:git('merge-base','HEAD',baseline),preservedStart:git('merge-base','HEAD',start),commitCount:git('rev-list','--count',start+'..HEAD'),changedPaths:git('diff','--name-only',start,'HEAD').split('\n').sort(),protectedDiff:git('diff',start,'HEAD','--','workspace-server','package.json','yarn.lock','src/service/workspace-bridge','src/component/link-marker','implementations'),files:{}};
+for(const file of ['package.json','yarn.lock','workspace-server/package.json','workspace-server/yarn.lock'])data.files[file]=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');
+fs.writeFileSync(path.join(out,'custody-'+process.argv[2]+'.json'),JSON.stringify(data,null,2));
+assert.equal(data.head,sha);assert.equal(data.remote.split(/\s/)[0],sha);assert.equal(data.status,'');assert.equal(data.diff,'');assert.equal(data.cachedDiff,'');assert.equal(data.mergeBase,baseline);assert.equal(data.preservedStart,start);assert.equal(data.protectedDiff,'');assert.deepEqual(data.changedPaths,expected);
+if(process.argv[2]==='final')assert.deepEqual(data.files,JSON.parse(fs.readFileSync(path.join(out,'custody-preflight.json'))).files);
+console.log(JSON.stringify(data,null,2));
