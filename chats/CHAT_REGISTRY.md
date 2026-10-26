@@ -5,14 +5,16 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | RUN 024 resumption control | DEV-004 blocker reviewed |
+| PC-001 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | RUN 024 resumption control | successor PC-002 |
+| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 environment recovery control | second executor blocker reviewed |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | Post-P6 Roadmap Review complete | frozen scope |
 | DQA-001 | DESIGN_QA | AVAILABLE / CONTRACT FROZEN | Tranche 1 design complete | waiting for exact RUN 024 candidate |
 | DEV-004 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 initial attempt | executor transport blocker; report-only branch delta |
-| DEV-005 | DEVELOPMENT | ASSIGNED / RUN 024 RESUMPTION | same RUN 024, existing branch | fresh executable substrate required |
-| ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | historical |
-| ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | GitHub Actions substrate proven | historical |
+| DEV-005 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 resumption attempt | second executor transport blocker; no successor report |
+| ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | historical Work/cloud browser transport gap |
+| ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | historical Candidate A environment gate | GitHub Actions substrate proven for validation |
+| ENV-003 | ENVIRONMENT_READINESS | ASSIGNED | RUN 024 Development-substrate readiness | pending |
 | DEPLOY-001 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | historical Candidate A attempt | historical |
 | DEPLOY-002 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | historical Candidate A attempt | historical |
 | DEPLOY-003 | DEPLOYMENT_VALIDATION | COMPLETE / CLOSED | Candidate A 6/6 EVIDENCE READY | historical |
