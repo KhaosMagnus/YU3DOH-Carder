@@ -13,50 +13,61 @@ protocol_version: 1.0
 
 ## P6
 
-`IN PROGRESS — TARGETED ARCHIVAL RECOVERY`
+`IN PROGRESS — LINEAGE CONSOLIDATION / FINAL MIGRATION INDEX`
 
-### Pilot 001 / Batch B03 review
+### Archival Recovery Pilot 001
 
-Staging reviewed:
+`CLOSED / PARTIAL RECOVERY SUCCESSFUL`
 
-`recovery/p6-archival-staging @ d6be14a95cd78b7a34837290e8a23d0e0ac3ebb3`
+Final staging reviewed:
 
-Project Control disposition:
+`recovery/p6-archival-staging @ 3332950f547125a686fdee6a511b7ec7eb06c33e`
 
-```text
-AR-001-012  CORROBORATING
-AR-001-013  CORROBORATING
-AR-001-014  DUPLICATE
-PRIMARY PROMOTIONS: NONE
-```
+Closure artifact:
 
-Review artifact:
+`migration/P6_ARCHIVAL_PILOT_001_CLOSURE.md`
 
-`migration/P6_ARCHIVAL_REVIEW_B03.md`
+B04 review:
 
-B03 reinforces:
+`migration/P6_ARCHIVAL_REVIEW_B04.md`
 
-- RUN 005 exact integrated checkpoint via RUN 006 baseline;
-- RUN 008 exact integrated checkpoint via downstream RUN 009 QA baseline.
+Recovered primary authority:
 
-It does not replace missing original External QA or integration records.
+- RUN 004 complete PARTIAL → correction → PASS → integration sequence;
+- RUN 008 External QA PARTIAL / correction return.
 
-### Remaining Pilot 001 targets
+Residual gaps frozen after targeted search:
 
-- RUN 005 primary QA/correction/integration sequence
-- RUN 008 final corrected External QA PASS
-- RUN 008 administrative integration authorization/report
+- RUN 005 original final QA/integration sequence;
+- RUN 008 final corrected External QA PASS/integration sequence.
 
-AR-001 remains active for B04.
+Those checkpoints remain valid as:
+
+`RECONSTRUCTED + CORROBORATED`
+
+No further active search is required unless a new concrete source lead appears.
+
+### Next active P6 phase
+
+`LINEAGE CONSOLIDATION / FINAL MIGRATION INDEX`
+
+Objectives:
+
+1. consolidate pre-v1 role/document lineage already recovered;
+2. map superseded and duplicate historical material;
+3. carry forward frozen residual provenance gaps;
+4. build the final migration index;
+5. determine P6 closure readiness.
 
 ## Separation
 
-Workspace recovery only.
-Serial v0.1 remains out of scope for this campaign.
+Workspace and Serial v0.1 remain separate historical lineages.
+
+Serial v0.1 is not part of this Workspace P6 campaign.
 
 ## Non-authorizations
 
-- corroborating evidence is not primary authority;
+- recovery staging is not authority;
 - no wholesale staging merge;
 - main integration: NOT AUTHORIZED;
 - RUN 024: NOT AUTHORIZED;
