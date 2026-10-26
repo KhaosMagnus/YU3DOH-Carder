@@ -10,7 +10,7 @@ protocol_version: 1.0
 - main = `54cc3aad246c89a29f2a18be63c539db68cae041`
 - feature/workspace-v0.1 = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
 - feature/workspace-cr-0001-combined = `64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
-- feature/workspace-run-024 = `219ac252d50ae11b836a93baa20cc7f7d872367f`
+- feature/workspace-run-024 = `e07140d5a9555a17b7b2306a45625c14adfafc8e`
 
 ## Project Control
 
@@ -24,7 +24,7 @@ Scope:
 
 Status:
 
-`AUTHORIZED / DEV-006 CONTINUATION AUTHORIZED`
+`CANDIDATE READY / EXTERNAL QA ROUTED`
 
 Environment:
 - ENV-003 — ENVIRONMENT BLOCKED
@@ -33,39 +33,50 @@ Environment:
 Development:
 - DEV-004 — BLOCKED / executor transport
 - DEV-005 — BLOCKED / executor transport
-- DEV-006 — initial resumption BLOCKED before implementation by transfer-text validation-command inconsistency
-- DEV-006 — SAME INSTANCE continuation authorized after Project Control correction
+- DEV-006 — COMPLETE / READY FOR EXTERNAL QA
 
-RUN branch:
+Exact candidate:
 
-`feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
+`feature/workspace-run-024 @ e07140d5a9555a17b7b2306a45625c14adfafc8e`
 
-No implementation candidate exists yet.
+Candidate parent:
 
-Corrected route:
+`219ac252d50ae11b836a93baa20cc7f7d872367f`
 
-`routing/ROUTE-RUN-024-RESUME-DEV-006-CORRECTED.md`
-
-Authoritative candidate validation:
-
-```text
-yarn compile
-yarn build
-yarn test:sc
-yarn test:library
-yarn --cwd workspace-server compile
-yarn --cwd workspace-server test
-```
-
-No root `yarn test` command is required or authorized.
-
-All T1-OP-01..07 remain mandatory.
-
-Final DEV-006 continuation report must be NEW:
+Development report:
 
 `implementations/RUN-024_DEV-006_CONTINUATION_IMPLEMENTATION_REPORT.md`
 
-After READY FOR EXTERNAL QA, route exact candidate to DQA-001.
+Project Control disposition:
+
+`runs/RUN-024_DEV-006_READY_DISPOSITION.md`
+
+External QA request:
+
+`validations/RUN-024/DQA-001_EXTERNAL_QA_REQUEST.md`
+
+External QA route:
+
+`routing/ROUTE-RUN-024-DQA-001.md`
+
+Current QA authority:
+
+`DESIGN_QA / DQA-001`
+
+Development validation evidence:
+- Actions run `40346181389`
+- job `121653587088`
+- artifact `12662135618`
+- digest `sha256:18365d2ca307762d2e65a1c38f62e2ee4bffde16701aee76f0e2a4378250ba5e`
+- required installs and six validation commands exit 0
+- Workspace Service 1088/1088 PASS
+- T1-OP-01..07 executed
+
+F06-W1 evidence qualification:
+
+Development used an explicitly synthetic variants DTO at the UI response boundary because STANDARD INCOMPLETE / OVERFRAME READY is not naturally producible by the unchanged service readiness model. DQA-001 must independently classify the sufficiency of that evidence.
+
+No integration is authorized until External QA disposition and separate Project Control action.
 
 ## Tranche 2
 
@@ -91,10 +102,6 @@ Frozen Design contract:
 
 `handoffs/CR-0002_LIBRARY_DARK_THEME_IMPLEMENTATION_HANDOFF.md`
 
-Project Control Design disposition:
-
-`control/CR-0002_DESIGN_DISPOSITION.md`
-
 Implementation baseline:
 
 `UNASSIGNED / POST-F04`
@@ -102,8 +109,6 @@ Implementation baseline:
 Required sequence:
 
 `CR-0001.4 QA-PASS + authorized integration → post-F04 compatibility review → exact baseline assignment → CR-0002 implementation authorization`
-
-DQA-002 design mission is complete.
 
 ## Pre-Release-Hardening documentation gate
 
