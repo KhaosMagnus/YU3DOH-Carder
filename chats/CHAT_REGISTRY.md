@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-001 | PROJECT_CONTROL | ACTIVE | POST-P6 PROJECT / RELEASE DECISION | P6 closed |
+| PC-001 | PROJECT_CONTROL | ACTIVE | post-P6 roadmap control | P6 closed; owner sequence frozen |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
-| SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0001.2 scope complete | GitHub/control evidence |
+| SCOPE-001 | SCOPE_ARCHITECTURE | ASSIGNED | POST-P6 ROADMAP REVIEW | route frozen |
 | DQA-001 | DESIGN_QA | AVAILABLE | combined final PASS complete | GitHub/control evidence |
 | ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | GitHub/control evidence |
 | ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | GitHub Actions substrate proven | GitHub Actions + control evidence |

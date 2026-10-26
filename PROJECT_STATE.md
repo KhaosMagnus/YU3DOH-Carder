@@ -13,7 +13,7 @@ protocol_version: 1.0
 - CR-0001 Combined = PASS / INTEGRATED
 - feature/workspace-run-024 = ABSENT
 
-## P6 — Historical Documentation Migration
+## P6
 
 `CLOSED`
 
@@ -21,42 +21,57 @@ Final index:
 
 `migration/P6_FINAL_MIGRATION_INDEX.md`
 
-Lineage consolidation:
+## Owner-selected post-P6 sequence
 
-`migration/P6_LINEAGE_CONSOLIDATION.md`
+Frozen in:
 
-Closure:
+`control/OWNER_DIRECTION_POST_P6_SEQUENCE.md`
 
-`migration/P6_CLOSURE.md`
+Order:
 
-P6 establishes continuous historical authority from RUN 001 through RUN 023, post-RUN-023 RC, CR-0001 Combined and the current `feature/workspace-v0.1` checkpoint.
+```text
+3. ROADMAP REVIEW
+        ↓
+2. RELEASE HARDENING
+        ↓
+1. RELEASE / MAIN INTEGRATION
+```
 
-Residual provenance gaps are frozen and non-blocking. No broad archival search remains active.
+Allowed iterative loop:
 
-Workspace and Serial v0.1 remain separate historical lineages.
+`ROADMAP REVIEW ↔ RELEASE HARDENING`
 
-## Current CR-0001 dispositions
+Implementation selected by Roadmap Review follows the normal Scope → Design/QA → Development → External QA → authorized integration path before entering hardening.
 
-- CR-0001.1 / F-01 — VALIDATED / PASS / INTEGRATED.
-- CR-0001.2 / F-02 — VALIDATED / PASS / INTEGRATED.
-- CR-0001.3 / F-03 — DEFERRED.
-- CR-0001.4 / F-04 — DEFERRED.
-- CR-0001.5 / F-05 — VALIDATED / PASS / INTEGRATED.
+## Current gate
+
+`POST-P6 ROADMAP REVIEW — ACTIVE`
+
+Route:
+
+`routing/ROUTE-POST-P6-ROADMAP-REVIEW-SCOPE-001.md`
+
+Target:
+
+`SCOPE_ARCHITECTURE / SCOPE-001`
+
+Exact review baseline:
+
+`feature/workspace-v0.1 @ 64cb5f4ca42348c6c403e64e0d61bdff8c32a281`
+
+Known pending items include:
+
+- CR-0001.3 / F-03 — DEFERRED;
+- CR-0001.4 / F-04 — DEFERRED;
 - CR-0001.6 / F-06 — ACKNOWLEDGED UX backlog.
-- CR-0001.7 / F-07 — REJECTED / WITHDRAWN.
-- CR-0001.8 / F-08 — VALIDATED / HISTORICAL.
-- CR-0001.9 / F-09 — IMPLEMENTED.
 
-## Next gate
-
-`POST-P6 PROJECT / RELEASE DECISION`
-
-No product action is implied by P6 closure.
+Roadmap Review must inventory any additional evidence-backed pending product improvements before Project Control authorizes a new implementation tranche.
 
 ## Non-authorizations
 
 - main integration: NOT AUTHORIZED;
 - RUN 024: NOT AUTHORIZED;
+- implementation branch creation: NOT AUTHORIZED;
 - new schema/migration: NOT AUTHORIZED;
-- deferred CR implementation: NOT AUTHORIZED;
+- deferred CR implementation: NOT YET AUTHORIZED;
 - unrelated product/ref movement: NOT AUTHORIZED.
