@@ -1,0 +1,14 @@
+const {execFileSync} = require('node:child_process');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
+const root = process.env.CANDIDATE_ROOT;
+const sha = '219ac252d50ae11b836a93baa20cc7f7d872367f';
+const baseline = '64cb5f4ca42348c6c403e64e0d61bdff8c32a281';
+const git = (...args) => execFileSync('git',['-C',root,...args],{encoding:'utf8'}).trim();
+const data = {head:git('rev-parse','HEAD'), status:git('status','--porcelain'), diff:git('diff','--exit-code'), cachedDiff:git('diff','--cached','--exit-code'), remote:git('ls-remote','origin','refs/heads/feature/workspace-run-024'), mergeBase:git('merge-base','HEAD',baseline), commitCount:git('rev-list','--count',baseline+'..HEAD'), changedPaths:git('diff','--name-only',baseline,'HEAD'), parents:git('show','-s','--format=%P','HEAD'), files:{}};
+for (const file of ['package.json','yarn.lock','workspace-server/package.json','workspace-server/yarn.lock']) data.files[file]=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,file))).digest('hex');
+fs.writeFileSync(path.join(process.env.ENV004_OUTPUT,'custody-'+process.argv[2]+'.json'),JSON.stringify(data,null,2));
+assert.equal(data.head,sha); assert.equal(data.status,''); assert.equal(data.diff,''); assert.equal(data.cachedDiff,''); assert.equal(data.remote.split(/\s/)[0],sha); assert.equal(data.mergeBase,baseline); assert.equal(data.commitCount,'1'); assert.equal(data.changedPaths,'implementations/RUN-024_IMPLEMENTATION_REPORT.md'); assert.equal(data.parents,baseline);
+console.log(JSON.stringify(data,null,2));

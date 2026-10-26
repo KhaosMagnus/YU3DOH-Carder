@@ -1,0 +1,10 @@
+const {spawnSync}=require('node:child_process');
+const fs=require('node:fs');
+const path=require('node:path');
+const name=process.argv[2]; const args=process.argv.slice(3);
+const start=new Date().toISOString();
+const result=spawnSync(args[0],args.slice(1),{cwd:process.env.CANDIDATE_ROOT,encoding:'utf8',maxBuffer:64*1024*1024,env:process.env});
+const log=(result.stdout||'')+(result.stderr||'');
+fs.writeFileSync(path.join(process.env.ENV004_OUTPUT,name+'.log'),log);
+fs.writeFileSync(path.join(process.env.ENV004_OUTPUT,name+'.json'),JSON.stringify({command:args,start,end:new Date().toISOString(),exitCode:result.status,signal:result.signal,error:result.error?String(result.error):null},null,2));
+process.stdout.write(log); process.exitCode=result.status===0?0:1;
