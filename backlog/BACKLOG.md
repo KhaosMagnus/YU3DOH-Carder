@@ -18,37 +18,28 @@ CR-0002 frozen Design contract:
 - CR-0001.2 / F-02 — INTEGRATED / PASS
 - CR-0001.5 / F-05 — INTEGRATED / PASS
 
-## Tranche 1 — RUN 024 active
+## Tranche 1 — RUN 024 External QA
 
 ### Focused Editor / Variant UX Completion
 
 - CR-0001.3 / F-03
 - CR-0001.6 / F-06
 
+Exact candidate:
+
+`feature/workspace-run-024 @ e07140d5a9555a17b7b2306a45625c14adfafc8e`
+
 Status:
 
-`AUTHORIZED / DEV-006 CONTINUATION AUTHORIZED`
+`DEVELOPMENT READY / EXTERNAL QA ROUTED`
 
-DEV-006 first resumption stopped before implementation on a transfer-text validation-command inconsistency.
+QA:
 
-Project Control resolved the blocker.
+`DQA-001`
 
-Authoritative candidate gate:
+F06-W1 synthetic UI-boundary evidence qualification is explicitly carried into External QA.
 
-```text
-yarn compile
-yarn build
-yarn test:sc
-yarn test:library
-yarn --cwd workspace-server compile
-yarn --cwd workspace-server test
-```
-
-RUN branch remains:
-
-`feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
-
-No implementation candidate exists yet.
+No integration is authorized yet.
 
 ## Tranche 2 — sequenced
 
@@ -63,10 +54,6 @@ Begins only after Tranche 1 External QA PASS + authorized integration.
 ### CR-0002 — Library Dark Theme
 
 `IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED`
-
-Design:
-
-`handoffs/CR-0002_LIBRARY_DARK_THEME_IMPLEMENTATION_HANDOFF.md`
 
 Implementation baseline:
 
