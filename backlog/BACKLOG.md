@@ -1,12 +1,12 @@
 # BACKLOG
 
-Current canonical CR ledger for the existing CR-0001 family:
+Current canonical CR ledger for the CR-0001 family:
 
 `requests/CR-0001-v17.md`
 
-Additional acknowledged Owner request:
+CR-0002 canonical Scope:
 
-`requests/CR-0002.md`
+`scopes/CR-0002_LIBRARY_DARK_THEME-v2.md`
 
 ## Complete / integrated
 
@@ -14,60 +14,71 @@ Additional acknowledged Owner request:
 - CR-0001.2 / F-02 — INTEGRATED / PASS
 - CR-0001.5 / F-05 — INTEGRATED / PASS
 
-## Active implementation path
+## Tranche 1 — active RUN 024
 
-### RUN 024 — Focused Editor / Variant UX Completion
-
-Authorized:
+### Focused Editor / Variant UX Completion
 
 - CR-0001.3 / F-03
 - CR-0001.6 / F-06
 
-Implementation status:
+Status:
 
-`NOT COMPLETED`
+`AUTHORIZED / IMPLEMENTATION NOT COMPLETED / ENV-004 READINESS`
 
-Development:
-
-- DEV-004 — IMPLEMENTATION BLOCKED / executor transport
-- DEV-005 — IMPLEMENTATION BLOCKED / executor transport
-
-Environment recovery:
-
-- ENV-003 — ENVIRONMENT BLOCKED / Work-cloud shared browser transport
-- ENV-004 — ASSIGNED / GitHub-hosted Actions readiness
-
-Existing RUN branch:
+Existing branch:
 
 `feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
 
 No implementation candidate exists.
 
-## Sequenced existing tranche
+## Tranche 2 — sequenced
 
 ### CR-0001.4 / F-04 — Library Grid/List
 
-`IN_SCOPE / TRANCHE 2 / NOT YET AUTHORIZED FOR IMPLEMENTATION`
+`IN_SCOPE / SCOPE FROZEN / IMPLEMENTATION NOT AUTHORIZED`
 
-## New Owner request under Scope review
+Sequence:
+
+after Tranche 1 QA-PASS + authorized integration.
+
+## Tranche 3 — selected
 
 ### CR-0002 — Library Dark Theme
 
-`ACKNOWLEDGED / SCOPE REVIEW`
+`IN_SCOPE / SCOPE FROZEN / DESIGN ROUTED / IMPLEMENTATION NOT AUTHORIZED`
 
-Route:
+Canonical Scope:
 
-`routing/ROUTE-CR-0002-SCOPE-001.md`
+`scopes/CR-0002_LIBRARY_DARK_THEME-v2.md`
 
-This request is not part of RUN 024 and is not automatically bundled with Tranche 2.
+Frozen states:
 
-## Pre-release documentation gate
+- LIGHT;
+- DARK;
+- default/fallback DARK;
+- browser-local persistence;
+- SYSTEM/AUTO OUT;
+- Carder OUT.
 
-Before Release Hardening, after all selected roadmap tranches are QA-PASS and integrated into `feature/workspace-v0.1`, perform the product documentation reconciliation defined in:
+Must remain a separate implementation candidate from Grid/List.
+
+Sequence:
+
+after CR-0001.4 QA-PASS + authorized integration.
+
+Design route:
+
+`routing/ROUTE-CR-0002-DQA-002.md`
+
+## Release documentation gate
+
+After all selected roadmap tranches — now including CR-0002 — are QA-PASS and integrated into `feature/workspace-v0.1`:
+
+`documentation refresh → Release Hardening`
+
+Requirement:
 
 `control/PRE_HARDENING_DOCUMENTATION_REQUIREMENT.md`
-
-Transient RUN branches do not independently require full product README rewrites.
 
 ## Guards
 

@@ -6,14 +6,15 @@ protocol_version: 1.0
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
 | PC-001 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | RUN 024 resumption control | successor PC-002 |
-| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 environment recovery + parallel roadmap intake | ENV-004 routed; CR-0002 routed |
+| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 control + roadmap sequencing | ENV-004 routed; CR-0002 Scope accepted |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
-| SCOPE-001 | SCOPE_ARCHITECTURE | ASSIGNED | CR-0002 Library Dark Theme | scope review pending |
-| DQA-001 | DESIGN_QA | AVAILABLE / CONTRACT FROZEN | Tranche 1 design complete | waiting for exact RUN 024 candidate |
-| DEV-004 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 initial attempt | executor transport blocker; report-only branch delta |
-| DEV-005 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 resumption attempt | second executor transport blocker; no successor report |
-| ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | historical Work/cloud browser transport gap |
-| ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | historical Candidate A environment gate | GitHub Actions substrate proven for validation |
+| SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0002 scope complete | v2 frozen; default DARK |
+| DQA-001 | DESIGN_QA | AVAILABLE / CONTRACT FROZEN | Tranche 1 design complete | reserved for exact-SHA RUN 024 QA |
+| DQA-002 | DESIGN_QA | ASSIGNED / DESIGN | CR-0002 Library Dark Theme | design contract pending |
+| DEV-004 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 initial attempt | executor transport blocker |
+| DEV-005 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 resumption attempt | executor transport blocker |
+| ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | historical |
+| ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | historical Candidate A environment gate | GitHub Actions validation substrate proven |
 | ENV-003 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | RUN 024 Work/cloud readiness | Git/service proved; browser/shared runtime blocked |
 | ENV-004 | ENVIRONMENT_READINESS | ASSIGNED | RUN 024 GitHub Actions readiness | pending |
 | DEPLOY-001 | DEPLOYMENT_VALIDATION | BLOCKED / SUPERSEDED | historical Candidate A attempt | historical |
