@@ -19,51 +19,49 @@ protocol_version: 1.0
 
 `CLOSED / PARTIAL RECOVERY SUCCESSFUL`
 
-Final staging reviewed:
-
-`recovery/p6-archival-staging @ 3332950f547125a686fdee6a511b7ec7eb06c33e`
-
-Closure artifact:
+Closure remains:
 
 `migration/P6_ARCHIVAL_PILOT_001_CLOSURE.md`
 
-B04 review:
+### Post-closure B05 supplement
 
-`migration/P6_ARCHIVAL_REVIEW_B04.md`
+Reviewed staging:
 
-Recovered primary authority:
+`recovery/p6-archival-staging @ 6cc7ed5b708b3cf0e88682246a821fd4883020df`
 
-- RUN 004 complete PARTIAL → correction → PASS → integration sequence;
-- RUN 008 External QA PARTIAL / correction return.
+New control artifact:
 
-Residual gaps frozen after targeted search:
+`migration/P6_ARCHIVAL_SUPPLEMENT_B05.md`
 
-- RUN 005 original final QA/integration sequence;
-- RUN 008 final corrected External QA PASS/integration sequence.
+Disposition:
 
-Those checkpoints remain valid as:
+```text
+SUPPORTING     2
+CORROBORATING  1
+DUPLICATE      1 group
+UNRESOLVED     1 provenance variant
+PRIMARY        0
+```
 
-`RECONSTRUCTED + CORROBORATED`
+B05 improves RUN 008 specification/design/Internal-QA lineage and adds downstream RUN 009 baseline corroboration.
 
-No further active search is required unless a new concrete source lead appears.
+It does not recover final primary closure for RUN 005 or RUN 008.
 
-### Next active P6 phase
+Residual gaps remain frozen as:
+
+`ARCHIVAL GAP — NOT RECOVERED AFTER TARGETED SEARCH`
+
+No active search is reopened.
+
+## Next active P6 phase
 
 `LINEAGE CONSOLIDATION / FINAL MIGRATION INDEX`
 
-Objectives:
-
-1. consolidate pre-v1 role/document lineage already recovered;
-2. map superseded and duplicate historical material;
-3. carry forward frozen residual provenance gaps;
-4. build the final migration index;
-5. determine P6 closure readiness.
+Use B01–B05 and existing recovered-authority artifacts to build the final role/document lineage, supersession/duplicate map and closure index.
 
 ## Separation
 
 Workspace and Serial v0.1 remain separate historical lineages.
-
-Serial v0.1 is not part of this Workspace P6 campaign.
 
 ## Non-authorizations
 
