@@ -12,6 +12,8 @@ const workspaceRoot = path.resolve(process.env.ENV004_WORKSPACE || path.join(os.
 const expectedSha = '219ac252d50ae11b836a93baa20cc7f7d872367f';
 const candidateBranch = 'feature/workspace-run-024';
 const children = [];
+const network = [];
+const pending = [];
 let browser;
 let service;
 let cardId = null;
@@ -177,8 +179,6 @@ async function main() {
 
   const context = await browser.newContext({ viewport: { width: 1440, height: 1100 } });
   const page = await context.newPage();
-  const network = [];
-  const pending = [];
   const errors = [];
   context.on('page', p => p.on('pageerror', e => errors.push(String(e))));
   page.on('pageerror', e => errors.push(String(e)));
@@ -226,7 +226,7 @@ async function main() {
   const popup = await popupPromise;
 
   await popup.waitForLoadState('domcontentloaded');
-  await popup.locator('canvas').first().waitFor({state: 'visible', timeout: 60000});
+  await popup.locator('#export-canvas').waitFor({state: 'visible', timeout: 60000});
   await popup.waitForTimeout(5000);
   await captureDom(popup, 'carder');
   await popup.screenshot({ path: path.join(output, 'carder-smoke.png'), fullPage: true, animations: 'disabled' });
@@ -271,6 +271,8 @@ async function main() {
     await fs.mkdir(output, { recursive: true });
     await save('failure.json', { error: errorText, timestamp: new Date().toISOString() }).catch(() => {});
   } finally {
+    await Promise.allSettled(pending);
+    await save('network.json', {writebackExecuted: false, events: network}).catch(() => {});
     if (browser) await browser.close().catch(() => {});
     for (const child of children) if (child.exitCode === null) child.kill('SIGTERM');
     if (service) await service.close().catch(() => {});
