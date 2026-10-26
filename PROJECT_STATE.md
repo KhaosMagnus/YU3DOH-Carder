@@ -18,8 +18,6 @@ Active Project Control instance:
 
 `PC-002`
 
-PC-001 rolled over because its conversation reached the platform length limit.
-
 ## RUN 024
 
 `AUTHORIZED / IMPLEMENTATION NOT COMPLETED / ACTIONS READINESS ROUTED`
@@ -37,50 +35,64 @@ Development attempts:
 Environment attempts:
 
 - ENV-003: `ENVIRONMENT BLOCKED`
-  - exact Git custody, service install/compile and same-process HTTP proved;
-  - Work/cloud shared application-browser transport not proved;
-  - root install incomplete;
-  - Library/Carder/browser evidence unavailable.
+- ENV-004: `ASSIGNED / GITHUB-HOSTED ACTIONS READINESS`
 
 No implementation candidate exists.
 
-RUN 024 remains exactly one report-only commit ahead of the authorized baseline:
+RUN 024 branch:
 
 `feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
 
-The branch must not be recreated, reset, rebased or force-pushed.
+The branch remains the exact baseline plus one historical blocker-report commit and must not be recreated, reset, rebased or force-pushed.
 
-Current environment recovery:
+Current environment route:
 
-- disposition: `runs/RUN-024_ENV-003_BLOCKER_DISPOSITION.md`
-- readiness request: `validations/RUN-024/ENV-004_ENVIRONMENT_READINESS_REQUEST.md`
-- route: `routing/ROUTE-RUN-024-ENV-004.md`
-- active environment instance: `ENV-004`
-- required substrate: GitHub-hosted Actions
-
-## Development execution model after ENV-004
-
-If ENV-004 returns `ENVIRONMENT READY`, Project Control may assign a successor Development instance for the same RUN 024 using a split, traceable execution model:
-
-1. authoring/control plane:
-   - exact GitHub reads;
-   - commit construction on top of the current RUN 024 head;
-   - non-force branch update with exact expected-head lease;
-2. execution/evidence plane:
-   - GitHub-hosted Actions checks out the exact resulting candidate SHA;
-   - full frozen validation gate;
-   - real Workspace Service + Library + Carder;
-   - Chromium/browser evidence and durable artifacts.
-
-This model does not waive exact-SHA custody or validation requirements.
+`routing/ROUTE-RUN-024-ENV-004.md`
 
 A successor Development instance is NOT authorized until ENV-004 returns READY.
 
-## Tranche 2
+## Existing Tranche 2
 
-CR-0001.4 / F-04:
+CR-0001.4 / F-04 — Library Grid/List:
 
 `IN_SCOPE / SEQUENCED / IMPLEMENTATION NOT AUTHORIZED`
+
+## Parallel Owner request
+
+CR-0002 — Library Dark Theme:
+
+`ACKNOWLEDGED / SCOPE REVIEW`
+
+Primary request:
+
+`requests/CR-0002.md`
+
+Route:
+
+`routing/ROUTE-CR-0002-SCOPE-001.md`
+
+Assigned:
+
+`SCOPE_ARCHITECTURE / SCOPE-001`
+
+CR-0002 is not part of RUN 024 and is not automatically part of Tranche 2.
+
+## Pre-Release-Hardening documentation gate
+
+Product README reconciliation is now a frozen Project Control requirement:
+
+`control/PRE_HARDENING_DOCUMENTATION_REQUIREMENT.md`
+
+Timing:
+
+`all selected roadmap tranches integrated → documentation refresh → Release Hardening`
+
+Minimum known documentation surface:
+
+- README.md
+- README.Docker.md
+
+Transient RUN branches do not each require independent full README rewrites.
 
 ## Non-authorizations
 
@@ -89,5 +101,7 @@ CR-0001.4 / F-04:
 - RUN 025 creation: NOT AUTHORIZED;
 - further Development retry before ENV-004 READY: NOT AUTHORIZED;
 - Tranche 2 implementation: NOT AUTHORIZED;
+- CR-0002 implementation: NOT AUTHORIZED;
+- documentation refresh execution now: NOT AUTHORIZED;
 - migration 009: NOT AUTHORIZED;
-- unrelated code/ref movement: NOT AUTHORIZED.
+- unrelated product/ref movement: NOT AUTHORIZED.

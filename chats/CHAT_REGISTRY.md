@@ -6,9 +6,9 @@ protocol_version: 1.0
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
 | PC-001 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | RUN 024 resumption control | successor PC-002 |
-| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 environment recovery control | ENV-003 blocker reviewed; ENV-004 routed |
+| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 environment recovery + parallel roadmap intake | ENV-004 routed; CR-0002 routed |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
-| SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | Post-P6 Roadmap Review complete | frozen scope |
+| SCOPE-001 | SCOPE_ARCHITECTURE | ASSIGNED | CR-0002 Library Dark Theme | scope review pending |
 | DQA-001 | DESIGN_QA | AVAILABLE / CONTRACT FROZEN | Tranche 1 design complete | waiting for exact RUN 024 candidate |
 | DEV-004 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 initial attempt | executor transport blocker; report-only branch delta |
 | DEV-005 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 resumption attempt | second executor transport blocker; no successor report |

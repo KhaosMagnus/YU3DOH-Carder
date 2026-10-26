@@ -1,7 +1,7 @@
 # CHAT INSTANCE — SCOPE-001
 
 role: SCOPE_ARCHITECTURE
-status: AVAILABLE
+status: ASSIGNED
 protocol_version: 1.0
 
 birth_reason: first Scope instance formally registered under Project Control v1.0
@@ -16,7 +16,7 @@ post_p6_assignment:
 
 post_p6_output:
   path: scopes/POST_P6_ROADMAP_REVIEW.md
-  result: COMPLETE / ACCEPTED BY PROJECT CONTROL
+  result: COMPLETE / ACCEPTED BY PROJECT_CONTROL
 
 roadmap_result:
   tranche_1:
@@ -31,5 +31,17 @@ roadmap_result:
       - CR-0001.4
     disposition: IN_SCOPE / SECOND
 
-current_state:
-  AVAILABLE
+current_assignment:
+  CR-0002 — Library Dark Theme scope review
+
+route:
+  routing/ROUTE-CR-0002-SCOPE-001.md
+
+expected_output:
+  scopes/CR-0002_LIBRARY_DARK_THEME.md
+
+parallel_constraint:
+  RUN 024 environment readiness continues independently
+
+return_to:
+  PROJECT_CONTROL / PC-002
