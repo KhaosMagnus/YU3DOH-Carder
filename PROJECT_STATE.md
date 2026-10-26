@@ -27,9 +27,9 @@ Scope:
 
 Status:
 
-`AUTHORIZED / IMPLEMENTATION NOT COMPLETED / ACTIONS READINESS ROUTED`
+`AUTHORIZED / DEVELOPMENT RESUMED / DEV-006 ASSIGNED`
 
-Development attempts:
+Historical Development:
 
 - DEV-004 — IMPLEMENTATION BLOCKED / executor transport
 - DEV-005 — IMPLEMENTATION BLOCKED / executor transport
@@ -37,15 +37,45 @@ Development attempts:
 Environment:
 
 - ENV-003 — ENVIRONMENT BLOCKED
-- ENV-004 — ASSIGNED / GitHub-hosted Actions readiness
+- ENV-004 — ENVIRONMENT READY
 
-RUN branch:
+ENV-004 proven substrate:
+
+`GitHub-hosted Actions`
+
+Successful readiness:
+
+- run `40289640257`;
+- job `121461404019`;
+- ops head `5aa54988eec0d8c07626f178677660f817640b2a`;
+- Service tests `1088/1088 PASS`;
+- Service + Library + Carder + Chromium;
+- screenshots + DOM/accessibility + HTTP capture;
+- exact clean custody + Canonical preservation.
+
+RUN branch resumption head:
 
 `feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
 
-No implementation candidate exists.
+Current Development:
 
-No successor Development is authorized until ENV-004 returns READY.
+`DEVELOPMENT / DEV-006`
+
+Authorization:
+
+`runs/RUN-024_DEV-006_RESUMPTION_AUTHORIZATION.md`
+
+Route:
+
+`routing/ROUTE-RUN-024-RESUME-DEV-006.md`
+
+Execution model:
+
+`GitHub exact authoring/publication + GitHub-hosted Actions exact-SHA validation/evidence`
+
+No implementation candidate exists until DEV-006 returns one.
+
+After a READY FOR EXTERNAL QA Development return, Project Control must route the exact candidate to DQA-001.
 
 ## Tranche 2
 
@@ -55,7 +85,7 @@ CR-0001.4 / F-04 — Library Grid/List:
 
 Required sequence:
 
-after Tranche 1 QA-PASS + authorized integration.
+after Tranche 1 External QA PASS + authorized integration.
 
 ## Tranche 3
 
@@ -67,38 +97,26 @@ Canonical Scope:
 
 `scopes/CR-0002_LIBRARY_DARK_THEME-v2.md`
 
-Project Control disposition:
-
-`control/CR-0002_SCOPE_DISPOSITION.md`
-
 Frozen essentials:
 
 - Library only;
 - LIGHT + DARK;
 - default/fallback DARK;
-- valid stored LIGHT/DARK preserved;
 - browser-local persistence;
 - SYSTEM/AUTO OUT;
 - Carder OUT;
 - client/UI only;
-- no API/schema/persistence/migration change;
-- accessibility required in both themes.
+- no API/schema/persistence/migration change.
 
 Sequence:
 
 `CR-0001.4 validated + integrated → CR-0002 implementation`
 
-CR-0002 and Grid/List must not share one implementation candidate.
-
 Design assignment:
 
 `DESIGN_QA / DQA-002`
 
-Route:
-
-`routing/ROUTE-CR-0002-DQA-002.md`
-
-DQA-001 remains available for exact-SHA RUN 024 External QA.
+DQA-001 remains reserved for RUN 024 exact-SHA External QA.
 
 ## Pre-Release-Hardening documentation gate
 
@@ -106,17 +124,12 @@ After all selected roadmap tranches, including CR-0002, are QA-PASS and integrat
 
 `documentation refresh → Release Hardening`
 
-Requirement:
-
-`control/PRE_HARDENING_DOCUMENTATION_REQUIREMENT.md`
-
 ## Non-authorizations
 
 - feature/workspace-v0.1 movement: NOT AUTHORIZED;
 - main integration: NOT AUTHORIZED;
-- new implementation RUN for CR-0002: NOT AUTHORIZED;
-- RUN 024 scope change: NOT AUTHORIZED;
-- CR-0001.4 implementation: NOT AUTHORIZED;
+- RUN 025 creation: NOT AUTHORIZED;
+- Tranche 2 implementation: NOT AUTHORIZED;
 - CR-0002 implementation: NOT AUTHORIZED;
 - documentation refresh execution now: NOT AUTHORIZED;
 - migration 009: NOT AUTHORIZED.
