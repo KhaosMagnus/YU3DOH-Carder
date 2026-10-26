@@ -8,6 +8,10 @@ CR-0002 canonical Scope:
 
 `scopes/CR-0002_LIBRARY_DARK_THEME-v2.md`
 
+CR-0002 frozen Design contract:
+
+`handoffs/CR-0002_LIBRARY_DARK_THEME_IMPLEMENTATION_HANDOFF.md`
+
 ## Complete / integrated
 
 - CR-0001.1 / F-01 — INTEGRATED / PASS
@@ -23,20 +27,24 @@ CR-0002 canonical Scope:
 
 Status:
 
-`AUTHORIZED / DEVELOPMENT RESUMED`
+`AUTHORIZED / DEV-006 CONTINUATION AUTHORIZED`
 
-Environment:
+DEV-006 first resumption stopped before implementation on a transfer-text validation-command inconsistency.
 
-- ENV-003 — BLOCKED / Work-cloud shared browser transport
-- ENV-004 — READY / GitHub-hosted Actions
+Project Control resolved the blocker.
 
-Development:
+Authoritative candidate gate:
 
-- DEV-004 — BLOCKED / executor transport
-- DEV-005 — BLOCKED / executor transport
-- DEV-006 — ASSIGNED / GitHub authoring + Actions execution
+```text
+yarn compile
+yarn build
+yarn test:sc
+yarn test:library
+yarn --cwd workspace-server compile
+yarn --cwd workspace-server test
+```
 
-Required resumption head:
+RUN branch remains:
 
 `feature/workspace-run-024 @ 219ac252d50ae11b836a93baa20cc7f7d872367f`
 
@@ -48,21 +56,25 @@ No implementation candidate exists yet.
 
 `IN_SCOPE / SCOPE FROZEN / IMPLEMENTATION NOT AUTHORIZED`
 
-Begins only after Tranche 1 QA-PASS + authorized integration.
+Begins only after Tranche 1 External QA PASS + authorized integration.
 
 ## Tranche 3 — selected
 
 ### CR-0002 — Library Dark Theme
 
-`IN_SCOPE / SCOPE FROZEN / DESIGN ROUTED / IMPLEMENTATION NOT AUTHORIZED`
+`IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED`
 
-- LIGHT + DARK;
-- default/fallback DARK;
-- browser-local persistence;
-- SYSTEM/AUTO OUT;
-- Carder OUT.
+Design:
 
-Must remain separate from Grid/List.
+`handoffs/CR-0002_LIBRARY_DARK_THEME_IMPLEMENTATION_HANDOFF.md`
+
+Implementation baseline:
+
+`UNASSIGNED / POST-F04`
+
+Mandatory gate:
+
+`CR-0001.4 QA-PASS + integration → post-F04 compatibility review → baseline assignment`
 
 ## Release documentation gate
 
