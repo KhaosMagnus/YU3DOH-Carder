@@ -437,3 +437,6 @@ for (const [kind, field, max, legacy] of [['MONSTER', 'level', 12, 18], ['MONSTE
     assert.equal(adoptServerSnapshot(detail).working.structure![field], legacy);
 }
 console.log('CR-0001.2 G Level/Rank client validation and historical gating: PASS');
+
+import { runTrancheOneChecks } from './test-library-tranche-one';
+runTrancheOneChecks(sampleDetail);

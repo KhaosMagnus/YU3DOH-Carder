@@ -1,3 +1,4 @@
+import { preferredVariantWarning } from './preferred-variant-warning';
 import { defaultCarderVariant } from './variant-lifecycle-state';
 import { useMemo, useState } from 'react';
 import { Alert, Button, Select } from 'antd';
@@ -58,6 +59,8 @@ export const OpenInCarderPanel = ({ detail, variants, dirty, preferredVariantId 
     const selectedVariant = variants.find(item => item.variant_id === variantId);
     const standardReady = canOpenComposition(selectedVariant, 'STANDARD');
     const overframeReady = canOpenComposition(selectedVariant, 'OVERFRAME');
+    const preferredWarning = preferredVariantId && selectedVariant?.variant_id === preferredVariantId
+        ? preferredVariantWarning(standardReady, overframeReady) : null;
     const languageReady = language !== '' && languages.includes(language);
     const blockedByDirty = dirty;
 
@@ -116,7 +119,7 @@ export const OpenInCarderPanel = ({ detail, variants, dirty, preferredVariantId 
                 those blocks move to Draft.
             </p>
             {preferredVariantId && selectedVariant?.variant_id === preferredVariantId && <Alert type="info" message={`Preferred Variant selected: ${selectedVariant.display_label}`} />}
-            {preferredVariantId && selectedVariant?.variant_id === preferredVariantId && (!standardReady || !overframeReady) && <Alert type="warning" message="Preferred Variant has unavailable composition. It remains selected; choose another variant manually if needed." />}
+            {preferredWarning && <Alert type="warning" message={preferredWarning} />}
             {!preferredVariantId && variants.length > 1 && !variantId && <Alert type="info" message="No Preferred Variant. Select a variant explicitly." />}
             {blockedByDirty && (
                 <Alert

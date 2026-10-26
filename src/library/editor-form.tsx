@@ -1,3 +1,4 @@
+import { LinkMarkerSelector } from './link-marker-selector';
 import { useState } from 'react';
 import { Checkbox, Input, InputNumber, Modal, Select, Switch } from 'antd';
 import type {
@@ -19,6 +20,7 @@ const { TextArea } = Input;
 type Props = {
     family: LibraryCardDetail['family'];
     working: WorkingCardForm;
+    authoritativeMarkers?: readonly string[];
     metadata: LibraryEditorMetadata | null;
     onChange: (next: WorkingCardForm) => void;
 };
@@ -54,7 +56,7 @@ const upsertLocalization = (
     };
 };
 
-export const EditorForm = ({ family, working, metadata, onChange }: Props) => {
+export const EditorForm = ({ family, working, metadata, onChange, authoritativeMarkers = [] }: Props) => {
     const structure = working.structure ?? emptyStructureForFamily(family);
     const applicability = monsterApplicability(structure);
     const [pending, setPending] = useState<ReturnType<
@@ -398,33 +400,11 @@ export const EditorForm = ({ family, working, metadata, onChange }: Props) => {
                                     </Select>
                                 </label>
                                 {applicability.link && (
-                                    <label>
-                                        Link Markers
-                                        <Select
-                                            mode="multiple"
-                                            value={
-                                                (structure?.link_markers as string[]) ??
-                                                []
-                                            }
-                                            onChange={(value) =>
-                                                setStructure({
-                                                    link_markers: value,
-                                                })
-                                            }
-                                            style={{ width: '100%' }}
-                                        >
-                                            {(metadata?.link_markers ?? []).map(
-                                                (code) => (
-                                                    <Option
-                                                        key={code}
-                                                        value={code}
-                                                    >
-                                                        {code}
-                                                    </Option>
-                                                ),
-                                            )}
-                                        </Select>
-                                    </label>
+                                    <LinkMarkerSelector
+                                        value={(structure?.link_markers as string[]) ?? []}
+                                        baseline={authoritativeMarkers}
+                                        onChange={value => setStructure({ link_markers: value })}
+                                    />
                                 )}
                                 {applicability.link && (
                                     <label>

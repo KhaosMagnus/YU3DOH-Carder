@@ -413,6 +413,7 @@ export const DetailPanel = ({ cardId, open, onClose, onSaved, onAssetsChanged, o
                         <EditorForm
                             family={authoritative.family}
                             working={working}
+                            authoritativeMarkers={(authoritative.structure as Record<string, unknown> | null)?.link_markers as string[] | undefined}
                             metadata={metadata}
                             onChange={setWorking}
                         />
