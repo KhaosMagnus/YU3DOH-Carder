@@ -6,14 +6,14 @@ protocol_version: 1.0
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
 | PC-001 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | RUN 024 resumption control | successor PC-002 |
-| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 control + roadmap sequencing | ENV-004 READY accepted; DEV-006 routed |
+| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 control + roadmap sequencing | DEV-006 blocker corrected; CR-0002 design accepted |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0002 scope complete | v2 frozen; default DARK |
 | DQA-001 | DESIGN_QA | AVAILABLE / CONTRACT FROZEN | Tranche 1 design complete | reserved for exact-SHA RUN 024 QA |
-| DQA-002 | DESIGN_QA | ASSIGNED / DESIGN | CR-0002 Library Dark Theme | design contract pending |
+| DQA-002 | DESIGN_QA | COMPLETE / CONTRACT FROZEN | CR-0002 Library Dark Theme | waiting post-F04 compatibility gate |
 | DEV-004 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 initial attempt | executor transport blocker |
 | DEV-005 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 resumption attempt | executor transport blocker |
-| DEV-006 | DEVELOPMENT | ASSIGNED | RUN 024 resumed implementation | GitHub authoring + Actions execution authorized |
+| DEV-006 | DEVELOPMENT | ASSIGNED / CONTINUATION AUTHORIZED | RUN 024 resumed implementation | validation-command text blocker resolved |
 | ENV-001 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | historical Candidate A environment gate | historical |
 | ENV-002 | ENVIRONMENT_READINESS | COMPLETE / READY | historical Candidate A environment gate | historical Actions substrate |
 | ENV-003 | ENVIRONMENT_READINESS | COMPLETE / BLOCKED | RUN 024 Work/cloud readiness | Git/service proved; browser/shared runtime blocked |
