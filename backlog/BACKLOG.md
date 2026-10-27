@@ -1,81 +1,64 @@
 # BACKLOG
 
-Current canonical CR ledger for the CR-0001 family:
+Canonical CR ledger:
+requests/CR-0001-v19.md
 
-`requests/CR-0001-v18.md`
+Integrated baseline:
+feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
 
-CR-0002 canonical Scope:
-
-`scopes/CR-0002_LIBRARY_DARK_THEME-v2.md`
-
-CR-0002 frozen Design contract:
-
-`handoffs/CR-0002_LIBRARY_DARK_THEME_IMPLEMENTATION_HANDOFF.md`
-
-## Complete / integrated
-
-- CR-0001.1 / F-01 — INTEGRATED / PASS
-- CR-0001.2 / F-02 — INTEGRATED / PASS
-- CR-0001.3 / F-03 — INTEGRATED / PASS
-- CR-0001.5 / F-05 — INTEGRATED / PASS
-- CR-0001.6 / F-06 — INTEGRATED / PASS
+Complete / integrated:
+- CR-0001.1 / F-01
+- CR-0001.2 / F-02
+- CR-0001.3 / F-03
+- CR-0001.5 / F-05
+- CR-0001.6 / F-06
 
 RUN 024:
 CLOSED / INTEGRATED / EXTERNAL QA PASS
 
-Integrated baseline:
-`feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e`
+ZIP-001:
+COMPLETE / PACKAGE ACCEPTED FOR VALIDATION
+Field validation is separate.
 
-## Bootstrap package
+## CR-0001.4 / F-04 — Library Grid/List
 
-`ZIP-001 — COMPLETE / PACKAGE ACCEPTED FOR VALIDATION`
+Status:
+IN_SCOPE / DESIGN FROZEN / RUN 025 AUTHORIZED / DEVELOPMENT ASSIGNED
 
-Field/bootstrap validation:
-`NOT STARTED / SEPARATE AUTHORIZATION REQUIRED`
+Contract:
+handoffs/CR-0001_4_LIBRARY_GRID_LIST_IMPLEMENTATION_HANDOFF.md
 
-## Tranche 2 — active design
+Authorization:
+runs/RUN-025_AUTHORIZATION.md
 
-### CR-0001.4 / F-04 — Library Grid/List
+Development:
+DEV-007
 
-`IN_SCOPE / SCOPE FROZEN / DESIGN IN PROGRESS / IMPLEMENTATION NOT AUTHORIZED`
+Initial session:
+DEV-007/S01
 
-Design instance:
+Session pilot:
+control/RUN-025_SESSION_PILOT.md
 
-`DQA-003`
+Target:
+feature/workspace-run-025
 
-Route:
+Required start:
+e07140d5a9555a17b7b2306a45625c14adfafc8e
 
-`routing/ROUTE-CR-0001-4-DQA-003.md`
+External QA:
+NOT STARTED
 
-Exact design baseline:
+Integration:
+NOT AUTHORIZED
 
-`feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e`
+## CR-0002 — Library Dark Theme
 
-Expected Design + QA contract:
+IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED
 
-`handoffs/CR-0001_4_LIBRARY_GRID_LIST_IMPLEMENTATION_HANDOFF.md`
-
-RUN:
-`NOT ASSIGNED`
-
-Implementation branch:
-`NOT ASSIGNED`
-
-## Tranche 3 — selected
-
-### CR-0002 — Library Dark Theme
-
-`IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED`
-
-Implementation baseline:
-`UNASSIGNED / POST-F04`
-
-Mandatory gate:
-
-`CR-0001.4 QA-PASS + authorized integration → post-F04 compatibility review → baseline assignment`
+Gate:
+F-04 QA PASS and authorized integration, then post-F04 compatibility review and baseline assignment.
 
 ## Release documentation gate
 
-After all selected roadmap tranches are QA-PASS and integrated into `feature/workspace-v0.1`:
-
-`documentation refresh → Release Hardening`
+Documentation refresh remains required before Release Hardening after selected roadmap tranches are integrated.
