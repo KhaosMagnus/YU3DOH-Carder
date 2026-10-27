@@ -18,7 +18,7 @@ CR-0002 frozen Design contract:
 - CR-0001.2 / F-02 — INTEGRATED / PASS
 - CR-0001.5 / F-05 — INTEGRATED / PASS
 
-## Tranche 1 — RUN 024 External QA
+## Tranche 1 — RUN 024 integration pending
 
 ### Focused Editor / Variant UX Completion
 
@@ -29,17 +29,33 @@ Exact candidate:
 
 `feature/workspace-run-024 @ e07140d5a9555a17b7b2306a45625c14adfafc8e`
 
-Status:
+External QA:
 
-`DEVELOPMENT READY / EXTERNAL QA ROUTED`
+`PASS`
 
-QA:
+Integration:
 
-`DQA-001`
+`AUTHORIZED / IA-002 ASSIGNED / NOT YET VERIFIED COMPLETE`
 
-F06-W1 synthetic UI-boundary evidence qualification is explicitly carried into External QA.
+Target:
 
-No integration is authorized yet.
+`feature/workspace-v0.1 @ 64cb5f4ca42348c6c403e64e0d61bdff8c32a281 → e07140d5a9555a17b7b2306a45625c14adfafc8e`
+
+Method:
+
+`FAST-FORWARD ONLY`
+
+## Protocol portability
+
+`PP-001 — QUEUED / NOT STARTED`
+
+Queue record:
+
+`control/PROTOCOL_PORTABILITY_QUEUE.md`
+
+Activation condition:
+
+verified RUN 024 integration closure by PROJECT_CONTROL / PC-002.
 
 ## Tranche 2 — sequenced
 
@@ -47,7 +63,7 @@ No integration is authorized yet.
 
 `IN_SCOPE / SCOPE FROZEN / IMPLEMENTATION NOT AUTHORIZED`
 
-Begins only after Tranche 1 External QA PASS + authorized integration.
+Begins only after RUN 024 integration is verified and closed.
 
 ## Tranche 3 — selected
 
@@ -72,8 +88,8 @@ After all selected roadmap tranches are QA-PASS and integrated into `feature/wor
 ## Guards
 
 - main integration: NOT AUTHORIZED
-- feature/workspace-v0.1 movement: NOT AUTHORIZED
-- Tranche 2 implementation: NOT AUTHORIZED
+- Tranche 2 implementation: NOT AUTHORIZED until RUN 024 integration closes
 - CR-0002 implementation: NOT AUTHORIZED
+- PP-001 execution: NOT AUTHORIZED until RUN 024 integration closes
 - migration 009: NOT AUTHORIZED
 - README refresh execution now: NOT AUTHORIZED
