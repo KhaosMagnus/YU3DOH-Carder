@@ -13,44 +13,44 @@ feature/workspace-run-024: e07140d5a9555a17b7b2306a45625c14adfafc8e
 
 ## RUN 024
 
-Status:
 CLOSED / INTEGRATED / EXTERNAL QA PASS
 
-Scope:
-- CR-0001.3 / F-03 — PASS / INTEGRATED
-- CR-0001.6 / F-06 — PASS / INTEGRATED
-
-Integration:
-IA-002 COMPLETE / INTEGRATED
-
-Report:
-integrations/RUN-024_INTEGRATION_REPORT.md
-
-main:
-UNCHANGED @ 54cc3aad246c89a29f2a18be63c539db68cae041
-
-## Protocol Portability
+## Protocol portability
 
 PP-001:
-ASSIGNED / PORTABILITY REVIEW
+COMPLETE / GENERIC PROTOCOL BASELINE FROZEN v1.0
 
-Role:
-roles/PROTOCOL_PORTABILITY.md
+Review:
+protocols/PROJECT_CONTROL_PORTABILITY_REVIEW-v1.0.md
 
-Activation:
-control/PROTOCOL_PORTABILITY_ACTIVATION.md
+Generic baseline:
+protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md
+
+Disposition:
+control/PP-001_DISPOSITION.md
+
+SIP readiness:
+YES
+
+## Bootstrap SIP
+
+SIP-001:
+ASSIGNED / BOOTSTRAP SIP AUTHORING
+
+Authorization:
+control/SIP-001_AUTHORIZATION.md
 
 Route:
-routing/ROUTE-PP-001.md
+routing/ROUTE-SIP-001.md
 
-Expected outputs:
-- protocols/PROJECT_CONTROL_PORTABILITY_REVIEW-v1.0.md
-- protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md
+Expected output:
+sip/PROJECT_CONTROL_BOOTSTRAP_SIP-v1.0.md
 
-Bootstrap SIP:
-NOT AUTHORIZED IN PP-001
+Adoption into any real project:
+NOT AUTHORIZED BY SIP-001
 
-PP-001 is a control/protocol workstream only and must not modify product code or product refs.
+Product changes:
+NOT AUTHORIZED
 
 ## Roadmap hold
 
@@ -60,6 +60,6 @@ CR-0001.4 / F-04 — IN_SCOPE / SCOPE FROZEN / NOT STARTED / IMPLEMENTATION NOT 
 CR-0002:
 Library Dark Theme — IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED
 
-No product roadmap work is automatically started by PP-001.
+No product roadmap work is automatically started by SIP-001.
 
 Documentation refresh remains required before Release Hardening after all selected roadmap tranches are integrated.
