@@ -1,6 +1,6 @@
 # Protocol Portability Review — Queue Record
 
-status: QUEUED
+status: COMPLETE / ACTIVATED
 protocol_version: 1.0
 
 planning_label:
@@ -9,42 +9,29 @@ PP-001 — Project Control Protocol Portability Review
 purpose:
 Extract the reusable governance protocol learned through YU3DOH into a generic baseline, then prepare a minimal bootstrap SIP for adoption by other projects.
 
-execution_status:
-NOT STARTED
-
 activation_condition:
-RUN 024 must first be integrated into feature/workspace-v0.1 and that integration must be independently verified and closed by PROJECT_CONTROL / PC-002.
+RUN 024 integrated and independently closed by PROJECT_CONTROL / PC-002.
 
-Until that condition is satisfied:
-- no PP chat instance is assigned;
-- no portability conclusions are frozen;
-- no generic SIP is produced;
-- YU3DOH product roadmap is not blocked by this queued work.
+activation_result:
+SATISFIED
 
-Planned first mission after activation:
-classify current protocol rules and lessons as:
-1. GENERIC INVARIANT
-2. RECOMMENDED PATTERN
-3. YU3DOH-SPECIFIC
+execution_result:
+COMPLETE
 
-Expected later outputs, names provisional until activation:
-- protocol portability / lessons-learned review
-- generic Project Control protocol baseline
-- minimal Project Control bootstrap SIP
+outputs:
+- protocols/PROJECT_CONTROL_PORTABILITY_REVIEW-v1.0.md
+- protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md
 
-Important lessons already nominated for review include:
-- CODE SHA and CONTROL SHA separation;
-- FROZEN artifact immutability;
-- transfer envelopes cannot silently override frozen contracts;
-- STOP on material authority contradiction;
-- exact-SHA validation and integration;
-- authoring and execution/evidence substrates may differ with exact custody;
-- blocker classification must distinguish product, control and environment failures;
-- continuation reports must not overwrite frozen predecessor reports;
-- concurrent control publications must be preserved;
-- synthetic evidence must be explicitly bounded and qualified;
-- QA determines acceptance-evidence sufficiency;
-- QA PASS does not itself authorize integration.
+project_control_disposition:
+control/PP-001_DISPOSITION.md
 
-Activation authority:
-PROJECT_CONTROL / PC-002 after verified RUN 024 integration closure.
+successor:
+PROTOCOL_BOOTSTRAP / SIP-001
+
+successor_authorization:
+control/SIP-001_AUTHORIZATION.md
+
+successor_route:
+routing/ROUTE-SIP-001.md
+
+The Bootstrap SIP itself was not created by PP-001.
