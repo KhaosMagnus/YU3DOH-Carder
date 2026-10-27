@@ -173,7 +173,7 @@ async function run() {
             await capture('B19-loading-'+mode); release(); await settle(); await page.unroute(browsePattern);
         } await pass('F04-B19');
         for(const mode of ['List','Grid']) for(const empty of [true,false]) {
-            await radio(mode).click(); if(empty) await page.route(browsePattern,async route=>{const upstream=await fetch(route.request().url().replace(':4312',':4313')); const body=await upstream.text(); proofs.emptyRealService={url:upstream.url,status:upstream.status,body}; await route.fulfill({status:upstream.status,contentType:'application/json',body});});
+            await radio(mode).click(); if(empty) await page.route(browsePattern,async route=>{const upstream=await fetch('http://127.0.0.1:4313'+new URL(route.request().url()).pathname+new URL(route.request().url()).search); const body=await upstream.text(); proofs.emptyRealService={url:upstream.url,status:upstream.status,body}; await route.fulfill({status:upstream.status,contentType:'application/json',body});});
             if(!empty) { await page.locator('.library-controls input').first().fill('missing'); } else await page.getByRole('button',{name:'Refresh Library',exact:true}).click();
             await page.getByText(empty?'Library is empty.':'No matching cards.',{exact:true}).waitFor(); assert.equal(await page.locator('.library-results > .library-state').count(),1);
             assert.equal(await page.locator('.library-results > .library-state').evaluate(el=>getComputedStyle(el).gridColumn),'1 / -1');
