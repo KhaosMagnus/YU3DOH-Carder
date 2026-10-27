@@ -13,41 +13,25 @@ Complete / integrated:
 - CR-0001.5 / F-05
 - CR-0001.6 / F-06
 
-RUN 024:
-CLOSED / INTEGRATED / EXTERNAL QA PASS
-
-ZIP-001:
-COMPLETE / PACKAGE ACCEPTED FOR VALIDATION
-Field validation is separate.
-
 ## CR-0001.4 / F-04 — Library Grid/List
 
 Status:
-IN_SCOPE / DESIGN FROZEN / RUN 025 AUTHORIZED / DEVELOPMENT ASSIGNED
+RUN 025 DEVELOPMENT COMPLETE / EXTERNAL QA ASSIGNED
 
-Contract:
-handoffs/CR-0001_4_LIBRARY_GRID_LIST_IMPLEMENTATION_HANDOFF.md
-
-Authorization:
-runs/RUN-025_AUTHORIZATION.md
+Candidate:
+feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
 Development:
-DEV-007
-
-Initial session:
-DEV-007/S01
-
-Session pilot:
-control/RUN-025_SESSION_PILOT.md
-
-Target:
-feature/workspace-run-025
-
-Required start:
-e07140d5a9555a17b7b2306a45625c14adfafc8e
+DEV-007 / READY FOR EXTERNAL QA
 
 External QA:
-NOT STARTED
+DQA-004 / ASSIGNED
+
+QA route:
+routing/ROUTE-RUN-025-DQA-004.md
+
+Evidence note:
+Development-local archive not transferred; QA must reproduce independently.
 
 Integration:
 NOT AUTHORIZED
@@ -57,8 +41,8 @@ NOT AUTHORIZED
 IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED
 
 Gate:
-F-04 QA PASS and authorized integration, then post-F04 compatibility review and baseline assignment.
+F-04 QA PASS + authorized integration → post-F04 compatibility review → baseline assignment.
 
-## Release documentation gate
+## Bootstrap package
 
-Documentation refresh remains required before Release Hardening after selected roadmap tranches are integrated.
+ZIP-001 field validation remains a separate workstream.
