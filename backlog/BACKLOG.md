@@ -30,11 +30,6 @@ Integrated baseline:
 
 `PP-001 — COMPLETE`
 
-Outputs:
-
-- `protocols/PROJECT_CONTROL_PORTABILITY_REVIEW-v1.0.md`
-- `protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md`
-
 Generic protocol baseline:
 `FROZEN v1.0`
 
@@ -42,27 +37,28 @@ Generic protocol baseline:
 
 `SIP-001 — SUPERSEDED BEFORE OUTPUT`
 
-Reason:
-incorrect interpretation of ZIP as SIP.
+`ZIP-001 — COMPLETE / PACKAGE ACCEPTED FOR VALIDATION`
 
-`ZIP-001 — ASSIGNED / PACKAGE ASSEMBLY`
-
-Authorization:
-`control/ZIP-001_AUTHORIZATION.md`
-
-Route:
-`routing/ROUTE-ZIP-001.md`
-
-Required archive:
+Archive:
 `bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip`
 
-Required digest:
-`bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip.sha256`
+SHA-256:
+`c3c5cb0c896d7e11696948e7677d74ea077a87d27350064b1ad6d521ceb74f6e`
 
-Required package report:
-`bootstrap/ZIP-001_PACKAGE_REPORT.md`
+Review disposition:
+`control/ZIP-001_REVIEW_DISPOSITION.md`
 
-ZIP-001 creates the reusable package only. It does not adopt it into any project.
+Integrity and semantic review:
+`PASS`
+
+Field/bootstrap validation:
+`NOT STARTED / NOT AUTHORIZED`
+
+Real-project adoption:
+`NOT STARTED / NOT AUTHORIZED`
+
+Recommended successor:
+disposable/synthetic bootstrap validation, only after separate authorization.
 
 ## Tranche 2 — sequenced
 
@@ -70,7 +66,7 @@ ZIP-001 creates the reusable package only. It does not adopt it into any project
 
 `IN_SCOPE / SCOPE FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED`
 
-ZIP-001 does not block or authorize Tranche 2.
+ZIP package work does not block or authorize Tranche 2.
 
 ## Tranche 3 — selected
 
