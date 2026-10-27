@@ -15,72 +15,71 @@ feature/workspace-run-024: e07140d5a9555a17b7b2306a45625c14adfafc8e
 
 CLOSED / INTEGRATED / EXTERNAL QA PASS
 
-## Protocol portability
+## Protocol portability / bootstrap package
 
 PP-001:
 COMPLETE / GENERIC PROTOCOL BASELINE FROZEN v1.0
 
-Review:
-protocols/PROJECT_CONTROL_PORTABILITY_REVIEW-v1.0.md
-
-Generic baseline:
-protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md
-
-Disposition:
-control/PP-001_DISPOSITION.md
-
-## Bootstrap package lineage
-
 SIP-001:
 SUPERSEDED BEFORE OUTPUT
-
-Reason:
-Owner intent was a reusable ZIP bootstrap package; SIP was an incorrect terminology interpretation.
-
-Supersession:
-control/SIP-001_SUPERSESSION_DISPOSITION.md
 
 ZIP-001:
 COMPLETE / PACKAGE ACCEPTED FOR VALIDATION
 
-Report:
-bootstrap/ZIP-001_PACKAGE_REPORT.md
+Bootstrap package field validation:
+NOT STARTED / SEPARATE AUTHORIZATION REQUIRED
 
-Review disposition:
-control/ZIP-001_REVIEW_DISPOSITION.md
+## Current product roadmap work
 
-Archive:
-bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip
+Canonical CR-0001 ledger:
+requests/CR-0001-v18.md
 
-Archive SHA-256:
-c3c5cb0c896d7e11696948e7677d74ea077a87d27350064b1ad6d521ceb74f6e
+### Tranche 2 — CR-0001.4 / F-04 Library Grid/List
 
-Integrity review:
-PASS
+Status:
+IN_SCOPE / SCOPE FROZEN / DESIGN + QA CONTRACT IN PROGRESS
 
-Semantic package review:
-PASS
+Design authority:
+control/OWNER_AUTH_CR_0001_4_DESIGN.md
 
-Field/bootstrap validation:
-NOT PERFORMED
+Design instance:
+DESIGN_QA / DQA-003
 
-Validated for real-project adoption:
-NO
+Route:
+routing/ROUTE-CR-0001-4-DQA-003.md
 
-Real-project adoption:
-NOT PERFORMED / NOT AUTHORIZED
+Exact design baseline:
+feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
 
-Recommended next step:
-separately authorize a disposable/synthetic bootstrap validation using only the ZIP package.
+Expected output:
+handoffs/CR-0001_4_LIBRARY_GRID_LIST_IMPLEMENTATION_HANDOFF.md
 
-## Roadmap hold
+Implementation:
+NOT AUTHORIZED
 
-Tranche 2:
-CR-0001.4 / F-04 — IN_SCOPE / SCOPE FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED
+RUN:
+NOT ASSIGNED
 
-CR-0002:
-Library Dark Theme — IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED
+Implementation branch:
+NOT ASSIGNED
 
-No product roadmap work or bootstrap adoption is automatically started by ZIP-001 acceptance.
+### CR-0002 — Library Dark Theme
+
+IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED
+
+CR-0002 still requires:
+F-04 QA PASS + authorized integration
+→ post-F04 compatibility review
+→ exact implementation baseline assignment
+→ separate implementation authorization
+
+## Guards
+
+- F-04 implementation: NOT AUTHORIZED
+- new RUN: NOT AUTHORIZED
+- migration 009: NOT AUTHORIZED
+- CR-0002 implementation: NOT AUTHORIZED
+- main integration: NOT AUTHORIZED
+- product refs must not move during DQA-003 design work
 
 Documentation refresh remains required before Release Hardening after all selected roadmap tranches are integrated.
