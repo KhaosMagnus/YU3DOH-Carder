@@ -28,18 +28,33 @@ Integrated baseline:
 
 ## Protocol portability
 
-`PP-001 — ASSIGNED / PORTABILITY REVIEW`
+`PP-001 — COMPLETE`
 
-Route:
-
-`routing/ROUTE-PP-001.md`
-
-Expected outputs:
+Outputs:
 
 - `protocols/PROJECT_CONTROL_PORTABILITY_REVIEW-v1.0.md`
 - `protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md`
 
-Bootstrap SIP is not yet authorized and will be a successor action after Project Control consumes PP-001.
+Generic protocol baseline:
+`FROZEN v1.0`
+
+## Bootstrap SIP
+
+`SIP-001 — ASSIGNED / AUTHORING`
+
+Authorization:
+
+`control/SIP-001_AUTHORIZATION.md`
+
+Route:
+
+`routing/ROUTE-SIP-001.md`
+
+Expected output:
+
+`sip/PROJECT_CONTROL_BOOTSTRAP_SIP-v1.0.md`
+
+This task authors the SIP only. It does not adopt it into YU3DOH or another project.
 
 ## Tranche 2 — sequenced
 
@@ -47,7 +62,7 @@ Bootstrap SIP is not yet authorized and will be a successor action after Project
 
 `IN_SCOPE / SCOPE FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED`
 
-PP-001 does not block or authorize Tranche 2.
+SIP-001 does not block or authorize Tranche 2.
 
 ## Tranche 3 — selected
 
