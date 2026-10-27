@@ -29,7 +29,7 @@ protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md
 Disposition:
 control/PP-001_DISPOSITION.md
 
-## Bootstrap package correction
+## Bootstrap package lineage
 
 SIP-001:
 SUPERSEDED BEFORE OUTPUT
@@ -37,32 +37,41 @@ SUPERSEDED BEFORE OUTPUT
 Reason:
 Owner intent was a reusable ZIP bootstrap package; SIP was an incorrect terminology interpretation.
 
-Disposition:
+Supersession:
 control/SIP-001_SUPERSESSION_DISPOSITION.md
 
 ZIP-001:
-ASSIGNED / PACKAGE ASSEMBLY
+COMPLETE / PACKAGE ACCEPTED FOR VALIDATION
 
-Authorization:
-control/ZIP-001_AUTHORIZATION.md
-
-Route:
-routing/ROUTE-ZIP-001.md
-
-Required archive:
-bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip
-
-Required digest:
-bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip.sha256
-
-Required report:
+Report:
 bootstrap/ZIP-001_PACKAGE_REPORT.md
 
-Real-project adoption:
-NOT AUTHORIZED
+Review disposition:
+control/ZIP-001_REVIEW_DISPOSITION.md
 
-Product changes:
-NOT AUTHORIZED
+Archive:
+bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip
+
+Archive SHA-256:
+c3c5cb0c896d7e11696948e7677d74ea077a87d27350064b1ad6d521ceb74f6e
+
+Integrity review:
+PASS
+
+Semantic package review:
+PASS
+
+Field/bootstrap validation:
+NOT PERFORMED
+
+Validated for real-project adoption:
+NO
+
+Real-project adoption:
+NOT PERFORMED / NOT AUTHORIZED
+
+Recommended next step:
+separately authorize a disposable/synthetic bootstrap validation using only the ZIP package.
 
 ## Roadmap hold
 
@@ -72,6 +81,6 @@ CR-0001.4 / F-04 — IN_SCOPE / SCOPE FROZEN / NOT STARTED / IMPLEMENTATION NOT 
 CR-0002:
 Library Dark Theme — IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED
 
-No product roadmap work is automatically started by ZIP-001.
+No product roadmap work or bootstrap adoption is automatically started by ZIP-001 acceptance.
 
 Documentation refresh remains required before Release Hardening after all selected roadmap tranches are integrated.
