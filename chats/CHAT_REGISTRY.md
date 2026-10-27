@@ -6,10 +6,10 @@ protocol_version: 1.0
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
 | PC-001 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | RUN 024 resumption control | successor PC-002 |
-| PC-002 | PROJECT_CONTROL | ACTIVE | bootstrap package correction + routing | ZIP-001 assigned |
-| PP-001 | PROTOCOL_PORTABILITY | COMPLETE / BASELINE FROZEN | Generic Project Control extraction | SIP/ZIP readiness established |
+| PC-002 | PROJECT_CONTROL | ACTIVE | ZIP-001 package review + next-route control | package accepted; validation not started |
+| PP-001 | PROTOCOL_PORTABILITY | COMPLETE / BASELINE FROZEN | Generic Project Control extraction | FROZEN v1.0 |
 | SIP-001 | PROTOCOL_BOOTSTRAP | SUPERSEDED BEFORE OUTPUT | incorrect SIP interpretation | no output created |
-| ZIP-001 | PROTOCOL_BOOTSTRAP_PACKAGE | ASSIGNED / PACKAGE ASSEMBLY | Project Control Bootstrap ZIP v1.0 | output pending |
+| ZIP-001 | PROTOCOL_BOOTSTRAP_PACKAGE | COMPLETE / PACKAGE ACCEPTED FOR VALIDATION | Project Control Bootstrap ZIP v1.0 | integrity + semantic review PASS |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0002 scope complete | v2 frozen; default DARK |
 | DQA-001 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 024 exact-SHA candidate | PASS |
