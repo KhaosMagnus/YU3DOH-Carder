@@ -19,24 +19,36 @@ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 ## RUN 025 — CR-0001.4 / F-04
 
 Development:
-COMPLETE / READY FOR EXTERNAL QA
-
-Candidate:
-dd968ba05e579461962bbcced0e9cae3cd4c3d23
+DEV-007 COMPLETE / READY FOR EXTERNAL QA
 
 External QA:
-DQA-004 — PARTIAL / AWAITING EVIDENCE
+DQA-004 PARTIAL / AWAITING EVIDENCE
 
 DQA report:
 validations/RUN-025/DQA-004_EXTERNAL_QA_REPORT.md
 
-Project Control PARTIAL disposition:
-runs/RUN-025_DQA-004_PARTIAL_DISPOSITION.md
+Environment readiness:
+ENV-005 COMPLETE / ENVIRONMENT READY
 
-Gate reconciliation:
-control/RUN-025_GATE_RECONCILIATION.md
+ENV report:
+validations/RUN-025/ENV-005_ENVIRONMENT_READINESS_REPORT.md
 
-Authoritative gate:
+ENV disposition:
+runs/RUN-025_ENV-005_READY_DISPOSITION.md
+
+Current evidence producer:
+DEPLOYMENT_VALIDATION / DEPLOY-005
+
+DEPLOY request:
+validations/RUN-025/DEPLOY-005_VALIDATION_REQUEST.md
+
+DEPLOY route:
+routing/ROUTE-RUN-025-DEPLOY-005.md
+
+Exact candidate:
+dd968ba05e579461962bbcced0e9cae3cd4c3d23
+
+Authoritative validation gate:
 - yarn compile
 - yarn build
 - yarn test:sc
@@ -44,41 +56,37 @@ Authoritative gate:
 - yarn --cwd workspace-server compile
 - yarn --cwd workspace-server test
 
-There is no required root yarn test command.
+Required missing browser evidence:
+F04-B01 through F04-B26
 
-Missing evidence:
-- all-zero authoritative six-command gate on tsx-capable substrate;
-- F04-B01..F04-B26;
-- required screenshots;
-- required machine-readable state/network/browser evidence.
+DEPLOY-005 produces evidence only.
+Official QA authority remains DQA-004.
 
-Evidence recovery:
-ENVIRONMENT_READINESS / ENV-005 — ASSIGNED
-
-ENV route:
-routing/ROUTE-RUN-025-ENV-005.md
-
-Preferred substrate:
-GitHub-hosted Actions
-
-If ENV-005 returns ENVIRONMENT READY:
-Project Control may assign DEPLOYMENT_VALIDATION / DEPLOY-005 to execute the missing acceptance evidence.
-
-DQA-004 remains the acceptance authority and should resume on the same exact candidate after evidence production.
+Planned continuation:
+DEPLOY-005 EVIDENCE READY
+→ Project Control review
+→ SAME DQA-004 resumes
+→ official exact-SHA verdict.
 
 Integration:
 NOT AUTHORIZED
 
 Candidate mutation:
-NOT AUTHORIZED during evidence recovery.
+NOT AUTHORIZED
 
 ## CR-0002
 
-Implementation remains unauthorized until F-04 receives official External QA PASS and authorized integration, followed by post-F04 compatibility review.
+Implementation remains unauthorized until F-04 obtains official QA PASS and authorized integration, then post-F04 compatibility review and baseline assignment.
 
-## Session pilot
+## Session/response pilot observations
 
-DEV-007/S01 completed with no rollover.
-Final Development return required explicit Owner prompting.
-DQA-004 did proactively return its terminal PARTIAL result under the explicit auto-return instruction.
-No Generic Protocol amendment is authorized.
+DEV-007/S01:
+final return required explicit Owner prompt.
+
+DQA-004:
+terminal PARTIAL auto-returned under explicit instruction.
+
+ENV-005:
+terminal ENVIRONMENT READY auto-returned under explicit instruction.
+
+No Generic Protocol amendment is authorized from these observations alone.
