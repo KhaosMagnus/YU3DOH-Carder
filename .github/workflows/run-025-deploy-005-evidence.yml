@@ -1,0 +1,122 @@
+name: RUN 025 DEPLOY-005 evidence
+
+on:
+  push:
+    branches:
+      - ops/run-025-deploy-005-actions
+    paths:
+      - '.github/workflows/run-025-deploy-005-evidence.yml'
+      - 'validation/deploy005-**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CANDIDATE_ROOT: ${{ github.workspace }}/run-025
+      DEPLOY005_OUTPUT: ${{ github.workspace }}/deploy005-evidence
+      DEPLOY005_WORKSPACE: ${{ github.workspace }}/deploy005-workspace
+      YU3DOH_QA_OUTPUT: ${{ github.workspace }}/deploy005-evidence
+      YU3DOH_QA_BASELINE_ROOT: ${{ github.workspace }}/baseline
+      YU3DOH_QA_CHROMIUM: /usr/bin/google-chrome
+      NODE_PATH: ${{ github.workspace }}/deploy005-tools/node_modules
+    steps:
+      - name: Checkout operational harness
+        uses: actions/checkout@v4
+        with:
+          path: ops-control
+      - name: Checkout exact RUN 025 target
+        uses: actions/checkout@v4
+        with:
+          ref: dd968ba05e579461962bbcced0e9cae3cd4c3d23
+          fetch-depth: 0
+          path: run-025
+      - name: Checkout exact baseline for runtime comparison
+        uses: actions/checkout@v4
+        with:
+          ref: e07140d5a9555a17b7b2306a45625c14adfafc8e
+          path: baseline
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.22
+      - name: Create evidence directory
+        run: mkdir -p "$DEPLOY005_OUTPUT"
+      - name: Exact custody before execution
+        run: node ops-control/validation/deploy005-custody.cjs preflight
+      - name: install-root
+        id: install_root
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs install-root yarn install --frozen-lockfile --non-interactive
+      - name: install-service
+        id: install_service
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs install-service yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+      - name: compile
+        id: compile
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs compile yarn compile
+      - name: build
+        id: build
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs build yarn build
+      - name: test-sc
+        id: test_sc
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs test-sc yarn test:sc
+      - name: test-library
+        id: test_library
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs test-library yarn test:library
+      - name: compile-service
+        id: compile_service
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs compile-service yarn --cwd workspace-server compile
+      - name: test-service
+        id: test_service
+        continue-on-error: true
+        run: node ops-control/validation/deploy005-command.cjs test-service yarn --cwd workspace-server test
+      - name: Install isolated browser tooling
+        timeout-minutes: 3
+        run: |
+          npm install --prefix "$GITHUB_WORKSPACE/deploy005-tools" --no-audit --no-fund playwright-core@1.58.2
+          google-chrome --version
+      - name: Provide identical baseline client dependencies
+        run: ln -s "$CANDIDATE_ROOT/node_modules" "$YU3DOH_QA_BASELINE_ROOT/node_modules"
+      - name: Execute F04 B01 through B26
+        run: node ops-control/validation/deploy005-run.cjs
+      - name: Final custody
+        if: always()
+        run: node ops-control/validation/deploy005-custody.cjs final
+      - name: Evaluate full gate
+        if: always()
+        run: |
+          node - <<'JS'
+          const fs=require('node:fs'),path=require('node:path');
+          const out=process.env.DEPLOY005_OUTPUT;
+          const names=['install-root','install-service','compile','build','test-sc','test-library','compile-service','test-service'];
+          const results=names.map(n=>{try{return {name:n,...JSON.parse(fs.readFileSync(path.join(out,n+'.json'),'utf8'))}}catch{return {name:n,missing:true}}});
+          const ready=results.every(r=>r.exitCode===0)&&JSON.parse(fs.readFileSync(path.join(out,'final-status.json'),'utf8')).status==='EVIDENCE READY';
+          fs.writeFileSync(path.join(out,'gate-results.json'),JSON.stringify({status:ready?'EVIDENCE READY':'VALIDATION BLOCKED',results},null,2));
+          if(!ready)process.exitCode=1;
+          JS
+      - name: Hash evidence
+        if: always()
+        run: |
+          cd "$DEPLOY005_OUTPUT"
+          find . -type f ! -name manifest.sha256 -print0 | sort -z | xargs -0 sha256sum > manifest.sha256
+          cat manifest.sha256
+      - name: Preserve DEPLOY-005 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deploy005-readiness-${{ github.run_id }}-dd968ba05e579461962bbcced0e9cae3cd4c3d23
+          path: ${{ github.workspace }}/deploy005-evidence
+          if-no-files-found: error
+          retention-days: 90
