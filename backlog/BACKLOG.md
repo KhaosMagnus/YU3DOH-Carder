@@ -38,23 +38,31 @@ Outputs:
 Generic protocol baseline:
 `FROZEN v1.0`
 
-## Bootstrap SIP
+## Bootstrap package
 
-`SIP-001 — ASSIGNED / AUTHORING`
+`SIP-001 — SUPERSEDED BEFORE OUTPUT`
+
+Reason:
+incorrect interpretation of ZIP as SIP.
+
+`ZIP-001 — ASSIGNED / PACKAGE ASSEMBLY`
 
 Authorization:
-
-`control/SIP-001_AUTHORIZATION.md`
+`control/ZIP-001_AUTHORIZATION.md`
 
 Route:
+`routing/ROUTE-ZIP-001.md`
 
-`routing/ROUTE-SIP-001.md`
+Required archive:
+`bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip`
 
-Expected output:
+Required digest:
+`bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip.sha256`
 
-`sip/PROJECT_CONTROL_BOOTSTRAP_SIP-v1.0.md`
+Required package report:
+`bootstrap/ZIP-001_PACKAGE_REPORT.md`
 
-This task authors the SIP only. It does not adopt it into YU3DOH or another project.
+ZIP-001 creates the reusable package only. It does not adopt it into any project.
 
 ## Tranche 2 — sequenced
 
@@ -62,7 +70,7 @@ This task authors the SIP only. It does not adopt it into YU3DOH or another proj
 
 `IN_SCOPE / SCOPE FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED`
 
-SIP-001 does not block or authorize Tranche 2.
+ZIP-001 does not block or authorize Tranche 2.
 
 ## Tranche 3 — selected
 
