@@ -6,32 +6,28 @@ requests/CR-0001-v19.md
 Integrated baseline:
 feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
 
-Complete / integrated:
-- CR-0001.1 / F-01
-- CR-0001.2 / F-02
-- CR-0001.3 / F-03
-- CR-0001.5 / F-05
-- CR-0001.6 / F-06
-
 ## CR-0001.4 / F-04 — Library Grid/List
 
-Status:
-RUN 025 DEVELOPMENT COMPLETE / EXTERNAL QA ASSIGNED
-
-Candidate:
+RUN 025 candidate:
 feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
 Development:
-DEV-007 / READY FOR EXTERNAL QA
+COMPLETE / READY FOR EXTERNAL QA
 
 External QA:
-DQA-004 / ASSIGNED
+DQA-004 — PARTIAL / AWAITING EVIDENCE
 
-QA route:
-routing/ROUTE-RUN-025-DQA-004.md
+Favorable findings:
+scope/custody/deterministic evidence favorable; no confirmed product defect.
 
-Evidence note:
-Development-local archive not transferred; QA must reproduce independently.
+Missing:
+authoritative six-command gate on suitable substrate + F04-B01..B26 browser evidence.
+
+Evidence recovery:
+ENV-005 ASSIGNED
+
+After ENVIRONMENT READY:
+route DEPLOY-005 for missing acceptance evidence, then resume DQA-004 on the same candidate.
 
 Integration:
 NOT AUTHORIZED
@@ -41,8 +37,8 @@ NOT AUTHORIZED
 IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED
 
 Gate:
-F-04 QA PASS + authorized integration → post-F04 compatibility review → baseline assignment.
+F-04 official QA PASS + authorized integration → post-F04 compatibility review → baseline assignment.
 
 ## Bootstrap package
 
-ZIP-001 field validation remains a separate workstream.
+ZIP-001 field validation remains separate.
