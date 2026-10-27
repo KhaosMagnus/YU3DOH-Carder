@@ -6,14 +6,15 @@ protocol_version: 1.0
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
 | PC-001 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | RUN 024 resumption control | successor PC-002 |
-| PC-002 | PROJECT_CONTROL | ACTIVE | ZIP-001 package review + next-route control | package accepted; validation not started |
+| PC-002 | PROJECT_CONTROL | ACTIVE | F-04 Design + QA routing + roadmap control | DQA-003 assigned |
 | PP-001 | PROTOCOL_PORTABILITY | COMPLETE / BASELINE FROZEN | Generic Project Control extraction | FROZEN v1.0 |
 | SIP-001 | PROTOCOL_BOOTSTRAP | SUPERSEDED BEFORE OUTPUT | incorrect SIP interpretation | no output created |
-| ZIP-001 | PROTOCOL_BOOTSTRAP_PACKAGE | COMPLETE / PACKAGE ACCEPTED FOR VALIDATION | Project Control Bootstrap ZIP v1.0 | integrity + semantic review PASS |
+| ZIP-001 | PROTOCOL_BOOTSTRAP_PACKAGE | COMPLETE / PACKAGE ACCEPTED FOR VALIDATION | Project Control Bootstrap ZIP v1.0 | field validation pending separately |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0002 scope complete | v2 frozen; default DARK |
 | DQA-001 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 024 exact-SHA candidate | PASS |
 | DQA-002 | DESIGN_QA | COMPLETE / CONTRACT FROZEN | CR-0002 Library Dark Theme | waiting post-F04 compatibility gate |
+| DQA-003 | DESIGN_QA | ASSIGNED / DESIGN | CR-0001.4 / F-04 Library Grid/List | contract pending |
 | DEV-004 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 initial attempt | executor transport blocker |
 | DEV-005 | DEVELOPMENT | COMPLETE / IMPLEMENTATION BLOCKED | RUN 024 resumption attempt | executor transport blocker |
 | DEV-006 | DEVELOPMENT | COMPLETE / READY FOR EXTERNAL QA | RUN 024 candidate e07140d5... | accepted by DQA-001 |
