@@ -1,0 +1,16 @@
+{
+  "platform": "linux",
+  "arch": "x64",
+  "node": "v24.19.0",
+  "git": "git version 2.55.0",
+  "yarn": "1.22.22",
+  "runnerTemp": "/home/runner/work/_temp",
+  "githubRunId": "40561137872",
+  "githubSha": "c5d5a08bad6ba110121a813a7db18af5d043f670",
+  "controlSha": "af6b13dfa7225d90204eb772915e4f6433bb651d",
+  "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+  "playwright": "1.58.2",
+  "candidateRoot": "/home/runner/work/YU3DOH-Carder/YU3DOH-Carder/run-025",
+  "output": "/home/runner/work/YU3DOH-Carder/YU3DOH-Carder/env005-evidence",
+  "workspaceRoot": "/home/runner/work/YU3DOH-Carder/YU3DOH-Carder/env005-workspace"
+}

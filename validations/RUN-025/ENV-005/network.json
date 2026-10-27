@@ -1,0 +1,74 @@
+{
+  "writebackExecuted": false,
+  "events": [
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/workspace/status",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-27T18:36:51.490Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/library/facets",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-27T18:36:51.876Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/workspace/status",
+      "status": 200,
+      "headers": {
+        "content-length": "245",
+        "date": "Tue, 27 Oct 2026 18:36:51 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"workspace_id\":\"env-005-actions-readiness\",\"name\":\"ENV-005 Actions readiness\",\"workspace_format_version\":1,\"database_schema_version\":8,\"state\":\"READY\",\"read_only\":false,\"health_summary\":\"Workspace database schema 8 is current and operational.\"}",
+      "bodyError": null,
+      "timestamp": "2026-10-27T18:36:51.877Z"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/library/facets",
+      "status": 200,
+      "headers": {
+        "content-length": "137",
+        "date": "Tue, 27 Oct 2026 18:36:51 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"families\":[\"MONSTER\",\"SPELL\",\"TRAP\",\"TOKEN\"],\"archetypes\":[],\"effect_classifiers\":[],\"functional_tags\":[],\"languages\":[\"EN\",\"ES\",\"JP\"]}",
+      "bodyError": null,
+      "timestamp": "2026-10-27T18:36:51.924Z"
+    },
+    {
+      "event": "intercept",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards?preferred_language=EN&limit=50&offset=0",
+      "method": "GET",
+      "postData": null,
+      "timestamp": "2026-10-27T18:36:52.001Z",
+      "action": "continue-unmodified"
+    },
+    {
+      "event": "response",
+      "url": "http://127.0.0.1:3000/api/v1/library/cards?preferred_language=EN&limit=50&offset=0",
+      "status": 200,
+      "headers": {
+        "content-length": "391",
+        "date": "Tue, 27 Oct 2026 18:36:52 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "vary": "Origin",
+        "connection": "close"
+      },
+      "body": "{\"items\":[{\"card_id\":\"199115a3-4e7a-4ebb-b442-faf4a0cf4822\",\"revision\":\"2\",\"family\":\"SPELL\",\"password\":\"12990005\",\"display_name\":\"ENV005 Continuous Smoke\",\"display_language\":\"EN\",\"available_languages\":[\"EN\"],\"archetypes\":[],\"effect_classifiers\":[],\"functional_tags\":[],\"variant_count\":1,\"has_standard_ready_variant\":true,\"has_overframe_ready_variant\":false}],\"total\":1,\"limit\":50,\"offset\":0}",
+      "bodyError": null,
+      "timestamp": "2026-10-27T18:36:52.079Z"
+    }
+  ]
+}

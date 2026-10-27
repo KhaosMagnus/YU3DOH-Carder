@@ -1,0 +1,27 @@
+{
+  "status": "ENVIRONMENT READY",
+  "candidateSha": "dd968ba05e579461962bbcced0e9cae3cd4c3d23",
+  "cardId": "199115a3-4e7a-4ebb-b442-faf4a0cf4822",
+  "fixtureSubtype": "CONTINUOUS",
+  "serviceUrl": "http://127.0.0.1:4312",
+  "libraryUrl": "http://127.0.0.1:3000/ygocarder/library/",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "deviceScaleFactor": 1,
+  "browser": {
+    "version": "155.0.8059.39",
+    "channel": "chrome",
+    "executablePath": "/usr/bin/google-chrome"
+  },
+  "canonicalUnchanged": true,
+  "consoleErrorCaptureConfigured": true,
+  "pageErrorCaptureConfigured": true,
+  "screenshots": [
+    "library-smoke.png"
+  ],
+  "f04AcceptanceCasesExecuted": 0,
+  "domAndAccessibilityCaptured": true,
+  "httpInterceptionContinuedUnmodified": true
+}
