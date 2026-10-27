@@ -2,12 +2,10 @@ import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import {
     Alert,
     Button,
-    Checkbox,
     Input,
     Pagination,
     Select,
     Spin,
-    Tag,
 } from 'antd';
 import {
     browseLibraryCards,
@@ -43,8 +41,9 @@ import {
 } from './model';
 import { WorkspaceManagement } from './workspace-management';
 import { BatchClassificationModal } from './batch-classification-modal';
-import { batchParticipatingDetail, deselectBatchCard, hiddenBatchCount, selectBatchCards, stopBatchCheckboxEvent, type BatchSelection, type BatchResult } from './batch-classification-state';
+import { batchParticipatingDetail, deselectBatchCard, hiddenBatchCount, selectBatchCards, type BatchSelection, type BatchResult } from './batch-classification-state';
 import { WorkspaceManagementController, type MaintenanceOperation } from './workspace-management-state';
+import { INITIAL_LIBRARY_VIEW, LibraryResultCard, type LibraryViewMode } from './library-result-card';
 import './library.scss';
 
 const { Option } = Select;
@@ -72,6 +71,7 @@ export const LibraryApp = () => {
     const [statusError, setStatusError] = useState<string | null>(null);
     const [facets, setFacets] = useState<LibraryFacets | null>(null);
     const [filters, setFilters] = useState(initialFilters);
+    const [viewMode, setViewMode] = useState<LibraryViewMode>(INITIAL_LIBRARY_VIEW);
     const [result, setResult] = useState<LibraryBrowseResult>(emptyResult);
     const [loading, setLoading] = useState(true);
     const [browseError, setBrowseError] = useState<string | null>(null);
@@ -489,6 +489,17 @@ export const LibraryApp = () => {
                 </Select>
             </section>
 
+            <fieldset className="library-view" aria-label="Library results view">
+                <legend>View</legend>
+                {(['GRID', 'LIST'] as const).map(mode => (
+                    <label key={mode}>
+                        <input type="radio" name="library-results-view" value={mode}
+                            checked={viewMode === mode} onChange={() => setViewMode(mode)} />
+                        {mode === 'GRID' ? 'Grid' : 'List'}
+                    </label>
+                ))}
+            </fieldset>
+
             <section className="library-batch-toolbar" aria-label="Batch selection">
                 <strong data-testid="batch-selection-count">Selected: {batchSelection.size}</strong>
                 <span data-testid="batch-hidden-count">Hidden from current view: {hiddenBatchCount(batchSelection, resultState === 'results' ? result.items : [])}</span>
@@ -500,7 +511,7 @@ export const LibraryApp = () => {
             </section>
             {batchSelectionError && <Alert type="warning" message={batchSelectionError} />}
 
-            <section className="library-results" aria-live="polite">
+            <section className={`library-results library-results--${viewMode.toLowerCase()}`} aria-live="polite">
                 {workspaceShellState === 'connecting' && (
                     <div className="library-state"><Spin tip="Connecting to Workspace…" /></div>
                 )}
@@ -529,50 +540,14 @@ export const LibraryApp = () => {
                     <div className="library-state">No matching cards.</div>
                 )}
                 {workspaceReady && resultState === 'results' && result.items.map(card => (
-                    <article
-                        className={`library-card${selectedCardId === card.card_id ? ' library-card--selected' : ''}`}
-                        key={card.card_id}
-                        onClick={() => openDetail(card.card_id)}
-                        onKeyDown={event => {
-                            if (event.target !== event.currentTarget) return;
-                            if (event.key === 'Enter' || event.key === ' ') {
-                                event.preventDefault();
-                                openDetail(card.card_id);
-                            }
-                        }}
-                        role="button"
-                        tabIndex={0}
-                    >
-                        <span className="library-card__batch" onClick={stopBatchCheckboxEvent} onKeyDown={stopBatchCheckboxEvent}>
-                            <Checkbox aria-label={`Select ${card.display_name} for Batch`} checked={batchSelection.has(card.card_id)} disabled={batchBusy || !ordinaryReadsEnabled || clientDataBlocked} onChange={event => {
-                                if (event.target.checked) selectBatchPage([card]);
-                                else { setBatchSelection(deselectBatchCard(batchSelection, card.card_id)); setBatchSelectionError(null); }
-                            }} />
-                        </span>
-                        <div className="library-card__main">
-                            <h2>{card.display_name}</h2>
-                            <div className="library-card__identity">
-                                <Tag>{card.family}</Tag>
-                                {card.password && <span>Password: {card.password}</span>}
-                                {card.display_language && <span>Display: {card.display_language}</span>}
-                                {!card.password && card.family === 'TOKEN' && <span>Token · no password</span>}
-                            </div>
-                        </div>
-                        <div className="library-card__classifications">
-                            {card.archetypes.map(value => <Tag key={`a-${value}`}>Archetype: {value}</Tag>)}
-                            {card.effect_classifiers.map(value => <Tag key={`e-${value}`}>Effect: {value}</Tag>)}
-                            {card.functional_tags.map(value => <Tag key={`f-${value}`}>Tag: {value}</Tag>)}
-                        </div>
-                        <div className="library-card__readiness">
-                            <span>Variants: {card.variant_count}</span>
-                            <Tag color={card.has_standard_ready_variant ? 'green' : undefined}>
-                                Standard {card.has_standard_ready_variant ? 'READY' : 'incomplete'}
-                            </Tag>
-                            <Tag color={card.has_overframe_ready_variant ? 'green' : undefined}>
-                                Overframe {card.has_overframe_ready_variant ? 'READY' : 'incomplete'}
-                            </Tag>
-                        </div>
-                    </article>
+                    <LibraryResultCard key={card.card_id} card={card} mode={viewMode}
+                        selected={selectedCardId === card.card_id} checked={batchSelection.has(card.card_id)}
+                        batchDisabled={batchBusy || !ordinaryReadsEnabled || clientDataBlocked}
+                        onOpen={() => openDetail(card.card_id)}
+                        onSelect={checked => {
+                            if (checked) selectBatchPage([card]);
+                            else { setBatchSelection(deselectBatchCard(batchSelection, card.card_id)); setBatchSelectionError(null); }
+                        }} />
                 ))}
             </section>
 
