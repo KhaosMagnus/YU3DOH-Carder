@@ -6,7 +6,8 @@ protocol_version: 1.0
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
 | PC-001 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | RUN 024 resumption control | successor PC-002 |
-| PC-002 | PROJECT_CONTROL | ACTIVE | RUN 024 integration control + roadmap sequencing | QA PASS consumed; IA-002 assigned; PP queued |
+| PC-002 | PROJECT_CONTROL | ACTIVE | protocol portability activation + roadmap sequencing | RUN 024 closed; PP-001 assigned |
+| PP-001 | PROTOCOL_PORTABILITY | ASSIGNED / PORTABILITY REVIEW | Generic Project Control extraction | review pending |
 | AR-001 | ARCHIVAL_RECOVERY | COMPLETE / PILOT CLOSED | B05 supplement reviewed | residual gaps frozen |
 | SCOPE-001 | SCOPE_ARCHITECTURE | AVAILABLE | CR-0002 scope complete | v2 frozen; default DARK |
 | DQA-001 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 024 exact-SHA candidate | PASS |
@@ -26,4 +27,4 @@ protocol_version: 1.0
 | DEV-002 | DEVELOPMENT | COMPLETE / QA PASS | Candidate B | historical |
 | DEV-003 | DEVELOPMENT | COMPLETE / QA PASS | combined candidate | historical |
 | IA-001 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | combined → feature/workspace-v0.1 | historical |
-| IA-002 | INTEGRATION_ADMIN | ASSIGNED | RUN 024 → feature/workspace-v0.1 | integration pending |
+| IA-002 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 024 → feature/workspace-v0.1 | verified and closed |
