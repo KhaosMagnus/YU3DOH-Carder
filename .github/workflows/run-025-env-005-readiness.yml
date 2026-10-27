@@ -74,10 +74,11 @@ jobs:
         id: test_service
         continue-on-error: true
         run: node ops-control/validation/env005-command.cjs test-service yarn --cwd workspace-server test
-      - name: Install isolated Chromium tooling
+      - name: Install isolated browser tooling
+        timeout-minutes: 3
         run: |
           npm install --prefix "$GITHUB_WORKSPACE/env005-tools" --no-audit --no-fund playwright-core@1.58.2
-          node "$GITHUB_WORKSPACE/env005-tools/node_modules/playwright-core/cli.js" install --with-deps chromium
+          google-chrome --version
       - name: Execute neutral readiness probe
         run: node ops-control/validation/env005-readiness.cjs
       - name: Final custody

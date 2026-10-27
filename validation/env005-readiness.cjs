@@ -173,8 +173,8 @@ async function main() {
   assert.ok(Array.isArray(before.provenance));
   assert.ok(before.provenance.length >= 2);
 
-  browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
-  const browserInfo = { version: browser.version(), executablePath: chromium.executablePath() };
+  browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--no-sandbox'] });
+  const browserInfo = { version: browser.version(), channel: 'chrome', executablePath: execFileSync('which',['google-chrome'],{encoding:'utf8'}).trim() };
   await save('browser.json', browserInfo);
 
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
