@@ -1,0 +1,111 @@
+name: RUN 025 ENV-005 readiness
+
+on:
+  push:
+    branches:
+      - ops/run-025-env-005-actions
+    paths:
+      - '.github/workflows/run-025-env-005-readiness.yml'
+      - 'validation/env005-**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  readiness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CANDIDATE_ROOT: ${{ github.workspace }}/run-025
+      ENV005_OUTPUT: ${{ github.workspace }}/env005-evidence
+      ENV005_WORKSPACE: ${{ github.workspace }}/env005-workspace
+      NODE_PATH: ${{ github.workspace }}/env005-tools/node_modules
+    steps:
+      - name: Checkout operational harness
+        uses: actions/checkout@v4
+        with:
+          path: ops-control
+      - name: Checkout exact RUN 025 target
+        uses: actions/checkout@v4
+        with:
+          ref: dd968ba05e579461962bbcced0e9cae3cd4c3d23
+          fetch-depth: 0
+          path: run-025
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.22
+      - name: Create evidence directory
+        run: mkdir -p "$ENV005_OUTPUT"
+      - name: Exact custody before execution
+        run: node ops-control/validation/env005-custody.cjs preflight
+      - name: install-root
+        id: install_root
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs install-root yarn install --frozen-lockfile --non-interactive
+      - name: install-service
+        id: install_service
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs install-service yarn --cwd workspace-server install --frozen-lockfile --non-interactive
+      - name: compile
+        id: compile
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs compile yarn compile
+      - name: build
+        id: build
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs build yarn build
+      - name: test-sc
+        id: test_sc
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs test-sc yarn test:sc
+      - name: test-library
+        id: test_library
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs test-library yarn test:library
+      - name: compile-service
+        id: compile_service
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs compile-service yarn --cwd workspace-server compile
+      - name: test-service
+        id: test_service
+        continue-on-error: true
+        run: node ops-control/validation/env005-command.cjs test-service yarn --cwd workspace-server test
+      - name: Install isolated Chromium tooling
+        run: |
+          npm install --prefix "$GITHUB_WORKSPACE/env005-tools" --no-audit --no-fund playwright-core@1.58.2
+          node "$GITHUB_WORKSPACE/env005-tools/node_modules/playwright-core/cli.js" install --with-deps chromium
+      - name: Execute neutral readiness probe
+        run: node ops-control/validation/env005-readiness.cjs
+      - name: Final custody
+        if: always()
+        run: node ops-control/validation/env005-custody.cjs final
+      - name: Evaluate full gate
+        if: always()
+        run: |
+          node - <<'JS'
+          const fs=require('node:fs'),path=require('node:path');
+          const out=process.env.ENV005_OUTPUT;
+          const names=['install-root','install-service','compile','build','test-sc','test-library','compile-service','test-service'];
+          const results=names.map(n=>{try{return {name:n,...JSON.parse(fs.readFileSync(path.join(out,n+'.json'),'utf8'))}}catch{return {name:n,missing:true}}});
+          const ready=results.every(r=>r.exitCode===0)&&JSON.parse(fs.readFileSync(path.join(out,'final-status.json'),'utf8')).status==='ENVIRONMENT READY';
+          fs.writeFileSync(path.join(out,'gate-results.json'),JSON.stringify({status:ready?'ENVIRONMENT READY':'ENVIRONMENT BLOCKED',results},null,2));
+          if(!ready)process.exitCode=1;
+          JS
+      - name: Hash evidence
+        if: always()
+        run: |
+          cd "$ENV005_OUTPUT"
+          find . -type f ! -name manifest.sha256 -print0 | sort -z | xargs -0 sha256sum > manifest.sha256
+          cat manifest.sha256
+      - name: Preserve ENV-005 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: env005-readiness-${{ github.run_id }}-dd968ba05e579461962bbcced0e9cae3cd4c3d23
+          path: ${{ github.workspace }}/env005-evidence
+          if-no-files-found: error
+          retention-days: 90
