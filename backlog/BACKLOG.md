@@ -17,17 +17,19 @@ COMPLETE / READY FOR EXTERNAL QA
 External QA:
 DQA-004 — PARTIAL / AWAITING EVIDENCE
 
-Favorable findings:
-scope/custody/deterministic evidence favorable; no confirmed product defect.
+Environment readiness:
+ENV-005 — COMPLETE / ENVIRONMENT READY
 
-Missing:
-authoritative six-command gate on suitable substrate + F04-B01..B26 browser evidence.
+Current evidence mission:
+DEPLOY-005 — ASSIGNED / OPERATIONAL VALIDATION
 
-Evidence recovery:
-ENV-005 ASSIGNED
+Required:
+- authoritative six-command gate;
+- F04-B01..F04-B26;
+- durable screenshots/state/network/browser evidence.
 
-After ENVIRONMENT READY:
-route DEPLOY-005 for missing acceptance evidence, then resume DQA-004 on the same candidate.
+After EVIDENCE READY:
+resume SAME DQA-004 for official exact-SHA verdict.
 
 Integration:
 NOT AUTHORIZED
