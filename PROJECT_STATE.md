@@ -10,76 +10,104 @@ protocol_version: 1.0
 main: 54cc3aad246c89a29f2a18be63c539db68cae041
 feature/workspace-v0.1: e07140d5a9555a17b7b2306a45625c14adfafc8e
 feature/workspace-run-024: e07140d5a9555a17b7b2306a45625c14adfafc8e
+feature/workspace-run-025: ABSENT / CREATION AUTHORIZED TO DEV-007
 
-## RUN 024
+## Completed control milestones
 
+RUN 024:
 CLOSED / INTEGRATED / EXTERNAL QA PASS
-
-## Protocol portability / bootstrap package
 
 PP-001:
 COMPLETE / GENERIC PROTOCOL BASELINE FROZEN v1.0
 
-SIP-001:
-SUPERSEDED BEFORE OUTPUT
-
 ZIP-001:
 COMPLETE / PACKAGE ACCEPTED FOR VALIDATION
 
-Bootstrap package field validation:
-NOT STARTED / SEPARATE AUTHORIZATION REQUIRED
+## Current product work
 
-## Current product roadmap work
+Canonical CR ledger:
+requests/CR-0001-v19.md
 
-Canonical CR-0001 ledger:
-requests/CR-0001-v18.md
-
-### Tranche 2 — CR-0001.4 / F-04 Library Grid/List
+### CR-0001.4 / F-04 — Library Grid/List
 
 Status:
-IN_SCOPE / SCOPE FROZEN / DESIGN + QA CONTRACT IN PROGRESS
+RUN 025 AUTHORIZED / DEVELOPMENT ASSIGNED
 
-Design authority:
-control/OWNER_AUTH_CR_0001_4_DESIGN.md
+Design:
+COMPLETE / CONTRACT FROZEN
 
 Design instance:
-DESIGN_QA / DQA-003
+DQA-003
 
-Route:
-routing/ROUTE-CR-0001-4-DQA-003.md
-
-Exact design baseline:
-feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
-
-Expected output:
+Frozen contract:
 handoffs/CR-0001_4_LIBRARY_GRID_LIST_IMPLEMENTATION_HANDOFF.md
 
-Implementation:
+Design disposition:
+control/CR-0001_4_DESIGN_DISPOSITION.md
+
+RUN authorization:
+runs/RUN-025_AUTHORIZATION.md
+
+Development:
+DEVELOPMENT / DEV-007
+
+Active experimental execution session:
+DEV-007/S01
+
+Session record:
+chats/sessions/DEV-007-S01.md
+
+Session pilot:
+control/RUN-025_SESSION_PILOT.md
+
+Exact baseline:
+feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
+
+Authorized implementation target:
+feature/workspace-run-025
+
+Implementation status:
+NOT YET DELIVERED
+
+External QA:
+NOT STARTED
+
+Integration:
 NOT AUTHORIZED
 
-RUN:
-NOT ASSIGNED
+## Session pilot boundary
 
-Implementation branch:
-NOT ASSIGNED
+RUN 025 tests the experimental INSTANCE → SESSION model.
 
-### CR-0002 — Library Dark Theme
+Stable accountable instance:
+DEV-007
 
-IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED
+Initial session:
+DEV-007/S01
 
-CR-0002 still requires:
-F-04 QA PASS + authorized integration
+The experiment does not amend Generic Project Control Protocol v1.0.
+
+Session rollover alone must not create a new Development instance or RUN.
+
+## CR-0002
+
+Library Dark Theme:
+IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED
+
+Required gate:
+F-04 External QA PASS
+→ authorized F-04 integration
 → post-F04 compatibility review
-→ exact implementation baseline assignment
+→ exact CR-0002 implementation baseline assignment
 → separate implementation authorization
 
 ## Guards
 
-- F-04 implementation: NOT AUTHORIZED
-- new RUN: NOT AUTHORIZED
-- migration 009: NOT AUTHORIZED
-- CR-0002 implementation: NOT AUTHORIZED
-- main integration: NOT AUTHORIZED
-- product refs must not move during DQA-003 design work
+- feature/workspace-v0.1 must not move during Development.
+- main must not move.
+- migration 009 is not authorized.
+- Development cannot self-integrate.
+- CR-0002 implementation is not authorized.
+- session-pilot observations cannot silently amend protocol v1.0.
 
 Documentation refresh remains required before Release Hardening after all selected roadmap tranches are integrated.
