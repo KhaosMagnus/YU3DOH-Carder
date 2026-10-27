@@ -29,25 +29,37 @@ protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md
 Disposition:
 control/PP-001_DISPOSITION.md
 
-SIP readiness:
-YES
-
-## Bootstrap SIP
+## Bootstrap package correction
 
 SIP-001:
-ASSIGNED / BOOTSTRAP SIP AUTHORING
+SUPERSEDED BEFORE OUTPUT
+
+Reason:
+Owner intent was a reusable ZIP bootstrap package; SIP was an incorrect terminology interpretation.
+
+Disposition:
+control/SIP-001_SUPERSESSION_DISPOSITION.md
+
+ZIP-001:
+ASSIGNED / PACKAGE ASSEMBLY
 
 Authorization:
-control/SIP-001_AUTHORIZATION.md
+control/ZIP-001_AUTHORIZATION.md
 
 Route:
-routing/ROUTE-SIP-001.md
+routing/ROUTE-ZIP-001.md
 
-Expected output:
-sip/PROJECT_CONTROL_BOOTSTRAP_SIP-v1.0.md
+Required archive:
+bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip
 
-Adoption into any real project:
-NOT AUTHORIZED BY SIP-001
+Required digest:
+bootstrap/dist/PROJECT_CONTROL_BOOTSTRAP-v1.0.zip.sha256
+
+Required report:
+bootstrap/ZIP-001_PACKAGE_REPORT.md
+
+Real-project adoption:
+NOT AUTHORIZED
 
 Product changes:
 NOT AUTHORIZED
@@ -60,6 +72,6 @@ CR-0001.4 / F-04 — IN_SCOPE / SCOPE FROZEN / NOT STARTED / IMPLEMENTATION NOT 
 CR-0002:
 Library Dark Theme — IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / NOT STARTED / IMPLEMENTATION NOT AUTHORIZED
 
-No product roadmap work is automatically started by SIP-001.
+No product roadmap work is automatically started by ZIP-001.
 
 Documentation refresh remains required before Release Hardening after all selected roadmap tranches are integrated.
