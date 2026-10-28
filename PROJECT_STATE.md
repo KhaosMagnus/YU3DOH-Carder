@@ -21,72 +21,66 @@ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 Development:
 DEV-007 COMPLETE / READY FOR EXTERNAL QA
 
-External QA:
-DQA-004 PARTIAL / AWAITING EVIDENCE
-
-DQA report:
-validations/RUN-025/DQA-004_EXTERNAL_QA_REPORT.md
+Initial External QA:
+DQA-004 PARTIAL
 
 Environment readiness:
 ENV-005 COMPLETE / ENVIRONMENT READY
 
-ENV report:
-validations/RUN-025/ENV-005_ENVIRONMENT_READINESS_REPORT.md
+Operational validation:
+DEPLOY-005 COMPLETE / EVIDENCE READY
 
-ENV disposition:
-runs/RUN-025_ENV-005_READY_DISPOSITION.md
+Deployment evidence:
+validations/RUN-025/DEPLOY-005_VALIDATION_EVIDENCE.md
 
-Current evidence producer:
-DEPLOYMENT_VALIDATION / DEPLOY-005
+Deployment disposition:
+runs/RUN-025_DEPLOY-005_EVIDENCE_DISPOSITION.md
 
-DEPLOY request:
-validations/RUN-025/DEPLOY-005_VALIDATION_REQUEST.md
+Current active authority:
+SAME DESIGN_QA / DQA-004 — RESUMED / FINAL ADJUDICATION
 
-DEPLOY route:
-routing/ROUTE-RUN-025-DEPLOY-005.md
+Resumption request:
+validations/RUN-025/DQA-004_EXTERNAL_QA_RESUMPTION_REQUEST.md
 
-Exact candidate:
+Resumption route:
+routing/ROUTE-RUN-025-RESUME-DQA-004.md
+
+Expected final report:
+validations/RUN-025/DQA-004_EXTERNAL_QA_FINAL_REPORT.md
+
+Candidate:
 dd968ba05e579461962bbcced0e9cae3cd4c3d23
-
-Authoritative validation gate:
-- yarn compile
-- yarn build
-- yarn test:sc
-- yarn test:library
-- yarn --cwd workspace-server compile
-- yarn --cwd workspace-server test
-
-Required missing browser evidence:
-F04-B01 through F04-B26
-
-DEPLOY-005 produces evidence only.
-Official QA authority remains DQA-004.
-
-Planned continuation:
-DEPLOY-005 EVIDENCE READY
-→ Project Control review
-→ SAME DQA-004 resumes
-→ official exact-SHA verdict.
-
-Integration:
-NOT AUTHORIZED
 
 Candidate mutation:
 NOT AUTHORIZED
 
+Integration:
+NOT AUTHORIZED
+
+## Evidence status
+
+Authoritative six-command gate:
+evidence produced at exact candidate with all required commands exit 0.
+
+F04-B01..F04-B26:
+evidence produced and durably published by DEPLOY-005.
+
+Explicit qualifications remain for DQA-004 adjudication:
+- six requestfailed facets GETs with net::ERR_ABORTED;
+- baseline-reproduced favicon/React scrollLocker warnings;
+- intentional 503 error-state stimuli;
+- synthetic DOM events behind the existing modal Drawer for state-preservation cases;
+- first incomplete DEPLOY attempt carries no acceptance credit.
+
+EVIDENCE READY is not QA PASS.
+
 ## CR-0002
 
-Implementation remains unauthorized until F-04 obtains official QA PASS and authorized integration, then post-F04 compatibility review and baseline assignment.
+Implementation remains unauthorized until RUN 025 receives official QA PASS and authorized integration, followed by post-F04 compatibility review and exact baseline assignment.
 
-## Session/response pilot observations
+## Session / response pilot
 
-DEV-007/S01:
-final return required explicit Owner prompt.
+DEV-007/S01 required explicit Owner prompt for final return.
+DQA-004 PARTIAL, ENV-005 READY and DEPLOY-005 EVIDENCE READY all auto-returned under explicit terminal-return instructions.
 
-DQA-004:
-terminal PARTIAL auto-returned under explicit instruction.
-
-ENV-005:
-terminal ENVIRONMENT READY auto-returned under explicit instruction.
-
-No Generic Protocol amendment is authorized from these observations alone.
+No Generic Protocol amendment is authorized yet.
