@@ -1,0 +1,71 @@
+# ROUTE — RUN 025 / RESUME DQA-004
+
+status: FROZEN
+protocol_version: 1.0
+
+SOURCE:
+PROJECT_CONTROL / PC-002
+
+TARGET:
+DESIGN_QA / DQA-004
+
+MODE:
+EXTERNAL QA RESUMPTION / FINAL ADJUDICATION
+
+RESUMPTION REQUEST:
+validations/RUN-025/DQA-004_EXTERNAL_QA_RESUMPTION_REQUEST.md
+
+PRIOR DQA REPORT:
+validations/RUN-025/DQA-004_EXTERNAL_QA_REPORT.md
+
+PRIOR DQA DISPOSITION:
+runs/RUN-025_DQA-004_PARTIAL_DISPOSITION.md
+
+ENVIRONMENT READY:
+runs/RUN-025_ENV-005_READY_DISPOSITION.md
+
+DEPLOYMENT EVIDENCE:
+validations/RUN-025/DEPLOY-005_VALIDATION_EVIDENCE.md
+
+DEPLOYMENT DISPOSITION:
+runs/RUN-025_DEPLOY-005_EVIDENCE_DISPOSITION.md
+
+FROZEN CONTRACT:
+handoffs/CR-0001_4_LIBRARY_GRID_LIST_IMPLEMENTATION_HANDOFF.md
+
+GATE RECONCILIATION:
+control/RUN-025_GATE_RECONCILIATION.md
+
+EXACT CANDIDATE:
+feature/workspace-run-025
+dd968ba05e579461962bbcced0e9cae3cd4c3d23
+
+EXACT BASELINE:
+feature/workspace-v0.1
+e07140d5a9555a17b7b2306a45625c14adfafc8e
+
+MISSION:
+
+Resume SAME DESIGN_QA / DQA-004 and issue the official final exact-SHA QA verdict.
+
+Do not create DQA-005.
+
+Review the durable DEPLOY-005 evidence, including all qualifications and adverse/nonfatal runtime observations.
+
+Official result:
+PASS
+FAIL
+REGRESSION
+or
+INCONCLUSIVE
+
+Expected output:
+validations/RUN-025/DQA-004_EXTERNAL_QA_FINAL_REPORT.md
+
+No integration authority is granted.
+
+Return:
+DESIGN_QA / DQA-004 → PROJECT_CONTROL / PC-002
+
+AUTO-RETURN:
+At terminal verdict, emit complete return envelope proactively.
