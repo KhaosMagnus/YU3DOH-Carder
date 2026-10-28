@@ -1,7 +1,7 @@
 # BACKLOG
 
 Canonical CR ledger:
-requests/CR-0001-v19.md
+requests/CR-0001-v20.md
 
 Integrated baseline:
 feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
@@ -14,30 +14,30 @@ feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 Development:
 COMPLETE
 
-Initial External QA:
-DQA-004 PARTIAL
-
 Environment:
 ENV-005 READY
 
 Operational evidence:
 DEPLOY-005 EVIDENCE READY
 
-Current:
-SAME DQA-004 RESUMED / FINAL ADJUDICATION
+External QA:
+DQA-004 PASS
 
-Expected:
-validations/RUN-025/DQA-004_EXTERNAL_QA_FINAL_REPORT.md
+Current:
+READY FOR OWNER INTEGRATION DECISION
 
 Integration:
 NOT AUTHORIZED
+
+Expected target if separately authorized:
+feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
 
 ## CR-0002 — Library Dark Theme
 
 IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED
 
 Gate:
-RUN 025 official QA PASS + authorized integration → post-F04 compatibility review → baseline assignment.
+actual F-04 integration → post-F04 compatibility review → exact baseline assignment → separate implementation authorization.
 
 ## Bootstrap package
 
