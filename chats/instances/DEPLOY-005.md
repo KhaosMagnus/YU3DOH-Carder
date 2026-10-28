@@ -1,23 +1,17 @@
 # CHAT INSTANCE — DEPLOY-005
 
 role: DEPLOYMENT_VALIDATION
-status: ASSIGNED / OPERATIONAL VALIDATION
+status: COMPLETE / EVIDENCE READY
 protocol_version: 1.0
 
 assignment:
   RUN 025 — CR-0001.4 / F-04 missing evidence production
 
-request:
-  validations/RUN-025/DEPLOY-005_VALIDATION_REQUEST.md
+report:
+  validations/RUN-025/DEPLOY-005_VALIDATION_EVIDENCE.md
 
-route:
-  routing/ROUTE-RUN-025-DEPLOY-005.md
-
-environment_ready:
-  runs/RUN-025_ENV-005_READY_DISPOSITION.md
-
-dqa_status:
-  DQA-004 PARTIAL / AWAITING EVIDENCE
+project_control_disposition:
+  runs/RUN-025_DEPLOY-005_EVIDENCE_DISPOSITION.md
 
 exact_candidate:
   feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
@@ -25,20 +19,26 @@ exact_candidate:
 exact_baseline:
   feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
 
-expected_output:
-  validations/RUN-025/DEPLOY-005_VALIDATION_EVIDENCE.md
+successful_run:
+  40564959018
 
-evidence_bundle:
-  validations/RUN-025/DEPLOY-005/
+successful_job:
+  122403657714
 
-official_qa_authority:
-  DESIGN_QA / DQA-004
+artifact:
+  12763235984
 
-product_changes_authorized:
-  NO
+artifact_sha256:
+  a0ead6b9440652ffd71966739548a5c98d437ee9577b4a5125ccf0762af8b829
 
-integration_authorized:
-  NO
+result:
+  EVIDENCE READY
+
+official_qa_verdict:
+  NOT ISSUED
+
+successor:
+  SAME DESIGN_QA / DQA-004 — FINAL ADJUDICATION
 
 return_to:
   PROJECT_CONTROL / PC-002
