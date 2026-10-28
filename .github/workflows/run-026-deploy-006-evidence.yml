@@ -1,0 +1,68 @@
+name: RUN-026 DEPLOY-006 Evidence Transport
+on:
+  push:
+    branches: [ops/run-026-deploy-006-actions]
+    paths:
+      - .github/workflows/run-026-deploy-006-evidence.yml
+      - ops/run-026-deploy-006/**
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  evidence-transport:
+    name: Transport frozen DEV-008 evidence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout operational harness only
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          sparse-checkout: ops/run-026-deploy-006
+      - name: Verify and preserve existing bytes; do not execute product
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 ops/run-026-deploy-006/verify_transport.py
+      - name: Upload original archive, raw tree, pinned metadata and verification
+        id: raw
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: RUN-026-DEPLOY-006-raw-evidence-${{ github.run_id }}
+          path: transport-output/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0
+      - name: Record artifact identity outside its own digest
+        if: always()
+        env:
+          ARTIFACT_ID: ${{ steps.raw.outputs.artifact-id }}
+          ARTIFACT_DIGEST: ${{ steps.raw.outputs.artifact-digest }}
+          ARTIFACT_URL: ${{ steps.raw.outputs.artifact-url }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, urllib.request
+          artifact_id = os.environ['ARTIFACT_ID']
+          if not artifact_id:
+              raise SystemExit('Raw artifact upload did not yield an artifact ID')
+          url = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/actions/artifacts/{artifact_id}"
+          request = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json'})
+          with urllib.request.urlopen(request) as response:
+              metadata = json.load(response)
+          verification = json.loads(pathlib.Path('transport-output/transport-verification.json').read_text())
+          result = {key: verification.get(key) for key in ('authorization_control_sha', 'source_control_sha', 'candidate_sha', 'baseline_sha', 'operational_harness_sha', 'actions_run_id', 'actions_job_id', 'final_product_refs', 'product_ref_custody_unchanged')}
+          result.update(artifact=metadata, upload_output_digest=os.environ['ARTIFACT_DIGEST'], artifact_url=os.environ['ARTIFACT_URL'], retrieval_status='API DOWNLOAD VERIFICATION PENDING')
+          pathlib.Path('artifact-provenance.json').write_text(json.dumps(result, indent=2) + '\n')
+          print(json.dumps(result, indent=2))
+          PY
+      - name: Upload companion artifact provenance
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: RUN-026-DEPLOY-006-artifact-provenance-${{ github.run_id }}
+          path: artifact-provenance.json
+          if-no-files-found: error
+          retention-days: 90
