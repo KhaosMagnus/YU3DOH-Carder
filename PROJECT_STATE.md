@@ -19,63 +19,52 @@ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 ## RUN 026 — CR-0002
 
 Development:
-DEV-008 / S01 COMPLETE / READY FOR EXTERNAL QA
+DEV-008 / S01 COMPLETE
 
-Predecessor External QA:
-DQA-005 COMPLETE / INCONCLUSIVE
-
-Evidence recovery:
-DEPLOY-006 COMPLETE / EVIDENCE ACCESS READY
-
-Successor External QA:
+External QA:
 DQA-006 COMPLETE / PASS
 
-Official External QA:
+Official QA:
 PASS
-
-QA report:
-validations/RUN-026/DQA-006_EXTERNAL_QA_REPORT.md
-
-QA disposition:
-runs/RUN-026_DQA-006_PASS_DISPOSITION.md
 
 Exact validated candidate:
 feature/workspace-run-026 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
-Product defects:
-NONE ESTABLISHED
+Owner integration authorization:
+GRANTED
 
-Regressions:
-NONE ESTABLISHED
+Integration authorization:
+control/RUN-026_INTEGRATION_AUTHORIZATION.md
 
-Remaining evidence blockers:
-NONE
+Integration request:
+integrations/RUN-026_INTEGRATION_REQUEST.md
 
-Development correction:
-NOT REQUIRED
+Integration route:
+routing/ROUTE-RUN-026-IA-004.md
 
-Integration:
-NOT AUTHORIZED
+Integration Admin:
+IA-004 ASSIGNED / INTEGRATION
 
-Integration state:
-AWAITING EXPLICIT OWNER AUTHORIZATION
+Required operation:
+FAST-FORWARD ONLY
 
-Main movement:
-NOT AUTHORIZED
+Required target movement:
+feature/workspace-v0.1
+dd968ba05e579461962bbcced0e9cae3cd4c3d23
+->
+e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
-## Evidence lineage
+main:
+MUST REMAIN 54cc3aad246c89a29f2a18be63c539db68cae041
 
-DQA-005 remains historically INCONCLUSIVE.
+Integration status:
+AUTHORIZED / NOT YET EXECUTED
 
-DEPLOY-006 closed the raw evidence access blocker without product rerun or product mutation.
+Forbidden:
+force, rebase, cherry-pick, squash, merge commit, main movement.
 
-DQA-006 independently inspected the recovered raw evidence and issued PASS.
-
-Raw Actions artifact:
-12838688889
-
-Artifact digest:
-sha256:de8e9a82744e04fad9153b1ba4ea65f4a6ed71cf3f0e318e41e75ab4f9030c08
+Expected integration report:
+integrations/RUN-026_INTEGRATION_REPORT.md
 
 ## Protocol experiment
 
@@ -86,4 +75,4 @@ REVISE
 
 Generic Protocol v1.0 remains frozen.
 
-No protocol successor has been adopted.
+No protocol successor adopted.
