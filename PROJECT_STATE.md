@@ -11,74 +11,78 @@ main:
 54cc3aad246c89a29f2a18be63c539db68cae041
 
 feature/workspace-v0.1:
-e07140d5a9555a17b7b2306a45625c14adfafc8e
+dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
 feature/workspace-run-025:
 dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
 ## RUN 025 — CR-0001.4 / F-04
 
-Development:
-COMPLETE
+Final state:
+CLOSED / INTEGRATED / EXTERNAL QA PASS
 
-Environment readiness:
-ENV-005 COMPLETE / ENVIRONMENT READY
+Closure disposition:
+runs/RUN-025_CLOSURE_DISPOSITION.md
 
-Operational validation:
-DEPLOY-005 COMPLETE / EVIDENCE READY
+Integration report:
+integrations/RUN-025_INTEGRATION_REPORT.md
 
-External QA:
-DQA-004 COMPLETE / PASS
+Exact integrated baseline:
+feature/workspace-v0.1 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
-Exact validated candidate:
-feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
+main:
+UNCHANGED
 
-Current integration target:
-feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
+Canonical CR-0001 ledger:
+requests/CR-0001-v22.md
 
-Owner integration authorization:
-GRANTED
+## CR-0002 — Library Dark Theme
 
-Authorization:
-control/OWNER_AUTH_RUN_025_INTEGRATION.md
+Scope:
+FROZEN
 
-Integration handoff:
-handoffs/RUN-025_ADMIN_INTEGRATION_HANDOFF.md
+Design contract:
+FROZEN
 
-Integration route:
-routing/ROUTE-RUN-025-IA-003.md
-
-Integration Admin:
-IA-003 — ASSIGNED / ADMINISTRATIVE INTEGRATION
-
-Authorized method:
-FAST-FORWARD ONLY
-
-Integration state:
-AUTHORIZED / NOT YET VERIFIED COMPLETE
-
-Main:
-NOT AUTHORIZED TO MOVE
-
-Candidate mutation:
+Implementation:
 NOT AUTHORIZED
 
-## CR-0002
+RUN:
+NOT ASSIGNED
 
-Implementation remains unauthorized.
+Mandatory post-F04 compatibility gate:
+ACTIVE
 
-Required sequence:
-verified RUN 025 integration closure
-→ post-F04 compatibility review
-→ exact CR-0002 implementation baseline assignment
-→ separate implementation authorization.
+Design/QA instance:
+DQA-002 — RESUMED / POST-F04 COMPATIBILITY REVIEW
 
-## Session / response pilot
+Authorization:
+control/CR-0002_POST_F04_COMPATIBILITY_AUTHORIZATION.md
 
-DEV-007/S01 required explicit Owner prompt for its final return.
+Request:
+validations/CR-0002/DQA-002_POST_F04_COMPATIBILITY_REQUEST.md
 
-DQA-004 PARTIAL, ENV-005 READY, DEPLOY-005 EVIDENCE READY, and DQA-004 final PASS all auto-returned under explicit terminal-return instructions.
+Route:
+routing/ROUTE-CR-0002-POST-F04-DQA-002.md
 
-RUN 025 did not exercise actual Development session rollover/recovery.
+Original CR-0002 design baseline:
+64cb5f4ca42348c6c403e64e0d61bdff8c32a281
+
+Exact post-F04 integrated baseline under review:
+dd968ba05e579461962bbcced0e9cae3cd4c3d23
+
+Allowed compatibility outcomes:
+- COMPATIBLE
+- COMPATIBLE WITH BOUNDED HANDOFF REVISION
+- RETURN TO SCOPE
+
+No CR-0002 Development authority exists until DQA-002 returns, Project Control accepts the compatibility result, assigns the exact implementation baseline, and separately authorizes a RUN/Development mission.
+
+## Protocol experiment note
+
+RUN 025 Development used only DEV-007/S01.
+Actual session rollover/recovery remains untested.
+
+Explicit terminal auto-return instructions improved handoff behavior in DQA-004, ENV-005 and DEPLOY-005.
 
 No Generic Protocol amendment is authorized yet.
