@@ -4,6 +4,7 @@ import {
     Button,
     Input,
     Pagination,
+    Radio,
     Select,
     Spin,
 } from 'antd';
@@ -45,6 +46,7 @@ import { batchParticipatingDetail, deselectBatchCard, hiddenBatchCount, selectBa
 import { WorkspaceManagementController, type MaintenanceOperation } from './workspace-management-state';
 import { INITIAL_LIBRARY_VIEW, LibraryResultCard, type LibraryViewMode } from './library-result-card';
 import './library.scss';
+import { selectLibraryTheme, type LibraryTheme } from './theme';
 
 const { Option } = Select;
 
@@ -66,7 +68,14 @@ const emptyResult: LibraryBrowseResult = {
     offset: 0,
 };
 
-export const LibraryApp = () => {
+export const LibraryApp = ({ initialTheme }: { initialTheme: LibraryTheme }) => {
+    const [theme, setTheme] = useState(initialTheme);
+    const [themeStatus, setThemeStatus] = useState<string | null>(null);
+    const changeTheme = (next: LibraryTheme) => {
+        const selection = selectLibraryTheme(next);
+        setTheme(selection.theme);
+        setThemeStatus(selection.status);
+    };
     const [status, setStatus] = useState<WorkspaceStatus | null>(null);
     const [statusError, setStatusError] = useState<string | null>(null);
     const [facets, setFacets] = useState<LibraryFacets | null>(null);
@@ -355,6 +364,17 @@ export const LibraryApp = () => {
                     <p>Canonical card browse/search + detail editor</p>
                 </div>
                 <div className="library-header__actions">
+                    <div className="library-theme" role="radiogroup" aria-label="Library theme">
+                        <Radio.Group
+                            name="library-theme"
+                            value={theme}
+                            onChange={event => changeTheme(event.target.value)}
+                        >
+                            <Radio.Button value="LIGHT">Light</Radio.Button>
+                            <Radio.Button value="DARK">Dark</Radio.Button>
+                        </Radio.Group>
+                        {themeStatus && <span role="status" aria-live="polite" className="library-theme__status">{themeStatus}</span>}
+                    </div>
                     <Button onClick={()=>setManagementOpen(true)}>Workspace</Button>
                     <Button
                         disabled={!ordinaryReadsEnabled}
