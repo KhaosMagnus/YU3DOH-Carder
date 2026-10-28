@@ -10,13 +10,16 @@ Development:
 COMPLETE / READY FOR EXTERNAL QA
 
 DQA-005:
-INCONCLUSIVE — EVIDENCE / PROVENANCE
+INCONCLUSIVE / historical
 
-Current:
-DEPLOY-006 ASSIGNED / EVIDENCE TRANSPORT
+DEPLOY-006:
+COMPLETE / EVIDENCE ACCESS READY
 
-Goal:
-make raw Development evidence independently downloadable and inspectable.
+DQA-006:
+ASSIGNED / SUCCESSOR EXTERNAL QA
+
+Raw artifact:
+12838688889
 
 Product mutation:
 NOT AUTHORIZED
