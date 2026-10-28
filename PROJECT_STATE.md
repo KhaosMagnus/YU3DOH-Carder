@@ -16,44 +16,45 @@ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 feature/workspace-run-026:
 e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
-## RUN 025
-
-CLOSED / INTEGRATED / EXTERNAL QA PASS
-
-## RUN 026 — CR-0002 Library Dark Theme
-
-Scope:
-FROZEN
-
-Design:
-FROZEN
-
-Post-F04 compatibility:
-COMPATIBLE
-
-Implementation baseline:
-feature/workspace-v0.1 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
+## RUN 026 — CR-0002
 
 Development:
 DEV-008 / S01 COMPLETE / READY FOR EXTERNAL QA
 
-Development report:
-implementations/RUN-026_IMPLEMENTATION_REPORT.md
-
-Delivery disposition:
-runs/RUN-026_DEV-008_DELIVERY_DISPOSITION.md
-
-Exact candidate:
-feature/workspace-run-026 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
-
 External QA:
-DQA-005 ASSIGNED / INDEPENDENT EXTERNAL QA
+DQA-005 COMPLETE / INCONCLUSIVE
 
-QA request:
-validations/RUN-026/DQA-005_EXTERNAL_QA_REQUEST.md
+QA blocker:
+EVIDENCE / PROVENANCE — raw Development evidence archive inaccessible to DQA substrate
 
-QA route:
-routing/ROUTE-RUN-026-DQA-005.md
+No product defect or regression established.
+
+DQA disposition:
+runs/RUN-026_DQA-005_INCONCLUSIVE_DISPOSITION.md
+
+Current active authority:
+DEPLOYMENT_VALIDATION / DEPLOY-006
+
+Mission:
+evidence transport / provenance recovery for the immutable candidate
+
+Authorization:
+control/RUN-026_EVIDENCE_TRANSPORT_AUTHORIZATION.md
+
+Request:
+validations/RUN-026/DEPLOY-006_EVIDENCE_TRANSPORT_REQUEST.md
+
+Route:
+routing/ROUTE-RUN-026-DEPLOY-006.md
+
+Preferred remedy:
+transport and independently verify the existing evidence archive through downloadable GitHub Actions artifact.
+
+Fallback rerun:
+only if existing archive is corrupt/incomplete or cannot be transported after documented attempt; exact candidate only, no product mutation.
+
+Candidate mutation:
+FORBIDDEN
 
 Integration:
 NOT AUTHORIZED
@@ -61,40 +62,11 @@ NOT AUTHORIZED
 Main movement:
 NOT AUTHORIZED
 
-## RUN 026 interruption/session pilot
+After EVIDENCE ACCESS READY:
+Project Control will route the unchanged candidate and raw evidence to a successor independent QA adjudication.
 
-Stable instance:
-DEV-008
+## Protocol experiment
 
-Session:
-DEV-008/S01
-
-Observed event:
-real Codex/Work usage-limit interruption during active Development after candidate publication and before final report/evidence return.
-
-Continuation:
-same S01 resumed and reached READY FOR EXTERNAL QA.
-
-Rollover:
-NONE
-
-Explicit recovery checkpoint:
-NOT DURABLY RECORDED
-
-Candidate continuity:
-PRESERVED
-
-Duplicated product implementation commit:
-NONE OBSERVED
-
-Terminal auto-return:
-SUCCESSFUL
-
-Pilot disposition:
-REVISE
-
-Observation:
-control/RUN-026_INTERRUPTION_RECOVERY_OBSERVATION.md
-
-Generic Project Control Protocol v1.0 remains frozen.
-Execution Interruption Recovery Gate remains PROPOSED / NOT ADOPTED.
+RUN 026 usage-limit interruption remains recorded separately.
+Pilot disposition remains REVISE.
+Generic Protocol v1.0 remains frozen.
