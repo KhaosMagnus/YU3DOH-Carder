@@ -19,10 +19,7 @@ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 ## RUN 025 — CR-0001.4 / F-04
 
 Development:
-DEV-007 COMPLETE / READY FOR EXTERNAL QA
-
-Initial External QA:
-DQA-004 PARTIAL
+COMPLETE
 
 Environment readiness:
 ENV-005 COMPLETE / ENVIRONMENT READY
@@ -30,57 +27,49 @@ ENV-005 COMPLETE / ENVIRONMENT READY
 Operational validation:
 DEPLOY-005 COMPLETE / EVIDENCE READY
 
-Deployment evidence:
-validations/RUN-025/DEPLOY-005_VALIDATION_EVIDENCE.md
+External QA:
+DQA-004 COMPLETE / PASS
 
-Deployment disposition:
-runs/RUN-025_DEPLOY-005_EVIDENCE_DISPOSITION.md
-
-Current active authority:
-SAME DESIGN_QA / DQA-004 — RESUMED / FINAL ADJUDICATION
-
-Resumption request:
-validations/RUN-025/DQA-004_EXTERNAL_QA_RESUMPTION_REQUEST.md
-
-Resumption route:
-routing/ROUTE-RUN-025-RESUME-DQA-004.md
-
-Expected final report:
+Official final QA report:
 validations/RUN-025/DQA-004_EXTERNAL_QA_FINAL_REPORT.md
 
-Candidate:
-dd968ba05e579461962bbcced0e9cae3cd4c3d23
+Project Control PASS disposition:
+runs/RUN-025_DQA-004_PASS_DISPOSITION.md
+
+Exact validated candidate:
+feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
+
+Current integration target:
+feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
+
+Integration state:
+AWAITING OWNER AUTHORIZATION
+
+No Integration Admin instance is assigned yet.
+
+No product ref movement is authorized by QA PASS alone.
 
 Candidate mutation:
-NOT AUTHORIZED
-
-Integration:
-NOT AUTHORIZED
-
-## Evidence status
-
-Authoritative six-command gate:
-evidence produced at exact candidate with all required commands exit 0.
-
-F04-B01..F04-B26:
-evidence produced and durably published by DEPLOY-005.
-
-Explicit qualifications remain for DQA-004 adjudication:
-- six requestfailed facets GETs with net::ERR_ABORTED;
-- baseline-reproduced favicon/React scrollLocker warnings;
-- intentional 503 error-state stimuli;
-- synthetic DOM events behind the existing modal Drawer for state-preservation cases;
-- first incomplete DEPLOY attempt carries no acceptance credit.
-
-EVIDENCE READY is not QA PASS.
+NOT AUTHORIZED; any mutation requires revalidation.
 
 ## CR-0002
 
-Implementation remains unauthorized until RUN 025 receives official QA PASS and authorized integration, followed by post-F04 compatibility review and exact baseline assignment.
+Implementation remains unauthorized.
+
+Required sequence:
+RUN 025 integration authorization
+→ guarded integration of exact validated candidate
+→ verified integration closure
+→ post-F04 compatibility review
+→ exact CR-0002 implementation baseline assignment
+→ separate implementation authorization.
 
 ## Session / response pilot
 
-DEV-007/S01 required explicit Owner prompt for final return.
-DQA-004 PARTIAL, ENV-005 READY and DEPLOY-005 EVIDENCE READY all auto-returned under explicit terminal-return instructions.
+DEV-007/S01 required explicit Owner prompt for its final return.
+
+DQA-004 PARTIAL, ENV-005 READY, DEPLOY-005 EVIDENCE READY, and DQA-004 final PASS all auto-returned under explicit terminal-return instructions.
+
+The RUN 025 session pilot still did not exercise an actual session rollover/recovery.
 
 No Generic Protocol amendment is authorized yet.
