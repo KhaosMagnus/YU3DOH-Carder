@@ -1,0 +1,119 @@
+{
+  "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+  "status": "READY FOR EXTERNAL QA",
+  "externalQaPass": false,
+  "gate": {
+    "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+    "baseline": "dd968ba05e579461962bbcced0e9cae3cd4c3d23",
+    "commands": [
+      {
+        "command": "yarn install --frozen-lockfile --non-interactive",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:38:46.381141+00:00",
+        "finishedAt": "2026-10-28T08:38:47.137340+00:00",
+        "log": "01.log"
+      },
+      {
+        "command": "yarn --cwd workspace-server install --frozen-lockfile --non-interactive",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:38:47.157697+00:00",
+        "finishedAt": "2026-10-28T08:38:47.707973+00:00",
+        "log": "02.log"
+      },
+      {
+        "command": "yarn compile",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:38:47.717515+00:00",
+        "finishedAt": "2026-10-28T08:39:11.993312+00:00",
+        "log": "03.log"
+      },
+      {
+        "command": "yarn build",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:39:12.003374+00:00",
+        "finishedAt": "2026-10-28T08:39:21.948052+00:00",
+        "log": "04.log"
+      },
+      {
+        "command": "yarn test:sc",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:39:21.967222+00:00",
+        "finishedAt": "2026-10-28T08:39:22.896410+00:00",
+        "log": "05.log"
+      },
+      {
+        "command": "yarn test:library",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:39:22.906979+00:00",
+        "finishedAt": "2026-10-28T08:39:43.286207+00:00",
+        "log": "06.log"
+      },
+      {
+        "command": "yarn --cwd workspace-server compile",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:39:43.304163+00:00",
+        "finishedAt": "2026-10-28T08:40:15.972057+00:00",
+        "log": "07.log"
+      },
+      {
+        "command": "yarn --cwd workspace-server test",
+        "exitCode": 0,
+        "startedAt": "2026-10-28T08:40:16.051039+00:00",
+        "finishedAt": "2026-10-28T08:53:02.419061+00:00",
+        "log": "08.log"
+      }
+    ],
+    "cleanWorkingTree": true,
+    "allExitZero": true
+  },
+  "browserCases": {
+    "Chromium": 24,
+    "Firefox": 24
+  },
+  "browserVersions": {
+    "Chromium": "151.0.7922.173",
+    "Firefox": "firefox/140.15.0"
+  },
+  "retainedF04": {
+    "LIGHT": 26,
+    "DARK": 26,
+    "engine": "Chromium"
+  },
+  "renderedContrast": [
+    {
+      "engine": "Chromium",
+      "theme": "LIGHT",
+      "normalMin": 5.403942319411028,
+      "boundaryFocusDisabledMin": 4.20601609001687,
+      "measuredPairs": 64
+    },
+    {
+      "engine": "Chromium",
+      "theme": "DARK",
+      "normalMin": 6.111010787086459,
+      "boundaryFocusDisabledMin": 4.250954411221946,
+      "measuredPairs": 63
+    },
+    {
+      "engine": "Firefox",
+      "theme": "LIGHT",
+      "normalMin": 5.403942319411028,
+      "boundaryFocusDisabledMin": 4.20601609001687,
+      "measuredPairs": 64
+    },
+    {
+      "engine": "Firefox",
+      "theme": "DARK",
+      "normalMin": 6.111010787086459,
+      "boundaryFocusDisabledMin": 4.250954411221946,
+      "measuredPairs": 63
+    }
+  ],
+  "explicitContrastPairs": 274,
+  "auditedTextSamples": 81556,
+  "additionalSurfaces": "PASS",
+  "unexecutedRequiredEvidence": [],
+  "scopeExceptions": [
+    "OVERFRAME-only READY warning uses an explicitly synthetic presentation fixture; current repository OVERFRAME READY implies STANDARD READY."
+  ]
+}
