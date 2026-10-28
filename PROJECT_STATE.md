@@ -14,13 +14,13 @@ feature/workspace-v0.1:
 dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
 feature/workspace-run-026:
-ABSENT / CREATION AUTHORIZED TO DEV-008
+e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
 ## RUN 025
 
 CLOSED / INTEGRATED / EXTERNAL QA PASS
 
-## CR-0002 — Library Dark Theme
+## RUN 026 — CR-0002 Library Dark Theme
 
 Scope:
 FROZEN
@@ -31,69 +31,70 @@ FROZEN
 Post-F04 compatibility:
 COMPATIBLE
 
-Compatibility disposition:
-control/CR-0002_POST_F04_COMPATIBILITY_DISPOSITION.md
-
-Exact implementation baseline:
+Implementation baseline:
 feature/workspace-v0.1 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
-Canonical CR-0002 ledger:
-requests/CR-0002-v2.md
-
-Implementation:
-RUN 026 AUTHORIZED
-
 Development:
-DEVELOPMENT / DEV-008
+DEV-008 / S01 COMPLETE / READY FOR EXTERNAL QA
 
-Initial execution session:
-DEV-008/S01
+Development report:
+implementations/RUN-026_IMPLEMENTATION_REPORT.md
 
-Run authorization:
-runs/RUN-026_AUTHORIZATION.md
+Delivery disposition:
+runs/RUN-026_DEV-008_DELIVERY_DISPOSITION.md
 
-Route:
-routing/ROUTE-RUN-026-DEV-008.md
-
-Session pilot:
-control/RUN-026_SESSION_PILOT.md
-
-Implementation target:
-feature/workspace-run-026
-
-Required start:
-dd968ba05e579461962bbcced0e9cae3cd4c3d23
+Exact candidate:
+feature/workspace-run-026 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
 External QA:
-NOT STARTED
+DQA-005 ASSIGNED / INDEPENDENT EXTERNAL QA
+
+QA request:
+validations/RUN-026/DQA-005_EXTERNAL_QA_REQUEST.md
+
+QA route:
+routing/ROUTE-RUN-026-DQA-005.md
 
 Integration:
 NOT AUTHORIZED
 
-## CR-0002 invariants
+Main movement:
+NOT AUTHORIZED
 
-Theme states:
-LIGHT / DARK
+## RUN 026 interruption/session pilot
 
-Fallback:
-DARK
-
-SYSTEM/AUTO:
-OUT
-
-Architecture:
-Library client/UI only.
-Schema 8, Workspace format 1, migrations 001–008, no migration 009.
-No server/API/domain/Carder expansion authorized.
-
-## Protocol experiment
-
-RUN 026 continues the experimental instance/session model without amending Generic Protocol v1.0.
-
-Stable Development instance:
+Stable instance:
 DEV-008
 
-Initial session:
+Session:
 DEV-008/S01
 
-Actual session rollover remains untested unless RUN 026 naturally requires one.
+Observed event:
+real Codex/Work usage-limit interruption during active Development after candidate publication and before final report/evidence return.
+
+Continuation:
+same S01 resumed and reached READY FOR EXTERNAL QA.
+
+Rollover:
+NONE
+
+Explicit recovery checkpoint:
+NOT DURABLY RECORDED
+
+Candidate continuity:
+PRESERVED
+
+Duplicated product implementation commit:
+NONE OBSERVED
+
+Terminal auto-return:
+SUCCESSFUL
+
+Pilot disposition:
+REVISE
+
+Observation:
+control/RUN-026_INTERRUPTION_RECOVERY_OBSERVATION.md
+
+Generic Project Control Protocol v1.0 remains frozen.
+Execution Interruption Recovery Gate remains PROPOSED / NOT ADOPTED.
