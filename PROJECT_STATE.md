@@ -11,68 +11,86 @@ main:
 54cc3aad246c89a29f2a18be63c539db68cae041
 
 feature/workspace-v0.1:
-dd968ba05e579461962bbcced0e9cae3cd4c3d23
+e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
 feature/workspace-run-026:
 e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
 ## RUN 026 — CR-0002
 
+Final state:
+CLOSED / INTEGRATED / EXTERNAL QA PASS
+
 Development:
 DEV-008 / S01 COMPLETE
 
-External QA:
+Predecessor External QA:
+DQA-005 COMPLETE / INCONCLUSIVE / HISTORICAL
+
+Evidence recovery:
+DEPLOY-006 COMPLETE / EVIDENCE ACCESS READY
+
+Official External QA:
 DQA-006 COMPLETE / PASS
 
-Official QA:
-PASS
+Integration:
+IA-004 COMPLETE / INTEGRATED
 
-Exact validated candidate:
+Closure:
+runs/RUN-026_CLOSURE_DISPOSITION.md
+
+Canonical CR-0002 ledger:
+requests/CR-0002-v3.md
+
+Exact integrated SHA:
+feature/workspace-v0.1 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
+
+Source branch:
 feature/workspace-run-026 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
-Owner integration authorization:
-GRANTED
-
-Integration authorization:
-control/RUN-026_INTEGRATION_AUTHORIZATION.md
-
-Integration request:
-integrations/RUN-026_INTEGRATION_REQUEST.md
-
-Integration route:
-routing/ROUTE-RUN-026-IA-004.md
-
-Integration Admin:
-IA-004 ASSIGNED / INTEGRATION
-
-Required operation:
-FAST-FORWARD ONLY
-
-Required target movement:
-feature/workspace-v0.1
-dd968ba05e579461962bbcced0e9cae3cd4c3d23
-->
-e11579950ef7ed20e4b6eeee88f9c3597c1f074b
+Source / target:
+IDENTICAL
 
 main:
-MUST REMAIN 54cc3aad246c89a29f2a18be63c539db68cae041
+UNCHANGED @ 54cc3aad246c89a29f2a18be63c539db68cae041
 
-Integration status:
-AUTHORIZED / NOT YET EXECUTED
+Product defects:
+NONE ESTABLISHED
 
-Forbidden:
-force, rebase, cherry-pick, squash, merge commit, main movement.
+Regressions:
+NONE ESTABLISHED
 
-Expected integration report:
-integrations/RUN-026_INTEGRATION_REPORT.md
+Remaining evidence blockers:
+NONE
+
+Development correction:
+NOT REQUIRED
+
+## CR-0002
+
+Library Dark Theme:
+CLOSED / INTEGRATED / PASS
+
+No further CR-0002 implementation is authorized by the final ledger.
 
 ## Protocol experiment
 
-RUN 026 usage-limit interruption remains recorded.
-
-Pilot disposition:
+RUN 026 session/interruption pilot:
 REVISE
 
-Generic Protocol v1.0 remains frozen.
+Evaluation:
+control/RUN-026_SESSION_PILOT_EVALUATION.md
 
-No protocol successor adopted.
+Observed:
+real usage-limit interruption; same DEV-008/S01 continuation; candidate continuity preserved; terminal auto-return succeeded.
+
+Not exercised:
+S01 -> S02 rollover and formal recovery checkpoint/reconciliation.
+
+Generic Project Control Protocol v1.0:
+FROZEN / UNCHANGED
+
+Execution Interruption Recovery Gate:
+PROPOSED / NOT ADOPTED
+
+No protocol successor is adopted by RUN 026 closure.
