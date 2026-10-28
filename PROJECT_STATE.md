@@ -21,37 +21,36 @@ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 Development:
 DEV-008 / S01 COMPLETE / READY FOR EXTERNAL QA
 
-External QA:
+Predecessor External QA:
 DQA-005 COMPLETE / INCONCLUSIVE
 
-QA blocker:
-EVIDENCE / PROVENANCE — raw Development evidence archive inaccessible to DQA substrate
+DQA-005 blocker:
+EVIDENCE / PROVENANCE — raw archive inaccessible to that substrate
 
-No product defect or regression established.
+Evidence recovery:
+DEPLOY-006 COMPLETE / EVIDENCE ACCESS READY
 
-DQA disposition:
-runs/RUN-026_DQA-005_INCONCLUSIVE_DISPOSITION.md
+Evidence disposition:
+runs/RUN-026_DEPLOY-006_EVIDENCE_ACCESS_DISPOSITION.md
 
-Current active authority:
-DEPLOYMENT_VALIDATION / DEPLOY-006
+Raw Actions artifact:
+12838688889
 
-Mission:
-evidence transport / provenance recovery for the immutable candidate
+Artifact digest:
+sha256:de8e9a82744e04fad9153b1ba4ea65f4a6ed71cf3f0e318e41e75ab4f9030c08
 
-Authorization:
-control/RUN-026_EVIDENCE_TRANSPORT_AUTHORIZATION.md
+Original Development archive:
+22524792 bytes
+sha256 7bf9ef2fcaa8284457234b6fcfff229b98650955f19af644b6b17d9f91ba8d3c
 
-Request:
-validations/RUN-026/DEPLOY-006_EVIDENCE_TRANSPORT_REQUEST.md
+Current QA authority:
+DQA-006 ASSIGNED / SUCCESSOR INDEPENDENT EXTERNAL QA
 
-Route:
-routing/ROUTE-RUN-026-DEPLOY-006.md
+QA request:
+validations/RUN-026/DQA-006_EXTERNAL_QA_REQUEST.md
 
-Preferred remedy:
-transport and independently verify the existing evidence archive through downloadable GitHub Actions artifact.
-
-Fallback rerun:
-only if existing archive is corrupt/incomplete or cannot be transported after documented attempt; exact candidate only, no product mutation.
+QA route:
+routing/ROUTE-RUN-026-DQA-006.md
 
 Candidate mutation:
 FORBIDDEN
@@ -62,11 +61,27 @@ NOT AUTHORIZED
 Main movement:
 NOT AUTHORIZED
 
-After EVIDENCE ACCESS READY:
-Project Control will route the unchanged candidate and raw evidence to a successor independent QA adjudication.
+## Evidence accessibility status
+
+GitHub Actions artifact download through the supported connector was independently demonstrated by Project Control.
+
+Project Control independently verified:
+- outer artifact size/digest;
+- outer ZIP integrity;
+- inner DEV archive size/digest;
+- inner ZIP integrity;
+- 186/186 manifest members;
+- 92/92 visual inventory entries;
+- zero manifest failures;
+- zero missing visual entries.
+
+The DQA-005 evidence-access blocker is therefore closed.
+
+DQA-005 remains historically INCONCLUSIVE.
+DQA-006 must issue a fresh verdict.
 
 ## Protocol experiment
 
-RUN 026 usage-limit interruption remains recorded separately.
+RUN 026 usage-limit interruption remains recorded.
 Pilot disposition remains REVISE.
 Generic Protocol v1.0 remains frozen.
