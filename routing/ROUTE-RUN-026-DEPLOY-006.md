@@ -1,0 +1,40 @@
+# ROUTE — RUN 026 / DEPLOY-006
+
+status: FROZEN
+protocol_version: 1.0
+
+SOURCE:
+PROJECT_CONTROL / PC-002
+
+TARGET:
+DEPLOYMENT_VALIDATION / DEPLOY-006
+
+MODE:
+EVIDENCE TRANSPORT / PROVENANCE RECOVERY
+
+AUTHORIZATION:
+control/RUN-026_EVIDENCE_TRANSPORT_AUTHORIZATION.md
+
+PRIMARY REQUEST:
+validations/RUN-026/DEPLOY-006_EVIDENCE_TRANSPORT_REQUEST.md
+
+DQA-005 REPORT:
+validations/RUN-026/DQA-005_EXTERNAL_QA_REPORT.md
+
+EXACT CANDIDATE:
+feature/workspace-run-026
+e11579950ef7ed20e4b6eeee88f9c3597c1f074b
+
+MISSION:
+Make existing raw Development evidence independently retrievable/inspectable without product mutation.
+
+FINAL STATUS:
+EVIDENCE ACCESS READY
+or
+EVIDENCE RECOVERY BLOCKED
+
+Return:
+DEPLOYMENT_VALIDATION / DEPLOY-006 → PROJECT_CONTROL / PC-002
+
+AUTO-RETURN:
+At terminal status, emit complete return envelope proactively.
