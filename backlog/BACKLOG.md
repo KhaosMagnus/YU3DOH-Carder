@@ -1,34 +1,35 @@
 # BACKLOG
 
 Integrated baseline:
-feature/workspace-v0.1 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
+feature/workspace-v0.1 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
-RUN 026 candidate:
+RUN 026:
+CLOSED / INTEGRATED / EXTERNAL QA PASS
+
+CR-0002 — Library Dark Theme:
+CLOSED / INTEGRATED / PASS
+
+Canonical ledger:
+requests/CR-0002-v3.md
+
+Source branch:
 feature/workspace-run-026 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 
-Development:
-COMPLETE
+Official QA:
+DQA-006 PASS
 
-External QA:
-PASS
-
-Owner integration authorization:
-GRANTED
-
-IA-004:
-ASSIGNED / INTEGRATION
-
-Authorized target:
-feature/workspace-v0.1
-
-Authorized operation:
-FAST-FORWARD ONLY
-
-Expected target after integration:
-e11579950ef7ed20e4b6eeee88f9c3597c1f074b
+Integration:
+IA-004 INTEGRATED
 
 main:
-MUST REMAIN UNCHANGED
+54cc3aad246c89a29f2a18be63c539db68cae041
+UNCHANGED
 
-RUN 026 closure:
-PENDING INTEGRATION RESULT
+Protocol pilot:
+REVISE
+
+Pilot evaluation:
+control/RUN-026_SESSION_PILOT_EVALUATION.md
+
+Next product work:
+NOT AUTHORIZED BY RUN 026 CLOSURE
