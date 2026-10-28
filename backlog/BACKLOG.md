@@ -12,24 +12,22 @@ RUN 025 candidate:
 feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
 Development:
-COMPLETE / READY FOR EXTERNAL QA
+COMPLETE
 
-External QA:
-DQA-004 — PARTIAL / AWAITING EVIDENCE
+Initial External QA:
+DQA-004 PARTIAL
 
-Environment readiness:
-ENV-005 — COMPLETE / ENVIRONMENT READY
+Environment:
+ENV-005 READY
 
-Current evidence mission:
-DEPLOY-005 — ASSIGNED / OPERATIONAL VALIDATION
+Operational evidence:
+DEPLOY-005 EVIDENCE READY
 
-Required:
-- authoritative six-command gate;
-- F04-B01..F04-B26;
-- durable screenshots/state/network/browser evidence.
+Current:
+SAME DQA-004 RESUMED / FINAL ADJUDICATION
 
-After EVIDENCE READY:
-resume SAME DQA-004 for official exact-SHA verdict.
+Expected:
+validations/RUN-025/DQA-004_EXTERNAL_QA_FINAL_REPORT.md
 
 Integration:
 NOT AUTHORIZED
@@ -39,7 +37,7 @@ NOT AUTHORIZED
 IN_SCOPE / SCOPE FROZEN / DESIGN FROZEN / IMPLEMENTATION NOT AUTHORIZED
 
 Gate:
-F-04 official QA PASS + authorized integration → post-F04 compatibility review → baseline assignment.
+RUN 025 official QA PASS + authorized integration → post-F04 compatibility review → baseline assignment.
 
 ## Bootstrap package
 
