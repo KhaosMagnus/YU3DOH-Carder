@@ -1,0 +1,44 @@
+[
+  {
+    "url": "http://127.0.0.1:3000/api/v1/library/facets",
+    "method": "GET",
+    "failure": {
+      "errorText": "net::ERR_ABORTED"
+    }
+  },
+  {
+    "url": "http://127.0.0.1:3000/api/v1/library/facets",
+    "method": "GET",
+    "failure": {
+      "errorText": "net::ERR_ABORTED"
+    }
+  },
+  {
+    "url": "http://127.0.0.1:3000/api/v1/library/facets",
+    "method": "GET",
+    "failure": {
+      "errorText": "net::ERR_ABORTED"
+    }
+  },
+  {
+    "url": "http://127.0.0.1:3000/api/v1/library/facets",
+    "method": "GET",
+    "failure": {
+      "errorText": "net::ERR_ABORTED"
+    }
+  },
+  {
+    "url": "http://127.0.0.1:3000/api/v1/library/facets",
+    "method": "GET",
+    "failure": {
+      "errorText": "net::ERR_ABORTED"
+    }
+  },
+  {
+    "url": "http://127.0.0.1:3000/api/v1/library/facets",
+    "method": "GET",
+    "failure": {
+      "errorText": "net::ERR_ABORTED"
+    }
+  }
+]

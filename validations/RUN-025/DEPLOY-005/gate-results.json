@@ -1,0 +1,111 @@
+{
+  "status": "EVIDENCE READY",
+  "results": [
+    {
+      "name": "install-root",
+      "command": [
+        "yarn",
+        "install",
+        "--frozen-lockfile",
+        "--non-interactive"
+      ],
+      "start": "2026-10-27T18:59:30.187Z",
+      "end": "2026-10-27T19:00:12.391Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "install-service",
+      "command": [
+        "yarn",
+        "--cwd",
+        "workspace-server",
+        "install",
+        "--frozen-lockfile",
+        "--non-interactive"
+      ],
+      "start": "2026-10-27T19:00:12.442Z",
+      "end": "2026-10-27T19:00:17.375Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compile",
+      "command": [
+        "yarn",
+        "compile"
+      ],
+      "start": "2026-10-27T19:00:17.426Z",
+      "end": "2026-10-27T19:00:27.328Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "build",
+      "command": [
+        "yarn",
+        "build"
+      ],
+      "start": "2026-10-27T19:00:27.377Z",
+      "end": "2026-10-27T19:00:30.686Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "test-sc",
+      "command": [
+        "yarn",
+        "test:sc"
+      ],
+      "start": "2026-10-27T19:00:30.735Z",
+      "end": "2026-10-27T19:00:31.194Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "test-library",
+      "command": [
+        "yarn",
+        "test:library"
+      ],
+      "start": "2026-10-27T19:00:31.249Z",
+      "end": "2026-10-27T19:00:39.197Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "compile-service",
+      "command": [
+        "yarn",
+        "--cwd",
+        "workspace-server",
+        "compile"
+      ],
+      "start": "2026-10-27T19:00:39.279Z",
+      "end": "2026-10-27T19:00:43.955Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    },
+    {
+      "name": "test-service",
+      "command": [
+        "yarn",
+        "--cwd",
+        "workspace-server",
+        "test"
+      ],
+      "start": "2026-10-27T19:00:44.005Z",
+      "end": "2026-10-27T19:01:43.074Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null
+    }
+  ]
+}

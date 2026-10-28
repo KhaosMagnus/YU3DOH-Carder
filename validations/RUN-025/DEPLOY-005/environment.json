@@ -1,0 +1,27 @@
+{
+  "control": "ff89d489cb225ba10775617dd07aee31c372f4ac",
+  "candidate": "dd968ba05e579461962bbcced0e9cae3cd4c3d23",
+  "baseline": "e07140d5a9555a17b7b2306a45625c14adfafc8e",
+  "harness": "f4cc120d21694dc10032bd92cf97f8e5d42f8e14",
+  "branch": "refs/heads/ops/run-025-deploy-005-actions",
+  "run": "40564959018",
+  "job": "evidence",
+  "runner": "GitHub Actions 1000000134",
+  "image": "ubuntu24",
+  "imageVersion": "20261023.334.3",
+  "node": "v24.19.0",
+  "yarn": "1.22.22",
+  "os": "6.17.0-1022-azure",
+  "osRelease": "PRETTY_NAME=\"Ubuntu 24.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.5 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo\n",
+  "chrome": "Google Chrome 155.0.8059.39",
+  "migrations": [
+    "workspace-server/migrations/001_repository_foundation.sql",
+    "workspace-server/migrations/002_canonical_domain.sql",
+    "workspace-server/migrations/003_art_variants_asset_index.sql",
+    "workspace-server/migrations/004_managed_asset_ingest.sql",
+    "workspace-server/migrations/005_asset_resolution_overrides.sql",
+    "workspace-server/migrations/006_variant_lifecycle.sql",
+    "workspace-server/migrations/007_external_source_ingestion.sql",
+    "workspace-server/migrations/008_standard_structural_registry_baseline.sql"
+  ]
+}

@@ -1,0 +1,4252 @@
+{
+  "_workspace_migrations": [
+    {
+      "version": 1,
+      "name": "repository_foundation"
+    },
+    {
+      "version": 2,
+      "name": "canonical_domain"
+    },
+    {
+      "version": 3,
+      "name": "art_variants_asset_index"
+    },
+    {
+      "version": 4,
+      "name": "managed_asset_ingest"
+    },
+    {
+      "version": 5,
+      "name": "asset_resolution_overrides"
+    },
+    {
+      "version": 6,
+      "name": "variant_lifecycle"
+    },
+    {
+      "version": 7,
+      "name": "external_source_ingestion"
+    },
+    {
+      "version": 8,
+      "name": "standard_structural_registry_baseline"
+    }
+  ],
+  "art_variants": [
+    {
+      "variant_id": "8fc7c7aa-8af8-4219-a418-e32b93468ec2",
+      "card_id": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "variant_key": "default",
+      "display_label": "default",
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "variant_id": "30428cd8-6502-40ff-bf38-fbd59a0b89dd",
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "variant_key": "default",
+      "display_label": "default",
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "variant_id": "c99cabe4-963e-4fc3-b968-4414a85f8f50",
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "variant_key": "default",
+      "display_label": "default",
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "variant_id": "35cf861b-6e7e-47dd-b137-b5007b3e2ce3",
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "variant_key": "default",
+      "display_label": "default",
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    }
+  ],
+  "asset_index_diagnostics": [],
+  "asset_index_scans": [
+    {
+      "scan_id": "c691e215-3de4-4ab7-96de-8430eb502203",
+      "started_at": "2026-10-07T00:00:00.000Z",
+      "completed_at": "2026-10-07T00:00:00.000Z",
+      "status": "COMPLETE",
+      "discovered_count": 0,
+      "present_count": 0,
+      "diagnostic_count": 0
+    },
+    {
+      "scan_id": "54edf0da-0837-42a4-bfae-7b496b8d9ec6",
+      "started_at": "2026-10-07T00:00:00.000Z",
+      "completed_at": "2026-10-07T00:00:00.000Z",
+      "status": "COMPLETE",
+      "discovered_count": 0,
+      "present_count": 0,
+      "diagnostic_count": 0
+    },
+    {
+      "scan_id": "955e61dc-703a-4415-a61d-d2d07827a48c",
+      "started_at": "2026-10-07T00:00:00.000Z",
+      "completed_at": "2026-10-07T00:00:00.000Z",
+      "status": "COMPLETE",
+      "discovered_count": 0,
+      "present_count": 0,
+      "diagnostic_count": 0
+    },
+    {
+      "scan_id": "1dead606-77f2-4951-b84e-394877537b50",
+      "started_at": "2026-10-07T00:00:00.000Z",
+      "completed_at": "2026-10-07T00:00:00.000Z",
+      "status": "COMPLETE",
+      "discovered_count": 0,
+      "present_count": 0,
+      "diagnostic_count": 0
+    }
+  ],
+  "asset_resolution_overrides": [],
+  "canonical_abilities": [
+    {
+      "code": "NORMAL"
+    },
+    {
+      "code": "EFFECT"
+    },
+    {
+      "code": "TUNER"
+    },
+    {
+      "code": "FLIP"
+    },
+    {
+      "code": "GEMINI"
+    },
+    {
+      "code": "SPIRIT"
+    },
+    {
+      "code": "TOON"
+    },
+    {
+      "code": "UNION"
+    },
+    {
+      "code": "PENDULUM"
+    },
+    {
+      "code": "SPECIAL_SUMMON"
+    }
+  ],
+  "canonical_archetypes": [
+    {
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+      "code": "F04 Broad"
+    },
+    {
+      "archetype_id": "9886817a-c647-4af8-88c7-6f414ee4c3ff",
+      "code": "F04 Narrow"
+    }
+  ],
+  "canonical_attributes": [
+    {
+      "code": "DARK"
+    },
+    {
+      "code": "LIGHT"
+    },
+    {
+      "code": "EARTH"
+    },
+    {
+      "code": "WATER"
+    },
+    {
+      "code": "FIRE"
+    },
+    {
+      "code": "WIND"
+    },
+    {
+      "code": "DIVINE"
+    }
+  ],
+  "canonical_block_states": [],
+  "canonical_card_archetypes": [
+    {
+      "card_id": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "da8669e0-f3d9-42af-b166-feb88c50d229",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "542ef098-fea8-4a6d-af50-5b6960c148b1",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "33a0a8dd-e0ea-483d-8d57-aa8a523d2190",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "afd93a08-1394-4281-b31c-4cd02ffb8f9b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "cce4cf21-dc7d-417f-a343-bcfea67b9ce8",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "9cd616b4-85ae-4749-bc10-f73ef0e751f8",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "00c9c524-71f8-451b-a8a8-29e176696e31",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "2e3bec6e-4472-4c6d-b209-ac0b102f2a6b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "9722d05e-5afa-4055-b085-f7c0a47f5dd7",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "264bb7a4-aab0-4907-a639-0e0bec73e745",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "69d22f3f-be31-4c37-97ef-00a123f70689",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "00fc7633-b5fe-49e3-9cdb-d3dbc0a1414c",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "fba061e8-2259-4aa4-962a-886438bce793",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "d1dab2f1-5a58-472c-b63b-159737f78697",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "31ddd0bf-05fb-4a6c-9863-23cb2e346d32",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "ce18de2d-e8cd-4ef0-8dd1-4eab608e3445",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "747760b4-676b-45b1-882f-85fec4f2f3e9",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "769f7110-2848-403d-a9d8-87fffc8c1e11",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "f80da94e-7287-4f9c-ad81-bc820f79037d",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "b3562eb8-8abd-44da-82f5-fb7bcb5f03c5",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "49141d04-d534-4c57-9593-0ca4b41be73a",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "134f9d57-5dcc-4f27-9991-8c1eca0fa4f8",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "0c347a8c-63fb-407e-baa0-075d4319f2ef",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "14122f14-74f1-4624-8cab-2cda595a2010",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "71389a8b-3289-4f83-99a8-d1d3e192ef8e",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "e46e9118-8148-449f-b1b6-914b469ab612",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "1f74124d-4e95-4ebe-9bdf-cdde373f6c59",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "c2e89c6f-502e-454f-aaad-54bcc40103ab",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "2a261410-8b3a-48ca-8001-1b4a846f6f3c",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "296c918f-5ca2-420b-9c08-1654a7df4fbe",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "9b9dd9c0-e9eb-4172-b02b-0205fde203ea",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "e150b923-0691-4ddd-88df-c3866c9acc41",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "4ad1d0a5-a97d-4acd-b689-a8940a5009f6",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "530bfe8e-0bb4-4969-aa9c-bfa57c1a0bcc",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "2cea5bf7-5ea7-4311-9925-e9369014f880",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "7bfd3143-dad8-42b8-9afc-2aaeb3edd1bc",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "cc0b8aff-cb37-4009-ba56-f0725a8275ed",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "4ea83b75-dbcd-462f-ad91-e6e6deca096a",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "033ed6eb-4539-420c-b354-463d828e6b7b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "37240454-cf9b-4faf-9f66-65e12f388fc6",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "099335a4-7a3d-4a9b-8620-f39c750d8e56",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "058aa4f1-a7ba-4202-9629-8c135c3980b8",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "7de4593a-7146-44ab-a580-e439be3cbeb5",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "bb3d53f6-8c9e-4403-8e4e-9b639b503c5e",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "53c41a0f-0875-4b05-86e6-c650d5344f77",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "2646cb85-e7de-4dc3-9067-4f634489e071",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "92d31e09-5495-4a8f-8481-72a31f6130a4",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "7c5e30ef-c106-4866-98bb-4342a6a2d3b7",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "a6d3ebc4-b231-46d1-82c9-26f7eeb2d920",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "8a268583-bca9-47a0-96f7-ddeb780f8636",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "c29d3303-18dd-4856-a12c-4258fb90ff95",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "543fafa9-5d1a-461e-85f7-d57f350263b6",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "8dd48a0b-b72d-46ce-a043-3ea97197509f",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "4f931af6-a529-481a-93eb-d155ac4e842e",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "8a69a21a-9c39-4483-b09f-95ac4892d926",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "cbf722a0-ae84-4117-8f5c-3441214f1972",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "796002ad-9c59-4dd2-972c-87559f278780",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "c2ce4545-1863-4279-aef9-a19da53ae908",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "380a9ad7-1325-4e7c-b255-43118ffd5390",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "88fa0b9b-a450-4a39-a101-34de76f8f8a8",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "b3de51da-e7ec-4bef-b689-35fc2f7c0c5c",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "187dc087-762e-4d28-9753-eadaf771ac82",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "526e7df3-b707-4e38-944f-44c8f444e239",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "6e4a17ec-f577-4345-80fa-5bd8a531d2de",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "a3a886e5-d528-4784-ad7e-d9a88a13e1a2",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "1d2760a5-3318-4a84-a3f8-565b869326ad",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "49bd22ab-c3c9-41bc-a028-83f0f3c77c12",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "05fd16cb-f33d-45ca-a3bb-69e5824a831e",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "aafb3b13-01b4-4c38-b2f2-8fac796c67e8",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "d63e4a58-9d31-4c5f-8e87-044775a7c913",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "8552d4b8-73fd-4216-8d03-daab8df5310b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "dfc79d9a-e633-4b55-98a6-20129564fc78",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "5373464d-cabb-4904-8547-2d8715237f4f",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "1ce6e3f9-8de5-43f5-8d26-921e06e97e72",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "879838b4-dae4-4f35-b74d-6a249058f92b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "6d718556-68d3-4097-86e7-13fd00b1a344",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "eaf9c45f-26f2-4202-903d-bd8f5c167bb3",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "b578bc62-1578-4149-a5eb-ea4b7d4b563b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "e39f2a88-7f59-406f-9f14-084be8cc5d30",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "5891ae7e-83ae-4265-ad5d-47f48dc62b81",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "b8b2781c-e67b-4b4d-a2ad-36cd029644fd",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "e3675287-74ce-4585-838e-79c2bcf95438",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "9780acdd-7dae-4ddb-a079-418670cf7402",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "c72e4552-d2c5-48d2-9812-aba2a2cb2341",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "ff12f0cd-e432-4d49-b9ba-a70d7a6b87c7",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "9d746647-45d9-4a28-b7d0-283ada2c389f",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "610efc60-a26f-4a3b-97be-6cdd5a9e9a3a",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "90bfd64d-dd83-4d4a-ad6f-eb8bd2244473",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "2352ea08-24fb-4b1f-b9cb-8ca52063127b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "0e385e41-d76c-492c-9bd2-f37ad32d2486",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "cee2be40-e1a3-44c8-a2ae-446d3eb37a1a",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "f7272c73-ba69-4a96-a01f-6175cc548a91",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "5557c3be-dc29-4ec9-b909-45c0f5f49b6f",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "058d4e81-eac6-463e-a347-f5c69c1f51dc",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "bdf66192-4a8a-4cda-9af2-ee785d44149d",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "b3e5ff12-e5c8-4987-9fe1-88204bb2a9b4",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "5376f307-c88b-4d42-83eb-d15c7c8d4c7d",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "2c8af81c-da8d-48a5-bd8c-6da6c63bed81",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "35656ec0-6109-46ee-bacf-b8de6783b9f2",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "23f99c5f-2f44-4ae0-9eb0-ac9c816c4616",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "561e6493-1ab9-41b0-8612-7acd8844ce27",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "46dd58e3-eeba-4ab1-9f8a-24074ef87c5b",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "77deb774-8fa0-4761-995b-7fa1ce722296",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "77f14af5-0446-44e1-bab8-498f33c42b43",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "3bae4b6b-ca57-4ce1-a1dd-34e049cccf47",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "9617b6eb-ae1e-4684-84b1-69a52793b5e0",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "eea9ecd0-83c3-489c-9162-2a02f750b413",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "50f8d01a-0b40-44a7-ad2a-bb78313994a1",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "ab0ed1e0-b18b-434b-8d44-c51cffefbe90",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "44064beb-ed58-478f-bea1-0bfd7a8d57dd",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "60a40b4c-e85b-46b2-acdb-276cfaf47e76",
+      "archetype_id": "23cadcb4-dbe0-49be-b5f7-f32077145d78"
+    },
+    {
+      "card_id": "42baabe3-f06e-4f4d-bbfd-4f551e9087f0",
+      "archetype_id": "9886817a-c647-4af8-88c7-6f414ee4c3ff"
+    },
+    {
+      "card_id": "24d37c55-8e14-4cbe-a77e-105d5129c40b",
+      "archetype_id": "9886817a-c647-4af8-88c7-6f414ee4c3ff"
+    },
+    {
+      "card_id": "ad505f71-ee5b-4c61-a10e-8c22a21f2c4f",
+      "archetype_id": "9886817a-c647-4af8-88c7-6f414ee4c3ff"
+    },
+    {
+      "card_id": "3c4b5934-23b8-4c1d-b712-f37ac75d5814",
+      "archetype_id": "9886817a-c647-4af8-88c7-6f414ee4c3ff"
+    },
+    {
+      "card_id": "472eb23b-6c3a-433e-acde-8c83e4fe49f6",
+      "archetype_id": "9886817a-c647-4af8-88c7-6f414ee4c3ff"
+    },
+    {
+      "card_id": "fcc21e7a-0390-4633-8310-a9b961af8896",
+      "archetype_id": "9886817a-c647-4af8-88c7-6f414ee4c3ff"
+    }
+  ],
+  "canonical_card_effect_classifiers": [
+    {
+      "card_id": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "da8669e0-f3d9-42af-b166-feb88c50d229",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "542ef098-fea8-4a6d-af50-5b6960c148b1",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "33a0a8dd-e0ea-483d-8d57-aa8a523d2190",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "afd93a08-1394-4281-b31c-4cd02ffb8f9b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "cce4cf21-dc7d-417f-a343-bcfea67b9ce8",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "9cd616b4-85ae-4749-bc10-f73ef0e751f8",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "00c9c524-71f8-451b-a8a8-29e176696e31",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "2e3bec6e-4472-4c6d-b209-ac0b102f2a6b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "9722d05e-5afa-4055-b085-f7c0a47f5dd7",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "264bb7a4-aab0-4907-a639-0e0bec73e745",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "69d22f3f-be31-4c37-97ef-00a123f70689",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "00fc7633-b5fe-49e3-9cdb-d3dbc0a1414c",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "fba061e8-2259-4aa4-962a-886438bce793",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "d1dab2f1-5a58-472c-b63b-159737f78697",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "31ddd0bf-05fb-4a6c-9863-23cb2e346d32",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "ce18de2d-e8cd-4ef0-8dd1-4eab608e3445",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "747760b4-676b-45b1-882f-85fec4f2f3e9",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "769f7110-2848-403d-a9d8-87fffc8c1e11",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "f80da94e-7287-4f9c-ad81-bc820f79037d",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "b3562eb8-8abd-44da-82f5-fb7bcb5f03c5",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "49141d04-d534-4c57-9593-0ca4b41be73a",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "134f9d57-5dcc-4f27-9991-8c1eca0fa4f8",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "0c347a8c-63fb-407e-baa0-075d4319f2ef",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "14122f14-74f1-4624-8cab-2cda595a2010",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "71389a8b-3289-4f83-99a8-d1d3e192ef8e",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "e46e9118-8148-449f-b1b6-914b469ab612",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "1f74124d-4e95-4ebe-9bdf-cdde373f6c59",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "c2e89c6f-502e-454f-aaad-54bcc40103ab",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "2a261410-8b3a-48ca-8001-1b4a846f6f3c",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "296c918f-5ca2-420b-9c08-1654a7df4fbe",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "9b9dd9c0-e9eb-4172-b02b-0205fde203ea",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "e150b923-0691-4ddd-88df-c3866c9acc41",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "4ad1d0a5-a97d-4acd-b689-a8940a5009f6",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "530bfe8e-0bb4-4969-aa9c-bfa57c1a0bcc",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "2cea5bf7-5ea7-4311-9925-e9369014f880",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "7bfd3143-dad8-42b8-9afc-2aaeb3edd1bc",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "cc0b8aff-cb37-4009-ba56-f0725a8275ed",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "4ea83b75-dbcd-462f-ad91-e6e6deca096a",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "033ed6eb-4539-420c-b354-463d828e6b7b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "37240454-cf9b-4faf-9f66-65e12f388fc6",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "099335a4-7a3d-4a9b-8620-f39c750d8e56",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "058aa4f1-a7ba-4202-9629-8c135c3980b8",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "7de4593a-7146-44ab-a580-e439be3cbeb5",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "bb3d53f6-8c9e-4403-8e4e-9b639b503c5e",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "53c41a0f-0875-4b05-86e6-c650d5344f77",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "2646cb85-e7de-4dc3-9067-4f634489e071",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "92d31e09-5495-4a8f-8481-72a31f6130a4",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "7c5e30ef-c106-4866-98bb-4342a6a2d3b7",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "a6d3ebc4-b231-46d1-82c9-26f7eeb2d920",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "8a268583-bca9-47a0-96f7-ddeb780f8636",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "c29d3303-18dd-4856-a12c-4258fb90ff95",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "543fafa9-5d1a-461e-85f7-d57f350263b6",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "8dd48a0b-b72d-46ce-a043-3ea97197509f",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "4f931af6-a529-481a-93eb-d155ac4e842e",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "8a69a21a-9c39-4483-b09f-95ac4892d926",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "cbf722a0-ae84-4117-8f5c-3441214f1972",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "796002ad-9c59-4dd2-972c-87559f278780",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "c2ce4545-1863-4279-aef9-a19da53ae908",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "380a9ad7-1325-4e7c-b255-43118ffd5390",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "88fa0b9b-a450-4a39-a101-34de76f8f8a8",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "b3de51da-e7ec-4bef-b689-35fc2f7c0c5c",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "187dc087-762e-4d28-9753-eadaf771ac82",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "526e7df3-b707-4e38-944f-44c8f444e239",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "6e4a17ec-f577-4345-80fa-5bd8a531d2de",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "a3a886e5-d528-4784-ad7e-d9a88a13e1a2",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "1d2760a5-3318-4a84-a3f8-565b869326ad",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "49bd22ab-c3c9-41bc-a028-83f0f3c77c12",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "05fd16cb-f33d-45ca-a3bb-69e5824a831e",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "aafb3b13-01b4-4c38-b2f2-8fac796c67e8",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "d63e4a58-9d31-4c5f-8e87-044775a7c913",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "8552d4b8-73fd-4216-8d03-daab8df5310b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "dfc79d9a-e633-4b55-98a6-20129564fc78",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "5373464d-cabb-4904-8547-2d8715237f4f",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "1ce6e3f9-8de5-43f5-8d26-921e06e97e72",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "879838b4-dae4-4f35-b74d-6a249058f92b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "6d718556-68d3-4097-86e7-13fd00b1a344",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "eaf9c45f-26f2-4202-903d-bd8f5c167bb3",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "b578bc62-1578-4149-a5eb-ea4b7d4b563b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "e39f2a88-7f59-406f-9f14-084be8cc5d30",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "5891ae7e-83ae-4265-ad5d-47f48dc62b81",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "b8b2781c-e67b-4b4d-a2ad-36cd029644fd",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "e3675287-74ce-4585-838e-79c2bcf95438",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "9780acdd-7dae-4ddb-a079-418670cf7402",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "c72e4552-d2c5-48d2-9812-aba2a2cb2341",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "ff12f0cd-e432-4d49-b9ba-a70d7a6b87c7",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "9d746647-45d9-4a28-b7d0-283ada2c389f",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "610efc60-a26f-4a3b-97be-6cdd5a9e9a3a",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "90bfd64d-dd83-4d4a-ad6f-eb8bd2244473",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "2352ea08-24fb-4b1f-b9cb-8ca52063127b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "0e385e41-d76c-492c-9bd2-f37ad32d2486",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "cee2be40-e1a3-44c8-a2ae-446d3eb37a1a",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "f7272c73-ba69-4a96-a01f-6175cc548a91",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "5557c3be-dc29-4ec9-b909-45c0f5f49b6f",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "058d4e81-eac6-463e-a347-f5c69c1f51dc",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "bdf66192-4a8a-4cda-9af2-ee785d44149d",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "b3e5ff12-e5c8-4987-9fe1-88204bb2a9b4",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "5376f307-c88b-4d42-83eb-d15c7c8d4c7d",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "2c8af81c-da8d-48a5-bd8c-6da6c63bed81",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "35656ec0-6109-46ee-bacf-b8de6783b9f2",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "23f99c5f-2f44-4ae0-9eb0-ac9c816c4616",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "561e6493-1ab9-41b0-8612-7acd8844ce27",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "46dd58e3-eeba-4ab1-9f8a-24074ef87c5b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "77deb774-8fa0-4761-995b-7fa1ce722296",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "77f14af5-0446-44e1-bab8-498f33c42b43",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "3bae4b6b-ca57-4ce1-a1dd-34e049cccf47",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "9617b6eb-ae1e-4684-84b1-69a52793b5e0",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "eea9ecd0-83c3-489c-9162-2a02f750b413",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "50f8d01a-0b40-44a7-ad2a-bb78313994a1",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "ab0ed1e0-b18b-434b-8d44-c51cffefbe90",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "44064beb-ed58-478f-bea1-0bfd7a8d57dd",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "60a40b4c-e85b-46b2-acdb-276cfaf47e76",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "42baabe3-f06e-4f4d-bbfd-4f551e9087f0",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "24d37c55-8e14-4cbe-a77e-105d5129c40b",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "ad505f71-ee5b-4c61-a10e-8c22a21f2c4f",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "3c4b5934-23b8-4c1d-b712-f37ac75d5814",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "472eb23b-6c3a-433e-acde-8c83e4fe49f6",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    },
+    {
+      "card_id": "fcc21e7a-0390-4633-8310-a9b961af8896",
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52"
+    }
+  ],
+  "canonical_card_functional_tags": [
+    {
+      "card_id": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "da8669e0-f3d9-42af-b166-feb88c50d229",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "542ef098-fea8-4a6d-af50-5b6960c148b1",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "33a0a8dd-e0ea-483d-8d57-aa8a523d2190",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "afd93a08-1394-4281-b31c-4cd02ffb8f9b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "cce4cf21-dc7d-417f-a343-bcfea67b9ce8",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "9cd616b4-85ae-4749-bc10-f73ef0e751f8",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "00c9c524-71f8-451b-a8a8-29e176696e31",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "2e3bec6e-4472-4c6d-b209-ac0b102f2a6b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "9722d05e-5afa-4055-b085-f7c0a47f5dd7",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "264bb7a4-aab0-4907-a639-0e0bec73e745",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "69d22f3f-be31-4c37-97ef-00a123f70689",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "00fc7633-b5fe-49e3-9cdb-d3dbc0a1414c",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "fba061e8-2259-4aa4-962a-886438bce793",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "d1dab2f1-5a58-472c-b63b-159737f78697",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "31ddd0bf-05fb-4a6c-9863-23cb2e346d32",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "ce18de2d-e8cd-4ef0-8dd1-4eab608e3445",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "747760b4-676b-45b1-882f-85fec4f2f3e9",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "769f7110-2848-403d-a9d8-87fffc8c1e11",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "f80da94e-7287-4f9c-ad81-bc820f79037d",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "b3562eb8-8abd-44da-82f5-fb7bcb5f03c5",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "49141d04-d534-4c57-9593-0ca4b41be73a",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "134f9d57-5dcc-4f27-9991-8c1eca0fa4f8",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "0c347a8c-63fb-407e-baa0-075d4319f2ef",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "14122f14-74f1-4624-8cab-2cda595a2010",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "71389a8b-3289-4f83-99a8-d1d3e192ef8e",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "e46e9118-8148-449f-b1b6-914b469ab612",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "1f74124d-4e95-4ebe-9bdf-cdde373f6c59",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "c2e89c6f-502e-454f-aaad-54bcc40103ab",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "2a261410-8b3a-48ca-8001-1b4a846f6f3c",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "296c918f-5ca2-420b-9c08-1654a7df4fbe",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "9b9dd9c0-e9eb-4172-b02b-0205fde203ea",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "e150b923-0691-4ddd-88df-c3866c9acc41",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "4ad1d0a5-a97d-4acd-b689-a8940a5009f6",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "530bfe8e-0bb4-4969-aa9c-bfa57c1a0bcc",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "2cea5bf7-5ea7-4311-9925-e9369014f880",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "7bfd3143-dad8-42b8-9afc-2aaeb3edd1bc",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "cc0b8aff-cb37-4009-ba56-f0725a8275ed",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "4ea83b75-dbcd-462f-ad91-e6e6deca096a",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "033ed6eb-4539-420c-b354-463d828e6b7b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "37240454-cf9b-4faf-9f66-65e12f388fc6",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "099335a4-7a3d-4a9b-8620-f39c750d8e56",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "058aa4f1-a7ba-4202-9629-8c135c3980b8",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "7de4593a-7146-44ab-a580-e439be3cbeb5",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "bb3d53f6-8c9e-4403-8e4e-9b639b503c5e",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "53c41a0f-0875-4b05-86e6-c650d5344f77",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "2646cb85-e7de-4dc3-9067-4f634489e071",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "92d31e09-5495-4a8f-8481-72a31f6130a4",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "7c5e30ef-c106-4866-98bb-4342a6a2d3b7",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "a6d3ebc4-b231-46d1-82c9-26f7eeb2d920",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "8a268583-bca9-47a0-96f7-ddeb780f8636",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "c29d3303-18dd-4856-a12c-4258fb90ff95",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "543fafa9-5d1a-461e-85f7-d57f350263b6",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "8dd48a0b-b72d-46ce-a043-3ea97197509f",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "4f931af6-a529-481a-93eb-d155ac4e842e",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "8a69a21a-9c39-4483-b09f-95ac4892d926",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "cbf722a0-ae84-4117-8f5c-3441214f1972",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "796002ad-9c59-4dd2-972c-87559f278780",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "c2ce4545-1863-4279-aef9-a19da53ae908",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "380a9ad7-1325-4e7c-b255-43118ffd5390",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "88fa0b9b-a450-4a39-a101-34de76f8f8a8",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "b3de51da-e7ec-4bef-b689-35fc2f7c0c5c",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "187dc087-762e-4d28-9753-eadaf771ac82",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "526e7df3-b707-4e38-944f-44c8f444e239",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "6e4a17ec-f577-4345-80fa-5bd8a531d2de",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "a3a886e5-d528-4784-ad7e-d9a88a13e1a2",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "1d2760a5-3318-4a84-a3f8-565b869326ad",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "49bd22ab-c3c9-41bc-a028-83f0f3c77c12",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "05fd16cb-f33d-45ca-a3bb-69e5824a831e",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "aafb3b13-01b4-4c38-b2f2-8fac796c67e8",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "d63e4a58-9d31-4c5f-8e87-044775a7c913",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "8552d4b8-73fd-4216-8d03-daab8df5310b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "dfc79d9a-e633-4b55-98a6-20129564fc78",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "5373464d-cabb-4904-8547-2d8715237f4f",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "1ce6e3f9-8de5-43f5-8d26-921e06e97e72",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "879838b4-dae4-4f35-b74d-6a249058f92b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "6d718556-68d3-4097-86e7-13fd00b1a344",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "eaf9c45f-26f2-4202-903d-bd8f5c167bb3",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "b578bc62-1578-4149-a5eb-ea4b7d4b563b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "e39f2a88-7f59-406f-9f14-084be8cc5d30",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "5891ae7e-83ae-4265-ad5d-47f48dc62b81",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "b8b2781c-e67b-4b4d-a2ad-36cd029644fd",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "e3675287-74ce-4585-838e-79c2bcf95438",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "9780acdd-7dae-4ddb-a079-418670cf7402",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "c72e4552-d2c5-48d2-9812-aba2a2cb2341",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "ff12f0cd-e432-4d49-b9ba-a70d7a6b87c7",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "9d746647-45d9-4a28-b7d0-283ada2c389f",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "610efc60-a26f-4a3b-97be-6cdd5a9e9a3a",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "90bfd64d-dd83-4d4a-ad6f-eb8bd2244473",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "2352ea08-24fb-4b1f-b9cb-8ca52063127b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "0e385e41-d76c-492c-9bd2-f37ad32d2486",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "cee2be40-e1a3-44c8-a2ae-446d3eb37a1a",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "f7272c73-ba69-4a96-a01f-6175cc548a91",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "5557c3be-dc29-4ec9-b909-45c0f5f49b6f",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "058d4e81-eac6-463e-a347-f5c69c1f51dc",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "bdf66192-4a8a-4cda-9af2-ee785d44149d",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "b3e5ff12-e5c8-4987-9fe1-88204bb2a9b4",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "5376f307-c88b-4d42-83eb-d15c7c8d4c7d",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "2c8af81c-da8d-48a5-bd8c-6da6c63bed81",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "35656ec0-6109-46ee-bacf-b8de6783b9f2",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "23f99c5f-2f44-4ae0-9eb0-ac9c816c4616",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "561e6493-1ab9-41b0-8612-7acd8844ce27",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "46dd58e3-eeba-4ab1-9f8a-24074ef87c5b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "77deb774-8fa0-4761-995b-7fa1ce722296",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "77f14af5-0446-44e1-bab8-498f33c42b43",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "3bae4b6b-ca57-4ce1-a1dd-34e049cccf47",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "9617b6eb-ae1e-4684-84b1-69a52793b5e0",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "eea9ecd0-83c3-489c-9162-2a02f750b413",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "50f8d01a-0b40-44a7-ad2a-bb78313994a1",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "ab0ed1e0-b18b-434b-8d44-c51cffefbe90",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "44064beb-ed58-478f-bea1-0bfd7a8d57dd",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "60a40b4c-e85b-46b2-acdb-276cfaf47e76",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "42baabe3-f06e-4f4d-bbfd-4f551e9087f0",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "24d37c55-8e14-4cbe-a77e-105d5129c40b",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "ad505f71-ee5b-4c61-a10e-8c22a21f2c4f",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "3c4b5934-23b8-4c1d-b712-f37ac75d5814",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "472eb23b-6c3a-433e-acde-8c83e4fe49f6",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    },
+    {
+      "card_id": "fcc21e7a-0390-4633-8310-a9b961af8896",
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d"
+    }
+  ],
+  "canonical_card_relations": [],
+  "canonical_cards": [
+    {
+      "card_id": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "family": "MONSTER",
+      "password": "25000000",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.263Z",
+      "updated_at": "2026-10-27T19:01:46.265Z"
+    },
+    {
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "family": "SPELL",
+      "password": "25000001",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.266Z",
+      "updated_at": "2026-10-27T19:01:46.267Z"
+    },
+    {
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "family": "TRAP",
+      "password": "25000002",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.268Z",
+      "updated_at": "2026-10-27T19:01:46.268Z"
+    },
+    {
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.269Z",
+      "updated_at": "2026-10-27T19:01:46.270Z"
+    },
+    {
+      "card_id": "da8669e0-f3d9-42af-b166-feb88c50d229",
+      "family": "MONSTER",
+      "password": "25000004",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.271Z",
+      "updated_at": "2026-10-27T19:01:46.271Z"
+    },
+    {
+      "card_id": "542ef098-fea8-4a6d-af50-5b6960c148b1",
+      "family": "SPELL",
+      "password": "25000005",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.272Z",
+      "updated_at": "2026-10-27T19:01:46.273Z"
+    },
+    {
+      "card_id": "33a0a8dd-e0ea-483d-8d57-aa8a523d2190",
+      "family": "TRAP",
+      "password": "25000006",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.273Z",
+      "updated_at": "2026-10-27T19:01:46.274Z"
+    },
+    {
+      "card_id": "afd93a08-1394-4281-b31c-4cd02ffb8f9b",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.274Z",
+      "updated_at": "2026-10-27T19:01:46.275Z"
+    },
+    {
+      "card_id": "cce4cf21-dc7d-417f-a343-bcfea67b9ce8",
+      "family": "MONSTER",
+      "password": "25000008",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.275Z",
+      "updated_at": "2026-10-27T19:01:46.276Z"
+    },
+    {
+      "card_id": "9cd616b4-85ae-4749-bc10-f73ef0e751f8",
+      "family": "SPELL",
+      "password": "25000009",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.277Z",
+      "updated_at": "2026-10-27T19:01:46.277Z"
+    },
+    {
+      "card_id": "00c9c524-71f8-451b-a8a8-29e176696e31",
+      "family": "TRAP",
+      "password": "25000010",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.278Z",
+      "updated_at": "2026-10-27T19:01:46.278Z"
+    },
+    {
+      "card_id": "2e3bec6e-4472-4c6d-b209-ac0b102f2a6b",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.279Z",
+      "updated_at": "2026-10-27T19:01:46.279Z"
+    },
+    {
+      "card_id": "9722d05e-5afa-4055-b085-f7c0a47f5dd7",
+      "family": "MONSTER",
+      "password": "25000012",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.280Z",
+      "updated_at": "2026-10-27T19:01:46.281Z"
+    },
+    {
+      "card_id": "264bb7a4-aab0-4907-a639-0e0bec73e745",
+      "family": "SPELL",
+      "password": "25000013",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.281Z",
+      "updated_at": "2026-10-27T19:01:46.282Z"
+    },
+    {
+      "card_id": "69d22f3f-be31-4c37-97ef-00a123f70689",
+      "family": "TRAP",
+      "password": "25000014",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.282Z",
+      "updated_at": "2026-10-27T19:01:46.283Z"
+    },
+    {
+      "card_id": "00fc7633-b5fe-49e3-9cdb-d3dbc0a1414c",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.283Z",
+      "updated_at": "2026-10-27T19:01:46.284Z"
+    },
+    {
+      "card_id": "fba061e8-2259-4aa4-962a-886438bce793",
+      "family": "MONSTER",
+      "password": "25000016",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.284Z",
+      "updated_at": "2026-10-27T19:01:46.285Z"
+    },
+    {
+      "card_id": "d1dab2f1-5a58-472c-b63b-159737f78697",
+      "family": "SPELL",
+      "password": "25000017",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.285Z",
+      "updated_at": "2026-10-27T19:01:46.286Z"
+    },
+    {
+      "card_id": "31ddd0bf-05fb-4a6c-9863-23cb2e346d32",
+      "family": "TRAP",
+      "password": "25000018",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.287Z",
+      "updated_at": "2026-10-27T19:01:46.287Z"
+    },
+    {
+      "card_id": "ce18de2d-e8cd-4ef0-8dd1-4eab608e3445",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.288Z",
+      "updated_at": "2026-10-27T19:01:46.288Z"
+    },
+    {
+      "card_id": "747760b4-676b-45b1-882f-85fec4f2f3e9",
+      "family": "MONSTER",
+      "password": "25000020",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.289Z",
+      "updated_at": "2026-10-27T19:01:46.289Z"
+    },
+    {
+      "card_id": "769f7110-2848-403d-a9d8-87fffc8c1e11",
+      "family": "SPELL",
+      "password": "25000021",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.290Z",
+      "updated_at": "2026-10-27T19:01:46.291Z"
+    },
+    {
+      "card_id": "f80da94e-7287-4f9c-ad81-bc820f79037d",
+      "family": "TRAP",
+      "password": "25000022",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.291Z",
+      "updated_at": "2026-10-27T19:01:46.292Z"
+    },
+    {
+      "card_id": "b3562eb8-8abd-44da-82f5-fb7bcb5f03c5",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.292Z",
+      "updated_at": "2026-10-27T19:01:46.293Z"
+    },
+    {
+      "card_id": "49141d04-d534-4c57-9593-0ca4b41be73a",
+      "family": "MONSTER",
+      "password": "25000024",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.293Z",
+      "updated_at": "2026-10-27T19:01:46.294Z"
+    },
+    {
+      "card_id": "134f9d57-5dcc-4f27-9991-8c1eca0fa4f8",
+      "family": "SPELL",
+      "password": "25000025",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.295Z",
+      "updated_at": "2026-10-27T19:01:46.295Z"
+    },
+    {
+      "card_id": "0c347a8c-63fb-407e-baa0-075d4319f2ef",
+      "family": "TRAP",
+      "password": "25000026",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.296Z",
+      "updated_at": "2026-10-27T19:01:46.296Z"
+    },
+    {
+      "card_id": "14122f14-74f1-4624-8cab-2cda595a2010",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.297Z",
+      "updated_at": "2026-10-27T19:01:46.297Z"
+    },
+    {
+      "card_id": "71389a8b-3289-4f83-99a8-d1d3e192ef8e",
+      "family": "MONSTER",
+      "password": "25000028",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.298Z",
+      "updated_at": "2026-10-27T19:01:46.299Z"
+    },
+    {
+      "card_id": "e46e9118-8148-449f-b1b6-914b469ab612",
+      "family": "SPELL",
+      "password": "25000029",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.299Z",
+      "updated_at": "2026-10-27T19:01:46.300Z"
+    },
+    {
+      "card_id": "1f74124d-4e95-4ebe-9bdf-cdde373f6c59",
+      "family": "TRAP",
+      "password": "25000030",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.300Z",
+      "updated_at": "2026-10-27T19:01:46.301Z"
+    },
+    {
+      "card_id": "c2e89c6f-502e-454f-aaad-54bcc40103ab",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.301Z",
+      "updated_at": "2026-10-27T19:01:46.302Z"
+    },
+    {
+      "card_id": "2a261410-8b3a-48ca-8001-1b4a846f6f3c",
+      "family": "MONSTER",
+      "password": "25000032",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.302Z",
+      "updated_at": "2026-10-27T19:01:46.303Z"
+    },
+    {
+      "card_id": "296c918f-5ca2-420b-9c08-1654a7df4fbe",
+      "family": "SPELL",
+      "password": "25000033",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.304Z",
+      "updated_at": "2026-10-27T19:01:46.304Z"
+    },
+    {
+      "card_id": "9b9dd9c0-e9eb-4172-b02b-0205fde203ea",
+      "family": "TRAP",
+      "password": "25000034",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.305Z",
+      "updated_at": "2026-10-27T19:01:46.305Z"
+    },
+    {
+      "card_id": "e150b923-0691-4ddd-88df-c3866c9acc41",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.306Z",
+      "updated_at": "2026-10-27T19:01:46.306Z"
+    },
+    {
+      "card_id": "4ad1d0a5-a97d-4acd-b689-a8940a5009f6",
+      "family": "MONSTER",
+      "password": "25000036",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.307Z",
+      "updated_at": "2026-10-27T19:01:46.307Z"
+    },
+    {
+      "card_id": "530bfe8e-0bb4-4969-aa9c-bfa57c1a0bcc",
+      "family": "SPELL",
+      "password": "25000037",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.308Z",
+      "updated_at": "2026-10-27T19:01:46.308Z"
+    },
+    {
+      "card_id": "2cea5bf7-5ea7-4311-9925-e9369014f880",
+      "family": "TRAP",
+      "password": "25000038",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.309Z",
+      "updated_at": "2026-10-27T19:01:46.309Z"
+    },
+    {
+      "card_id": "7bfd3143-dad8-42b8-9afc-2aaeb3edd1bc",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.310Z",
+      "updated_at": "2026-10-27T19:01:46.311Z"
+    },
+    {
+      "card_id": "cc0b8aff-cb37-4009-ba56-f0725a8275ed",
+      "family": "MONSTER",
+      "password": "25000040",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.311Z",
+      "updated_at": "2026-10-27T19:01:46.312Z"
+    },
+    {
+      "card_id": "4ea83b75-dbcd-462f-ad91-e6e6deca096a",
+      "family": "SPELL",
+      "password": "25000041",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.312Z",
+      "updated_at": "2026-10-27T19:01:46.313Z"
+    },
+    {
+      "card_id": "033ed6eb-4539-420c-b354-463d828e6b7b",
+      "family": "TRAP",
+      "password": "25000042",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.313Z",
+      "updated_at": "2026-10-27T19:01:46.321Z"
+    },
+    {
+      "card_id": "37240454-cf9b-4faf-9f66-65e12f388fc6",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.322Z",
+      "updated_at": "2026-10-27T19:01:46.322Z"
+    },
+    {
+      "card_id": "099335a4-7a3d-4a9b-8620-f39c750d8e56",
+      "family": "MONSTER",
+      "password": "25000044",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.323Z",
+      "updated_at": "2026-10-27T19:01:46.323Z"
+    },
+    {
+      "card_id": "058aa4f1-a7ba-4202-9629-8c135c3980b8",
+      "family": "SPELL",
+      "password": "25000045",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.324Z",
+      "updated_at": "2026-10-27T19:01:46.324Z"
+    },
+    {
+      "card_id": "7de4593a-7146-44ab-a580-e439be3cbeb5",
+      "family": "TRAP",
+      "password": "25000046",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.325Z",
+      "updated_at": "2026-10-27T19:01:46.326Z"
+    },
+    {
+      "card_id": "bb3d53f6-8c9e-4403-8e4e-9b639b503c5e",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.326Z",
+      "updated_at": "2026-10-27T19:01:46.326Z"
+    },
+    {
+      "card_id": "53c41a0f-0875-4b05-86e6-c650d5344f77",
+      "family": "MONSTER",
+      "password": "25000048",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.327Z",
+      "updated_at": "2026-10-27T19:01:46.327Z"
+    },
+    {
+      "card_id": "2646cb85-e7de-4dc3-9067-4f634489e071",
+      "family": "SPELL",
+      "password": "25000049",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.328Z",
+      "updated_at": "2026-10-27T19:01:46.328Z"
+    },
+    {
+      "card_id": "92d31e09-5495-4a8f-8481-72a31f6130a4",
+      "family": "TRAP",
+      "password": "25000050",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.329Z",
+      "updated_at": "2026-10-27T19:01:46.329Z"
+    },
+    {
+      "card_id": "7c5e30ef-c106-4866-98bb-4342a6a2d3b7",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.330Z",
+      "updated_at": "2026-10-27T19:01:46.330Z"
+    },
+    {
+      "card_id": "a6d3ebc4-b231-46d1-82c9-26f7eeb2d920",
+      "family": "MONSTER",
+      "password": "25000052",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.331Z",
+      "updated_at": "2026-10-27T19:01:46.331Z"
+    },
+    {
+      "card_id": "8a268583-bca9-47a0-96f7-ddeb780f8636",
+      "family": "SPELL",
+      "password": "25000053",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.332Z",
+      "updated_at": "2026-10-27T19:01:46.332Z"
+    },
+    {
+      "card_id": "c29d3303-18dd-4856-a12c-4258fb90ff95",
+      "family": "TRAP",
+      "password": "25000054",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.333Z",
+      "updated_at": "2026-10-27T19:01:46.333Z"
+    },
+    {
+      "card_id": "543fafa9-5d1a-461e-85f7-d57f350263b6",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.334Z",
+      "updated_at": "2026-10-27T19:01:46.334Z"
+    },
+    {
+      "card_id": "8dd48a0b-b72d-46ce-a043-3ea97197509f",
+      "family": "MONSTER",
+      "password": "25000056",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.335Z",
+      "updated_at": "2026-10-27T19:01:46.335Z"
+    },
+    {
+      "card_id": "4f931af6-a529-481a-93eb-d155ac4e842e",
+      "family": "SPELL",
+      "password": "25000057",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.339Z",
+      "updated_at": "2026-10-27T19:01:46.341Z"
+    },
+    {
+      "card_id": "8a69a21a-9c39-4483-b09f-95ac4892d926",
+      "family": "TRAP",
+      "password": "25000058",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.341Z",
+      "updated_at": "2026-10-27T19:01:46.342Z"
+    },
+    {
+      "card_id": "cbf722a0-ae84-4117-8f5c-3441214f1972",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.343Z",
+      "updated_at": "2026-10-27T19:01:46.344Z"
+    },
+    {
+      "card_id": "796002ad-9c59-4dd2-972c-87559f278780",
+      "family": "MONSTER",
+      "password": "25000060",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.345Z",
+      "updated_at": "2026-10-27T19:01:46.346Z"
+    },
+    {
+      "card_id": "c2ce4545-1863-4279-aef9-a19da53ae908",
+      "family": "SPELL",
+      "password": "25000061",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.347Z",
+      "updated_at": "2026-10-27T19:01:46.347Z"
+    },
+    {
+      "card_id": "380a9ad7-1325-4e7c-b255-43118ffd5390",
+      "family": "TRAP",
+      "password": "25000062",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.348Z",
+      "updated_at": "2026-10-27T19:01:46.349Z"
+    },
+    {
+      "card_id": "88fa0b9b-a450-4a39-a101-34de76f8f8a8",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.349Z",
+      "updated_at": "2026-10-27T19:01:46.350Z"
+    },
+    {
+      "card_id": "b3de51da-e7ec-4bef-b689-35fc2f7c0c5c",
+      "family": "MONSTER",
+      "password": "25000064",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.351Z",
+      "updated_at": "2026-10-27T19:01:46.352Z"
+    },
+    {
+      "card_id": "187dc087-762e-4d28-9753-eadaf771ac82",
+      "family": "SPELL",
+      "password": "25000065",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.353Z",
+      "updated_at": "2026-10-27T19:01:46.353Z"
+    },
+    {
+      "card_id": "526e7df3-b707-4e38-944f-44c8f444e239",
+      "family": "TRAP",
+      "password": "25000066",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.354Z",
+      "updated_at": "2026-10-27T19:01:46.355Z"
+    },
+    {
+      "card_id": "6e4a17ec-f577-4345-80fa-5bd8a531d2de",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.356Z",
+      "updated_at": "2026-10-27T19:01:46.356Z"
+    },
+    {
+      "card_id": "a3a886e5-d528-4784-ad7e-d9a88a13e1a2",
+      "family": "MONSTER",
+      "password": "25000068",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.357Z",
+      "updated_at": "2026-10-27T19:01:46.358Z"
+    },
+    {
+      "card_id": "1d2760a5-3318-4a84-a3f8-565b869326ad",
+      "family": "SPELL",
+      "password": "25000069",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.358Z",
+      "updated_at": "2026-10-27T19:01:46.359Z"
+    },
+    {
+      "card_id": "49bd22ab-c3c9-41bc-a028-83f0f3c77c12",
+      "family": "TRAP",
+      "password": "25000070",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.359Z",
+      "updated_at": "2026-10-27T19:01:46.360Z"
+    },
+    {
+      "card_id": "05fd16cb-f33d-45ca-a3bb-69e5824a831e",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.360Z",
+      "updated_at": "2026-10-27T19:01:46.360Z"
+    },
+    {
+      "card_id": "aafb3b13-01b4-4c38-b2f2-8fac796c67e8",
+      "family": "MONSTER",
+      "password": "25000072",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.361Z",
+      "updated_at": "2026-10-27T19:01:46.361Z"
+    },
+    {
+      "card_id": "d63e4a58-9d31-4c5f-8e87-044775a7c913",
+      "family": "SPELL",
+      "password": "25000073",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.362Z",
+      "updated_at": "2026-10-27T19:01:46.362Z"
+    },
+    {
+      "card_id": "8552d4b8-73fd-4216-8d03-daab8df5310b",
+      "family": "TRAP",
+      "password": "25000074",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.363Z",
+      "updated_at": "2026-10-27T19:01:46.364Z"
+    },
+    {
+      "card_id": "dfc79d9a-e633-4b55-98a6-20129564fc78",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.364Z",
+      "updated_at": "2026-10-27T19:01:46.365Z"
+    },
+    {
+      "card_id": "5373464d-cabb-4904-8547-2d8715237f4f",
+      "family": "MONSTER",
+      "password": "25000076",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.365Z",
+      "updated_at": "2026-10-27T19:01:46.366Z"
+    },
+    {
+      "card_id": "1ce6e3f9-8de5-43f5-8d26-921e06e97e72",
+      "family": "SPELL",
+      "password": "25000077",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.366Z",
+      "updated_at": "2026-10-27T19:01:46.367Z"
+    },
+    {
+      "card_id": "879838b4-dae4-4f35-b74d-6a249058f92b",
+      "family": "TRAP",
+      "password": "25000078",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.367Z",
+      "updated_at": "2026-10-27T19:01:46.368Z"
+    },
+    {
+      "card_id": "6d718556-68d3-4097-86e7-13fd00b1a344",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.368Z",
+      "updated_at": "2026-10-27T19:01:46.368Z"
+    },
+    {
+      "card_id": "eaf9c45f-26f2-4202-903d-bd8f5c167bb3",
+      "family": "MONSTER",
+      "password": "25000080",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.369Z",
+      "updated_at": "2026-10-27T19:01:46.370Z"
+    },
+    {
+      "card_id": "b578bc62-1578-4149-a5eb-ea4b7d4b563b",
+      "family": "SPELL",
+      "password": "25000081",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.370Z",
+      "updated_at": "2026-10-27T19:01:46.371Z"
+    },
+    {
+      "card_id": "e39f2a88-7f59-406f-9f14-084be8cc5d30",
+      "family": "TRAP",
+      "password": "25000082",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.371Z",
+      "updated_at": "2026-10-27T19:01:46.372Z"
+    },
+    {
+      "card_id": "5891ae7e-83ae-4265-ad5d-47f48dc62b81",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.372Z",
+      "updated_at": "2026-10-27T19:01:46.373Z"
+    },
+    {
+      "card_id": "b8b2781c-e67b-4b4d-a2ad-36cd029644fd",
+      "family": "MONSTER",
+      "password": "25000084",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.373Z",
+      "updated_at": "2026-10-27T19:01:46.374Z"
+    },
+    {
+      "card_id": "e3675287-74ce-4585-838e-79c2bcf95438",
+      "family": "SPELL",
+      "password": "25000085",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.374Z",
+      "updated_at": "2026-10-27T19:01:46.375Z"
+    },
+    {
+      "card_id": "9780acdd-7dae-4ddb-a079-418670cf7402",
+      "family": "TRAP",
+      "password": "25000086",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.375Z",
+      "updated_at": "2026-10-27T19:01:46.376Z"
+    },
+    {
+      "card_id": "c72e4552-d2c5-48d2-9812-aba2a2cb2341",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.376Z",
+      "updated_at": "2026-10-27T19:01:46.377Z"
+    },
+    {
+      "card_id": "ff12f0cd-e432-4d49-b9ba-a70d7a6b87c7",
+      "family": "MONSTER",
+      "password": "25000088",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.377Z",
+      "updated_at": "2026-10-27T19:01:46.378Z"
+    },
+    {
+      "card_id": "9d746647-45d9-4a28-b7d0-283ada2c389f",
+      "family": "SPELL",
+      "password": "25000089",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.379Z",
+      "updated_at": "2026-10-27T19:01:46.379Z"
+    },
+    {
+      "card_id": "610efc60-a26f-4a3b-97be-6cdd5a9e9a3a",
+      "family": "TRAP",
+      "password": "25000090",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.380Z",
+      "updated_at": "2026-10-27T19:01:46.380Z"
+    },
+    {
+      "card_id": "90bfd64d-dd83-4d4a-ad6f-eb8bd2244473",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.381Z",
+      "updated_at": "2026-10-27T19:01:46.381Z"
+    },
+    {
+      "card_id": "2352ea08-24fb-4b1f-b9cb-8ca52063127b",
+      "family": "MONSTER",
+      "password": "25000092",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.382Z",
+      "updated_at": "2026-10-27T19:01:46.382Z"
+    },
+    {
+      "card_id": "0e385e41-d76c-492c-9bd2-f37ad32d2486",
+      "family": "SPELL",
+      "password": "25000093",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.383Z",
+      "updated_at": "2026-10-27T19:01:46.383Z"
+    },
+    {
+      "card_id": "cee2be40-e1a3-44c8-a2ae-446d3eb37a1a",
+      "family": "TRAP",
+      "password": "25000094",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.384Z",
+      "updated_at": "2026-10-27T19:01:46.385Z"
+    },
+    {
+      "card_id": "f7272c73-ba69-4a96-a01f-6175cc548a91",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.385Z",
+      "updated_at": "2026-10-27T19:01:46.386Z"
+    },
+    {
+      "card_id": "5557c3be-dc29-4ec9-b909-45c0f5f49b6f",
+      "family": "MONSTER",
+      "password": "25000096",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.386Z",
+      "updated_at": "2026-10-27T19:01:46.387Z"
+    },
+    {
+      "card_id": "058d4e81-eac6-463e-a347-f5c69c1f51dc",
+      "family": "SPELL",
+      "password": "25000097",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.387Z",
+      "updated_at": "2026-10-27T19:01:46.388Z"
+    },
+    {
+      "card_id": "bdf66192-4a8a-4cda-9af2-ee785d44149d",
+      "family": "TRAP",
+      "password": "25000098",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.388Z",
+      "updated_at": "2026-10-27T19:01:46.389Z"
+    },
+    {
+      "card_id": "b3e5ff12-e5c8-4987-9fe1-88204bb2a9b4",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.389Z",
+      "updated_at": "2026-10-27T19:01:46.390Z"
+    },
+    {
+      "card_id": "5376f307-c88b-4d42-83eb-d15c7c8d4c7d",
+      "family": "MONSTER",
+      "password": "25000100",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.390Z",
+      "updated_at": "2026-10-27T19:01:46.391Z"
+    },
+    {
+      "card_id": "2c8af81c-da8d-48a5-bd8c-6da6c63bed81",
+      "family": "SPELL",
+      "password": "25000101",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.392Z",
+      "updated_at": "2026-10-27T19:01:46.392Z"
+    },
+    {
+      "card_id": "35656ec0-6109-46ee-bacf-b8de6783b9f2",
+      "family": "TRAP",
+      "password": "25000102",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.393Z",
+      "updated_at": "2026-10-27T19:01:46.393Z"
+    },
+    {
+      "card_id": "23f99c5f-2f44-4ae0-9eb0-ac9c816c4616",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.394Z",
+      "updated_at": "2026-10-27T19:01:46.394Z"
+    },
+    {
+      "card_id": "561e6493-1ab9-41b0-8612-7acd8844ce27",
+      "family": "MONSTER",
+      "password": "25000104",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.395Z",
+      "updated_at": "2026-10-27T19:01:46.396Z"
+    },
+    {
+      "card_id": "46dd58e3-eeba-4ab1-9f8a-24074ef87c5b",
+      "family": "SPELL",
+      "password": "25000105",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.396Z",
+      "updated_at": "2026-10-27T19:01:46.396Z"
+    },
+    {
+      "card_id": "77deb774-8fa0-4761-995b-7fa1ce722296",
+      "family": "TRAP",
+      "password": "25000106",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.397Z",
+      "updated_at": "2026-10-27T19:01:46.397Z"
+    },
+    {
+      "card_id": "77f14af5-0446-44e1-bab8-498f33c42b43",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.398Z",
+      "updated_at": "2026-10-27T19:01:46.398Z"
+    },
+    {
+      "card_id": "3bae4b6b-ca57-4ce1-a1dd-34e049cccf47",
+      "family": "MONSTER",
+      "password": "25000108",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.399Z",
+      "updated_at": "2026-10-27T19:01:46.399Z"
+    },
+    {
+      "card_id": "9617b6eb-ae1e-4684-84b1-69a52793b5e0",
+      "family": "SPELL",
+      "password": "25000109",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.400Z",
+      "updated_at": "2026-10-27T19:01:46.401Z"
+    },
+    {
+      "card_id": "eea9ecd0-83c3-489c-9162-2a02f750b413",
+      "family": "TRAP",
+      "password": "25000110",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.401Z",
+      "updated_at": "2026-10-27T19:01:46.402Z"
+    },
+    {
+      "card_id": "50f8d01a-0b40-44a7-ad2a-bb78313994a1",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.402Z",
+      "updated_at": "2026-10-27T19:01:46.403Z"
+    },
+    {
+      "card_id": "ab0ed1e0-b18b-434b-8d44-c51cffefbe90",
+      "family": "MONSTER",
+      "password": "25000112",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.404Z",
+      "updated_at": "2026-10-27T19:01:46.405Z"
+    },
+    {
+      "card_id": "44064beb-ed58-478f-bea1-0bfd7a8d57dd",
+      "family": "SPELL",
+      "password": "25000113",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.405Z",
+      "updated_at": "2026-10-27T19:01:46.406Z"
+    },
+    {
+      "card_id": "60a40b4c-e85b-46b2-acdb-276cfaf47e76",
+      "family": "TRAP",
+      "password": "25000114",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.406Z",
+      "updated_at": "2026-10-27T19:01:46.407Z"
+    },
+    {
+      "card_id": "42baabe3-f06e-4f4d-bbfd-4f551e9087f0",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.411Z",
+      "updated_at": "2026-10-27T19:01:46.412Z"
+    },
+    {
+      "card_id": "24d37c55-8e14-4cbe-a77e-105d5129c40b",
+      "family": "MONSTER",
+      "password": "25000116",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.413Z",
+      "updated_at": "2026-10-27T19:01:46.413Z"
+    },
+    {
+      "card_id": "ad505f71-ee5b-4c61-a10e-8c22a21f2c4f",
+      "family": "SPELL",
+      "password": "25000117",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.414Z",
+      "updated_at": "2026-10-27T19:01:46.415Z"
+    },
+    {
+      "card_id": "3c4b5934-23b8-4c1d-b712-f37ac75d5814",
+      "family": "TRAP",
+      "password": "25000118",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.415Z",
+      "updated_at": "2026-10-27T19:01:46.416Z"
+    },
+    {
+      "card_id": "472eb23b-6c3a-433e-acde-8c83e4fe49f6",
+      "family": "TOKEN",
+      "password": null,
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.416Z",
+      "updated_at": "2026-10-27T19:01:46.417Z"
+    },
+    {
+      "card_id": "fcc21e7a-0390-4633-8310-a9b961af8896",
+      "family": "MONSTER",
+      "password": "25000120",
+      "revision": 2,
+      "created_at": "2026-10-27T19:01:46.417Z",
+      "updated_at": "2026-10-27T19:01:46.418Z"
+    }
+  ],
+  "canonical_classification_state": [
+    {
+      "card_id": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "da8669e0-f3d9-42af-b166-feb88c50d229",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "542ef098-fea8-4a6d-af50-5b6960c148b1",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "33a0a8dd-e0ea-483d-8d57-aa8a523d2190",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "afd93a08-1394-4281-b31c-4cd02ffb8f9b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "cce4cf21-dc7d-417f-a343-bcfea67b9ce8",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "9cd616b4-85ae-4749-bc10-f73ef0e751f8",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "00c9c524-71f8-451b-a8a8-29e176696e31",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "2e3bec6e-4472-4c6d-b209-ac0b102f2a6b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "9722d05e-5afa-4055-b085-f7c0a47f5dd7",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "264bb7a4-aab0-4907-a639-0e0bec73e745",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "69d22f3f-be31-4c37-97ef-00a123f70689",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "00fc7633-b5fe-49e3-9cdb-d3dbc0a1414c",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "fba061e8-2259-4aa4-962a-886438bce793",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "d1dab2f1-5a58-472c-b63b-159737f78697",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "31ddd0bf-05fb-4a6c-9863-23cb2e346d32",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "ce18de2d-e8cd-4ef0-8dd1-4eab608e3445",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "747760b4-676b-45b1-882f-85fec4f2f3e9",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "769f7110-2848-403d-a9d8-87fffc8c1e11",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "f80da94e-7287-4f9c-ad81-bc820f79037d",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "b3562eb8-8abd-44da-82f5-fb7bcb5f03c5",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "49141d04-d534-4c57-9593-0ca4b41be73a",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "134f9d57-5dcc-4f27-9991-8c1eca0fa4f8",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "0c347a8c-63fb-407e-baa0-075d4319f2ef",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "14122f14-74f1-4624-8cab-2cda595a2010",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "71389a8b-3289-4f83-99a8-d1d3e192ef8e",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "e46e9118-8148-449f-b1b6-914b469ab612",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "1f74124d-4e95-4ebe-9bdf-cdde373f6c59",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "c2e89c6f-502e-454f-aaad-54bcc40103ab",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "2a261410-8b3a-48ca-8001-1b4a846f6f3c",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "296c918f-5ca2-420b-9c08-1654a7df4fbe",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "9b9dd9c0-e9eb-4172-b02b-0205fde203ea",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "e150b923-0691-4ddd-88df-c3866c9acc41",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "4ad1d0a5-a97d-4acd-b689-a8940a5009f6",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "530bfe8e-0bb4-4969-aa9c-bfa57c1a0bcc",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "2cea5bf7-5ea7-4311-9925-e9369014f880",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "7bfd3143-dad8-42b8-9afc-2aaeb3edd1bc",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "cc0b8aff-cb37-4009-ba56-f0725a8275ed",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "4ea83b75-dbcd-462f-ad91-e6e6deca096a",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "033ed6eb-4539-420c-b354-463d828e6b7b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "37240454-cf9b-4faf-9f66-65e12f388fc6",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "099335a4-7a3d-4a9b-8620-f39c750d8e56",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "058aa4f1-a7ba-4202-9629-8c135c3980b8",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "7de4593a-7146-44ab-a580-e439be3cbeb5",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "bb3d53f6-8c9e-4403-8e4e-9b639b503c5e",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "53c41a0f-0875-4b05-86e6-c650d5344f77",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "2646cb85-e7de-4dc3-9067-4f634489e071",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "92d31e09-5495-4a8f-8481-72a31f6130a4",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "7c5e30ef-c106-4866-98bb-4342a6a2d3b7",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "a6d3ebc4-b231-46d1-82c9-26f7eeb2d920",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "8a268583-bca9-47a0-96f7-ddeb780f8636",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "c29d3303-18dd-4856-a12c-4258fb90ff95",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "543fafa9-5d1a-461e-85f7-d57f350263b6",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "8dd48a0b-b72d-46ce-a043-3ea97197509f",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "4f931af6-a529-481a-93eb-d155ac4e842e",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "8a69a21a-9c39-4483-b09f-95ac4892d926",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "cbf722a0-ae84-4117-8f5c-3441214f1972",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "796002ad-9c59-4dd2-972c-87559f278780",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "c2ce4545-1863-4279-aef9-a19da53ae908",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "380a9ad7-1325-4e7c-b255-43118ffd5390",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "88fa0b9b-a450-4a39-a101-34de76f8f8a8",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "b3de51da-e7ec-4bef-b689-35fc2f7c0c5c",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "187dc087-762e-4d28-9753-eadaf771ac82",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "526e7df3-b707-4e38-944f-44c8f444e239",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "6e4a17ec-f577-4345-80fa-5bd8a531d2de",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "a3a886e5-d528-4784-ad7e-d9a88a13e1a2",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "1d2760a5-3318-4a84-a3f8-565b869326ad",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "49bd22ab-c3c9-41bc-a028-83f0f3c77c12",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "05fd16cb-f33d-45ca-a3bb-69e5824a831e",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "aafb3b13-01b4-4c38-b2f2-8fac796c67e8",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "d63e4a58-9d31-4c5f-8e87-044775a7c913",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "8552d4b8-73fd-4216-8d03-daab8df5310b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "dfc79d9a-e633-4b55-98a6-20129564fc78",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "5373464d-cabb-4904-8547-2d8715237f4f",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "1ce6e3f9-8de5-43f5-8d26-921e06e97e72",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "879838b4-dae4-4f35-b74d-6a249058f92b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "6d718556-68d3-4097-86e7-13fd00b1a344",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "eaf9c45f-26f2-4202-903d-bd8f5c167bb3",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "b578bc62-1578-4149-a5eb-ea4b7d4b563b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "e39f2a88-7f59-406f-9f14-084be8cc5d30",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "5891ae7e-83ae-4265-ad5d-47f48dc62b81",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "b8b2781c-e67b-4b4d-a2ad-36cd029644fd",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "e3675287-74ce-4585-838e-79c2bcf95438",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "9780acdd-7dae-4ddb-a079-418670cf7402",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "c72e4552-d2c5-48d2-9812-aba2a2cb2341",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "ff12f0cd-e432-4d49-b9ba-a70d7a6b87c7",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "9d746647-45d9-4a28-b7d0-283ada2c389f",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "610efc60-a26f-4a3b-97be-6cdd5a9e9a3a",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "90bfd64d-dd83-4d4a-ad6f-eb8bd2244473",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "2352ea08-24fb-4b1f-b9cb-8ca52063127b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "0e385e41-d76c-492c-9bd2-f37ad32d2486",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "cee2be40-e1a3-44c8-a2ae-446d3eb37a1a",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "f7272c73-ba69-4a96-a01f-6175cc548a91",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "5557c3be-dc29-4ec9-b909-45c0f5f49b6f",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "058d4e81-eac6-463e-a347-f5c69c1f51dc",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "bdf66192-4a8a-4cda-9af2-ee785d44149d",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "b3e5ff12-e5c8-4987-9fe1-88204bb2a9b4",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "5376f307-c88b-4d42-83eb-d15c7c8d4c7d",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "2c8af81c-da8d-48a5-bd8c-6da6c63bed81",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "35656ec0-6109-46ee-bacf-b8de6783b9f2",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "23f99c5f-2f44-4ae0-9eb0-ac9c816c4616",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "561e6493-1ab9-41b0-8612-7acd8844ce27",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "46dd58e3-eeba-4ab1-9f8a-24074ef87c5b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "77deb774-8fa0-4761-995b-7fa1ce722296",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "77f14af5-0446-44e1-bab8-498f33c42b43",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "3bae4b6b-ca57-4ce1-a1dd-34e049cccf47",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "9617b6eb-ae1e-4684-84b1-69a52793b5e0",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "eea9ecd0-83c3-489c-9162-2a02f750b413",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "50f8d01a-0b40-44a7-ad2a-bb78313994a1",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "ab0ed1e0-b18b-434b-8d44-c51cffefbe90",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "44064beb-ed58-478f-bea1-0bfd7a8d57dd",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "60a40b4c-e85b-46b2-acdb-276cfaf47e76",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "42baabe3-f06e-4f4d-bbfd-4f551e9087f0",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "24d37c55-8e14-4cbe-a77e-105d5129c40b",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "ad505f71-ee5b-4c61-a10e-8c22a21f2c4f",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "3c4b5934-23b8-4c1d-b712-f37ac75d5814",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "472eb23b-6c3a-433e-acde-8c83e4fe49f6",
+      "effect_reviewed": 0
+    },
+    {
+      "card_id": "fcc21e7a-0390-4633-8310-a9b961af8896",
+      "effect_reviewed": 0
+    }
+  ],
+  "canonical_effect_classifiers": [
+    {
+      "classifier_id": "c519592f-d4be-42e6-85b9-53713f935d52",
+      "code": "F04 Effect"
+    }
+  ],
+  "canonical_functional_tags": [
+    {
+      "tag_id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+      "code": "F04 Tag"
+    }
+  ],
+  "canonical_link_marker_codes": [
+    {
+      "code": "1"
+    },
+    {
+      "code": "2"
+    },
+    {
+      "code": "3"
+    },
+    {
+      "code": "4"
+    },
+    {
+      "code": "6"
+    },
+    {
+      "code": "7"
+    },
+    {
+      "code": "8"
+    },
+    {
+      "code": "9"
+    }
+  ],
+  "canonical_link_markers": [],
+  "canonical_localized_text": [
+    {
+      "card_id": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "language": "EN",
+      "name": "F04 Search Card 000",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "language": "EN",
+      "name": "F04 Search Card 001",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "language": "EN",
+      "name": "F04 Search Card 002",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "language": "EN",
+      "name": "F04 Search Card 003",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "da8669e0-f3d9-42af-b166-feb88c50d229",
+      "language": "EN",
+      "name": "F04 Search Card 004",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "542ef098-fea8-4a6d-af50-5b6960c148b1",
+      "language": "EN",
+      "name": "F04 Search Card 005",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "33a0a8dd-e0ea-483d-8d57-aa8a523d2190",
+      "language": "EN",
+      "name": "F04 Search Card 006",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "afd93a08-1394-4281-b31c-4cd02ffb8f9b",
+      "language": "EN",
+      "name": "F04 Search Card 007",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "cce4cf21-dc7d-417f-a343-bcfea67b9ce8",
+      "language": "EN",
+      "name": "F04 Search Card 008",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "9cd616b4-85ae-4749-bc10-f73ef0e751f8",
+      "language": "EN",
+      "name": "F04 Search Card 009",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "00c9c524-71f8-451b-a8a8-29e176696e31",
+      "language": "EN",
+      "name": "F04 Search Card 010",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "2e3bec6e-4472-4c6d-b209-ac0b102f2a6b",
+      "language": "EN",
+      "name": "F04 Search Card 011",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "9722d05e-5afa-4055-b085-f7c0a47f5dd7",
+      "language": "EN",
+      "name": "F04 Search Card 012",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "264bb7a4-aab0-4907-a639-0e0bec73e745",
+      "language": "EN",
+      "name": "F04 Search Card 013",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "69d22f3f-be31-4c37-97ef-00a123f70689",
+      "language": "EN",
+      "name": "F04 Search Card 014",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "00fc7633-b5fe-49e3-9cdb-d3dbc0a1414c",
+      "language": "EN",
+      "name": "F04 Search Card 015",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "fba061e8-2259-4aa4-962a-886438bce793",
+      "language": "EN",
+      "name": "F04 Search Card 016",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "d1dab2f1-5a58-472c-b63b-159737f78697",
+      "language": "EN",
+      "name": "F04 Search Card 017",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "31ddd0bf-05fb-4a6c-9863-23cb2e346d32",
+      "language": "EN",
+      "name": "F04 Search Card 018",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "ce18de2d-e8cd-4ef0-8dd1-4eab608e3445",
+      "language": "EN",
+      "name": "F04 Search Card 019",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "747760b4-676b-45b1-882f-85fec4f2f3e9",
+      "language": "EN",
+      "name": "F04 Search Card 020",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "769f7110-2848-403d-a9d8-87fffc8c1e11",
+      "language": "EN",
+      "name": "F04 Search Card 021",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "f80da94e-7287-4f9c-ad81-bc820f79037d",
+      "language": "EN",
+      "name": "F04 Search Card 022",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "b3562eb8-8abd-44da-82f5-fb7bcb5f03c5",
+      "language": "EN",
+      "name": "F04 Search Card 023",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "49141d04-d534-4c57-9593-0ca4b41be73a",
+      "language": "EN",
+      "name": "F04 Search Card 024",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "134f9d57-5dcc-4f27-9991-8c1eca0fa4f8",
+      "language": "EN",
+      "name": "F04 Search Card 025",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "0c347a8c-63fb-407e-baa0-075d4319f2ef",
+      "language": "EN",
+      "name": "F04 Search Card 026",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "14122f14-74f1-4624-8cab-2cda595a2010",
+      "language": "EN",
+      "name": "F04 Search Card 027",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "71389a8b-3289-4f83-99a8-d1d3e192ef8e",
+      "language": "EN",
+      "name": "F04 Search Card 028",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "e46e9118-8148-449f-b1b6-914b469ab612",
+      "language": "EN",
+      "name": "F04 Search Card 029",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "1f74124d-4e95-4ebe-9bdf-cdde373f6c59",
+      "language": "EN",
+      "name": "F04 Search Card 030",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "c2e89c6f-502e-454f-aaad-54bcc40103ab",
+      "language": "EN",
+      "name": "F04 Search Card 031",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "2a261410-8b3a-48ca-8001-1b4a846f6f3c",
+      "language": "EN",
+      "name": "F04 Search Card 032",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "296c918f-5ca2-420b-9c08-1654a7df4fbe",
+      "language": "EN",
+      "name": "F04 Search Card 033",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "9b9dd9c0-e9eb-4172-b02b-0205fde203ea",
+      "language": "EN",
+      "name": "F04 Search Card 034",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "e150b923-0691-4ddd-88df-c3866c9acc41",
+      "language": "EN",
+      "name": "F04 Search Card 035",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "4ad1d0a5-a97d-4acd-b689-a8940a5009f6",
+      "language": "EN",
+      "name": "F04 Search Card 036",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "530bfe8e-0bb4-4969-aa9c-bfa57c1a0bcc",
+      "language": "EN",
+      "name": "F04 Search Card 037",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "2cea5bf7-5ea7-4311-9925-e9369014f880",
+      "language": "EN",
+      "name": "F04 Search Card 038",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "7bfd3143-dad8-42b8-9afc-2aaeb3edd1bc",
+      "language": "EN",
+      "name": "F04 Search Card 039",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "cc0b8aff-cb37-4009-ba56-f0725a8275ed",
+      "language": "EN",
+      "name": "F04 Search Card 040",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "4ea83b75-dbcd-462f-ad91-e6e6deca096a",
+      "language": "EN",
+      "name": "F04 Search Card 041",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "033ed6eb-4539-420c-b354-463d828e6b7b",
+      "language": "EN",
+      "name": "F04 Search Card 042",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "37240454-cf9b-4faf-9f66-65e12f388fc6",
+      "language": "EN",
+      "name": "F04 Search Card 043",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "099335a4-7a3d-4a9b-8620-f39c750d8e56",
+      "language": "EN",
+      "name": "F04 Search Card 044",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "058aa4f1-a7ba-4202-9629-8c135c3980b8",
+      "language": "EN",
+      "name": "F04 Search Card 045",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "7de4593a-7146-44ab-a580-e439be3cbeb5",
+      "language": "EN",
+      "name": "F04 Search Card 046",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "bb3d53f6-8c9e-4403-8e4e-9b639b503c5e",
+      "language": "EN",
+      "name": "F04 Search Card 047",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "53c41a0f-0875-4b05-86e6-c650d5344f77",
+      "language": "EN",
+      "name": "F04 Search Card 048",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "2646cb85-e7de-4dc3-9067-4f634489e071",
+      "language": "EN",
+      "name": "F04 Search Card 049",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "92d31e09-5495-4a8f-8481-72a31f6130a4",
+      "language": "EN",
+      "name": "F04 Search Card 050",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "7c5e30ef-c106-4866-98bb-4342a6a2d3b7",
+      "language": "EN",
+      "name": "F04 Search Card 051",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "a6d3ebc4-b231-46d1-82c9-26f7eeb2d920",
+      "language": "EN",
+      "name": "F04 Search Card 052",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "8a268583-bca9-47a0-96f7-ddeb780f8636",
+      "language": "EN",
+      "name": "F04 Search Card 053",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "c29d3303-18dd-4856-a12c-4258fb90ff95",
+      "language": "EN",
+      "name": "F04 Search Card 054",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "543fafa9-5d1a-461e-85f7-d57f350263b6",
+      "language": "EN",
+      "name": "F04 Search Card 055",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "8dd48a0b-b72d-46ce-a043-3ea97197509f",
+      "language": "EN",
+      "name": "F04 Search Card 056",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "4f931af6-a529-481a-93eb-d155ac4e842e",
+      "language": "EN",
+      "name": "F04 Search Card 057",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "8a69a21a-9c39-4483-b09f-95ac4892d926",
+      "language": "EN",
+      "name": "F04 Search Card 058",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "cbf722a0-ae84-4117-8f5c-3441214f1972",
+      "language": "EN",
+      "name": "F04 Search Card 059",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "796002ad-9c59-4dd2-972c-87559f278780",
+      "language": "EN",
+      "name": "F04 Search Card 060",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "c2ce4545-1863-4279-aef9-a19da53ae908",
+      "language": "EN",
+      "name": "F04 Search Card 061",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "380a9ad7-1325-4e7c-b255-43118ffd5390",
+      "language": "EN",
+      "name": "F04 Search Card 062",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "88fa0b9b-a450-4a39-a101-34de76f8f8a8",
+      "language": "EN",
+      "name": "F04 Search Card 063",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "b3de51da-e7ec-4bef-b689-35fc2f7c0c5c",
+      "language": "EN",
+      "name": "F04 Search Card 064",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "187dc087-762e-4d28-9753-eadaf771ac82",
+      "language": "EN",
+      "name": "F04 Search Card 065",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "526e7df3-b707-4e38-944f-44c8f444e239",
+      "language": "EN",
+      "name": "F04 Search Card 066",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "6e4a17ec-f577-4345-80fa-5bd8a531d2de",
+      "language": "EN",
+      "name": "F04 Search Card 067",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "a3a886e5-d528-4784-ad7e-d9a88a13e1a2",
+      "language": "EN",
+      "name": "F04 Search Card 068",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "1d2760a5-3318-4a84-a3f8-565b869326ad",
+      "language": "EN",
+      "name": "F04 Search Card 069",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "49bd22ab-c3c9-41bc-a028-83f0f3c77c12",
+      "language": "EN",
+      "name": "F04 Search Card 070",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "05fd16cb-f33d-45ca-a3bb-69e5824a831e",
+      "language": "EN",
+      "name": "F04 Search Card 071",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "aafb3b13-01b4-4c38-b2f2-8fac796c67e8",
+      "language": "EN",
+      "name": "F04 Search Card 072",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "d63e4a58-9d31-4c5f-8e87-044775a7c913",
+      "language": "EN",
+      "name": "F04 Search Card 073",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "8552d4b8-73fd-4216-8d03-daab8df5310b",
+      "language": "EN",
+      "name": "F04 Search Card 074",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "dfc79d9a-e633-4b55-98a6-20129564fc78",
+      "language": "EN",
+      "name": "F04 Search Card 075",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "5373464d-cabb-4904-8547-2d8715237f4f",
+      "language": "EN",
+      "name": "F04 Search Card 076",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "1ce6e3f9-8de5-43f5-8d26-921e06e97e72",
+      "language": "EN",
+      "name": "F04 Search Card 077",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "879838b4-dae4-4f35-b74d-6a249058f92b",
+      "language": "EN",
+      "name": "F04 Search Card 078",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "6d718556-68d3-4097-86e7-13fd00b1a344",
+      "language": "EN",
+      "name": "F04 Search Card 079",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "eaf9c45f-26f2-4202-903d-bd8f5c167bb3",
+      "language": "EN",
+      "name": "F04 Search Card 080",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "b578bc62-1578-4149-a5eb-ea4b7d4b563b",
+      "language": "EN",
+      "name": "F04 Search Card 081",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "e39f2a88-7f59-406f-9f14-084be8cc5d30",
+      "language": "EN",
+      "name": "F04 Search Card 082",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "5891ae7e-83ae-4265-ad5d-47f48dc62b81",
+      "language": "EN",
+      "name": "F04 Search Card 083",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "b8b2781c-e67b-4b4d-a2ad-36cd029644fd",
+      "language": "EN",
+      "name": "F04 Search Card 084",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "e3675287-74ce-4585-838e-79c2bcf95438",
+      "language": "EN",
+      "name": "F04 Search Card 085",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "9780acdd-7dae-4ddb-a079-418670cf7402",
+      "language": "EN",
+      "name": "F04 Search Card 086",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "c72e4552-d2c5-48d2-9812-aba2a2cb2341",
+      "language": "EN",
+      "name": "F04 Search Card 087",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "ff12f0cd-e432-4d49-b9ba-a70d7a6b87c7",
+      "language": "EN",
+      "name": "F04 Search Card 088",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "9d746647-45d9-4a28-b7d0-283ada2c389f",
+      "language": "EN",
+      "name": "F04 Search Card 089",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "610efc60-a26f-4a3b-97be-6cdd5a9e9a3a",
+      "language": "EN",
+      "name": "F04 Search Card 090",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "90bfd64d-dd83-4d4a-ad6f-eb8bd2244473",
+      "language": "EN",
+      "name": "F04 Search Card 091",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "2352ea08-24fb-4b1f-b9cb-8ca52063127b",
+      "language": "EN",
+      "name": "F04 Search Card 092",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "0e385e41-d76c-492c-9bd2-f37ad32d2486",
+      "language": "EN",
+      "name": "F04 Search Card 093",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "cee2be40-e1a3-44c8-a2ae-446d3eb37a1a",
+      "language": "EN",
+      "name": "F04 Search Card 094",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "f7272c73-ba69-4a96-a01f-6175cc548a91",
+      "language": "EN",
+      "name": "F04 Search Card 095",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "5557c3be-dc29-4ec9-b909-45c0f5f49b6f",
+      "language": "EN",
+      "name": "F04 Search Card 096",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "058d4e81-eac6-463e-a347-f5c69c1f51dc",
+      "language": "EN",
+      "name": "F04 Search Card 097",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "bdf66192-4a8a-4cda-9af2-ee785d44149d",
+      "language": "EN",
+      "name": "F04 Search Card 098",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "b3e5ff12-e5c8-4987-9fe1-88204bb2a9b4",
+      "language": "EN",
+      "name": "F04 Search Card 099",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "5376f307-c88b-4d42-83eb-d15c7c8d4c7d",
+      "language": "EN",
+      "name": "F04 Search Card 100",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "2c8af81c-da8d-48a5-bd8c-6da6c63bed81",
+      "language": "EN",
+      "name": "F04 Search Card 101",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "35656ec0-6109-46ee-bacf-b8de6783b9f2",
+      "language": "EN",
+      "name": "F04 Search Card 102",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "23f99c5f-2f44-4ae0-9eb0-ac9c816c4616",
+      "language": "EN",
+      "name": "F04 Search Card 103",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "561e6493-1ab9-41b0-8612-7acd8844ce27",
+      "language": "EN",
+      "name": "F04 Search Card 104",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "46dd58e3-eeba-4ab1-9f8a-24074ef87c5b",
+      "language": "EN",
+      "name": "F04 Search Card 105",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "77deb774-8fa0-4761-995b-7fa1ce722296",
+      "language": "EN",
+      "name": "F04 Search Card 106",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "77f14af5-0446-44e1-bab8-498f33c42b43",
+      "language": "EN",
+      "name": "F04 Search Card 107",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "3bae4b6b-ca57-4ce1-a1dd-34e049cccf47",
+      "language": "EN",
+      "name": "F04 Search Card 108",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "9617b6eb-ae1e-4684-84b1-69a52793b5e0",
+      "language": "EN",
+      "name": "F04 Search Card 109",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "eea9ecd0-83c3-489c-9162-2a02f750b413",
+      "language": "EN",
+      "name": "F04 Search Card 110",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "50f8d01a-0b40-44a7-ad2a-bb78313994a1",
+      "language": "EN",
+      "name": "F04 Search Card 111",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "ab0ed1e0-b18b-434b-8d44-c51cffefbe90",
+      "language": "EN",
+      "name": "F04 Search Card 112",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "44064beb-ed58-478f-bea1-0bfd7a8d57dd",
+      "language": "EN",
+      "name": "F04 Search Card 113",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "60a40b4c-e85b-46b2-acdb-276cfaf47e76",
+      "language": "EN",
+      "name": "F04 Search Card 114",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "42baabe3-f06e-4f4d-bbfd-4f551e9087f0",
+      "language": "EN",
+      "name": "F04 Search Card 115",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "24d37c55-8e14-4cbe-a77e-105d5129c40b",
+      "language": "EN",
+      "name": "F04 Search Card 116",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "ad505f71-ee5b-4c61-a10e-8c22a21f2c4f",
+      "language": "EN",
+      "name": "F04 Search Card 117",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "3c4b5934-23b8-4c1d-b712-f37ac75d5814",
+      "language": "EN",
+      "name": "F04 Search Card 118",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "472eb23b-6c3a-433e-acde-8c83e4fe49f6",
+      "language": "EN",
+      "name": "F04 Search Card 119",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    },
+    {
+      "card_id": "fcc21e7a-0390-4633-8310-a9b961af8896",
+      "language": "EN",
+      "name": "F04 Search Card 120",
+      "card_text": "Disposable QA text",
+      "pendulum_text": null
+    }
+  ],
+  "canonical_monster_abilities": [],
+  "canonical_monster_structure": [],
+  "canonical_provenance": [],
+  "canonical_races": [
+    {
+      "code": "AQUA"
+    },
+    {
+      "code": "BEAST"
+    },
+    {
+      "code": "BEAST_WARRIOR"
+    },
+    {
+      "code": "CREATOR_GOD"
+    },
+    {
+      "code": "CYBERSE"
+    },
+    {
+      "code": "DINOSAUR"
+    },
+    {
+      "code": "DIVINE_BEAST"
+    },
+    {
+      "code": "DRAGON"
+    },
+    {
+      "code": "FAIRY"
+    },
+    {
+      "code": "FIEND"
+    },
+    {
+      "code": "FISH"
+    },
+    {
+      "code": "ILLUSION"
+    },
+    {
+      "code": "INSECT"
+    },
+    {
+      "code": "MACHINE"
+    },
+    {
+      "code": "PLANT"
+    },
+    {
+      "code": "PSYCHIC"
+    },
+    {
+      "code": "PYRO"
+    },
+    {
+      "code": "REPTILE"
+    },
+    {
+      "code": "ROCK"
+    },
+    {
+      "code": "SEA_SERPENT"
+    },
+    {
+      "code": "SPELLCASTER"
+    },
+    {
+      "code": "THUNDER"
+    },
+    {
+      "code": "WARRIOR"
+    },
+    {
+      "code": "WINGED_BEAST"
+    },
+    {
+      "code": "WYRM"
+    },
+    {
+      "code": "ZOMBIE"
+    }
+  ],
+  "canonical_relation_types": [
+    {
+      "code": "CREATES_TOKEN"
+    }
+  ],
+  "canonical_spell_structure": [],
+  "canonical_spell_subtypes": [
+    {
+      "code": "NORMAL"
+    },
+    {
+      "code": "CONTINUOUS"
+    },
+    {
+      "code": "EQUIP"
+    },
+    {
+      "code": "FIELD"
+    },
+    {
+      "code": "QUICK_PLAY"
+    },
+    {
+      "code": "RITUAL"
+    }
+  ],
+  "canonical_summon_kinds": [
+    {
+      "code": "MAIN_DECK"
+    },
+    {
+      "code": "RITUAL"
+    },
+    {
+      "code": "FUSION"
+    },
+    {
+      "code": "SYNCHRO"
+    },
+    {
+      "code": "XYZ"
+    },
+    {
+      "code": "LINK"
+    }
+  ],
+  "canonical_token_structure": [],
+  "canonical_trap_structure": [],
+  "canonical_trap_subtypes": [
+    {
+      "code": "NORMAL"
+    },
+    {
+      "code": "CONTINUOUS"
+    },
+    {
+      "code": "COUNTER"
+    }
+  ],
+  "card_variant_preferences": [],
+  "external_source_candidates": [],
+  "external_source_documents": [],
+  "external_source_records": [],
+  "external_source_retrievals": [],
+  "indexed_asset_files": [
+    {
+      "asset_id": "e7c930ea-736c-4f09-9925-9797651cc223",
+      "relative_path": "Test/7894d61b-61e9-4804-ab09-8f553b40ed91/default/BS.png",
+      "file_name": "BS.png",
+      "extension": "png",
+      "size_bytes": 1,
+      "modified_time_ms": 1,
+      "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "parsed_card_name": null,
+      "parsed_password": null,
+      "role": "BS",
+      "variant_label": "default",
+      "variant_key": "default",
+      "association_state": "RESOLVED",
+      "card_id": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "variant_id": "30428cd8-6502-40ff-bf38-fbd59a0b89dd",
+      "image_width": 1,
+      "image_height": 1,
+      "has_transparency": 0,
+      "valid_asset": 1,
+      "present": 1,
+      "first_seen_scan_id": "54edf0da-0837-42a4-bfae-7b496b8d9ec6",
+      "last_seen_scan_id": "54edf0da-0837-42a4-bfae-7b496b8d9ec6",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "asset_id": "1116c8c2-36e6-4c48-b158-00f6cf9b7f5c",
+      "relative_path": "Test/68bf7d7e-67dd-473a-8d39-af7143dad790/default/BG.png",
+      "file_name": "BG.png",
+      "extension": "png",
+      "size_bytes": 1,
+      "modified_time_ms": 1,
+      "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "parsed_card_name": null,
+      "parsed_password": null,
+      "role": "BG",
+      "variant_label": "default",
+      "variant_key": "default",
+      "association_state": "RESOLVED",
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "variant_id": "c99cabe4-963e-4fc3-b968-4414a85f8f50",
+      "image_width": 1,
+      "image_height": 1,
+      "has_transparency": 0,
+      "valid_asset": 1,
+      "present": 1,
+      "first_seen_scan_id": "955e61dc-703a-4415-a61d-d2d07827a48c",
+      "last_seen_scan_id": "955e61dc-703a-4415-a61d-d2d07827a48c",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "asset_id": "28acaac3-455c-48fe-999a-584560e11591",
+      "relative_path": "Test/68bf7d7e-67dd-473a-8d39-af7143dad790/default/OF.png",
+      "file_name": "OF.png",
+      "extension": "png",
+      "size_bytes": 1,
+      "modified_time_ms": 1,
+      "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "parsed_card_name": null,
+      "parsed_password": null,
+      "role": "OF",
+      "variant_label": "default",
+      "variant_key": "default",
+      "association_state": "RESOLVED",
+      "card_id": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "variant_id": "c99cabe4-963e-4fc3-b968-4414a85f8f50",
+      "image_width": 1,
+      "image_height": 1,
+      "has_transparency": 1,
+      "valid_asset": 1,
+      "present": 1,
+      "first_seen_scan_id": "955e61dc-703a-4415-a61d-d2d07827a48c",
+      "last_seen_scan_id": "955e61dc-703a-4415-a61d-d2d07827a48c",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "asset_id": "541d5791-1003-473f-8c23-5f4ecb80c4dd",
+      "relative_path": "Test/3ef3fea5-0b48-4858-9e65-d1eb65ebc171/default/OF.png",
+      "file_name": "OF.png",
+      "extension": "png",
+      "size_bytes": 1,
+      "modified_time_ms": 1,
+      "content_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "parsed_card_name": null,
+      "parsed_password": null,
+      "role": "OF",
+      "variant_label": "default",
+      "variant_key": "default",
+      "association_state": "RESOLVED",
+      "card_id": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "variant_id": "35cf861b-6e7e-47dd-b137-b5007b3e2ce3",
+      "image_width": 1,
+      "image_height": 1,
+      "has_transparency": 1,
+      "valid_asset": 1,
+      "present": 1,
+      "first_seen_scan_id": "1dead606-77f2-4951-b84e-394877537b50",
+      "last_seen_scan_id": "1dead606-77f2-4951-b84e-394877537b50",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    }
+  ],
+  "managed_asset_ingest_requests": [],
+  "managed_assets": [],
+  "variant_role_bindings": [
+    {
+      "variant_id": "30428cd8-6502-40ff-bf38-fbd59a0b89dd",
+      "role": "BS",
+      "asset_id": "e7c930ea-736c-4f09-9925-9797651cc223"
+    },
+    {
+      "variant_id": "c99cabe4-963e-4fc3-b968-4414a85f8f50",
+      "role": "BG",
+      "asset_id": "1116c8c2-36e6-4c48-b158-00f6cf9b7f5c"
+    },
+    {
+      "variant_id": "c99cabe4-963e-4fc3-b968-4414a85f8f50",
+      "role": "OF",
+      "asset_id": "28acaac3-455c-48fe-999a-584560e11591"
+    },
+    {
+      "variant_id": "35cf861b-6e7e-47dd-b137-b5007b3e2ce3",
+      "role": "OF",
+      "asset_id": "541d5791-1003-473f-8c23-5f4ecb80c4dd"
+    }
+  ]
+}

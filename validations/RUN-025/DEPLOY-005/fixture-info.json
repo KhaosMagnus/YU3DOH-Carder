@@ -1,0 +1,4734 @@
+{
+  "sha": "dd968ba05e579461962bbcced0e9cae3cd4c3d23",
+  "root": "/tmp/yu3doh-run025-disposable-zkVzYw",
+  "fixture": "RUN025-F04-121-v1",
+  "cards": [
+    {
+      "cardId": "c4a04c67-089e-475a-8481-0ddb638e09a0",
+      "family": "MONSTER",
+      "password": "25000000",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 000",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "7894d61b-61e9-4804-ab09-8f553b40ed91",
+      "family": "SPELL",
+      "password": "25000001",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 001",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "68bf7d7e-67dd-473a-8d39-af7143dad790",
+      "family": "TRAP",
+      "password": "25000002",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 002",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "3ef3fea5-0b48-4858-9e65-d1eb65ebc171",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 003",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "da8669e0-f3d9-42af-b166-feb88c50d229",
+      "family": "MONSTER",
+      "password": "25000004",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 004",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "542ef098-fea8-4a6d-af50-5b6960c148b1",
+      "family": "SPELL",
+      "password": "25000005",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 005",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "33a0a8dd-e0ea-483d-8d57-aa8a523d2190",
+      "family": "TRAP",
+      "password": "25000006",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 006",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "afd93a08-1394-4281-b31c-4cd02ffb8f9b",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 007",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "cce4cf21-dc7d-417f-a343-bcfea67b9ce8",
+      "family": "MONSTER",
+      "password": "25000008",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 008",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "9cd616b4-85ae-4749-bc10-f73ef0e751f8",
+      "family": "SPELL",
+      "password": "25000009",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 009",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "00c9c524-71f8-451b-a8a8-29e176696e31",
+      "family": "TRAP",
+      "password": "25000010",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 010",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "2e3bec6e-4472-4c6d-b209-ac0b102f2a6b",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 011",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "9722d05e-5afa-4055-b085-f7c0a47f5dd7",
+      "family": "MONSTER",
+      "password": "25000012",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 012",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "264bb7a4-aab0-4907-a639-0e0bec73e745",
+      "family": "SPELL",
+      "password": "25000013",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 013",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "69d22f3f-be31-4c37-97ef-00a123f70689",
+      "family": "TRAP",
+      "password": "25000014",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 014",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "00fc7633-b5fe-49e3-9cdb-d3dbc0a1414c",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 015",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "fba061e8-2259-4aa4-962a-886438bce793",
+      "family": "MONSTER",
+      "password": "25000016",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 016",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "d1dab2f1-5a58-472c-b63b-159737f78697",
+      "family": "SPELL",
+      "password": "25000017",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 017",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "31ddd0bf-05fb-4a6c-9863-23cb2e346d32",
+      "family": "TRAP",
+      "password": "25000018",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 018",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "ce18de2d-e8cd-4ef0-8dd1-4eab608e3445",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 019",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "747760b4-676b-45b1-882f-85fec4f2f3e9",
+      "family": "MONSTER",
+      "password": "25000020",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 020",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "769f7110-2848-403d-a9d8-87fffc8c1e11",
+      "family": "SPELL",
+      "password": "25000021",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 021",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "f80da94e-7287-4f9c-ad81-bc820f79037d",
+      "family": "TRAP",
+      "password": "25000022",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 022",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "b3562eb8-8abd-44da-82f5-fb7bcb5f03c5",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 023",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "49141d04-d534-4c57-9593-0ca4b41be73a",
+      "family": "MONSTER",
+      "password": "25000024",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 024",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "134f9d57-5dcc-4f27-9991-8c1eca0fa4f8",
+      "family": "SPELL",
+      "password": "25000025",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 025",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "0c347a8c-63fb-407e-baa0-075d4319f2ef",
+      "family": "TRAP",
+      "password": "25000026",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 026",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "14122f14-74f1-4624-8cab-2cda595a2010",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 027",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "71389a8b-3289-4f83-99a8-d1d3e192ef8e",
+      "family": "MONSTER",
+      "password": "25000028",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 028",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "e46e9118-8148-449f-b1b6-914b469ab612",
+      "family": "SPELL",
+      "password": "25000029",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 029",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "1f74124d-4e95-4ebe-9bdf-cdde373f6c59",
+      "family": "TRAP",
+      "password": "25000030",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 030",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "c2e89c6f-502e-454f-aaad-54bcc40103ab",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 031",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "2a261410-8b3a-48ca-8001-1b4a846f6f3c",
+      "family": "MONSTER",
+      "password": "25000032",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 032",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "296c918f-5ca2-420b-9c08-1654a7df4fbe",
+      "family": "SPELL",
+      "password": "25000033",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 033",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "9b9dd9c0-e9eb-4172-b02b-0205fde203ea",
+      "family": "TRAP",
+      "password": "25000034",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 034",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "e150b923-0691-4ddd-88df-c3866c9acc41",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 035",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "4ad1d0a5-a97d-4acd-b689-a8940a5009f6",
+      "family": "MONSTER",
+      "password": "25000036",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 036",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "530bfe8e-0bb4-4969-aa9c-bfa57c1a0bcc",
+      "family": "SPELL",
+      "password": "25000037",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 037",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "2cea5bf7-5ea7-4311-9925-e9369014f880",
+      "family": "TRAP",
+      "password": "25000038",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 038",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "7bfd3143-dad8-42b8-9afc-2aaeb3edd1bc",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 039",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "cc0b8aff-cb37-4009-ba56-f0725a8275ed",
+      "family": "MONSTER",
+      "password": "25000040",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 040",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "4ea83b75-dbcd-462f-ad91-e6e6deca096a",
+      "family": "SPELL",
+      "password": "25000041",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 041",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "033ed6eb-4539-420c-b354-463d828e6b7b",
+      "family": "TRAP",
+      "password": "25000042",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 042",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "37240454-cf9b-4faf-9f66-65e12f388fc6",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 043",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "099335a4-7a3d-4a9b-8620-f39c750d8e56",
+      "family": "MONSTER",
+      "password": "25000044",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 044",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "058aa4f1-a7ba-4202-9629-8c135c3980b8",
+      "family": "SPELL",
+      "password": "25000045",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 045",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "7de4593a-7146-44ab-a580-e439be3cbeb5",
+      "family": "TRAP",
+      "password": "25000046",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 046",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "bb3d53f6-8c9e-4403-8e4e-9b639b503c5e",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 047",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "53c41a0f-0875-4b05-86e6-c650d5344f77",
+      "family": "MONSTER",
+      "password": "25000048",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 048",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "2646cb85-e7de-4dc3-9067-4f634489e071",
+      "family": "SPELL",
+      "password": "25000049",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 049",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "92d31e09-5495-4a8f-8481-72a31f6130a4",
+      "family": "TRAP",
+      "password": "25000050",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 050",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "7c5e30ef-c106-4866-98bb-4342a6a2d3b7",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 051",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "a6d3ebc4-b231-46d1-82c9-26f7eeb2d920",
+      "family": "MONSTER",
+      "password": "25000052",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 052",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "8a268583-bca9-47a0-96f7-ddeb780f8636",
+      "family": "SPELL",
+      "password": "25000053",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 053",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "c29d3303-18dd-4856-a12c-4258fb90ff95",
+      "family": "TRAP",
+      "password": "25000054",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 054",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "543fafa9-5d1a-461e-85f7-d57f350263b6",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 055",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "8dd48a0b-b72d-46ce-a043-3ea97197509f",
+      "family": "MONSTER",
+      "password": "25000056",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 056",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "4f931af6-a529-481a-93eb-d155ac4e842e",
+      "family": "SPELL",
+      "password": "25000057",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 057",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "8a69a21a-9c39-4483-b09f-95ac4892d926",
+      "family": "TRAP",
+      "password": "25000058",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 058",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "cbf722a0-ae84-4117-8f5c-3441214f1972",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 059",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "796002ad-9c59-4dd2-972c-87559f278780",
+      "family": "MONSTER",
+      "password": "25000060",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 060",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "c2ce4545-1863-4279-aef9-a19da53ae908",
+      "family": "SPELL",
+      "password": "25000061",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 061",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "380a9ad7-1325-4e7c-b255-43118ffd5390",
+      "family": "TRAP",
+      "password": "25000062",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 062",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "88fa0b9b-a450-4a39-a101-34de76f8f8a8",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 063",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "b3de51da-e7ec-4bef-b689-35fc2f7c0c5c",
+      "family": "MONSTER",
+      "password": "25000064",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 064",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "187dc087-762e-4d28-9753-eadaf771ac82",
+      "family": "SPELL",
+      "password": "25000065",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 065",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "526e7df3-b707-4e38-944f-44c8f444e239",
+      "family": "TRAP",
+      "password": "25000066",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 066",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "6e4a17ec-f577-4345-80fa-5bd8a531d2de",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 067",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "a3a886e5-d528-4784-ad7e-d9a88a13e1a2",
+      "family": "MONSTER",
+      "password": "25000068",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 068",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "1d2760a5-3318-4a84-a3f8-565b869326ad",
+      "family": "SPELL",
+      "password": "25000069",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 069",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "49bd22ab-c3c9-41bc-a028-83f0f3c77c12",
+      "family": "TRAP",
+      "password": "25000070",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 070",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "05fd16cb-f33d-45ca-a3bb-69e5824a831e",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 071",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "aafb3b13-01b4-4c38-b2f2-8fac796c67e8",
+      "family": "MONSTER",
+      "password": "25000072",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 072",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "d63e4a58-9d31-4c5f-8e87-044775a7c913",
+      "family": "SPELL",
+      "password": "25000073",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 073",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "8552d4b8-73fd-4216-8d03-daab8df5310b",
+      "family": "TRAP",
+      "password": "25000074",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 074",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "dfc79d9a-e633-4b55-98a6-20129564fc78",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 075",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "5373464d-cabb-4904-8547-2d8715237f4f",
+      "family": "MONSTER",
+      "password": "25000076",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 076",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "1ce6e3f9-8de5-43f5-8d26-921e06e97e72",
+      "family": "SPELL",
+      "password": "25000077",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 077",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "879838b4-dae4-4f35-b74d-6a249058f92b",
+      "family": "TRAP",
+      "password": "25000078",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 078",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "6d718556-68d3-4097-86e7-13fd00b1a344",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 079",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "eaf9c45f-26f2-4202-903d-bd8f5c167bb3",
+      "family": "MONSTER",
+      "password": "25000080",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 080",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "b578bc62-1578-4149-a5eb-ea4b7d4b563b",
+      "family": "SPELL",
+      "password": "25000081",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 081",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "e39f2a88-7f59-406f-9f14-084be8cc5d30",
+      "family": "TRAP",
+      "password": "25000082",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 082",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "5891ae7e-83ae-4265-ad5d-47f48dc62b81",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 083",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "b8b2781c-e67b-4b4d-a2ad-36cd029644fd",
+      "family": "MONSTER",
+      "password": "25000084",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 084",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "e3675287-74ce-4585-838e-79c2bcf95438",
+      "family": "SPELL",
+      "password": "25000085",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 085",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "9780acdd-7dae-4ddb-a079-418670cf7402",
+      "family": "TRAP",
+      "password": "25000086",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 086",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "c72e4552-d2c5-48d2-9812-aba2a2cb2341",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 087",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "ff12f0cd-e432-4d49-b9ba-a70d7a6b87c7",
+      "family": "MONSTER",
+      "password": "25000088",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 088",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "9d746647-45d9-4a28-b7d0-283ada2c389f",
+      "family": "SPELL",
+      "password": "25000089",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 089",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "610efc60-a26f-4a3b-97be-6cdd5a9e9a3a",
+      "family": "TRAP",
+      "password": "25000090",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 090",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "90bfd64d-dd83-4d4a-ad6f-eb8bd2244473",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 091",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "2352ea08-24fb-4b1f-b9cb-8ca52063127b",
+      "family": "MONSTER",
+      "password": "25000092",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 092",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "0e385e41-d76c-492c-9bd2-f37ad32d2486",
+      "family": "SPELL",
+      "password": "25000093",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 093",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "cee2be40-e1a3-44c8-a2ae-446d3eb37a1a",
+      "family": "TRAP",
+      "password": "25000094",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 094",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "f7272c73-ba69-4a96-a01f-6175cc548a91",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 095",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "5557c3be-dc29-4ec9-b909-45c0f5f49b6f",
+      "family": "MONSTER",
+      "password": "25000096",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 096",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "058d4e81-eac6-463e-a347-f5c69c1f51dc",
+      "family": "SPELL",
+      "password": "25000097",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 097",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "bdf66192-4a8a-4cda-9af2-ee785d44149d",
+      "family": "TRAP",
+      "password": "25000098",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 098",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "b3e5ff12-e5c8-4987-9fe1-88204bb2a9b4",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 099",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "5376f307-c88b-4d42-83eb-d15c7c8d4c7d",
+      "family": "MONSTER",
+      "password": "25000100",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 100",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "2c8af81c-da8d-48a5-bd8c-6da6c63bed81",
+      "family": "SPELL",
+      "password": "25000101",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 101",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "35656ec0-6109-46ee-bacf-b8de6783b9f2",
+      "family": "TRAP",
+      "password": "25000102",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 102",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "23f99c5f-2f44-4ae0-9eb0-ac9c816c4616",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 103",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "561e6493-1ab9-41b0-8612-7acd8844ce27",
+      "family": "MONSTER",
+      "password": "25000104",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 104",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "46dd58e3-eeba-4ab1-9f8a-24074ef87c5b",
+      "family": "SPELL",
+      "password": "25000105",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 105",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "77deb774-8fa0-4761-995b-7fa1ce722296",
+      "family": "TRAP",
+      "password": "25000106",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 106",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "77f14af5-0446-44e1-bab8-498f33c42b43",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 107",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "3bae4b6b-ca57-4ce1-a1dd-34e049cccf47",
+      "family": "MONSTER",
+      "password": "25000108",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 108",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "9617b6eb-ae1e-4684-84b1-69a52793b5e0",
+      "family": "SPELL",
+      "password": "25000109",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 109",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "eea9ecd0-83c3-489c-9162-2a02f750b413",
+      "family": "TRAP",
+      "password": "25000110",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 110",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "50f8d01a-0b40-44a7-ad2a-bb78313994a1",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 111",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "ab0ed1e0-b18b-434b-8d44-c51cffefbe90",
+      "family": "MONSTER",
+      "password": "25000112",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 112",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "44064beb-ed58-478f-bea1-0bfd7a8d57dd",
+      "family": "SPELL",
+      "password": "25000113",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 113",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "60a40b4c-e85b-46b2-acdb-276cfaf47e76",
+      "family": "TRAP",
+      "password": "25000114",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 114",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "23cadcb4-dbe0-49be-b5f7-f32077145d78",
+            "code": "F04 Broad"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "42baabe3-f06e-4f4d-bbfd-4f551e9087f0",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 115",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "9886817a-c647-4af8-88c7-6f414ee4c3ff",
+            "code": "F04 Narrow"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "24d37c55-8e14-4cbe-a77e-105d5129c40b",
+      "family": "MONSTER",
+      "password": "25000116",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 116",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "9886817a-c647-4af8-88c7-6f414ee4c3ff",
+            "code": "F04 Narrow"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "ad505f71-ee5b-4c61-a10e-8c22a21f2c4f",
+      "family": "SPELL",
+      "password": "25000117",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 117",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "9886817a-c647-4af8-88c7-6f414ee4c3ff",
+            "code": "F04 Narrow"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "3c4b5934-23b8-4c1d-b712-f37ac75d5814",
+      "family": "TRAP",
+      "password": "25000118",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 118",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "9886817a-c647-4af8-88c7-6f414ee4c3ff",
+            "code": "F04 Narrow"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "472eb23b-6c3a-433e-acde-8c83e4fe49f6",
+      "family": "TOKEN",
+      "password": null,
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 119",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "9886817a-c647-4af8-88c7-6f414ee4c3ff",
+            "code": "F04 Narrow"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "cardId": "fcc21e7a-0390-4633-8310-a9b961af8896",
+      "family": "MONSTER",
+      "password": "25000120",
+      "revision": "2",
+      "structure": null,
+      "localizations": [
+        {
+          "language": "EN",
+          "name": "F04 Search Card 120",
+          "cardText": "Disposable QA text",
+          "pendulumText": null
+        }
+      ],
+      "confirmations": [],
+      "provenance": [],
+      "classification": {
+        "effectReviewed": false,
+        "archetypes": [
+          {
+            "id": "9886817a-c647-4af8-88c7-6f414ee4c3ff",
+            "code": "F04 Narrow"
+          }
+        ],
+        "effectClassifiers": [
+          {
+            "id": "c519592f-d4be-42e6-85b9-53713f935d52",
+            "code": "F04 Effect"
+          }
+        ],
+        "functionalTags": [
+          {
+            "id": "8d675338-47ea-4591-bc7c-9ae89bc1af4d",
+            "code": "F04 Tag"
+          }
+        ]
+      },
+      "relations": []
+    }
+  ],
+  "manifest": {
+    "workspace_id": "1003436f-436e-4cae-a123-1729fe70cde8",
+    "workspace_format_version": 1,
+    "database_path": "Data/workspace.db",
+    "created_at": "2026-10-27T19:01:46.175Z"
+  },
+  "schema": 8,
+  "count": 121
+}

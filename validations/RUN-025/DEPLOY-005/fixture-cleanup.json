@@ -1,0 +1,39 @@
+{
+  "roots": [
+    {
+      "root": "/tmp/yu3doh-run025-disposable-zkVzYw",
+      "removed": true
+    },
+    {
+      "root": "/tmp/yu3doh-run025-disposable-pTIMAc",
+      "removed": true
+    }
+  ],
+  "children": [
+    {
+      "name": "fixture",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "name": "empty-fixture",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "name": "vite",
+      "exitCode": 143,
+      "signal": null
+    },
+    {
+      "name": "baseline-vite",
+      "exitCode": 143,
+      "signal": null
+    },
+    {
+      "name": "browser",
+      "exitCode": 0,
+      "signal": null
+    }
+  ]
+}

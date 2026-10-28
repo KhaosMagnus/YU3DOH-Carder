@@ -1,0 +1,22 @@
+{
+  "head": "dd968ba05e579461962bbcced0e9cae3cd4c3d23",
+  "status": "",
+  "diff": "",
+  "cachedDiff": "",
+  "remote": "dd968ba05e579461962bbcced0e9cae3cd4c3d23\trefs/heads/feature/workspace-run-025",
+  "mergeBase": "e07140d5a9555a17b7b2306a45625c14adfafc8e",
+  "commitCount": "1",
+  "changedPaths": "package.json\nscripts/run025-qa-fixture.cjs\nscripts/run025-ui-evidence.cjs\nscripts/test-library-grid-list.ts\nsrc/library/app.tsx\nsrc/library/library-result-card.tsx\nsrc/library/library.scss",
+  "parents": "e07140d5a9555a17b7b2306a45625c14adfafc8e",
+  "files": {
+    "package.json": "0e763c8b4aaeacde9220c84fb910c3c997d7e608c267633814c21d86d4801452",
+    "yarn.lock": "7b1b702811b5932aeb1c4375ecac6eed02cf51b2cb4dd500a0a2e972d917b0a7",
+    "workspace-server/package.json": "e52e8717fa714b1c7b499d599a1d733d9f55fa7f8a3387f9f05ac50140dcd490",
+    "workspace-server/yarn.lock": "3209163e59d04e1fb53caebded582b4d74bcb69918d89376adeb0e01b7fbb98b"
+  },
+  "protectedRefs": {
+    "feature/workspace-run-025": "dd968ba05e579461962bbcced0e9cae3cd4c3d23",
+    "feature/workspace-v0.1": "e07140d5a9555a17b7b2306a45625c14adfafc8e",
+    "main": "54cc3aad246c89a29f2a18be63c539db68cae041"
+  }
+}
