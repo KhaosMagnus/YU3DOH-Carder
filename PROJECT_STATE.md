@@ -30,36 +30,45 @@ DEPLOY-005 COMPLETE / EVIDENCE READY
 External QA:
 DQA-004 COMPLETE / PASS
 
-Official final QA report:
-validations/RUN-025/DQA-004_EXTERNAL_QA_FINAL_REPORT.md
-
-Project Control PASS disposition:
-runs/RUN-025_DQA-004_PASS_DISPOSITION.md
-
 Exact validated candidate:
 feature/workspace-run-025 @ dd968ba05e579461962bbcced0e9cae3cd4c3d23
 
 Current integration target:
 feature/workspace-v0.1 @ e07140d5a9555a17b7b2306a45625c14adfafc8e
 
+Owner integration authorization:
+GRANTED
+
+Authorization:
+control/OWNER_AUTH_RUN_025_INTEGRATION.md
+
+Integration handoff:
+handoffs/RUN-025_ADMIN_INTEGRATION_HANDOFF.md
+
+Integration route:
+routing/ROUTE-RUN-025-IA-003.md
+
+Integration Admin:
+IA-003 — ASSIGNED / ADMINISTRATIVE INTEGRATION
+
+Authorized method:
+FAST-FORWARD ONLY
+
 Integration state:
-AWAITING OWNER AUTHORIZATION
+AUTHORIZED / NOT YET VERIFIED COMPLETE
 
-No Integration Admin instance is assigned yet.
-
-No product ref movement is authorized by QA PASS alone.
+Main:
+NOT AUTHORIZED TO MOVE
 
 Candidate mutation:
-NOT AUTHORIZED; any mutation requires revalidation.
+NOT AUTHORIZED
 
 ## CR-0002
 
 Implementation remains unauthorized.
 
 Required sequence:
-RUN 025 integration authorization
-→ guarded integration of exact validated candidate
-→ verified integration closure
+verified RUN 025 integration closure
 → post-F04 compatibility review
 → exact CR-0002 implementation baseline assignment
 → separate implementation authorization.
@@ -70,6 +79,6 @@ DEV-007/S01 required explicit Owner prompt for its final return.
 
 DQA-004 PARTIAL, ENV-005 READY, DEPLOY-005 EVIDENCE READY, and DQA-004 final PASS all auto-returned under explicit terminal-return instructions.
 
-The RUN 025 session pilot still did not exercise an actual session rollover/recovery.
+RUN 025 did not exercise actual Development session rollover/recovery.
 
 No Generic Protocol amendment is authorized yet.
