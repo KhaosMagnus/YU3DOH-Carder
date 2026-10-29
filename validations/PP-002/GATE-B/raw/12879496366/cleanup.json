@@ -1,0 +1,19 @@
+{
+  "case": "B3",
+  "cleanup": "CLEANUP_CONFIRMED",
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S01",
+  "control_sha": "2d22969421bfe92d283bae0202c0aa3764105a2c",
+  "emission_channel": "authorized operational branch push -> Actions",
+  "harness_sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+  "job_key": "B3",
+  "namespace": "pp002-gate-b-20261029-01",
+  "observed_at": "2026-10-29T07:05:44.354142+00:00",
+  "owned_marker_checked": true,
+  "product_executed": false,
+  "product_mutated": false,
+  "removed": true,
+  "root": "/home/runner/work/_temp/pp002-gate-b-20261029-01/B3",
+  "root_existed_before": true,
+  "run_attempt": "1",
+  "run_id": "40832621820"
+}
