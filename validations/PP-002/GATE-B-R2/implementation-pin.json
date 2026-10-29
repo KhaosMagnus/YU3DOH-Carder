@@ -1,0 +1,8 @@
+{
+  "harness_sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+  "r1_validator_sha256": "0ebe717cb4830d376668a9d3ac193fd026399279c09a68af656e04d566247633",
+  "successor": {
+    "validation/pp002-gate-b-r2/observer.py": "283f49bd26534730156eb7a0ef165a18baec8a7b6b3a7c8ae6c2a152d4645edb",
+    "validation/pp002-gate-b-r2/test_observer.py": "f41c9156e82a785ac785766649a36b1b63ec99ec7c78e59b803311a2cd94fb0e"
+  }
+}

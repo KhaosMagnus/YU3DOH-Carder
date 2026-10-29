@@ -1,0 +1,9 @@
+{
+  "started_at": "2026-10-29T16:55:25.575945+00:00",
+  "finished_at": "2026-10-29T16:55:25.638287+00:00",
+  "negative_exit": 1,
+  "negative_violations": 53,
+  "mandatory_controls": 6,
+  "unit_tests": 16,
+  "unit_exit": 0
+}

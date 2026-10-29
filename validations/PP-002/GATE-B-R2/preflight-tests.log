@@ -1,0 +1,21 @@
+test_active_parent_failed_child (test_observer.GuardTests.test_active_parent_failed_child) ... ok
+test_assembly_time_substitution (test_observer.GuardTests.test_assembly_time_substitution) ... ok
+test_baseline (test_observer.GuardTests.test_baseline) ... ok
+test_crossbound_source (test_observer.GuardTests.test_crossbound_source) ... ok
+test_dropped_operation (test_observer.GuardTests.test_dropped_operation) ... ok
+test_foreign_identity (test_observer.GuardTests.test_foreign_identity) ... ok
+test_invented_request_time (test_observer.GuardTests.test_invented_request_time) ... ok
+test_lifecycle_not_success (test_observer.GuardTests.test_lifecycle_not_success) ... ok
+test_missing_child_not_inherited (test_observer.GuardTests.test_missing_child_not_inherited) ... ok
+test_missing_source (test_observer.GuardTests.test_missing_source) ... ok
+test_no_retry_authority (test_observer.GuardTests.test_no_retry_authority) ... ok
+test_nonemission_contradiction (test_observer.GuardTests.test_nonemission_contradiction) ... ok
+test_notdone_contradiction (test_observer.GuardTests.test_notdone_contradiction) ... ok
+test_runner_terminal_not_cleanup (test_observer.GuardTests.test_runner_terminal_not_cleanup) ... ok
+test_source_byte_tamper (test_observer.GuardTests.test_source_byte_tamper) ... ok
+test_unknown_receipt_not_assembly (test_observer.GuardTests.test_unknown_receipt_not_assembly) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.081s
+
+OK
