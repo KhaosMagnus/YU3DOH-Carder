@@ -1,0 +1,520 @@
+{
+  "claim_scope": "Historical source-receipt view only",
+  "invariant_violation_count": 53,
+  "operation_count": 24,
+  "result": "FAIL",
+  "valid_current_observed_ledger": false,
+  "validator": "PP002-GATE-B-R1-consistency-v1",
+  "violations": [
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B1-CLEANUP",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/4",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B1-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": {
+        "claimed": "CONFIRMED_NOT_DONE",
+        "supported": "CONFIRMED_DONE"
+      },
+      "logical_operation_id": "B1-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "NOT_DONE_CONTRADICTS_EXECUTION"
+    },
+    {
+      "detail": "Positive issuance/publication/execution receipt already exists",
+      "logical_operation_id": "B1-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "NOT_EMITTED_CONTRADICTS_POSITIVE_ACK"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B1-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B1-FINALIZE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/5",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B1-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/3",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": {
+        "claimed": "CONFIRMED_NOT_DONE",
+        "supported": "STILL_RUNNING"
+      },
+      "logical_operation_id": "B1-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/3",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "NOT_DONE_CONTRADICTS_EXECUTION"
+    },
+    {
+      "detail": "Positive issuance/publication/execution receipt already exists",
+      "logical_operation_id": "B1-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/3",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "NOT_EMITTED_CONTRADICTS_POSITIVE_ACK"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B1-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/3",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B1-JOB",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B1-UPLOAD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/0/steps/6",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B2-CLEANUP",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B2-CLEANUP",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B2-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B2-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B2-FINALIZE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B2-FINALIZE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B2-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B2-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B2-JOB",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B2-UPLOAD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B2-UPLOAD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/2",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-CHILD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B3-CHILD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-CLEANUP",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B3-CLEANUP",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B3-EFFECT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-FINALIZE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B3-FINALIZE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B3-HOLD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-JOB",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-PARTIAL-UPLOAD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B3-PARTIAL-UPLOAD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "B3-UPLOAD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "B3-UPLOAD",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/jobs/1",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "GB-EMIT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission/acknowledged_at"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": {
+        "claimed": "CONFIRMED_NOT_DONE",
+        "supported": "CONFIRMED_DONE"
+      },
+      "logical_operation_id": "GB-EMIT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission/acknowledged_at"
+      ],
+      "violated_invariant": "NOT_DONE_CONTRADICTS_EXECUTION"
+    },
+    {
+      "detail": "Positive issuance/publication/execution receipt already exists",
+      "logical_operation_id": "GB-EMIT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission/acknowledged_at"
+      ],
+      "violated_invariant": "NOT_EMITTED_CONTRADICTS_POSITIVE_ACK"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "GB-EMIT",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/emission/acknowledged_at",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "GB-INTENT-PUBLISH",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/intent_publication"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": {
+        "claimed": "CONFIRMED_NOT_DONE",
+        "supported": "CONFIRMED_DONE"
+      },
+      "logical_operation_id": "GB-INTENT-PUBLISH",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/intent_publication"
+      ],
+      "violated_invariant": "NOT_DONE_CONTRADICTS_EXECUTION"
+    },
+    {
+      "detail": "Positive issuance/publication/execution receipt already exists",
+      "logical_operation_id": "GB-INTENT-PUBLISH",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/intent_publication"
+      ],
+      "violated_invariant": "NOT_EMITTED_CONTRADICTS_POSITIVE_ACK"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "GB-INTENT-PUBLISH",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/intent_publication",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "GB-OPS-CREATE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/branch_create"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": {
+        "claimed": "CONFIRMED_NOT_DONE",
+        "supported": "CONFIRMED_DONE"
+      },
+      "logical_operation_id": "GB-OPS-CREATE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/branch_create"
+      ],
+      "violated_invariant": "NOT_DONE_CONTRADICTS_EXECUTION"
+    },
+    {
+      "detail": "Positive issuance/publication/execution receipt already exists",
+      "logical_operation_id": "GB-OPS-CREATE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/branch_create"
+      ],
+      "violated_invariant": "NOT_EMITTED_CONTRADICTS_POSITIVE_ACK"
+    },
+    {
+      "detail": "No operation-specific positive nonstart receipt supports the inherited planned state",
+      "logical_operation_id": "GB-OPS-CREATE",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/branch_create",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/run_id"
+      ],
+      "violated_invariant": "PLANNED_STATE_CARRIED_ACROSS_EMISSION"
+    },
+    {
+      "detail": "Observed fields need a resolvable operation-specific receipt identity",
+      "logical_operation_id": "GB-WORKFLOW",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/workflow_status",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_run_list_response_time"
+      ],
+      "violated_invariant": "MATERIAL_CLAIM_WITHOUT_TRACEABLE_SOURCE"
+    },
+    {
+      "detail": {
+        "claimed": "2026-10-29T07:00:48.933Z",
+        "recorded_at": "2026-10-29T07:00:48.932Z",
+        "supported_original_receipts": [
+          "2026-10-29T07:00:15.124Z",
+          "2026-10-29T07:00:15.576Z"
+        ]
+      },
+      "logical_operation_id": "GB-WORKFLOW",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/010_EMITTED.json#/external_observation_at",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/recorded_at",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_run_list_response_time",
+        "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json#/defects/1/actual_initial_job_API_response_time"
+      ],
+      "violated_invariant": "OBSERVATION_TIME_CONFLATED_WITH_ASSEMBLY"
+    },
+    {
+      "detail": "A copied mixed operations array cannot stand as a current observed ledger",
+      "logical_operation_id": "LEDGER",
+      "source_evidence": [
+        "validations/PP-002/GATE-B/000_INTENT.json#",
+        "validations/PP-002/GATE-B/010_EMITTED.json#/operations"
+      ],
+      "violated_invariant": "PLANNED_INTENT_NOT_SEPARATE_FROM_OBSERVED_STATE"
+    }
+  ]
+}
