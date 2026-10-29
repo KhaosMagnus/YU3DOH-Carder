@@ -1,0 +1,49 @@
+{
+  "context": {
+    "admin_sources": {
+      "C-EMIT": "validations/PP-002/GATE-C/raw/emit.json",
+      "C-INTENT-PUBLISH": "validations/PP-002/GATE-C/raw/C-000-publish.json",
+      "C-OPS-CREATE": "validations/PP-002/GATE-C/raw/ops-create.json"
+    },
+    "branch": "ops/pp-002-gate-c-actions",
+    "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+    "jobs_source": "validations/PP-002/GATE-C/S02/raw/fresh-jobs.json",
+    "run_attempt": 1,
+    "run_id": 40930819906,
+    "verified_packages": {},
+    "workflow_source": "validations/PP-002/GATE-C/S02/raw/fresh-workflow.json"
+  },
+  "files": {
+    "validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json": {
+      "bytes": 13353,
+      "git_blob_sha": "ba0ac48192452ea8015a9b70fd41217b3eae9fbc",
+      "sha256": "a47afaa16a9b253d72499a310af3c123668238300abf566645db9e8c5131fc88"
+    },
+    "validations/PP-002/GATE-C/S02/raw/fresh-jobs.json": {
+      "bytes": 4100,
+      "git_blob_sha": "258a4364560b371b659e6c335a86b29f9224695a",
+      "sha256": "1bfb08ad3e71412d305c46040c81bbc84d1414af66be876ee4619b0eb2b027af"
+    },
+    "validations/PP-002/GATE-C/S02/raw/fresh-workflow.json": {
+      "bytes": 15082,
+      "git_blob_sha": "63ff15a70ce7e2ce34f8c4e0f64df9576a92200d",
+      "sha256": "4b98f7a3a9186a999b8e4f76d931fef4471f1443d0c1bfb43b1166ff307faaa8"
+    },
+    "validations/PP-002/GATE-C/raw/C-000-publish.json": {
+      "bytes": 220,
+      "git_blob_sha": "c093d1f59894ab5bdfde36148530134b83028bc5",
+      "sha256": "c17df86930c90d88916bc367edef188518fc1923fd4e911024bfcaeff79e1a05"
+    },
+    "validations/PP-002/GATE-C/raw/emit.json": {
+      "bytes": 220,
+      "git_blob_sha": "65d85f49b7675f68f0d8cde1ac3d26909591bd8e",
+      "sha256": "6f241e8ada6490143e1236b54cb877300ec66e47f21fa24314b86a9a746eb136"
+    },
+    "validations/PP-002/GATE-C/raw/ops-create.json": {
+      "bytes": 242,
+      "git_blob_sha": "ab9e524db23048d9a88e2e535c277d08a3afa722",
+      "sha256": "b9f1a7b7a7a1cf9409d7fd6dba46843fd489bbc68600a6fb57c897ef6927d524"
+    }
+  },
+  "source_control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d"
+}

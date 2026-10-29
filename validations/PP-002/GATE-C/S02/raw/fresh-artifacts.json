@@ -1,0 +1,32 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs/40930819906/artifacts?per_page=100",
+  "requested_at": "2026-10-29T18:47:51.597Z",
+  "receipt_at": "2026-10-29T18:47:51.968Z",
+  "timing_scope": "Normal connector invocation/completed receipt; not HTTP wire telemetry",
+  "response": {
+    "total_count": 1,
+    "artifacts": [
+      {
+        "id": 12922708409,
+        "node_id": "MDg6QXJ0aWZhY3QxMjkyMjcwODQwOQ==",
+        "name": "pp002-gate-c-20261029-01-C1-40930819906",
+        "size_in_bytes": 3736,
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/artifacts/12922708409",
+        "archive_download_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/artifacts/12922708409/zip",
+        "expired": false,
+        "digest": "sha256:e15070a4b2a9b017f359cb48ae89e2a32e6c37a869d2428489b8b4f691e4ae6f",
+        "created_at": "2026-10-29T18:41:33Z",
+        "updated_at": "2026-10-29T18:41:33Z",
+        "expires_at": "2026-11-28T18:41:33Z",
+        "workflow_run": {
+          "id": 40930819906,
+          "repository_id": 1374186410,
+          "head_repository_id": 1374186410,
+          "head_branch": "ops/pp-002-gate-c-actions",
+          "head_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0"
+        }
+      }
+    ]
+  }
+}

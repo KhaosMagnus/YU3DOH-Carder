@@ -1,0 +1,21 @@
+{
+  "sha": "65c3d4a949fb15416ad180176511f557577eddab",
+  "parent": "34011f6466ce096b310ef1c43c277d2bfd2af7aa",
+  "paths": [
+    "validations/PP-002/GATE-C/C-030_S02_CUSTODY_RECOVERY.json",
+    "validations/PP-002/GATE-C/S02/predecessor-recheck.log",
+    "validations/PP-002/GATE-C/S02/historical-negative.json",
+    "validations/PP-002/GATE-C/S02/entry-reference-receipts.json",
+    "validations/PP-002/GATE-C/S02/predecessor-recheck.json",
+    "validations/PP-002/GATE-C/S02/source-recovery-manifest.json",
+    "validations/PP-002/GATE-C/S02/unit-tests.log",
+    "validations/PP-002/GATE-C/S02/historical-negative.log",
+    "validations/PP-002/GATE-C/S02/local-validation-receipts.json"
+  ],
+  "requested_at": "2026-10-29T18:47:13.201Z",
+  "receipt_at": "2026-10-29T18:47:15.928Z",
+  "acknowledgement": {
+    "success": true
+  },
+  "verified_prepared_tree": true
+}
