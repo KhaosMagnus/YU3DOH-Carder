@@ -1,0 +1,88 @@
+{
+  "schema": "PP002-GATE-B-v2-ledger-1",
+  "stage": "APPEND_ONLY_BOOKKEEPING_CORRECTION",
+  "recorded_at": "2026-10-29T07:11:25.968Z",
+  "input_control_sha": "2d22969421bfe92d283bae0202c0aa3764105a2c",
+  "authority": "control/PP-002_GATE-B_AUTHORIZATION.md",
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S01",
+  "preserved_predecessors": [
+    "validations/PP-002/GATE-B/010_EMITTED.json",
+    "validations/PP-002/GATE-B/050_TERMINAL_RECONCILIATION.json"
+  ],
+  "does_not_rewrite_frozen_records": true,
+  "defects": [
+    {
+      "id": "GB-D01",
+      "kind": "Planned lifecycle/acknowledgement copied into emitted snapshot",
+      "source": "010_EMITTED.json operations",
+      "contradictory_operations": [
+        {
+          "logical_operation_id": "GB-INTENT-PUBLISH",
+          "recorded": "CONFIRMED_NOT_DONE / NOT_EMITTED_CONFIRMED",
+          "supported": "CONFIRMED_DONE / SUCCESS / EMITTED_ACKNOWLEDGED",
+          "evidence": "Snapshot references already-published immutable intent commit 0c2102f3e50e135fd88c9f3f414a8da9893708aa"
+        },
+        {
+          "logical_operation_id": "GB-OPS-CREATE",
+          "recorded": "CONFIRMED_NOT_DONE / NOT_EMITTED_CONFIRMED",
+          "supported": "CONFIRMED_DONE / SUCCESS / EMITTED_ACKNOWLEDGED",
+          "evidence": "Snapshot branch_create receipt and independent exact branch read"
+        },
+        {
+          "logical_operation_id": "GB-EMIT",
+          "recorded": "CONFIRMED_NOT_DONE / NOT_EMITTED_CONFIRMED",
+          "supported": "CONFIRMED_DONE / SUCCESS / EMITTED_ACKNOWLEDGED",
+          "evidence": "Snapshot emission block contains guarded update acknowledgement"
+        },
+        {
+          "logical_operation_id": "B1-EFFECT",
+          "recorded": "CONFIRMED_NOT_DONE / NOT_EMITTED_CONFIRMED",
+          "supported": "CONFIRMED_DONE / SUCCESS / EFFECT_CONFIRMED",
+          "evidence": "Same snapshot raw job step Create exactly one B1 effect completed success at 07:00:13Z"
+        },
+        {
+          "logical_operation_id": "B1-HOLD",
+          "recorded": "CONFIRMED_NOT_DONE / NOT_EMITTED_CONFIRMED",
+          "supported": "STILL_RUNNING at the actual initial query timestamp",
+          "evidence": "Same snapshot raw job hold step in_progress since 07:00:13Z"
+        }
+      ],
+      "scope": "At least five false inherited operation lifecycle claims in one intermediate snapshot. Do not consume that embedded operations array as current observed state.",
+      "cause": "Emitter copied pre-emission operation templates and updated only workflow/job parents; child/admin lifecycle and ack fields were not rederived.",
+      "required_fix": "Separate planned_intent from observed_state. After emission derive each material operation from its actual receipt/query; if unavailable use UNCERTAIN. Never carry NOT_EMITTED_CONFIRMED/CONFIRMED_NOT_DONE across parent emission without fresh positive nonstart evidence."
+    },
+    {
+      "id": "GB-D02",
+      "kind": "Observation time conflated with snapshot assembly time",
+      "source": "010_EMITTED.json external_observation_at",
+      "recorded": "2026-10-29T07:00:48.933Z",
+      "actual_initial_job_API_response_time": "2026-10-29T07:00:15.576Z",
+      "actual_initial_run_list_response_time": "2026-10-29T07:00:15.124Z",
+      "evidence_source": "This execution's timestamped initial query output; retained raw data and later job event chronology corroborate ordering",
+      "required_fix": "Capture requested_at/responded_at around the actual external read and pass those fields unchanged to snapshots; preserve separate recorded_at/verified_at. Observation receipt must be durably saved immediately."
+    }
+  ],
+  "impact": {
+    "duplicate_workflows": 0,
+    "duplicate_effects": 0,
+    "affected_retries_executed": 0,
+    "actual_recovery_actions_correct": true,
+    "recovery_derived_from": "Fresh authority/refs/durable IDs and new external run/jobs/artifact query, not the erroneous inherited child statuses",
+    "v2_procedure_viable": true,
+    "gate_result": "REVISE"
+  },
+  "measurement_corrections": {
+    "supersedes": "050_TERMINAL_RECONCILIATION.json measurement.stale_context_errors as an unqualified zero",
+    "product_baseline_authority_errors": 0,
+    "actual_recovery_decision_errors": 0,
+    "stale_operation_state_claims_at_least": 5,
+    "bookkeeping_defect_classes": 2,
+    "actual_gap_seconds_interpretation": "050 actual_gap_seconds=146.507 is loss-start to completed fresh observation; it includes the final query latency. Guaranteed intentional Actions-query-free wait is 110 seconds; do not label 146.507 an exact no-query interval."
+  },
+  "validation_required_before_further_live_gate": "A separately controlled emitter/ledger check must reject stale planned states after emission and enforce source-tied timestamps. No additional workflow is launched under this correction.",
+  "remaining_live_operations": 0,
+  "all_owned_roots_removed": true,
+  "retention_disposition": "All 4 artifacts verified; raw evidence preserved in Git; 30-day artifact retention; ops branch retained for PC review. No destructive disposal performed.",
+  "next_authority": "PROJECT_CONTROL / PC-002",
+  "gate_c": "NOT_AUTHORIZED"
+}
