@@ -5,8 +5,8 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-002 | PROJECT_CONTROL | ACTIVE | PP-002 Gate B-R1 control | Gate B REVISE accepted |
-| PP-002 | PROTOCOL_PORTABILITY | ASSIGNED / GATE B-R1 BOOKKEEPING CORRECTION REVALIDATION | Execution Interruption Recovery Pilot | offline correction |
+| PC-002 | PROJECT_CONTROL | ACTIVE | PP-002 post-B-R1 control | B-R2 approval pending |
+| PP-002 | PROTOCOL_PORTABILITY | GATE B-R1 COMPLETE / PASS | Execution Interruption Recovery Pilot | corrected offline ledger validated |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
 | DEPLOY-006 | DEPLOYMENT_VALIDATION | COMPLETE / EVIDENCE ACCESS READY | RUN 026 evidence transport | artifact 12838688889 |
@@ -21,10 +21,10 @@ PP-002 Gate B:
 COMPLETE / REVISE
 
 PP-002 Gate B-R1:
-AUTHORIZED / OFFLINE
+COMPLETE / PASS
 
-Further live Gate B:
-NOT AUTHORIZED
+PP-002 Gate B-R2:
+PROPOSED / NOT AUTHORIZED
 
 PP-002 Gate C:
 NOT AUTHORIZED
