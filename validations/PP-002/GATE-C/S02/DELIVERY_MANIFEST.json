@@ -1,0 +1,330 @@
+{
+  "files": {
+    "protocols/PP-002_GATE-C_REAL_SESSION_ROLLOVER_REPORT.md": {
+      "bytes": 21210,
+      "git_blob_sha": "87fc2784af0f07884441c98fac3b79e1dcc6953f",
+      "sha256": "c91be6b077c8d5a64e1aa330353b6796cf38fc8122a6c7ec2626c5d6d13388f4"
+    },
+    "validations/PP-002/GATE-C/C-030_S02_CUSTODY_RECOVERY.json": {
+      "bytes": 3888,
+      "git_blob_sha": "9701304d3932be5d3aeda83d6f59b0becedf3706",
+      "sha256": "4801cb25c55d4bd8229a6fb733873e057a4a6e7357f7bc68bbcee34bbc34231a"
+    },
+    "validations/PP-002/GATE-C/C-040_MANIFEST.json": {
+      "bytes": 2091,
+      "git_blob_sha": "8494648a1d34a0b785ac6f0baf08a77959382e14",
+      "sha256": "02f3207a72c77a74b079fe11ab92bf99aa1ab5b0ed057696afe4276bca547e45"
+    },
+    "validations/PP-002/GATE-C/C-040_S02_FRESH_OBSERVATION.json": {
+      "bytes": 29283,
+      "git_blob_sha": "d85157a83537b9f2fa137970c24fa55b43a57902",
+      "sha256": "1acb3e00a274437375d1ffe1eddbdc0f25f3f4fb51de12bfed68f304f32276eb"
+    },
+    "validations/PP-002/GATE-C/C-040_VALIDATION.json": {
+      "bytes": 304,
+      "git_blob_sha": "241370cde675fbf558ad0439b3a200c602db303b",
+      "sha256": "6f4304dfec2047637cf40b9720624ac887d5824d6e76ab93f21cee311019fbab"
+    },
+    "validations/PP-002/GATE-C/C-040_VALIDATION.log": {
+      "bytes": 54,
+      "git_blob_sha": "279341abafcef98852ce12e995053e5b1f329783",
+      "sha256": "e455c7c0d91d691db10206cb34f406a3058e45ed8adc2c5defac839fcf4a0765"
+    },
+    "validations/PP-002/GATE-C/C-050_DECISION_CUSTODY.json": {
+      "bytes": 689,
+      "git_blob_sha": "5bc12b08414652b196424a7dd6257d8e1253ff4c",
+      "sha256": "a08baec554d11dfbf7fca1b97d32c9c79faddef04f3f67f44794111d682cfcab"
+    },
+    "validations/PP-002/GATE-C/C-050_MANIFEST.json": {
+      "bytes": 3632,
+      "git_blob_sha": "053e6ea3bd2da6c06d8ff47f5eb84b7cbce8522d",
+      "sha256": "9cf82d52f9a8632d73bc9c8dda170f282a50521556f95f9223c8c896b6d53b96"
+    },
+    "validations/PP-002/GATE-C/C-050_SAFE_CONTINUATION.json": {
+      "bytes": 33427,
+      "git_blob_sha": "50db6554b1e4295c666ed3f60a60d140f5f6dead",
+      "sha256": "68b3f993058b4f224572ceb9e3d2cd86a8fcb83ccb1e4674633597d8cd219d3d"
+    },
+    "validations/PP-002/GATE-C/C-050_VALIDATION.json": {
+      "bytes": 304,
+      "git_blob_sha": "241370cde675fbf558ad0439b3a200c602db303b",
+      "sha256": "6f4304dfec2047637cf40b9720624ac887d5824d6e76ab93f21cee311019fbab"
+    },
+    "validations/PP-002/GATE-C/C-050_VALIDATION.log": {
+      "bytes": 54,
+      "git_blob_sha": "279341abafcef98852ce12e995053e5b1f329783",
+      "sha256": "e455c7c0d91d691db10206cb34f406a3058e45ed8adc2c5defac839fcf4a0765"
+    },
+    "validations/PP-002/GATE-C/C-060_CLOSURE_CUSTODY.json": {
+      "bytes": 1301,
+      "git_blob_sha": "3f42820288b17c7464425065bdb1c7abe4b7cc68",
+      "sha256": "67f6b2e32c0dd2140041754bf546faaf5be5b34c11f30f77be4a89cba90d56be"
+    },
+    "validations/PP-002/GATE-C/C-060_MANIFEST.json": {
+      "bytes": 3632,
+      "git_blob_sha": "b72c6f46ec70d9bf41d9567fe3ef264737fb2544",
+      "sha256": "b81b2e8e706090e97893c5e55f7091ebb0b04fe43af34a8e0ad82a67417b30b8"
+    },
+    "validations/PP-002/GATE-C/C-060_TERMINAL_RECONCILIATION.json": {
+      "bytes": 33427,
+      "git_blob_sha": "ed2ba51e212e25beec8d6470bdbf940f038b6995",
+      "sha256": "df43940ed89ffe5c20af700f722ce1067b415df94dbb165bfbb95c0952ea6722"
+    },
+    "validations/PP-002/GATE-C/C-060_VALIDATION.json": {
+      "bytes": 304,
+      "git_blob_sha": "241370cde675fbf558ad0439b3a200c602db303b",
+      "sha256": "6f4304dfec2047637cf40b9720624ac887d5824d6e76ab93f21cee311019fbab"
+    },
+    "validations/PP-002/GATE-C/C-060_VALIDATION.log": {
+      "bytes": 54,
+      "git_blob_sha": "279341abafcef98852ce12e995053e5b1f329783",
+      "sha256": "e455c7c0d91d691db10206cb34f406a3058e45ed8adc2c5defac839fcf4a0765"
+    },
+    "validations/PP-002/GATE-C/C-070_SESSION_ROLLOVER_ASSESSMENT.json": {
+      "bytes": 1456,
+      "git_blob_sha": "1842c207b09a8c15a33e9a810031f8859a2778c7",
+      "sha256": "25d05e7aaccd28bbf2d1b9414ce5df1d967de67951e3fbec0eeb0eb771713b37"
+    },
+    "validations/PP-002/GATE-C/S02/decision-replay-verification.json": {
+      "bytes": 518,
+      "git_blob_sha": "bbcbeaef2013aac9a5c3031286c7cf56f8b0537d",
+      "sha256": "afa77b546f15378a310db0c850bd037d92e0d42fa446ed67be6707dfc2084556"
+    },
+    "validations/PP-002/GATE-C/S02/entry-reference-receipts.json": {
+      "bytes": 4217,
+      "git_blob_sha": "c8cd5f2933788b58447974121dde72e7fb548168",
+      "sha256": "9914ad4887e200550456a08e63c5cdaf60f5bc0edcb895a1e0c873b08e3e1977"
+    },
+    "validations/PP-002/GATE-C/S02/final-reference-custody.json": {
+      "bytes": 1938,
+      "git_blob_sha": "ac6a8901ea6f215b7525641a49fed4aea2f9d5bb",
+      "sha256": "5f3df1ee70c94f084ba79ef7031720e662abc14257c2a0b3b2fc9801bf5e164a"
+    },
+    "validations/PP-002/GATE-C/S02/harness-reference/run.py": {
+      "bytes": 5082,
+      "git_blob_sha": "9dfbae15694d423435f399d461d594e056ba846e",
+      "sha256": "716d13fbc80e8c66ba005abd5f3c96a52ea0437a387172face4c35fdafc61d55"
+    },
+    "validations/PP-002/GATE-C/S02/harness-reference/workflow.yml": {
+      "bytes": 1313,
+      "git_blob_sha": "f4393fbc328476552dc2cc668679a519c98d4372",
+      "sha256": "bdd33bd6c0e7044743145bbf59635839ee2023ff0c8573eff2973d51ecccd515"
+    },
+    "validations/PP-002/GATE-C/S02/harness-source-custody.json": {
+      "bytes": 809,
+      "git_blob_sha": "64cc291f659d2a862be963012a09d2f70fcd12c9",
+      "sha256": "4442dd33243290824021d55643e9b1752a436cc299ee36e54bea23db5fa24b82"
+    },
+    "validations/PP-002/GATE-C/S02/historical-negative.json": {
+      "bytes": 23714,
+      "git_blob_sha": "312f5e118fb359c1548c3f5cb0632f778766aadb",
+      "sha256": "ca2b3d91d27bc1c231e9022cd2771c2f94b57d1942d46aa70ea68a1cf03a94a4"
+    },
+    "validations/PP-002/GATE-C/S02/historical-negative.log": {
+      "bytes": 23714,
+      "git_blob_sha": "312f5e118fb359c1548c3f5cb0632f778766aadb",
+      "sha256": "ca2b3d91d27bc1c231e9022cd2771c2f94b57d1942d46aa70ea68a1cf03a94a4"
+    },
+    "validations/PP-002/GATE-C/S02/local-validation-receipts.json": {
+      "bytes": 1500,
+      "git_blob_sha": "aa35b8a4c0ef85188975b0b1aba241895a8963c2",
+      "sha256": "e6f8b1f9f08151057c7324dd2730eb8ab7a6394a349faa50dc5ff61895591c77"
+    },
+    "validations/PP-002/GATE-C/S02/measurements.json": {
+      "bytes": 1942,
+      "git_blob_sha": "3981289223ae92da89acdef45792c810543c316c",
+      "sha256": "3017f0f60ebe28fb956a4e9a3e239a3fcd92cb8e8507b56adcc61f90c874a130"
+    },
+    "validations/PP-002/GATE-C/S02/predecessor-recheck.json": {
+      "bytes": 304,
+      "git_blob_sha": "241370cde675fbf558ad0439b3a200c602db303b",
+      "sha256": "6f4304dfec2047637cf40b9720624ac887d5824d6e76ab93f21cee311019fbab"
+    },
+    "validations/PP-002/GATE-C/S02/predecessor-recheck.log": {
+      "bytes": 54,
+      "git_blob_sha": "279341abafcef98852ce12e995053e5b1f329783",
+      "sha256": "e455c7c0d91d691db10206cb34f406a3058e45ed8adc2c5defac839fcf4a0765"
+    },
+    "validations/PP-002/GATE-C/S02/publication-journal.json": {
+      "bytes": 4958,
+      "git_blob_sha": "ddcf949c19a92eca94d4b6ad104814968a118bd8",
+      "sha256": "5d914e3e4d42984837a16027e7f06aa08be5e3dd6117315cddf6d215aae5acb5"
+    },
+    "validations/PP-002/GATE-C/S02/raw/12922708409-verification.json": {
+      "bytes": 2138,
+      "git_blob_sha": "e888dcdbd3c0bd4113ef165c76b5cf37c0a86433",
+      "sha256": "8ee841cf894a95cbd30b0854d5cd040842e27c39762ae35af6aff4b4a8415e7d"
+    },
+    "validations/PP-002/GATE-C/S02/raw/12922708409/cleanup.json": {
+      "bytes": 659,
+      "git_blob_sha": "3c57ce7db7e84029df9b6e7bf61b7abdbd65dfb4",
+      "sha256": "2fcbddbb7ee163b72ed840a8a5a70568b8bce83c631c572557290f99cc9b9b86"
+    },
+    "validations/PP-002/GATE-C/S02/raw/12922708409/events.jsonl": {
+      "bytes": 6476,
+      "git_blob_sha": "6c52afff00c75de5fae2c69c19c83784c8d05334",
+      "sha256": "82c09273e8bbf634e98fdd2855db85c8ffeab85a1342857c0ae6535bb79b6491"
+    },
+    "validations/PP-002/GATE-C/S02/raw/12922708409/final.json": {
+      "bytes": 688,
+      "git_blob_sha": "7f66732d759106561b365ff00a2244f3e82cad30",
+      "sha256": "2d94a875835d45a760139c1df5b92092188dfd7f9f21ead4785740d4e5037121"
+    },
+    "validations/PP-002/GATE-C/S02/raw/12922708409/manifest.json": {
+      "bytes": 1100,
+      "git_blob_sha": "521c28020106395ee4ae5595e0eaab8ea2c387f2",
+      "sha256": "61dcbb6735d92f3f4bff6c339b98c0dc8c68fb3de986a6c76c1d0656e5aaf732"
+    },
+    "validations/PP-002/GATE-C/S02/raw/12922708409/marker.json": {
+      "bytes": 550,
+      "git_blob_sha": "5c71d97cc92ef282a20e11d6919b98e45cfeb9b3",
+      "sha256": "03a56f99053a2c556706e4c207cca251a55991ee15d519b1c75b27a7d43198d4"
+    },
+    "validations/PP-002/GATE-C/S02/raw/12922708409/startup.json": {
+      "bytes": 660,
+      "git_blob_sha": "775de313117987085909e194b1e1116866b2fbe3",
+      "sha256": "800866c5f6c97bb1ba05d1923516c2c4b70080892db47afbc15ac1ba5932fdcb"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-030-control-head.json": {
+      "bytes": 805,
+      "git_blob_sha": "7a42a62e554c6b34142563ffa5bf7fdf039595fa",
+      "sha256": "880022038af4e97e077db856747686328a53c0127df3c8d64e86d6daf3c6dd56"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-030-publication.json": {
+      "bytes": 866,
+      "git_blob_sha": "87a9d9def47749c5cf7cef1c73c2815d21c60126",
+      "sha256": "cffc1db93d9d0baf2bc95701d7caa5d92527902c2fe2d41ceb7f07aedb30b47e"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-040-control-head.json": {
+      "bytes": 805,
+      "git_blob_sha": "8a65b317eb0fea1036681cb7a2f0062d9696a05b",
+      "sha256": "b7d6012290a2d6f3037e43d3b6fa164edd5255f79bab342a744fd20e2658ab3f"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-040-publication.json": {
+      "bytes": 835,
+      "git_blob_sha": "2b731b9085d02e0128f366b21782f9ccdad1560a",
+      "sha256": "df362f330413ee492662f4f11f0a62d07994122e8e8cfd75801f9ae4de7eaf90"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-050-control-head.json": {
+      "bytes": 805,
+      "git_blob_sha": "c4989038db338c4534c1cecfa1e055703ab19daa",
+      "sha256": "35746b598144d638d9f51c9617266b73f8ad026d3c5ef1394e007dd12a5e3d51"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-050-publication.json": {
+      "bytes": 1488,
+      "git_blob_sha": "07cca5cce1a355d3a14a6ba83e3953f51ea19c7f",
+      "sha256": "92449d548e3080e7a6329e5e4b891919b79f8231fc15b60f0d8c40f5dc1070e9"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-060-control-head.json": {
+      "bytes": 805,
+      "git_blob_sha": "bac673ce9e19e5fddd1f7462589fe1aaafc5b0bc",
+      "sha256": "167d30c5394886e454b9f30b2e0ca5d5b34282c1d6e8acd9cd87399b10facfff"
+    },
+    "validations/PP-002/GATE-C/S02/raw/C-060-publication.json": {
+      "bytes": 1470,
+      "git_blob_sha": "b85450349d53729f53e6e606b280d2349af7f672",
+      "sha256": "5e353320384c09dca05d290bca0d05f9482dfc9ea80bd7e4b2e80fe704b23ce7"
+    },
+    "validations/PP-002/GATE-C/S02/raw/decision-jobs.json": {
+      "bytes": 4100,
+      "git_blob_sha": "c48b326315e86553813f4510e60a748b9cd56376",
+      "sha256": "8a7aabccfaffbde39b6e80683a9c788bf2f5b77f32652e59f382787514e0935a"
+    },
+    "validations/PP-002/GATE-C/S02/raw/decision-workflow.json": {
+      "bytes": 15082,
+      "git_blob_sha": "fa45752c6688c23d644f52ff1d55de2624df29b7",
+      "sha256": "2cffa54ecae906368316de70dbf53cb1aafab74fd467615dc4f2e332385f1b13"
+    },
+    "validations/PP-002/GATE-C/S02/raw/fresh-artifacts.json": {
+      "bytes": 1352,
+      "git_blob_sha": "75a33263690d43690010481aa42afb105b8b5942",
+      "sha256": "b0f479d375de0b76431b6fd1c6bacbc0c02ef06eb29edf59c5d7bda1a19e0642"
+    },
+    "validations/PP-002/GATE-C/S02/raw/fresh-inventory.json": {
+      "bytes": 16073,
+      "git_blob_sha": "122f8ecc5b34c9e7ea896c8e10bac8f1e775b5a8",
+      "sha256": "aef60b35a7390c8bc9a6a65784e5aec3cc73450273e7cb748cf7edba7a42a4d9"
+    },
+    "validations/PP-002/GATE-C/S02/raw/fresh-jobs.json": {
+      "bytes": 4100,
+      "git_blob_sha": "258a4364560b371b659e6c335a86b29f9224695a",
+      "sha256": "1bfb08ad3e71412d305c46040c81bbc84d1414af66be876ee4619b0eb2b027af"
+    },
+    "validations/PP-002/GATE-C/S02/raw/fresh-workflow.json": {
+      "bytes": 15082,
+      "git_blob_sha": "63ff15a70ce7e2ce34f8c4e0f64df9576a92200d",
+      "sha256": "4b98f7a3a9186a999b8e4f76d931fef4471f1443d0c1bfb43b1166ff307faaa8"
+    },
+    "validations/PP-002/GATE-C/S02/raw/job-log.json": {
+      "bytes": 25132,
+      "git_blob_sha": "a5b2141b45b0cfe863880edcaf34d82a4ed97082",
+      "sha256": "a86db3cd247bd9fac86801a8ae43bded5df64a67eb69443ea3a381cb3e96b32d"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-inventory.json": {
+      "bytes": 16073,
+      "git_blob_sha": "bc3c59456d3a56b3a9d52a4b8f9cec71f95882c4",
+      "sha256": "706cda2f886fe81e902571439e81da7958f8018c13b5711fafc74ae93c4ee1eb"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-jobs.json": {
+      "bytes": 4100,
+      "git_blob_sha": "f1e6555114d8b2b6a16188a5d364acc8d7a66deb",
+      "sha256": "2ceeba7f5b21dc724f778145acdbfd6341ced362819ed1b45376cc0a083e5cd5"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-feature-workspace-run-026.json": {
+      "bytes": 830,
+      "git_blob_sha": "50b738f09764639dbf9aed8e0f17d582253de886",
+      "sha256": "3a4b8fa74af64dbd0f81040be0fa9f90e7c8ddf8018e21bce2801bafadbaa9f5"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-feature-workspace-v0.1.json": {
+      "bytes": 817,
+      "git_blob_sha": "c9f5feb65f5ffa709cf5b5343458d8261f9a9169",
+      "sha256": "0a823e51fe70b0cc0ff1482cd9e3ac9329ea8c82aeff514eaa4d5c4013b75e7c"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-main.json": {
+      "bytes": 736,
+      "git_blob_sha": "1d08b34f2ec11c504e670ac9208f73b57d1016d0",
+      "sha256": "e28652aaed33d832315bee2b31ad82e1b1435b6609f04cc6959906beb547fc55"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-ops-pp-002-gate-b-actions.json": {
+      "bytes": 830,
+      "git_blob_sha": "9da22d8460c0fe1f5e141a6fb047f73f300be518",
+      "sha256": "6cd389ee8d7fca0ed78c9d5df626ed59d6682f5b9ebe237680e9d50371cdc45c"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-ops-pp-002-gate-b-r2-actions.json": {
+      "bytes": 843,
+      "git_blob_sha": "ad35d56aa0c05430289159fad91b3af0161d8477",
+      "sha256": "88f131f3fc476c50e6921361a3fdfd8ab0d29846ec94e463ce54095566af8b3d"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-ops-pp-002-gate-c-actions.json": {
+      "bytes": 830,
+      "git_blob_sha": "d586da85661f487537a631e5b7e2f0183e28f6e0",
+      "sha256": "590b95d708a802e8b0a76eca896d053913545f5fe3ab0b970f46ba6796e2c98a"
+    },
+    "validations/PP-002/GATE-C/S02/raw/terminal-workflow.json": {
+      "bytes": 15082,
+      "git_blob_sha": "503cd889872bf52f9fff7c26e1b17882d32c6822",
+      "sha256": "f0402cc4523849af7c3ab838308ce8eac0ecbecf3e840206d56a3ec806b40621"
+    },
+    "validations/PP-002/GATE-C/S02/session-boundary-assessment.json": {
+      "bytes": 3596,
+      "git_blob_sha": "f33b32a706ebb148a02d9f14f9d1df3b33681cef",
+      "sha256": "8fedc79248af2088b1506f25c6a73034dc925f455d1c7ad45d36cb6e52e7a3a8"
+    },
+    "validations/PP-002/GATE-C/S02/source-recovery-manifest.json": {
+      "bytes": 17637,
+      "git_blob_sha": "a6135c91d13e267fbffb9c72fa0def6aa9712b67",
+      "sha256": "d6e42cd83d16c676b1cda0edb23638d1f10fd0ad3b4f459530ab7c58e2d1163d"
+    },
+    "validations/PP-002/GATE-C/S02/source-reference-audit-correction.json": {
+      "bytes": 1706,
+      "git_blob_sha": "f53d082705f74e4e9bbe8dac84817baf511fea17",
+      "sha256": "e557cb0b03e082c0b70a61a296e85e3836b7a3ff897bef8ce47265f087068948"
+    },
+    "validations/PP-002/GATE-C/S02/unit-tests.log": {
+      "bytes": 1285,
+      "git_blob_sha": "b6a16c18c57c865964f6972e9154a0aee3ea3300",
+      "sha256": "4fba45208bb4d587d0b17efe7a3890a026739d8eba09b2048f12f197ac13eda8"
+    }
+  },
+  "scope": "All newly published S02 evidence and terminal report; self excluded; predecessor input bytes and transient signed URLs excluded"
+}

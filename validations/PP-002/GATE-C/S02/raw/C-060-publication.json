@@ -1,0 +1,29 @@
+{
+  "sha": "e001b8339eabf15642db6fdc309679beb932ba65",
+  "parent": "9d75474df80250a418504fedca9409ac6ce30434",
+  "paths": [
+    "validations/PP-002/GATE-C/C-060_CLOSURE_CUSTODY.json",
+    "validations/PP-002/GATE-C/C-060_MANIFEST.json",
+    "validations/PP-002/GATE-C/C-060_VALIDATION.log",
+    "validations/PP-002/GATE-C/C-060_VALIDATION.json",
+    "validations/PP-002/GATE-C/C-060_TERMINAL_RECONCILIATION.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-jobs.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-feature-workspace-v0.1.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-inventory.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-ops-pp-002-gate-c-actions.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-main.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-ops-pp-002-gate-b-r2-actions.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-ops-pp-002-gate-b-actions.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-ref-feature-workspace-run-026.json",
+    "validations/PP-002/GATE-C/S02/raw/terminal-workflow.json",
+    "validations/PP-002/GATE-C/S02/final-reference-custody.json",
+    "validations/PP-002/GATE-C/S02/decision-replay-verification.json",
+    "validations/PP-002/GATE-C/S02/raw/C-050-publication.json"
+  ],
+  "requested_at": "2026-10-29T18:51:10.554Z",
+  "receipt_at": "2026-10-29T18:51:11.917Z",
+  "acknowledgement": {
+    "success": true
+  },
+  "verified_prepared_tree": true
+}

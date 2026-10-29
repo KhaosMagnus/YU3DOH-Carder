@@ -1,0 +1,26 @@
+{
+  "additional_qualification": "One C-030 retrieval source-ref field incorrectly defaulted to routing control; append-only corrected against original connector URL; checkpoint blob and operational states unchanged",
+  "additional_source": "S02/source-reference-audit-correction.json",
+  "author": "PROTOCOL_PORTABILITY / PP-002 / S02",
+  "external_work_pending": "NONE",
+  "final_recommendation": "SEPARATE / after PC-003 disposition",
+  "new_live_authority": false,
+  "operational_recovery": "VERIFIED / original result safely reused and closed",
+  "protocol_adoption": false,
+  "read_only_reconciliation_complete": true,
+  "reason_sources": [
+    "S02/session-boundary-assessment.json",
+    "C-030_S02_CUSTODY_RECOVERY.json",
+    "runs/PP-002_GATE-C_S01_ROLLOVER_INTAKE.md"
+  ],
+  "recorded_at": "2026-10-29T18:54:53.276032+00:00",
+  "required_correction": "Auditable session identity and bounded stop/activity provenance or separately approved acceptance rule; no retrospective assumption",
+  "result": "GATE C REVISE",
+  "return_to": "PROJECT_CONTROL / PC-003",
+  "rollover_acceptance": "NOT DEMONSTRATED / genuine session separation and S01 inactivity remain unverified",
+  "rollover_control": "1352de4daddc6c2143943af2ad7142333f7be963",
+  "schema": "PP002-GATE-C-C070-v1",
+  "source_control": "34011f6466ce096b310ef1c43c277d2bfd2af7aa",
+  "terminal_closure": "C-060_CLOSURE_CUSTODY.json",
+  "terminal_ledger": "C-060_TERMINAL_RECONCILIATION.json"
+}

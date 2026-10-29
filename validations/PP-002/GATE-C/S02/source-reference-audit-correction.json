@@ -1,0 +1,24 @@
+{
+  "cause": "An absent locally retained request-ref field defaulted to routing control instead of using UNKNOWN or the actual connector source URL",
+  "classification": "CUSTODY_REQUEST_REF_FALLBACK_ERROR / APPEND_ONLY_CORRECTION",
+  "discrepancies": [
+    {
+      "actual_fetch_ref": "1352de4daddc6c2143943af2ad7142333f7be963",
+      "git_blob_sha": "1b8055add2533d04e6c3b42e6344e3bee9c46614",
+      "original_source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa",
+      "path": "validations/PP-002/GATE-C/C-020_S01_ROLLOVER_CHECKPOINT.json",
+      "receipt_at": "2026-10-29T18:42:51.743Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/1352de4daddc6c2143943af2ad7142333f7be963/validations/PP-002/GATE-C/C-020_S01_ROLLOVER_CHECKPOINT.json"
+    }
+  ],
+  "disposition": "Use actual_fetch_ref and exact source URL for the corrected retrieval provenance; preserve original manifest unchanged",
+  "effect": "Immutable checkpoint blob was correct and verified at both controls; no operation axis, actual source timestamp, authority, run identity, retry or cleanup decision changed",
+  "entries_audited": 57,
+  "new_execution_authority": false,
+  "original_manifest": "S02/source-recovery-manifest.json",
+  "original_publication": "65c3d4a949fb15416ad180176511f557577eddab",
+  "recorded_at": "2026-10-29T18:56:44.391283+00:00",
+  "required_collection_correction": "Capture actual request ref at issuance; if missing keep UNKNOWN; reject disagreement with connector-returned source identity before publication",
+  "validator_scope": "Current-state core validated operation receipts, not this separate file-fetch provenance manifest"
+}
