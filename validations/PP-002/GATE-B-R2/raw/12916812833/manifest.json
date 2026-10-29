@@ -1,0 +1,39 @@
+{
+  "case": "B3",
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S01",
+  "control_sha": "930dcab160df28c7606991cff4388fea29f351cf",
+  "emission_channel": "authorized operational branch push -> Actions",
+  "files": {
+    "cleanup.json": {
+      "bytes": 671,
+      "sha256": "31649059ecc775a816f4f57c31abad8faa6d8d6d8cd7a54afac745d633cbab2b"
+    },
+    "events.jsonl": {
+      "bytes": 4969,
+      "sha256": "60237e8f80bb7686fdb461d2af0eb16e702140327fa75d60ba4601f86ce2552e"
+    },
+    "final.json": {
+      "bytes": 690,
+      "sha256": "620e400e7bc3c30e21581f2e9b74ac41641d9cbb5a95ed9212a1df0ad1760985"
+    },
+    "marker.json": {
+      "bytes": 553,
+      "sha256": "ee4e18c024a3cdb525eae61e63d76887582eb5bbf5fd00a37c72561aea5d3897"
+    },
+    "partial.json": {
+      "bytes": 801,
+      "sha256": "8d50512a94a9c3823f8e0c5d32c0baafe44031f6826048f507caadaf001bacde"
+    },
+    "startup.json": {
+      "bytes": 672,
+      "sha256": "9e2743d25b3ce5947714c1c3c52ac8e6603f487c6b8fe2710e78284f4c909dbe"
+    }
+  },
+  "harness_sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+  "job_key": "B3",
+  "namespace": "pp002-gate-b-r2-20261029-01",
+  "product_executed": false,
+  "product_mutated": false,
+  "run_attempt": "1",
+  "run_id": "40916583578"
+}

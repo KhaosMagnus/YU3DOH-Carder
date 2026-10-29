@@ -1,0 +1,23 @@
+{
+  "case": "B3",
+  "cleanup": "CLEANUP_REQUIRED",
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S01",
+  "control_sha": "930dcab160df28c7606991cff4388fea29f351cf",
+  "effect": "EFFECT_CONFIRMED",
+  "emission_channel": "authorized operational branch push -> Actions",
+  "expected_exit_code": 23,
+  "finished_at": "2026-10-29T16:57:14.888031+00:00",
+  "harness_sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+  "intentional": true,
+  "job_key": "B3",
+  "lifecycle": "CONFIRMED_DONE",
+  "logical_operation_id": "B3-CHILD",
+  "namespace": "pp002-gate-b-r2-20261029-01",
+  "outcome": "FAILURE",
+  "parent_operation_id": "B3-JOB",
+  "product_executed": false,
+  "product_mutated": false,
+  "root": "/home/runner/work/_temp/pp002-gate-b-r2-20261029-01/B3",
+  "run_attempt": "1",
+  "run_id": "40916583578"
+}

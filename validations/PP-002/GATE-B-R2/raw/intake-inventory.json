@@ -1,0 +1,11 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs?branch=ops%2Fpp-002-gate-b-r2-actions&per_page=100",
+  "requested_at": "UNKNOWN",
+  "receipt_at": "UNKNOWN",
+  "timing_note": "Original preflight fetch timing was not durably captured; no assembly substitute",
+  "response": {
+    "total_count": 0,
+    "workflow_runs": []
+  }
+}

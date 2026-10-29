@@ -1,0 +1,61 @@
+{
+  "archive_bytes": 4315,
+  "archive_sha256": "521a64402b70239b109515c51452064f95f43e5c007cd943ff7b12f78d577573",
+  "artifact": {
+    "archive_download_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/artifacts/12916812833/zip",
+    "created_at": "2026-10-29T17:08:16Z",
+    "digest": "sha256:521a64402b70239b109515c51452064f95f43e5c007cd943ff7b12f78d577573",
+    "expired": false,
+    "expires_at": "2026-11-28T17:08:16Z",
+    "id": 12916812833,
+    "name": "pp002-gate-b-r2-20261029-01-B3-40916583578",
+    "node_id": "MDg6QXJ0aWZhY3QxMjkxNjgxMjgzMw==",
+    "size_in_bytes": 4315,
+    "updated_at": "2026-10-29T17:08:16Z",
+    "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/artifacts/12916812833",
+    "workflow_run": {
+      "head_branch": "ops/pp-002-gate-b-r2-actions",
+      "head_repository_id": 1374186410,
+      "head_sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+      "id": 40916583578,
+      "repository_id": 1374186410
+    }
+  },
+  "artifact_id": 12916812833,
+  "download_connector_receipt_at": "2026-10-29T17:08:38.721Z",
+  "download_connector_requested_at": "2026-10-29T17:08:37.398Z",
+  "members": {
+    "cleanup.json": {
+      "bytes": 671,
+      "sha256": "31649059ecc775a816f4f57c31abad8faa6d8d6d8cd7a54afac745d633cbab2b"
+    },
+    "events.jsonl": {
+      "bytes": 4969,
+      "sha256": "60237e8f80bb7686fdb461d2af0eb16e702140327fa75d60ba4601f86ce2552e"
+    },
+    "final.json": {
+      "bytes": 690,
+      "sha256": "620e400e7bc3c30e21581f2e9b74ac41641d9cbb5a95ed9212a1df0ad1760985"
+    },
+    "manifest.json": {
+      "bytes": 1241,
+      "sha256": "9dee40f4d0c6b4f90c8dc8dda7dca0fc3eee5c2baf84c26572e2180a2d088477"
+    },
+    "marker.json": {
+      "bytes": 553,
+      "sha256": "ee4e18c024a3cdb525eae61e63d76887582eb5bbf5fd00a37c72561aea5d3897"
+    },
+    "partial.json": {
+      "bytes": 801,
+      "sha256": "8d50512a94a9c3823f8e0c5d32c0baafe44031f6826048f507caadaf001bacde"
+    },
+    "startup.json": {
+      "bytes": 672,
+      "sha256": "9e2743d25b3ce5947714c1c3c52ac8e6603f487c6b8fe2710e78284f4c909dbe"
+    }
+  },
+  "receipt_at": "2026-10-29T17:08:40.134477+00:00",
+  "recorded_at": "2026-10-29T17:08:40.136502+00:00",
+  "requested_at": "2026-10-29T17:08:39.949286+00:00",
+  "source_kind": "VERIFIED_ACTIONS_ARTIFACT"
+}

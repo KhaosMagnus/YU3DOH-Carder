@@ -1,0 +1,17 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/meta/project-control",
+  "requested_at": "2026-10-29T17:04:11.666Z",
+  "receipt_at": "2026-10-29T17:04:12.053Z",
+  "timing_scope": "Connector request issuance and completed connector response receipt; not HTTP wire telemetry",
+  "response": {
+    "ref": "refs/heads/meta/project-control",
+    "node_id": "REF_kwDOUehrqr9yZWZzL2hlYWRzL21ldGEvcHJvamVjdC1jb250cm9s",
+    "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/meta/project-control",
+    "object": {
+      "sha": "ac0e60ad0126945bd560c32ecb82596a360590bc",
+      "type": "commit",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/ac0e60ad0126945bd560c32ecb82596a360590bc"
+    }
+  }
+}

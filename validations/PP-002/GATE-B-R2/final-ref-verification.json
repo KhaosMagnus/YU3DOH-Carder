@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "branch": "feature/workspace-v0.1",
+      "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+      "receipt_at": "2026-10-29T17:11:00.242Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/final-feature-workspace-v0.1.json"
+    },
+    {
+      "branch": "feature/workspace-run-026",
+      "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+      "receipt_at": "2026-10-29T17:11:00.243Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/final-feature-workspace-run-026.json"
+    },
+    {
+      "branch": "main",
+      "sha": "54cc3aad246c89a29f2a18be63c539db68cae041",
+      "receipt_at": "2026-10-29T17:11:00.354Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/final-main.json"
+    },
+    {
+      "branch": "ops/pp-002-gate-b-actions",
+      "sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+      "receipt_at": "2026-10-29T17:11:00.337Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/final-ops-pp-002-gate-b-actions.json"
+    },
+    {
+      "branch": "ops/pp-002-gate-b-r2-actions",
+      "sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+      "receipt_at": "2026-10-29T17:11:00.253Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/final-ops-pp-002-gate-b-r2-actions.json"
+    },
+    {
+      "branch": "meta/project-control",
+      "sha": "fa7f201bd60726c2773fe9177b4811186133c83d",
+      "receipt_at": "2026-10-29T17:11:00.524Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/final-meta-project-control.json"
+    }
+  ],
+  "result": "PASS",
+  "statement": "Exact pre/post observations; no protected/product ref mutations were issued"
+}

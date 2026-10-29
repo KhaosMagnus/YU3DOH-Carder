@@ -1,0 +1,27 @@
+{
+  "B2_completed_at": "2026-10-29T17:00:17Z",
+  "B2_completion_inside_interval": true,
+  "checkpoints_so_far": {
+    "R2-010": {
+      "invariant_violations": 0,
+      "operation_count": 24
+    },
+    "R2-020": {
+      "invariant_violations": 0,
+      "operation_count": 24
+    },
+    "R2-030": {
+      "invariant_violations": 0,
+      "operation_count": 24
+    },
+    "R2-040": {
+      "invariant_violations": 0,
+      "operation_count": 24
+    }
+  },
+  "explicit_timer_wait_seconds": 220,
+  "interval_end_source": "raw/recovery-workflow.json#/requested_at",
+  "interval_start_source": "R2-020_LOSS_PLAN.json#/last_actions_receipt_at",
+  "no_actions_query_interval_seconds": 295.04,
+  "note": "No-query interval includes control publication/local work; query duration excluded at recovery end boundary"
+}

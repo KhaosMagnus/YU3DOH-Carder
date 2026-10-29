@@ -1,0 +1,137 @@
+{
+  "acknowledged_preterminal_publications": [
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "receipt_at": "2026-10-29T17:04:16.079Z",
+      "requested_at": "2026-10-29T17:04:14.625Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/R2-030 fresh recovered operation states-publish.json"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "receipt_at": "2026-10-29T16:58:49.203Z",
+      "requested_at": "2026-10-29T16:58:47.645Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/R2-010 validated emitted ledger-publish.json"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "receipt_at": "2026-10-29T17:05:24.678Z",
+      "requested_at": "2026-10-29T17:05:23.346Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/R2-040 verified result reuse and independent parent observation-publish.json"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "receipt_at": "2026-10-29T16:59:12.273Z",
+      "requested_at": "2026-10-29T16:59:10.741Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/R2-020 validated observation loss checkpoint-publish.json"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "receipt_at": "2026-10-29T16:56:38.348Z",
+      "requested_at": "2026-10-29T16:56:36.749Z",
+      "source": "validations/PP-002/GATE-B-R2/raw/R2-000 pre-emission intent and pinned observer-publish.json"
+    }
+  ],
+  "active_records_at_recovery": 5,
+  "attempted_retries_blocked": 0,
+  "cancellations": 0,
+  "cleanup_roots_confirmed": 3,
+  "control_publication_count_including_terminal": 6,
+  "duplicate_effects": 0,
+  "duplicate_workflows": 0,
+  "effect_count_per_scenario": 1,
+  "execution_stop_decisions": 0,
+  "historical_negative_controls": 6,
+  "historical_negative_violations": 53,
+  "issuance_acknowledgements_lost": 0,
+  "ledger_BLOCK_counts": {
+    "R2-010": 9,
+    "R2-020": 9,
+    "R2-030": 6,
+    "R2-040": 6,
+    "R2-050": 0
+  },
+  "ledger_operations": 24,
+  "lifecycle_counts": {
+    "R2-010": {
+      "CONFIRMED_DONE": 8,
+      "CONFIRMED_NOT_DONE": 9,
+      "STILL_RUNNING": 7
+    },
+    "R2-020": {
+      "CONFIRMED_DONE": 8,
+      "CONFIRMED_NOT_DONE": 9,
+      "STILL_RUNNING": 7
+    },
+    "R2-030": {
+      "CONFIRMED_DONE": 13,
+      "CONFIRMED_NOT_DONE": 6,
+      "STILL_RUNNING": 5
+    },
+    "R2-040": {
+      "CONFIRMED_DONE": 13,
+      "CONFIRMED_NOT_DONE": 6,
+      "STILL_RUNNING": 5
+    },
+    "R2-050": {
+      "CONFIRMED_DONE": 24
+    }
+  },
+  "live_snapshot_violations": 0,
+  "observed_state_or_baseline_errors_detected": 0,
+  "operations_recovered": 24,
+  "owner_prompts": 0,
+  "planning_metadata_path_discrepancies_reconciled": 1,
+  "rechecks": [
+    {
+      "checkpoint": "R2-010",
+      "exit_code": 0,
+      "ledger_copy_byte_identical": true,
+      "operation_count": 24,
+      "validator_result_byte_identical": true,
+      "violations": 0
+    },
+    {
+      "checkpoint": "R2-020",
+      "exit_code": 0,
+      "ledger_copy_byte_identical": true,
+      "operation_count": 24,
+      "validator_result_byte_identical": true,
+      "violations": 0
+    },
+    {
+      "checkpoint": "R2-030",
+      "exit_code": 0,
+      "ledger_copy_byte_identical": true,
+      "operation_count": 24,
+      "validator_result_byte_identical": true,
+      "violations": 0
+    },
+    {
+      "checkpoint": "R2-040",
+      "exit_code": 0,
+      "ledger_copy_byte_identical": true,
+      "operation_count": 24,
+      "validator_result_byte_identical": true,
+      "violations": 0
+    },
+    {
+      "checkpoint": "R2-050",
+      "exit_code": 0,
+      "ledger_copy_byte_identical": true,
+      "operation_count": 24,
+      "validator_result_byte_identical": true,
+      "violations": 0
+    }
+  ],
+  "replacements": 0,
+  "retries": 0,
+  "run_attempts": 1,
+  "scenario_effects": 3,
+  "scenario_jobs": 3,
+  "stale_context_errors_detected": 1,
+  "terminal_confirmations_missed": 1,
+  "unit_tests": 16,
+  "unjustified_repeat_paths_disallowed": 3,
+  "verified_at": "2026-10-29T17:11:03.336382+00:00",
+  "workflow_runs": 1
+}

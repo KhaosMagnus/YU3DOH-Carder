@@ -1,0 +1,12 @@
+{
+  "source_kind": "GITHUB_MUTATION_RECEIPT",
+  "requested_at": "2026-10-29T17:04:14.625Z",
+  "receipt_at": "2026-10-29T17:04:16.079Z",
+  "timing_scope": "Connector invocation/acknowledgement boundaries",
+  "response": {
+    "success": true,
+    "raw": {
+      "success": true
+    }
+  }
+}

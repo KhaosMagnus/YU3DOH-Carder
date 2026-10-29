@@ -1,0 +1,18 @@
+{
+  "actual_blob": "f2563ec430bce506abcf8d4bcc4d032a9272ee40",
+  "actual_publication": "e319d4b03cc04fd07dc88df90e06071bfff53ef2",
+  "actual_published_path": "validations/PP-002/GATE-B-R2/R2-000_INTENT.json",
+  "classification": "PLANNED_ADMINISTRATIVE_PATH_METADATA / NOT_AN_OBSERVED_STATE_CORRECTION",
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S01",
+  "disposition": "RECONCILED_EFFECT / preserve original intent bytes; actual immutable source binding supersedes planned literal locator for administration",
+  "durable_confirmation": "recovery-entry.json durable_recovery_reads for intent; fetched actual path/blob at ac0e60ad0126945bd560c32ecb82596a360590bc",
+  "effect_namespace": "validations/PP-002/GATE-B-R2/ / unchanged isolation root",
+  "impact": "Administrative intended filename typo only. No lifecycle/outcome/effect/evidence/cleanup/acknowledgement field was derived from that literal planned filename. The real file was published and recovered at its actual path. No effect escaped the authorized namespace.",
+  "logical_operation_id": "R2-INTENT-PUBLISH",
+  "model_change": "NONE",
+  "new_execution": 0,
+  "observed_state_source": "R2-010_MANIFEST.json#/context/admin_sources/R2-INTENT-PUBLISH plus actual intent source bytes",
+  "original_source": "R2-000_INTENT.json#/planned_intent/operations/0/effect_output_namespace",
+  "planned_literal_path": "validations/PP-002/GATE-B-R2/000_INTENT.json",
+  "recorded_at": "2026-10-29T17:16:50.629900+00:00"
+}
