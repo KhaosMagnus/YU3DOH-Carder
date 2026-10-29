@@ -6,30 +6,31 @@ feature/workspace-v0.1 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 RUN 026:
 CLOSED / INTEGRATED / EXTERNAL QA PASS
 
-CR-0002 — Library Dark Theme:
+CR-0002:
 CLOSED / INTEGRATED / PASS
 
-Canonical ledger:
-requests/CR-0002-v3.md
+## Active protocol work
 
-Source branch:
-feature/workspace-run-026 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
+PP-002:
+EXECUTION INTERRUPTION RECOVERY PILOT
 
-Official QA:
-DQA-006 PASS
+Current:
+GATE A AUTHORIZED / HISTORICAL REPLAY / READ-ONLY
 
-Integration:
-IA-004 INTEGRATED
+Instance:
+PROTOCOL_PORTABILITY / PP-002
 
-main:
-54cc3aad246c89a29f2a18be63c539db68cae041
-UNCHANGED
+Expected Gate A output:
+protocols/PP-002_GATE-A_HISTORICAL_RECOVERY_REPLAY.md
 
-Protocol pilot:
-REVISE
+Gate B:
+NOT AUTHORIZED
 
-Pilot evaluation:
-control/RUN-026_SESSION_PILOT_EVALUATION.md
+Gate C:
+NOT AUTHORIZED
 
-Next product work:
-NOT AUTHORIZED BY RUN 026 CLOSURE
+Generic Protocol v1.0:
+FROZEN / UNCHANGED
+
+Product work:
+NONE AUTHORIZED BY PP-002
