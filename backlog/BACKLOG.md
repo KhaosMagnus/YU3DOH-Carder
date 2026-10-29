@@ -26,20 +26,30 @@ COMPLETE / REVISE
 Gate B-R1:
 COMPLETE / PASS
 
-Gate B-R1 disposition:
-runs/PP-002_GATE-B-R1_PASS_DISPOSITION-v2.md
+Gate B-R2:
+AUTHORIZED / ACTIVE
 
-Next proposed:
-GATE B-R2 — CORRECTED LIVE BOOKKEEPING REVALIDATION
+Owner approval:
+control/PP-002_GATE-B-R2_OWNER_APPROVAL.md
 
-Proposal:
-control/PP-002_GATE-B-R2_PROPOSAL.md
+Effective authorization:
+control/PP-002_GATE-B-R2_AUTHORIZATION.md
 
-B-R2:
-PENDING OWNER APPROVAL / NOT AUTHORIZED
+Route:
+routing/ROUTE-PP-002_GATE-B-R2.md
 
-Further live Gate B:
-NOT AUTHORIZED
+Operational branch:
+ops/pp-002-gate-b-r2-actions
+
+Authorized execution:
+ONE WORKFLOW / ONE ATTEMPT
+
+Expected output:
+protocols/PP-002_GATE-B-R2_CORRECTED_LIVE_REVALIDATION_REPORT.md
+
+Historical Gate B branch:
+ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
+DO NOT MOVE
 
 Gate C:
 NOT AUTHORIZED
