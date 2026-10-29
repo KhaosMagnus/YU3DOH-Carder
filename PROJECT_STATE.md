@@ -70,14 +70,44 @@ ops/pp-002-gate-b-r2-actions @ 0e679ad863076098d92d8a7704f6ca88948b651b
 Historical Gate B branch:
 ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
 
-Next proposed experiment:
+Next authorized experiment:
 GATE C — REAL SESSION ROLLOVER RECOVERY
 
 Gate C proposal:
 control/PP-002_GATE-C_PROPOSAL.md
 
+Gate C Owner approval:
+control/PP-002_GATE-C_OWNER_APPROVAL.md
+
+Gate C effective authorization:
+control/PP-002_GATE-C_AUTHORIZATION.md
+
+Gate C route:
+routing/ROUTE-PP-002-GATE-C.md
+
 Gate C status:
-PROPOSED / PENDING OWNER APPROVAL / NOT AUTHORIZED
+AUTHORIZED / EFFECTIVE / EXECUTION NOT STARTED AT ACTIVATION
+
+Gate C accountable role / instance:
+PROTOCOL_PORTABILITY / PP-002 (S01 -> S02)
+
+Current coordinator:
+PROJECT_CONTROL / PC-003 (succession control/PC-003_SUCCESSION.md)
+
+Authorized Gate C operation:
+ONE new isolated workflow/run/attempt; ops/pp-002-gate-c-actions not yet created at activation.
+
+Product/main/historical operations refs:
+FROZEN / UNCHANGED
+
+Generic Protocol v1.0 / PP-002 v2:
+FROZEN / UNCHANGED
+
+Recovery Gate:
+PROPOSED / NOT ADOPTED
+
+Protocol successor/adoption:
+NOT AUTHORIZED / PENDING OWNER APPROVAL / NOT AUTHORIZED
 
 Additional live workflows:
 NOT AUTHORIZED
