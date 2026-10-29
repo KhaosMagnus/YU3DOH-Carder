@@ -31,6 +31,12 @@ No product RUN or CR is authorized by PP-002.
 Experiment:
 Execution Interruption Recovery Pilot
 
+Generic Project Control Protocol v1.0:
+FROZEN / UNCHANGED
+
+Execution Interruption Recovery Gate:
+PROPOSED / NOT ADOPTED
+
 Gate A:
 COMPLETE / REVISE
 
@@ -43,20 +49,17 @@ runs/PP-002_GATE-A_REVISE_DISPOSITION.md
 Revised experimental procedure:
 control/PP-002_EXECUTION_INTERRUPTION_RECOVERY_PILOT-v2.md
 
-Current gate:
-GATE A2 — REVISED HISTORICAL REVALIDATION
+Gate A2:
+COMPLETE / PASS
 
-Gate A2 status:
-AUTHORIZED / ACTIVE / READ-ONLY
-
-Gate A2 authorization:
-control/PP-002_GATE-A2_AUTHORIZATION.md
-
-Gate A2 route:
-routing/ROUTE-PP-002-GATE-A2.md
-
-Expected output:
+Gate A2 canonical report:
 protocols/PP-002_GATE-A2_REVISED_HISTORICAL_REVALIDATION.md
+
+Gate A2 disposition:
+runs/PP-002_GATE-A2_PASS_DISPOSITION.md
+
+Concurrency reconciliation:
+A second PP-002 execution independently reached PASS and correctly stopped publication after discovering the canonical output already existed. No conflicting publication or ref update occurred.
 
 Gate B:
 NOT AUTHORIZED
@@ -64,16 +67,14 @@ NOT AUTHORIZED
 Gate C:
 NOT AUTHORIZED
 
+Current PP-002 state:
+AWAITING SEPARATE GATE B AUTHORIZATION DECISION
+
+Meaning:
+v2 is sufficiently specified for a separately authorized live controlled experiment, but no live experiment is authorized by Gate A2 PASS itself.
+
 Product mutation:
 FORBIDDEN
 
 Product ref movement:
 FORBIDDEN
-
-Generic Project Control Protocol v1.0:
-FROZEN / UNCHANGED
-
-Execution Interruption Recovery Gate:
-PROPOSED / NOT ADOPTED
-
-A Gate A2 PASS is required before Project Control may consider a separately authorized live Gate B.
