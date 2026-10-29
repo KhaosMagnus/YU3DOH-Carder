@@ -49,58 +49,37 @@ COMPLETE / REVISE
 Gate B-R1:
 COMPLETE / PASS
 
-Gate B-R1 disposition:
-runs/PP-002_GATE-B-R1_PASS_DISPOSITION-v2.md
-
-Gate B-R2 Owner approval:
-GRANTED / FROZEN
-
-Gate B-R2 Owner approval artifact:
-control/PP-002_GATE-B-R2_OWNER_APPROVAL.md
-
 Gate B-R2:
-AUTHORIZED / ACTIVE
+COMPLETE / PASS
 
-Gate B-R2 authorization:
-control/PP-002_GATE-B-R2_AUTHORIZATION.md
+Gate B-R2 report:
+protocols/PP-002_GATE-B-R2_CORRECTED_LIVE_REVALIDATION_REPORT.md
 
-Gate B-R2 route:
-routing/ROUTE-PP-002-GATE-B-R2.md
+Gate B-R2 disposition:
+runs/PP-002_GATE-B-R2_PASS_DISPOSITION.md
 
-Approved proposal:
-control/PP-002_GATE-B-R2_PROPOSAL.md
+Gate B-R2 qualification:
+One planned administrative path literal differed from the actual immutable R2-000 path. The discrepancy was reconciled inside the authorized namespace; zero observed-state/baseline errors and zero live invariant violations were established.
 
-Accountable instance:
-PROTOCOL_PORTABILITY / PP-002
+Gate B-R2 live execution:
+TERMINAL / NO LIVE OPERATIONS PENDING
 
-Authorized operational branch:
-ops/pp-002-gate-b-r2-actions
-
-Authorized execution:
-ONE WORKFLOW / ONE ATTEMPT
+B-R2 operational branch:
+ops/pp-002-gate-b-r2-actions @ 0e679ad863076098d92d8a7704f6ca88948b651b
 
 Historical Gate B branch:
 ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
-MUST NOT MOVE
 
-Required checkpoints:
-R2-000
-R2-010
-R2-020
-R2-030
-R2-040
-R2-050
+Next proposed experiment:
+GATE C — REAL SESSION ROLLOVER RECOVERY
 
-Expected output:
-protocols/PP-002_GATE-B-R2_CORRECTED_LIVE_REVALIDATION_REPORT.md
+Gate C proposal:
+control/PP-002_GATE-C_PROPOSAL.md
 
-Supporting evidence:
-validations/PP-002/GATE-B-R2/**
+Gate C status:
+PROPOSED / PENDING OWNER APPROVAL / NOT AUTHORIZED
 
-Implementation:
-validation/pp002-gate-b-r2/**
-
-Gate C:
+Additional live workflows:
 NOT AUTHORIZED
 
 Protocol successor/adoption:
