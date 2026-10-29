@@ -21,22 +21,31 @@ Gate A2:
 COMPLETE / PASS
 
 Gate B:
-AUTHORIZED / ACTIVE
+COMPLETE / REVISE
 
-Owner approval:
-control/PP-002_GATE-B_OWNER_APPROVAL.md
+Gate B disposition:
+runs/PP-002_GATE-B_REVISE_DISPOSITION.md
 
-Effective authorization:
-control/PP-002_GATE-B_AUTHORIZATION.md
+Current:
+GATE B-R1 BOOKKEEPING CORRECTION REVALIDATION
+
+Mode:
+AUTHORIZED / OFFLINE / NO ACTIONS
+
+Contract:
+control/PP-002_GATE-B-R1_BOOKKEEPING_CORRECTION.md
+
+Authorization:
+control/PP-002_GATE-B-R1_AUTHORIZATION.md
 
 Route:
-routing/ROUTE-PP-002-GATE-B.md
-
-Operational branch:
-ops/pp-002-gate-b-actions
+routing/ROUTE-PP-002-GATE-B-R1.md
 
 Expected output:
-protocols/PP-002_GATE-B_CONTROLLED_INTERRUPTION_REPORT.md
+protocols/PP-002_GATE-B-R1_BOOKKEEPING_REVALIDATION.md
+
+Further live Gate B:
+NOT AUTHORIZED
 
 Gate C:
 NOT AUTHORIZED
