@@ -107,14 +107,35 @@ S01 POST-C020 ACTIVITY = UNKNOWN
 Gate C source retrieval qualification:
 ONE C-030 retrieval source revision default error; append-only corrected; exact immutable blob and operational results unchanged.
 
-Next authorized PP-002 work:
-READ-ONLY final experiment recommendation (PROMOTE / REVISE / REJECT)
+PP-002 final experimental review:
+COMPLETE / OFFICIAL FINAL REVISE ACCEPTED BY PC-003
+
+PP-002 final report:
+protocols/PP-002_FINAL_EXECUTION_INTERRUPTION_RECOVERY_RECOMMENDATION.md
+
+PP-002 final report publication:
+meta/project-control @ 39e0d313bbb966fc6d609e5afc2d1d6986e303b3
+
+PP-002 official final disposition:
+runs/PP-002_FINAL_REVISE_DISPOSITION.md
+
+Next bounded work:
+P01/P02 existing-evidence assessment closed at current record / intake if genuinely new independent evidence arrives; Q01 offline correction DESIGN ONLY routed to PP-002
+
+P01/P02 evidence sufficiency:
+control/PP-002_P01_P02_EXISTING_EVIDENCE_ASSESSMENT.md
+
+Q01 frozen design scope:
+control/PP-002_Q01_COLLECTOR_CORRECTION_SCOPE.md
+
+Q01 DESIGN route:
+routing/ROUTE-PP-002_Q01_COLLECTOR_CORRECTION_DESIGN.md
 
 Final recommendation route:
 routing/ROUTE-PP-002-FINAL_EXPERIMENT_RECOMMENDATION.md
 
 Final recommendation:
-PENDING
+REVISE / ACCEPTED / NO PROTOCOL PROMOTION
 
 Gate C rollover publication:
 meta/project-control @ 1352de4daddc6c2143943af2ad7142333f7be963
