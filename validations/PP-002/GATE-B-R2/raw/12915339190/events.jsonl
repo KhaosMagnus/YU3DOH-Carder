@@ -1,0 +1,22 @@
+{"count": 1, "event": "effect_created", "marker_sha256": "e3710d287a3db4c4d8605f96f0f57a903388734ce3112425f666d4acbb0591b2", "time": "2026-10-29T16:57:14.667399+00:00"}
+{"event": "hold_started", "seconds": 180, "time": "2026-10-29T16:57:14.716684+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:57:24.716925+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:57:34.717292+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:57:44.717666+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:57:54.718021+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:58:04.718405+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:58:14.718836+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:58:24.719210+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:58:34.719587+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:58:44.719946+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:58:54.720305+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:59:04.720703+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:59:14.721077+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:59:24.721435+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:59:34.721866+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:59:44.722164+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T16:59:54.722491+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T17:00:04.722871+00:00"}
+{"event": "heartbeat", "time": "2026-10-29T17:00:14.716918+00:00"}
+{"event": "hold_finished", "time": "2026-10-29T17:00:14.717099+00:00"}
+{"event": "cleanup_checked", "owned_marker_checked": true, "removed": true, "time": "2026-10-29T17:00:14.762187+00:00"}

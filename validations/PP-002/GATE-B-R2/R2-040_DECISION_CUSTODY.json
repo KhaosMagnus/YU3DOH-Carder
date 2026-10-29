@@ -1,0 +1,12 @@
+{
+  "B1": "KEEP_OBSERVING",
+  "B2": "REUSE_RESULT / exact marker count 1 / explicit owned-root cleanup verified",
+  "B3_child": "RECONCILE_EFFECT / intentional partial effect verified",
+  "B3_parent": "KEEP_OBSERVING / cleanup remains pending",
+  "B3_partial_source": "raw/12916121707/partial.json",
+  "cancellations": 0,
+  "decision_sources": "R2-040_VERIFIED_RECOVERY_DECISIONS.json",
+  "replacements": 0,
+  "retries": 0,
+  "verified_at": "2026-10-29T17:05:08.038296+00:00"
+}
