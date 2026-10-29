@@ -31,6 +31,9 @@ No product RUN or CR is authorized by PP-002.
 Generic Project Control Protocol v1.0:
 FROZEN / UNCHANGED
 
+PP-002 v2:
+FROZEN / UNCHANGED
+
 Execution Interruption Recovery Gate:
 PROPOSED / NOT ADOPTED
 
@@ -46,36 +49,56 @@ COMPLETE / REVISE
 Gate B-R1:
 COMPLETE / PASS
 
-Gate B-R1 report:
-protocols/PP-002_GATE-B-R1_BOOKKEEPING_REVALIDATION.md
-
-Gate B-R1 official disposition:
+Gate B-R1 disposition:
 runs/PP-002_GATE-B-R1_PASS_DISPOSITION-v2.md
 
-B-R1 validated:
-- defective historical 010 rejected;
-- 53 invariant violations detected;
-- all six mandatory contradiction/timestamp controls detected;
-- corrected 24-operation derivation accepted with zero violations;
-- 22 regression tests PASS;
-- deterministic repeated output;
-- zero external experimental operations emitted;
-- ops branch and protected refs unchanged.
+Gate B-R2 Owner approval:
+GRANTED / FROZEN
 
-Historical Gate B remains:
-REVISE / UNCHANGED
+Gate B-R2 Owner approval artifact:
+control/PP-002_GATE-B-R2_OWNER_APPROVAL.md
 
-Next proposed experiment:
-GATE B-R2 — CORRECTED LIVE BOOKKEEPING REVALIDATION
+Gate B-R2:
+AUTHORIZED / ACTIVE
 
-Proposal:
+Gate B-R2 authorization:
+control/PP-002_GATE-B-R2_AUTHORIZATION.md
+
+Gate B-R2 route:
+routing/ROUTE-PP-002-GATE-B-R2.md
+
+Approved proposal:
 control/PP-002_GATE-B-R2_PROPOSAL.md
 
-B-R2 status:
-PROPOSED / PENDING OWNER APPROVAL / NOT AUTHORIZED
+Accountable instance:
+PROTOCOL_PORTABILITY / PP-002
 
-Further live Gate B:
-NOT AUTHORIZED
+Authorized operational branch:
+ops/pp-002-gate-b-r2-actions
+
+Authorized execution:
+ONE WORKFLOW / ONE ATTEMPT
+
+Historical Gate B branch:
+ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
+MUST NOT MOVE
+
+Required checkpoints:
+R2-000
+R2-010
+R2-020
+R2-030
+R2-040
+R2-050
+
+Expected output:
+protocols/PP-002_GATE-B-R2_CORRECTED_LIVE_REVALIDATION_REPORT.md
+
+Supporting evidence:
+validations/PP-002/GATE-B-R2/**
+
+Implementation:
+validation/pp002-gate-b-r2/**
 
 Gate C:
 NOT AUTHORIZED
@@ -85,7 +108,3 @@ NOT AUTHORIZED
 
 Product mutation/ref movement/main movement:
 FORBIDDEN
-
-Historical Gate B ops branch:
-ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
-MUST REMAIN UNCHANGED unless a separate future authority explicitly changes disposition.
