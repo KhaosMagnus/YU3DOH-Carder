@@ -1,0 +1,23 @@
+{
+  "verified_at": "2026-10-29T16:59:41.265514+00:00",
+  "checks": [
+    {
+      "checkpoint": "R2-010",
+      "result": {
+        "result": "PASS",
+        "operations": 24,
+        "violations": 0
+      },
+      "exit_code": 0
+    },
+    {
+      "checkpoint": "R2-020",
+      "result": {
+        "result": "PASS",
+        "operations": 24,
+        "violations": 0
+      },
+      "exit_code": 0
+    }
+  ]
+}
