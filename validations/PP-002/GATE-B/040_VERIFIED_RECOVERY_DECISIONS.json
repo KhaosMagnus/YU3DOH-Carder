@@ -1,0 +1,62 @@
+{
+  "stage": "RAW_VERIFICATION_AND_RECOVERY_DECISION",
+  "recorded_at": "2026-10-29T07:05:33.852Z",
+  "recovery_snapshot": "dc521d192a5ed0ee2b1e0705141d4645c694cb52",
+  "raw_verification": [
+    {
+      "artifact_id": 12879037812,
+      "zip_bytes": 614,
+      "zip_sha256": "76bd92e16e71758a238e0aaa9ebdb8bb8ad6837a784c90e6f49b1485b51c9810",
+      "members": [
+        "partial.json"
+      ]
+    },
+    {
+      "artifact_id": 12879024432,
+      "zip_bytes": 3225,
+      "zip_sha256": "2739cee316bfdd6dda9f9cad119b39365a880fc914fe19d969eefbc10a5fe302",
+      "members": [
+        "cleanup.json",
+        "events.jsonl",
+        "final.json",
+        "manifest.json",
+        "marker.json",
+        "startup.json"
+      ]
+    }
+  ],
+  "verified_at": "2026-10-29T07:05:33.648214+00:00",
+  "decisions": {
+    "B1": {
+      "lifecycle": "STILL_RUNNING",
+      "safe_next_action": "KEEP_OBSERVING",
+      "as_of": "2026-10-29T07:03:47.052Z",
+      "no_retry": true
+    },
+    "B2": {
+      "lifecycle": "CONFIRMED_DONE",
+      "outcome": "SUCCESS",
+      "effect": "EFFECT_CONFIRMED",
+      "evidence": "EVIDENCE_VERIFIED",
+      "cleanup": "CLEANUP_CONFIRMED",
+      "safe_next_action": "REUSE_RESULT",
+      "effect_count": 1,
+      "duplicate_effect_count": 0,
+      "artifact_id": 12879024432,
+      "terminal_confirmation_discovered_after_gap": true
+    },
+    "B3_child": {
+      "lifecycle": "CONFIRMED_DONE",
+      "outcome": "FAILURE",
+      "effect": "EFFECT_CONFIRMED",
+      "evidence": "EVIDENCE_VERIFIED",
+      "cleanup": "CLEANUP_REQUIRED",
+      "safe_next_action": "RECONCILE_EFFECT",
+      "artifact_id": 12879037812,
+      "parent_status_at_recovery": "STILL_RUNNING",
+      "no_retry": true
+    }
+  },
+  "note": "B1/B3 lifecycle is pinned to the fresh recovery timestamp; next observation still required for current status, not carried forward indefinitely.",
+  "closer": "PP-002 / S01"
+}
