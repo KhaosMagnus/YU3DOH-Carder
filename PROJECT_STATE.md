@@ -40,41 +40,57 @@ PROPOSED / NOT ADOPTED
 Gate A:
 COMPLETE / REVISE
 
-Gate A report:
-protocols/PP-002_GATE-A_HISTORICAL_RECOVERY_REPLAY.md
-
-Gate A disposition:
-runs/PP-002_GATE-A_REVISE_DISPOSITION.md
-
-Revised experimental procedure:
-control/PP-002_EXECUTION_INTERRUPTION_RECOVERY_PILOT-v2.md
-
 Gate A2:
 COMPLETE / PASS
-
-Gate A2 canonical report:
-protocols/PP-002_GATE-A2_REVISED_HISTORICAL_REVALIDATION.md
 
 Gate A2 disposition:
 runs/PP-002_GATE-A2_PASS_DISPOSITION.md
 
-Concurrency reconciliation:
-A second PP-002 execution independently reached PASS and correctly stopped publication after discovering the canonical output already existed. No conflicting publication or ref update occurred.
+Owner Gate B approval:
+GRANTED / FROZEN
+
+Owner approval artifact:
+control/PP-002_GATE-B_OWNER_APPROVAL.md
 
 Gate B:
-NOT AUTHORIZED
+AUTHORIZED / ACTIVE
+
+Gate B effective authorization:
+control/PP-002_GATE-B_AUTHORIZATION.md
+
+Gate B route:
+routing/ROUTE-PP-002-GATE-B.md
+
+Accountable instance:
+PROTOCOL_PORTABILITY / PP-002
+
+Authorized operational branch:
+ops/pp-002-gate-b-actions
+
+Required scenarios:
+B1 active after observation loss
+B2 completed with lost confirmation
+B3 partial failure / cleanup adjudication
+
+Expected output:
+protocols/PP-002_GATE-B_CONTROLLED_INTERRUPTION_REPORT.md
+
+Supporting evidence:
+validations/PP-002/GATE-B/**
 
 Gate C:
 NOT AUTHORIZED
 
-Current PP-002 state:
-AWAITING SEPARATE GATE B AUTHORIZATION DECISION
-
-Meaning:
-v2 is sufficiently specified for a separately authorized live controlled experiment, but no live experiment is authorized by Gate A2 PASS itself.
+Protocol successor/adoption:
+NOT AUTHORIZED
 
 Product mutation:
 FORBIDDEN
 
 Product ref movement:
 FORBIDDEN
+
+Main movement:
+FORBIDDEN
+
+Gate B authority is limited to disposable experimental infrastructure and bounded GitHub Actions operations described by the frozen authorization.
