@@ -5,8 +5,8 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-002 | PROJECT_CONTROL | ACTIVE | PP-002 post-A2 control | Gate B decision pending |
-| PP-002 | PROTOCOL_PORTABILITY | GATE A2 COMPLETE / PASS | Execution Interruption Recovery Pilot | v2 historically revalidated |
+| PC-002 | PROJECT_CONTROL | ACTIVE | PP-002 Gate B control | live controlled experiment authorized |
+| PP-002 | PROTOCOL_PORTABILITY | ASSIGNED / GATE B CONTROLLED INTERRUPTION | Execution Interruption Recovery Pilot | disposable live experiment |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
 | DEPLOY-006 | DEPLOYMENT_VALIDATION | COMPLETE / EVIDENCE ACCESS READY | RUN 026 evidence transport | artifact 12838688889 |
@@ -24,7 +24,7 @@ PP-002 Gate A2:
 COMPLETE / PASS
 
 PP-002 Gate B:
-NOT AUTHORIZED
+AUTHORIZED / ACTIVE
 
 PP-002 Gate C:
 NOT AUTHORIZED
