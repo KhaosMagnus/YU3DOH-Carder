@@ -1,0 +1,10 @@
+{
+  "predecessor_adapter_blob": "4c679972f1d3d3ec2501f6aebf9a6484d7bf8316",
+  "r1_sha256": "0ebe717cb4830d376668a9d3ac193fd026399279c09a68af656e04d566247633",
+  "source_control": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+  "successor": {
+    "validation/pp002-gate-c/README.md": "df4f1a90570405b2c4851ddff507170f7f1eaac48b4861ff05ae6977e562291e",
+    "validation/pp002-gate-c/observer.py": "3b8fd9b243573b30845b644a1189ae5624e1d644d074e39137a09451d98e29cf",
+    "validation/pp002-gate-c/test_observer.py": "27b05558d874f037075e60cd7c1fcb5a316b2e960725bc00e1a2acc51b87ac68"
+  }
+}

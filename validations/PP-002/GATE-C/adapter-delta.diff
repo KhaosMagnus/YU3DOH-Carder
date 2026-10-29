@@ -1,0 +1,130 @@
+--- frozen B-R2 observer.py
++++ Gate C observer.py
+@@ -12,9 +12,9 @@
+ import sys
+ from datetime import datetime, timezone
+ 
+-CONTROL = '930dcab160df28c7606991cff4388fea29f351cf'
+-BASE = 'validations/PP-002/GATE-B-R2/'
+-INTENT = BASE + 'R2-000_INTENT.json'
++CONTROL = 'aa2aba815f4f421ff09fb6c2d51234d36392b08d'
++BASE = 'validations/PP-002/GATE-C/'
++INTENT = BASE + 'C-000_PRE_EMISSION_INTENT.json'
+ R1_SHA256 = '0ebe717cb4830d376668a9d3ac193fd026399279c09a68af656e04d566247633'
+ UNKNOWN = 'UNKNOWN'
+ 
+@@ -37,6 +37,7 @@
+     m=importlib.util.module_from_spec(spec); sys.modules[spec.name]=m; spec.loader.exec_module(m)
+     m.CONTROL=CONTROL; m.INTENT=INTENT
+     m.OBSERVED_FIELDS=m.OBSERVED_FIELDS | {'supplemental_source_ids'}
++    m.STEPS={'C1': {'EFFECT':'Create exactly one C1 effect','HOLD':'Bounded session rollover window','CLEANUP':'Explicit C1 owned-root cleanup','FINALIZE':'C1 final receipt and manifest','UPLOAD':'Preserve C1 raw evidence'}}
+     m.bindings=bindings; m.expected=expected
+     return m
+ 
+@@ -52,7 +53,7 @@
+         assert self.intent['input_control_sha']==CONTROL
+         assert self.context['harness_sha']==self.intent['harness_sha']
+         assert self.context['run_attempt']==1
+-        assert self.context['branch']=='ops/pp-002-gate-b-r2-actions'
++        assert self.context['branch']=='ops/pp-002-gate-c-actions'
+         for key in ('workflow_source','jobs_source'):
+             r=self.docs[self.context[key]]
+             assert r['source_kind']=='GITHUB_API_RECEIPT'
+@@ -96,9 +97,6 @@
+         assert sum(x['event']=='effect_created' for x in events)==1
+         encoded=(json.dumps(docs['marker'],sort_keys=True)+'\n').encode()
+         assert hashlib.sha256(encoded).hexdigest()==docs['startup']['marker_sha256']
+-        if case=='B3':
+-            child=self.docs[directory+'/partial.json']
+-            assert child['intentional'] and child['expected_exit_code']==23 and child['outcome']=='FAILURE'
+         self.package_cache[case]=directory
+         return directory
+ 
+@@ -108,7 +106,7 @@
+     for op in e.intent['planned_intent']['operations']:
+         oid=op['logical_operation_id']; role=op['role']; parent=op['parent_operation_id']
+         if role=='ADMIN':
+-            kind='PUBLICATION_ACK' if oid=='R2-INTENT-PUBLISH' else 'REF_ACK'
++            kind='PUBLICATION_ACK' if oid=='C-INTENT-PUBLISH' else 'REF_ACK'
+             source=e.context['admin_sources'][oid]+'#/response'
+         elif role=='WORKFLOW':
+             kind='WORKFLOW_QUERY_RECEIPT'; source=e.context['workflow_source']+'#/response'
+@@ -153,7 +151,7 @@
+         result['cleanup']='CLEANUP_NOT_APPLICABLE'
+     if b.role in ('EFFECT','JOB','WORKFLOW','CLEANUP'):
+         result['cleanup']='CLEANUP_REQUIRED' if result['lifecycle'] in ('CONFIRMED_DONE','STILL_RUNNING') else 'CLEANUP_UNKNOWN'
+-    cases=('B1','B2','B3') if b.role=='WORKFLOW' else (b.operation_id[:2],)
++    cases=('C1',) if b.role=='WORKFLOW' else (b.operation_id[:2],)
+     packages=[e.package(c) for c in cases]
+     if all(packages) and result['lifecycle']=='CONFIRMED_DONE':
+         result['cleanup']='CLEANUP_CONFIRMED' if b.role in ('EFFECT','JOB','WORKFLOW','CLEANUP') else result['cleanup']
+@@ -164,7 +162,7 @@
+     if proof['lifecycle'] in ('UNCERTAIN','CONFIRMED_NOT_DONE'): return 'BLOCK'
+     if proof['outcome'] in ('FAILURE','PARTIAL','CANCELLED'): return 'RECONCILE_EFFECT'
+     if b.role in ('ADMIN','HOLD','UPLOAD','PARTIAL-UPLOAD'): return 'REUSE_RESULT'
+-    if b.role=='WORKFLOW': verified=all(e.package(c) for c in ('B1','B2','B3'))
++    if b.role=='WORKFLOW': verified=all(e.package(c) for c in ('C1',))
+     else: verified=e.package(b.operation_id[:2])
+     return 'REUSE_RESULT' if verified and proof['outcome']=='SUCCESS' else 'RECONCILE_EFFECT'
+ 
+@@ -172,6 +170,17 @@
+     result=core.validate(document,e)
+     assert document.get('input_manifest')==e.manifest, 'Snapshot/source manifest mismatch'
+     assert document.get('planned_intent')==e.intent['planned_intent'], 'Frozen intent identity mismatch'
++    if 'rollover' in document:
++        r=document['rollover']
++        assert r['ROLE']=='PROTOCOL_PORTABILITY' and r['INSTANCE_ID']=='PP-002'
++        assert r['SESSION_ID']=='PP-002/S01' and r['successor_expected']=='PP-002/S02'
++        assert r['CONTROL_SHA']==CONTROL and r['harness_sha']==e.context['harness_sha']
++        assert r['run_id']==e.context['run_id'] and r['run_attempt']==1
++        assert sorted(r['job_ids'])==sorted(j['id'] for j in e.docs[e.context['jobs_source']]['response']['jobs'])
++        assert r['S01_STOP_AFTER_C020_PUBLICATION'] is True
++        assert r['accountable_instance']=='PP-002' and r['coordinator']=='PROJECT_CONTROL / PC-003'
++        assert r['NON_INHERITED'] and r['inherited_evidence_inventory']
++        assert r['last_observation_source_ids']==[e.context['workflow_source'],e.context['jobs_source']]
+     byid={b.operation_id:b for b in bindings(e)}
+     for r in document.get('observed_state',[]):
+         if r.get('logical_operation_id') in byid:
+@@ -179,12 +188,12 @@
+             if r.get('safe_next_action')!=action(expected(e,b),b,e):
+                 result['violations'].append(dict(logical_operation_id=b.operation_id,violated_invariant='UNSUPPORTED_SAFE_ACTION',source_evidence=[b.source_id],detail='Action must obey lifecycle/effect/evidence and no-retry authority'))
+             assert r.get('supplemental_source_ids')==supplemental(e,b), 'Supplemental custody mismatch'
+-    result.update(validator='PP002-GATE-B-R2-source-adapter-v1 / unchanged R1 validate core',claim_scope='Source-receipt state at independently recorded read boundaries',
++    result.update(validator='PP002-GATE-C-source-adapter-v1 / unchanged R1 validate core',claim_scope='Source-receipt state at independently recorded read boundaries',
+                   result='FAIL' if result['violations'] else 'PASS',invariant_violation_count=len(result['violations']),valid_current_observed_ledger=not result['violations'])
+     return result
+ 
+ def supplemental(e,b):
+-    cases=('B1','B2','B3') if b.role=='WORKFLOW' else (b.operation_id[:2],)
++    cases=('C1',) if b.role=='WORKFLOW' else (b.operation_id[:2],)
+     return [directory+'/'+n+'.json#' for c in cases if (directory:=e.package(c))
+             for n in ('marker','startup','cleanup','final','manifest')]
+ 
+@@ -197,7 +206,7 @@
+                          action_scope='No retry/replacement/cancel authority; read receipts are historical immediately after capture',
+                          supplemental_source_ids=supplemental(e,b),
+                          evidence_scope='Execution status receipt; exact marker/cleanup reuse requires verified artifact package'))
+-    doc=dict(schema='PP002-GATE-B-R2-source-ledger-v1',revalidation_control_sha=CONTROL,subject_control_sha=CONTROL,harness_sha=e.context['harness_sha'],
++    doc=dict(schema='PP002-GATE-C-source-ledger-v1',revalidation_control_sha=CONTROL,subject_control_sha=CONTROL,harness_sha=e.context['harness_sha'],
+              recorded_at=recorded,verified_at=UNKNOWN,planned_intent=copy.deepcopy(e.intent['planned_intent']),observed_state=rows,
+              input_manifest=copy.deepcopy(e.manifest))
+     check=validate(doc,e,core); assert check['result']=='PASS',json.dumps(check)
+@@ -206,10 +215,17 @@
+     return doc,validate(doc,e,core)
+ 
+ def main():
+-    p=argparse.ArgumentParser();p.add_argument('--root',default='.');p.add_argument('--manifest',required=True);p.add_argument('--output',required=True);p.add_argument('--result',required=True);p.add_argument('--ledger')
++    p=argparse.ArgumentParser();p.add_argument('--root',default='.');p.add_argument('--manifest',required=True);p.add_argument('--output',required=True);p.add_argument('--result',required=True);p.add_argument('--ledger');p.add_argument('--rollover-meta')
+     a=p.parse_args(); core=load_core(); e=Evidence(a.root,json.loads(Path(a.manifest).read_text()))
+     if a.ledger:doc=json.loads(Path(a.ledger).read_text());check=validate(doc,e,core)
+     else:doc,check=build(e,core)
++    if a.rollover_meta:
++        doc['rollover']=json.loads(Path(a.rollover_meta).read_text())
++        check=validate(doc,e,core)
++        if check['result']=='PASS':
++            verified=now();doc['verified_at']=verified
++            for r in doc['observed_state']:r['verified_at']=verified
++            check=validate(doc,e,core)
+     write_new(a.output,doc);write_new(a.result,check)
+     print(json.dumps({'result':check['result'],'operations':len(doc['observed_state']),'violations':check['invariant_violation_count']}))
+     return 0 if check['result']=='PASS' else 1
