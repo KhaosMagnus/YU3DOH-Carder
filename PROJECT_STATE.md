@@ -43,45 +43,36 @@ COMPLETE / PASS
 Gate B:
 COMPLETE / REVISE
 
-Gate B report:
-protocols/PP-002_GATE-B_CONTROLLED_INTERRUPTION_REPORT.md
+Gate B-R1:
+COMPLETE / PASS
 
-Gate B disposition:
-runs/PP-002_GATE-B_REVISE_DISPOSITION.md
-
-Gate B live execution:
-TERMINAL / NO LIVE OPERATIONS PENDING
-
-Gate B findings:
-- zero duplicate non-idempotent effects;
-- zero retries/replacements/cancellations;
-- all three owned roots removed;
-- recovery decisions correct;
-- bookkeeping defects GB-D01 / GB-D02 require correction.
-
-Current gate:
-GATE B-R1 — BOOKKEEPING CORRECTION REVALIDATION
-
-Gate B-R1 mode:
-AUTHORIZED / OFFLINE / NO EXTERNAL EXECUTION
-
-Gate B-R1 contract:
-control/PP-002_GATE-B-R1_BOOKKEEPING_CORRECTION.md
-
-Gate B-R1 authorization:
-control/PP-002_GATE-B-R1_AUTHORIZATION.md
-
-Gate B-R1 route:
-routing/ROUTE-PP-002-GATE-B-R1.md
-
-Expected output:
+Gate B-R1 report:
 protocols/PP-002_GATE-B-R1_BOOKKEEPING_REVALIDATION.md
 
-Actions launch/rerun/cancel:
-FORBIDDEN
+Gate B-R1 official disposition:
+runs/PP-002_GATE-B-R1_PASS_DISPOSITION-v2.md
 
-ops/pp-002-gate-b-actions movement:
-FORBIDDEN
+B-R1 validated:
+- defective historical 010 rejected;
+- 53 invariant violations detected;
+- all six mandatory contradiction/timestamp controls detected;
+- corrected 24-operation derivation accepted with zero violations;
+- 22 regression tests PASS;
+- deterministic repeated output;
+- zero external experimental operations emitted;
+- ops branch and protected refs unchanged.
+
+Historical Gate B remains:
+REVISE / UNCHANGED
+
+Next proposed experiment:
+GATE B-R2 — CORRECTED LIVE BOOKKEEPING REVALIDATION
+
+Proposal:
+control/PP-002_GATE-B-R2_PROPOSAL.md
+
+B-R2 status:
+PROPOSED / PENDING OWNER APPROVAL / NOT AUTHORIZED
 
 Further live Gate B:
 NOT AUTHORIZED
@@ -95,4 +86,6 @@ NOT AUTHORIZED
 Product mutation/ref movement/main movement:
 FORBIDDEN
 
-Gate A2 supplemental local revalidation is preserved under validations/PP-002/GATE-A2/ as NON-CANONICAL audit evidence; canonical A2 report remains unchanged.
+Historical Gate B ops branch:
+ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
+MUST REMAIN UNCHANGED unless a separate future authority explicitly changes disposition.
