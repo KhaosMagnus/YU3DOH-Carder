@@ -20,17 +20,23 @@ COMPLETE / REVISE
 Gate A2:
 COMPLETE / PASS
 
-Revised procedure:
-control/PP-002_EXECUTION_INTERRUPTION_RECOVERY_PILOT-v2.md
+Gate B:
+AUTHORIZED / ACTIVE
 
-Gate A2 disposition:
-runs/PP-002_GATE-A2_PASS_DISPOSITION.md
+Owner approval:
+control/PP-002_GATE-B_OWNER_APPROVAL.md
 
-Next eligible step:
-GATE B — CONTROLLED LIVE EXPERIMENT
+Effective authorization:
+control/PP-002_GATE-B_AUTHORIZATION.md
 
-Current authority:
-NOT AUTHORIZED
+Route:
+routing/ROUTE-PP-002-GATE-B.md
+
+Operational branch:
+ops/pp-002-gate-b-actions
+
+Expected output:
+protocols/PP-002_GATE-B_CONTROLLED_INTERRUPTION_REPORT.md
 
 Gate C:
 NOT AUTHORIZED
