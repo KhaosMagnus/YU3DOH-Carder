@@ -5,8 +5,8 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-002 | PROJECT_CONTROL | ACTIVE | PP-002 Gate A2 control | revised revalidation active |
-| PP-002 | PROTOCOL_PORTABILITY | ASSIGNED / GATE A2 REVALIDATION | Execution Interruption Recovery Pilot | read-only |
+| PC-002 | PROJECT_CONTROL | ACTIVE | PP-002 post-A2 control | Gate B decision pending |
+| PP-002 | PROTOCOL_PORTABILITY | GATE A2 COMPLETE / PASS | Execution Interruption Recovery Pilot | v2 historically revalidated |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
 | DEPLOY-006 | DEPLOYMENT_VALIDATION | COMPLETE / EVIDENCE ACCESS READY | RUN 026 evidence transport | artifact 12838688889 |
@@ -20,7 +20,13 @@ feature/workspace-v0.1 @ e11579950ef7ed20e4b6eeee88f9c3597c1f074b
 PP-002 Gate A:
 COMPLETE / REVISE
 
-PP-002 Gate B and Gate C:
+PP-002 Gate A2:
+COMPLETE / PASS
+
+PP-002 Gate B:
+NOT AUTHORIZED
+
+PP-002 Gate C:
 NOT AUTHORIZED
 
 Historical instances remain preserved in repository history and instance files.
