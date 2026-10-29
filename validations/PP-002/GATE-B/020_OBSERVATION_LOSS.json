@@ -1,0 +1,337 @@
+{
+  "schema": "PP002-GATE-B-v2-ledger-1",
+  "stage": "CONTROLLED_OBSERVATION_LOSS",
+  "recorded_at": "2026-10-29T07:01:15.513Z",
+  "intent_control_sha": "0c2102f3e50e135fd88c9f3f414a8da9893708aa",
+  "emitted_control_sha": "2413ee25beedf3ada943bdcc4daa02f3557d314a",
+  "input_control_sha": "2d22969421bfe92d283bae0202c0aa3764105a2c",
+  "harness_sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+  "run_id": 40832621820,
+  "job_ids": [
+    {
+      "id": 123310073647,
+      "name": "B1 active after observation loss"
+    },
+    {
+      "id": 123310073907,
+      "name": "B3 failed child and independent parent cleanup"
+    },
+    {
+      "id": 123310073956,
+      "name": "B2 completed with unobserved confirmation"
+    }
+  ],
+  "previous_observation_timestamp": "2026-10-29T07:00:54.604Z",
+  "previous_observation_source": "GitHub run/jobs fresh API",
+  "last_observed_jobs": [
+    {
+      "id": 123310073647,
+      "run_id": 40832621820,
+      "workflow_name": "PP-002 Gate B disposable recovery experiment",
+      "head_branch": "ops/pp-002-gate-b-actions",
+      "run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs/40832621820",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUehrqs8AAAActdpnLw",
+      "head_sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/jobs/123310073647",
+      "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/actions/runs/40832621820/job/123310073647",
+      "status": "in_progress",
+      "conclusion": null,
+      "created_at": "2026-10-29T07:00:07Z",
+      "started_at": "2026-10-29T07:00:09Z",
+      "completed_at": null,
+      "name": "B1 active after observation loss",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T07:00:10Z",
+          "completed_at": "2026-10-29T07:00:11Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T07:00:11Z",
+          "completed_at": "2026-10-29T07:00:13Z"
+        },
+        {
+          "name": "Create exactly one B1 effect",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T07:00:13Z",
+          "completed_at": "2026-10-29T07:00:13Z"
+        },
+        {
+          "name": "B1 bounded active observation window",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 4,
+          "started_at": "2026-10-29T07:00:13Z",
+          "completed_at": null
+        },
+        {
+          "name": "Explicit B1 owned-root cleanup",
+          "status": "pending",
+          "conclusion": null,
+          "number": 5,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "B1 final receipt and manifest",
+          "status": "pending",
+          "conclusion": null,
+          "number": 6,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Preserve B1 raw evidence",
+          "status": "pending",
+          "conclusion": null,
+          "number": 7,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 14,
+          "started_at": null,
+          "completed_at": null
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/check-runs/123310073647",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000140,
+      "runner_name": "GitHub Actions 1000000140",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123310073907,
+      "run_id": 40832621820,
+      "workflow_name": "PP-002 Gate B disposable recovery experiment",
+      "head_branch": "ops/pp-002-gate-b-actions",
+      "run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs/40832621820",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUehrqs8AAAActdpoMw",
+      "head_sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/jobs/123310073907",
+      "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/actions/runs/40832621820/job/123310073907",
+      "status": "in_progress",
+      "conclusion": null,
+      "created_at": "2026-10-29T07:00:07Z",
+      "started_at": "2026-10-29T07:00:09Z",
+      "completed_at": null,
+      "name": "B3 failed child and independent parent cleanup",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T07:00:10Z",
+          "completed_at": "2026-10-29T07:00:11Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T07:00:11Z",
+          "completed_at": "2026-10-29T07:00:12Z"
+        },
+        {
+          "name": "Create exactly one B3 partial effect",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T07:00:12Z",
+          "completed_at": "2026-10-29T07:00:12Z"
+        },
+        {
+          "name": "B3 intentionally failing child",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 4,
+          "started_at": "2026-10-29T07:00:12Z",
+          "completed_at": "2026-10-29T07:00:12Z"
+        },
+        {
+          "name": "Preserve B3 partial evidence before parent completion",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-29T07:00:12Z",
+          "completed_at": "2026-10-29T07:00:14Z"
+        },
+        {
+          "name": "B3 parent remains active after child failure",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 6,
+          "started_at": "2026-10-29T07:00:14Z",
+          "completed_at": null
+        },
+        {
+          "name": "Explicit B3 owned-root cleanup",
+          "status": "pending",
+          "conclusion": null,
+          "number": 7,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "B3 final receipt and manifest",
+          "status": "pending",
+          "conclusion": null,
+          "number": 8,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Preserve B3 final raw evidence",
+          "status": "pending",
+          "conclusion": null,
+          "number": 9,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 18,
+          "started_at": null,
+          "completed_at": null
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/check-runs/123310073907",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000141,
+      "runner_name": "GitHub Actions 1000000141",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 123310073956,
+      "run_id": 40832621820,
+      "workflow_name": "PP-002 Gate B disposable recovery experiment",
+      "head_branch": "ops/pp-002-gate-b-actions",
+      "run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs/40832621820",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOUehrqs8AAAActdpoZA",
+      "head_sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/jobs/123310073956",
+      "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/actions/runs/40832621820/job/123310073956",
+      "status": "in_progress",
+      "conclusion": null,
+      "created_at": "2026-10-29T07:00:07Z",
+      "started_at": "2026-10-29T07:00:10Z",
+      "completed_at": null,
+      "name": "B2 completed with unobserved confirmation",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-29T07:00:10Z",
+          "completed_at": "2026-10-29T07:00:11Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-29T07:00:11Z",
+          "completed_at": "2026-10-29T07:00:13Z"
+        },
+        {
+          "name": "Create exactly one B2 effect",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-29T07:00:13Z",
+          "completed_at": "2026-10-29T07:00:13Z"
+        },
+        {
+          "name": "B2 completion during observer gap",
+          "status": "in_progress",
+          "conclusion": null,
+          "number": 4,
+          "started_at": "2026-10-29T07:00:13Z",
+          "completed_at": null
+        },
+        {
+          "name": "Explicit B2 owned-root cleanup",
+          "status": "pending",
+          "conclusion": null,
+          "number": 5,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "B2 final receipt and manifest",
+          "status": "pending",
+          "conclusion": null,
+          "number": 6,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Preserve B2 raw evidence",
+          "status": "pending",
+          "conclusion": null,
+          "number": 7,
+          "started_at": null,
+          "completed_at": null
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "pending",
+          "conclusion": null,
+          "number": 14,
+          "started_at": null,
+          "completed_at": null
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/check-runs/123310073956",
+      "labels": [
+        "ubuntu-24.04"
+      ],
+      "runner_id": 1000000142,
+      "runner_name": "GitHub Actions 1000000142",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ],
+  "intentional_loss": {
+    "method": "Cease all Actions run/job/artifact/log polling in this same session; operations continue independently",
+    "minimum_seconds": 110,
+    "no_cancellation": true,
+    "no_quota_exhaustion": true,
+    "no_session_rollover": true
+  },
+  "recovery_entry": "Re-read this exact durable snapshot and 000_INTENT.json; resolve IDs/authority/harness anew before fresh external query; do not use conversational memory for terminal status",
+  "B2_terminal_confirmation_before_loss": "NOT_OBSERVED",
+  "cleanup_at_last_observation": {
+    "B1": "CLEANUP_REQUIRED",
+    "B2": "CLEANUP_REQUIRED",
+    "B3": "CLEANUP_REQUIRED"
+  },
+  "current_state_during_gap": "UNCERTAIN until fresh recovery query; earlier in_progress is not carried forward",
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S01",
+  "safe_next_action": "KEEP_OBSERVING after deliberately bounded no-poll interval; no retry/replacement"
+}
