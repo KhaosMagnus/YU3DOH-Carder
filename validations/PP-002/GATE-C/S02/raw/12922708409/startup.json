@@ -1,0 +1,17 @@
+{
+  "case": "C1",
+  "closer": "PROTOCOL_PORTABILITY / PP-002",
+  "control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+  "emission_channel": "authorized operational branch push -> Actions",
+  "exclusive_marker_count": 1,
+  "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+  "job_key": "C1",
+  "marker_sha256": "19d9ffc71fec42ed4c5d9216c00a611020d6062f2a1a9bc81c0eb8ec10c0eb1c",
+  "namespace": "pp002-gate-c-20261029-01",
+  "product_executed": false,
+  "product_mutated": false,
+  "root": "/home/runner/work/_temp/pp002-gate-c-20261029-01/C1",
+  "run_attempt": "1",
+  "run_id": "40930819906",
+  "started_at": "2026-10-29T18:26:32.822358+00:00"
+}

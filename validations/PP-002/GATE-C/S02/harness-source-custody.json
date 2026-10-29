@@ -1,0 +1,21 @@
+{
+  "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+  "source_files": {
+    "harness": {
+      "source_path": "validation/pp002-gate-c/run.py",
+      "git_blob_sha": "9dfbae15694d423435f399d461d594e056ba846e",
+      "requested_at": "UNKNOWN",
+      "receipt_at": "UNKNOWN",
+      "timing_note": "Fetch boundary time not durably retained; no assembly substitute",
+      "copied_path": "S02/harness-reference/run.py"
+    },
+    "workflow": {
+      "source_path": ".github/workflows/pp-002-gate-c-rollover.yml",
+      "git_blob_sha": "f4393fbc328476552dc2cc668679a519c98d4372",
+      "requested_at": "UNKNOWN",
+      "receipt_at": "UNKNOWN",
+      "timing_note": "Fetch boundary time not durably retained; no assembly substitute",
+      "copied_path": "S02/harness-reference/workflow.yml"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "archive_bytes": 3736,
+  "archive_sha256": "e15070a4b2a9b017f359cb48ae89e2a32e6c37a869d2428489b8b4f691e4ae6f",
+  "artifact": {
+    "archive_download_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/artifacts/12922708409/zip",
+    "created_at": "2026-10-29T18:41:33Z",
+    "digest": "sha256:e15070a4b2a9b017f359cb48ae89e2a32e6c37a869d2428489b8b4f691e4ae6f",
+    "expired": false,
+    "expires_at": "2026-11-28T18:41:33Z",
+    "id": 12922708409,
+    "name": "pp002-gate-c-20261029-01-C1-40930819906",
+    "node_id": "MDg6QXJ0aWZhY3QxMjkyMjcwODQwOQ==",
+    "size_in_bytes": 3736,
+    "updated_at": "2026-10-29T18:41:33Z",
+    "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/artifacts/12922708409",
+    "workflow_run": {
+      "head_branch": "ops/pp-002-gate-c-actions",
+      "head_repository_id": 1374186410,
+      "head_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+      "id": 40930819906,
+      "repository_id": 1374186410
+    }
+  },
+  "connector_receipt_at": "2026-10-29T18:48:53.677Z",
+  "connector_requested_at": "2026-10-29T18:48:52.676Z",
+  "crc_verified": true,
+  "members": {
+    "cleanup.json": {
+      "bytes": 659,
+      "sha256": "2fcbddbb7ee163b72ed840a8a5a70568b8bce83c631c572557290f99cc9b9b86"
+    },
+    "events.jsonl": {
+      "bytes": 6476,
+      "sha256": "82c09273e8bbf634e98fdd2855db85c8ffeab85a1342857c0ae6535bb79b6491"
+    },
+    "final.json": {
+      "bytes": 688,
+      "sha256": "2d94a875835d45a760139c1df5b92092188dfd7f9f21ead4785740d4e5037121"
+    },
+    "manifest.json": {
+      "bytes": 1100,
+      "sha256": "61dcbb6735d92f3f4bff6c339b98c0dc8c68fb3de986a6c76c1d0656e5aaf732"
+    },
+    "marker.json": {
+      "bytes": 550,
+      "sha256": "03a56f99053a2c556706e4c207cca251a55991ee15d519b1c75b27a7d43198d4"
+    },
+    "startup.json": {
+      "bytes": 660,
+      "sha256": "800866c5f6c97bb1ba05d1923516c2c4b70080892db47afbc15ac1ba5932fdcb"
+    }
+  },
+  "receipt_at": "2026-10-29T18:48:54.666475+00:00",
+  "recorded_at": "2026-10-29T18:48:54.668463+00:00",
+  "requested_at": "2026-10-29T18:48:54.544754+00:00",
+  "source_kind": "VERIFIED_ACTIONS_ARTIFACT"
+}

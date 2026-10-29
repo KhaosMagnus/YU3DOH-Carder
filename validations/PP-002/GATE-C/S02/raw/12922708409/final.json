@@ -1,0 +1,20 @@
+{
+  "case": "C1",
+  "closer": "PROTOCOL_PORTABILITY / PP-002",
+  "control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+  "duplicate_effect_count": 0,
+  "effect_creation_count": 1,
+  "emission_channel": "authorized operational branch push -> Actions",
+  "expected_child_outcome": "NOT_APPLICABLE",
+  "finished_at": "2026-10-29T18:41:32.914704+00:00",
+  "harness_checks": "PASS",
+  "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+  "job_key": "C1",
+  "namespace": "pp002-gate-c-20261029-01",
+  "parent_external_outcome": "OBSERVE_EXTERNALLY",
+  "product_executed": false,
+  "product_mutated": false,
+  "root_removed": true,
+  "run_attempt": "1",
+  "run_id": "40930819906"
+}

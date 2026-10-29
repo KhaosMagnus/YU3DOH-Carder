@@ -1,0 +1,17 @@
+{
+  "attempt": 1,
+  "basis": "Verified API terminal success + exact original package identity/member digests/exclusive marker/event count/ownership/removal receipt",
+  "cancellation": 0,
+  "cleanup": "CLEANUP_CONFIRMED",
+  "decision": "REUSE_RESULT",
+  "decision_source": "C-050_SAFE_CONTINUATION.json#/observed_state",
+  "duplicate_effect_count": 0,
+  "effect_creation_count": 1,
+  "new_execution": 0,
+  "recorded_at": "2026-10-29T18:49:32.037682+00:00",
+  "replacement": 0,
+  "retry": 0,
+  "session_boundary_acceptance": "SEPARATE / still UNCERTAIN; reuse is an original-operation result decision, not Gate C PASS",
+  "subject_run": 40930819906,
+  "validator": "C-050_VALIDATION.json"
+}

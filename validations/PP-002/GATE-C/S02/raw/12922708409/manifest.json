@@ -1,0 +1,35 @@
+{
+  "case": "C1",
+  "closer": "PROTOCOL_PORTABILITY / PP-002",
+  "control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+  "emission_channel": "authorized operational branch push -> Actions",
+  "files": {
+    "cleanup.json": {
+      "bytes": 659,
+      "sha256": "2fcbddbb7ee163b72ed840a8a5a70568b8bce83c631c572557290f99cc9b9b86"
+    },
+    "events.jsonl": {
+      "bytes": 6476,
+      "sha256": "82c09273e8bbf634e98fdd2855db85c8ffeab85a1342857c0ae6535bb79b6491"
+    },
+    "final.json": {
+      "bytes": 688,
+      "sha256": "2d94a875835d45a760139c1df5b92092188dfd7f9f21ead4785740d4e5037121"
+    },
+    "marker.json": {
+      "bytes": 550,
+      "sha256": "03a56f99053a2c556706e4c207cca251a55991ee15d519b1c75b27a7d43198d4"
+    },
+    "startup.json": {
+      "bytes": 660,
+      "sha256": "800866c5f6c97bb1ba05d1923516c2c4b70080892db47afbc15ac1ba5932fdcb"
+    }
+  },
+  "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+  "job_key": "C1",
+  "namespace": "pp002-gate-c-20261029-01",
+  "product_executed": false,
+  "product_mutated": false,
+  "run_attempt": "1",
+  "run_id": "40930819906"
+}

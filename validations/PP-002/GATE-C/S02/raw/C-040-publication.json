@@ -1,0 +1,21 @@
+{
+  "sha": "f0a05a8f00959ec2ef88fa9b95f87044c03fd666",
+  "parent": "65c3d4a949fb15416ad180176511f557577eddab",
+  "paths": [
+    "validations/PP-002/GATE-C/C-040_VALIDATION.log",
+    "validations/PP-002/GATE-C/C-040_MANIFEST.json",
+    "validations/PP-002/GATE-C/C-040_S02_FRESH_OBSERVATION.json",
+    "validations/PP-002/GATE-C/C-040_VALIDATION.json",
+    "validations/PP-002/GATE-C/S02/raw/fresh-workflow.json",
+    "validations/PP-002/GATE-C/S02/raw/fresh-inventory.json",
+    "validations/PP-002/GATE-C/S02/raw/fresh-artifacts.json",
+    "validations/PP-002/GATE-C/S02/raw/fresh-jobs.json",
+    "validations/PP-002/GATE-C/S02/raw/C-030-publication.json"
+  ],
+  "requested_at": "2026-10-29T18:47:58.223Z",
+  "receipt_at": "2026-10-29T18:47:59.650Z",
+  "acknowledgement": {
+    "success": true
+  },
+  "verified_prepared_tree": true
+}

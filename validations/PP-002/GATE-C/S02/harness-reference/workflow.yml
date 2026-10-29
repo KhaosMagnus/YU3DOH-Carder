@@ -1,0 +1,40 @@
+name: PP-002 Gate C real session rollover
+on:
+  push:
+    branches: [ops/pp-002-gate-c-actions]
+    paths:
+      - '.github/workflows/pp-002-gate-c-rollover.yml'
+      - 'validation/pp002-gate-c/**'
+permissions:
+  contents: read
+concurrency:
+  group: pp002-gate-c-20261029-01
+  cancel-in-progress: false
+jobs:
+  C1:
+    name: C1 session rollover disposable operation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: validation/pp002-gate-c
+          persist-credentials: false
+      - name: Create exactly one C1 effect
+        run: python3 validation/pp002-gate-c/run.py start C1
+      - name: Bounded session rollover window
+        run: python3 validation/pp002-gate-c/run.py hold C1 900
+      - name: Explicit C1 owned-root cleanup
+        if: always()
+        run: python3 validation/pp002-gate-c/run.py cleanup C1
+      - name: C1 final receipt and manifest
+        if: always()
+        run: python3 validation/pp002-gate-c/run.py finish C1
+      - name: Preserve C1 raw evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pp002-gate-c-20261029-01-C1-${{ github.run_id }}
+          path: gate-c-evidence/C1
+          retention-days: 30
+          if-no-files-found: error
