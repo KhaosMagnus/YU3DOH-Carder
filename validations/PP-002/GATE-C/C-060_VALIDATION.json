@@ -1,0 +1,9 @@
+{
+  "claim_scope": "Source-receipt state at independently recorded read boundaries",
+  "invariant_violation_count": 0,
+  "operation_count": 10,
+  "result": "PASS",
+  "valid_current_observed_ledger": true,
+  "validator": "PP002-GATE-C-source-adapter-v1 / unchanged R1 validate core",
+  "violations": []
+}

@@ -1,0 +1,23 @@
+{
+  "checks": [
+    {
+      "checkpoint": "C-040",
+      "ledger_and_result_repeat_byte_identical": true,
+      "operation_count": 10,
+      "violations": 0
+    },
+    {
+      "checkpoint": "C-050",
+      "ledger_and_result_repeat_byte_identical": true,
+      "operation_count": 10,
+      "violations": 0
+    },
+    {
+      "checkpoint": "C-060",
+      "ledger_and_result_repeat_byte_identical": true,
+      "operation_count": 10,
+      "violations": 0
+    }
+  ],
+  "verified_at": "2026-10-29T18:51:05.398638+00:00"
+}

@@ -1,0 +1,33 @@
+{
+  "accountable_instance": "PP-002",
+  "attempt": 1,
+  "cancellations": 0,
+  "cleanup": "CLEANUP_CONFIRMED",
+  "cleanup_claim_basis": "Positive marker ownership + root present before + absent after; independent from runner termination",
+  "cleanup_event_at": "2026-10-29T18:41:32.885157+00:00",
+  "cleanup_source": "S02/raw/12922708409/cleanup.json",
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S02",
+  "duplicate_effect_count": 0,
+  "effect": "EFFECT_CONFIRMED",
+  "effect_creation_count": 1,
+  "effect_event_source": "S02/raw/12922708409/events.jsonl",
+  "evidence": "EVIDENCE_VERIFIED",
+  "job": 123648451740,
+  "lifecycle": "CONFIRMED_DONE",
+  "logical_operations": 10,
+  "new_emissions": 0,
+  "original_external_work_pending": "NONE",
+  "original_run": 40930819906,
+  "outcome": "SUCCESS",
+  "recorded_at": "2026-10-29T18:51:05.398848+00:00",
+  "replacements": 0,
+  "retention": {
+    "Actions_artifact_id": 12922708409,
+    "expires_at": "2026-11-28T18:41:33Z",
+    "future_disposal_owner": "PROJECT_CONTROL / PC-003",
+    "operational_branch": "Retained at exact harness SHA for PC-003 review; no movement/deletion by S02",
+    "raw_members_and_log": "Preserved append-only Git evidence"
+  },
+  "retries": 0,
+  "session_boundary_acceptance": "Not implied by successful operational closure"
+}

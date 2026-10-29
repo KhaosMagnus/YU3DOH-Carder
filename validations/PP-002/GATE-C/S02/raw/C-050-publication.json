@@ -1,0 +1,31 @@
+{
+  "sha": "9d75474df80250a418504fedca9409ac6ce30434",
+  "parent": "f0a05a8f00959ec2ef88fa9b95f87044c03fd666",
+  "paths": [
+    "validations/PP-002/GATE-C/C-050_MANIFEST.json",
+    "validations/PP-002/GATE-C/C-050_VALIDATION.log",
+    "validations/PP-002/GATE-C/C-050_SAFE_CONTINUATION.json",
+    "validations/PP-002/GATE-C/C-050_DECISION_CUSTODY.json",
+    "validations/PP-002/GATE-C/C-050_VALIDATION.json",
+    "validations/PP-002/GATE-C/S02/raw/12922708409/manifest.json",
+    "validations/PP-002/GATE-C/S02/raw/12922708409/marker.json",
+    "validations/PP-002/GATE-C/S02/raw/12922708409/final.json",
+    "validations/PP-002/GATE-C/S02/raw/12922708409/cleanup.json",
+    "validations/PP-002/GATE-C/S02/raw/12922708409/startup.json",
+    "validations/PP-002/GATE-C/S02/raw/12922708409/events.jsonl",
+    "validations/PP-002/GATE-C/S02/raw/12922708409-verification.json",
+    "validations/PP-002/GATE-C/S02/raw/job-log.json",
+    "validations/PP-002/GATE-C/S02/raw/decision-workflow.json",
+    "validations/PP-002/GATE-C/S02/raw/decision-jobs.json",
+    "validations/PP-002/GATE-C/S02/raw/C-040-publication.json",
+    "validations/PP-002/GATE-C/S02/harness-source-custody.json",
+    "validations/PP-002/GATE-C/S02/harness-reference/run.py",
+    "validations/PP-002/GATE-C/S02/harness-reference/workflow.yml"
+  ],
+  "requested_at": "2026-10-29T18:49:37.201Z",
+  "receipt_at": "2026-10-29T18:49:38.650Z",
+  "acknowledgement": {
+    "success": true
+  },
+  "verified_prepared_tree": true
+}
