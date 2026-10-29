@@ -24,33 +24,39 @@ CLOSED / INTEGRATED / EXTERNAL QA PASS
 CR-0002:
 CLOSED / INTEGRATED / PASS
 
-No new product RUN or CR is authorized by PP-002.
+No product RUN or CR is authorized by PP-002.
 
 ## Protocol experiment — PP-002
 
 Experiment:
 Execution Interruption Recovery Pilot
 
-Pilot artifact:
-control/PP-002_EXECUTION_INTERRUPTION_RECOVERY_PILOT.md
+Gate A:
+COMPLETE / REVISE
 
-Accountable role:
-PROTOCOL_PORTABILITY / PP-002
+Gate A report:
+protocols/PP-002_GATE-A_HISTORICAL_RECOVERY_REPLAY.md
+
+Gate A disposition:
+runs/PP-002_GATE-A_REVISE_DISPOSITION.md
+
+Revised experimental procedure:
+control/PP-002_EXECUTION_INTERRUPTION_RECOVERY_PILOT-v2.md
 
 Current gate:
-GATE A — HISTORICAL RECOVERY REPLAY
+GATE A2 — REVISED HISTORICAL REVALIDATION
 
-Gate A status:
-AUTHORIZED / ACTIVE
+Gate A2 status:
+AUTHORIZED / ACTIVE / READ-ONLY
 
-Authorization:
-control/PP-002_GATE-A_AUTHORIZATION.md
+Gate A2 authorization:
+control/PP-002_GATE-A2_AUTHORIZATION.md
 
-Route:
-routing/ROUTE-PP-002-GATE-A.md
+Gate A2 route:
+routing/ROUTE-PP-002-GATE-A2.md
 
 Expected output:
-protocols/PP-002_GATE-A_HISTORICAL_RECOVERY_REPLAY.md
+protocols/PP-002_GATE-A2_REVISED_HISTORICAL_REVALIDATION.md
 
 Gate B:
 NOT AUTHORIZED
@@ -70,12 +76,4 @@ FROZEN / UNCHANGED
 Execution Interruption Recovery Gate:
 PROPOSED / NOT ADOPTED
 
-PP-002 may recommend PROMOTE / REVISE / REJECT only after the experimental sequence. No recommendation itself changes protocol authority.
-
-## Prior experiment
-
-RUN 026 session/interruption pilot:
-REVISE
-
-Evaluation:
-control/RUN-026_SESSION_PILOT_EVALUATION.md
+A Gate A2 PASS is required before Project Control may consider a separately authorized live Gate B.
