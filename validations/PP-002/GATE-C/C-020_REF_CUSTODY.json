@@ -1,0 +1,55 @@
+{
+  "checks": [
+    {
+      "branch": "main",
+      "sha": "54cc3aad246c89a29f2a18be63c539db68cae041",
+      "source": "validations/PP-002/GATE-C/raw/rollover-ref-main.json",
+      "requested_at": "2026-10-29T18:28:53.823Z",
+      "receipt_at": "2026-10-29T18:28:54.356Z"
+    },
+    {
+      "branch": "feature/workspace-v0.1",
+      "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+      "source": "validations/PP-002/GATE-C/raw/rollover-ref-feature-workspace-v0.1.json",
+      "requested_at": "2026-10-29T18:28:53.823Z",
+      "receipt_at": "2026-10-29T18:28:54.232Z"
+    },
+    {
+      "branch": "feature/workspace-run-026",
+      "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+      "source": "validations/PP-002/GATE-C/raw/rollover-ref-feature-workspace-run-026.json",
+      "requested_at": "2026-10-29T18:28:53.823Z",
+      "receipt_at": "2026-10-29T18:28:54.416Z"
+    },
+    {
+      "branch": "ops/pp-002-gate-b-actions",
+      "sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+      "source": "validations/PP-002/GATE-C/raw/rollover-ref-ops-pp-002-gate-b-actions.json",
+      "requested_at": "2026-10-29T18:28:53.823Z",
+      "receipt_at": "2026-10-29T18:28:54.233Z"
+    },
+    {
+      "branch": "ops/pp-002-gate-b-r2-actions",
+      "sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+      "source": "validations/PP-002/GATE-C/raw/rollover-ref-ops-pp-002-gate-b-r2-actions.json",
+      "requested_at": "2026-10-29T18:28:53.823Z",
+      "receipt_at": "2026-10-29T18:28:54.206Z"
+    },
+    {
+      "branch": "ops/pp-002-gate-c-actions",
+      "sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+      "source": "validations/PP-002/GATE-C/raw/rollover-ref-ops-pp-002-gate-c-actions.json",
+      "requested_at": "2026-10-29T18:28:53.823Z",
+      "receipt_at": "2026-10-29T18:28:54.621Z"
+    },
+    {
+      "branch": "meta/project-control",
+      "sha": "4704b7cbdccf018e11dd7a8184544c24157b9c06",
+      "source": "validations/PP-002/GATE-C/raw/rollover-ref-meta-project-control.json",
+      "requested_at": "2026-10-29T18:28:53.823Z",
+      "receipt_at": "2026-10-29T18:28:54.251Z"
+    }
+  ],
+  "interpretation": "Historical source-bound pre-publication observations; S02 must reverify independently",
+  "result": "PASS"
+}

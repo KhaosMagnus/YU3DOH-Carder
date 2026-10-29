@@ -1,0 +1,17 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/main",
+  "requested_at": "2026-10-29T18:28:53.823Z",
+  "receipt_at": "2026-10-29T18:28:54.356Z",
+  "timing_scope": "Connector invocation and completed response receipt; not HTTP wire telemetry",
+  "response": {
+    "ref": "refs/heads/main",
+    "node_id": "REF_kwDOUehrqq9yZWZzL2hlYWRzL21haW4",
+    "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/main",
+    "object": {
+      "sha": "54cc3aad246c89a29f2a18be63c539db68cae041",
+      "type": "commit",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/54cc3aad246c89a29f2a18be63c539db68cae041"
+    }
+  }
+}

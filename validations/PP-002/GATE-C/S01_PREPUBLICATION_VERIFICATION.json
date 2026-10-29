@@ -1,0 +1,23 @@
+{
+  "S01_post_checkpoint_behavior": "Not yet measured; commitment only; final CAS is the stop boundary",
+  "checks": [
+    {
+      "checkpoint": "C-010",
+      "invariant_violations": 0,
+      "ledger_and_result_byte_identical": true,
+      "operations": 10,
+      "result": "PASS"
+    },
+    {
+      "checkpoint": "C-020",
+      "invariant_violations": 0,
+      "ledger_and_result_byte_identical": true,
+      "operations": 10,
+      "result": "PASS"
+    }
+  ],
+  "intent_publication_path_exact": true,
+  "scope": "Pre-publication source/pin/replay validation; not a post-rollover observation",
+  "terminal_gate_result": "NOT_ISSUED",
+  "verified_at": "2026-10-29T18:29:50.042046+00:00"
+}
