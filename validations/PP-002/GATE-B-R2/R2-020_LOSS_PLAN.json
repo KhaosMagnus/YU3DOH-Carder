@@ -1,0 +1,27 @@
+{
+  "phase": "R2-020",
+  "method": "Same-session deliberate no Actions polling; no cancellation; no executor rollover claimed",
+  "last_actions_receipt_at": "2026-10-29T16:59:04.204Z",
+  "no_poll_minimum_seconds": 220,
+  "exact_run_id": 40916583578,
+  "run_attempt": 1,
+  "harness_sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+  "job_ids": [
+    {
+      "id": 123598314893,
+      "name": "B2 completed with unobserved confirmation"
+    },
+    {
+      "id": 123598315315,
+      "name": "B1 active after observation loss"
+    },
+    {
+      "id": 123598315617,
+      "name": "B3 failed child and independent parent cleanup"
+    }
+  ],
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S01; PC-002 assigns successor if unavailable",
+  "recovery_entry": "Read pinned authority, R2-000/010/020 and raw source IDs from immutable published control; then fresh Actions reads",
+  "R2_010_publication": "6198a89e2b9757ba11e1538b2b74be2f50e56150",
+  "R2_010_consistency": "PASS / zero violations"
+}
