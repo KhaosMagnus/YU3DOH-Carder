@@ -70,7 +70,7 @@ ops/pp-002-gate-b-r2-actions @ 0e679ad863076098d92d8a7704f6ca88948b651b
 Historical Gate B branch:
 ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
 
-Next authorized experiment:
+Latest experiment:
 GATE C — REAL SESSION ROLLOVER RECOVERY
 
 Gate C proposal:
@@ -86,7 +86,35 @@ Gate C route:
 routing/ROUTE-PP-002-GATE-C.md
 
 Gate C status:
-ACTIVE / C-020 DURABLE CHECKPOINT PUBLISHED / S01 ROLLOVER ACCEPTED / S02 NEW CONVERSATION PENDING
+TERMINAL / REVISE / OPERATIONAL CLOSURE VERIFIED / SESSION BOUNDARY PROVENANCE INCOMPLETE
+
+Gate C terminal report:
+protocols/PP-002_GATE-C_REAL_SESSION_ROLLOVER_REPORT.md
+
+Gate C terminal report publication:
+meta/project-control @ 0327e0d978710d8351d627fc3a9af6f66d13abae
+
+Gate C terminal disposition:
+runs/PP-002_GATE-C_REVISE_DISPOSITION.md
+
+Gate C session provenance correction:
+control/PP-002_GATE-C_PROVENANCE_CORRECTION_REQUIREMENTS.md
+
+Gate C acceptance:
+GENUINE PLATFORM SESSION SEPARATION = UNCERTAIN
+S01 POST-C020 ACTIVITY = UNKNOWN
+
+Gate C source retrieval qualification:
+ONE C-030 retrieval source revision default error; append-only corrected; exact immutable blob and operational results unchanged.
+
+Next authorized PP-002 work:
+READ-ONLY final experiment recommendation (PROMOTE / REVISE / REJECT)
+
+Final recommendation route:
+routing/ROUTE-PP-002-FINAL_EXPERIMENT_RECOMMENDATION.md
+
+Final recommendation:
+PENDING
 
 Gate C rollover publication:
 meta/project-control @ 1352de4daddc6c2143943af2ad7142333f7be963
@@ -107,7 +135,13 @@ Gate C original workflow:
 run 40930819906 / attempt 1 / job 123648451740 / ops/pp-002-gate-c-actions @ 9c508d06e3862b4b142e998708026a5ed8757fd0
 
 Gate C terminal result:
-NOT ISSUED / S02 responsible for C-030 through C-070 and terminal reconciliation
+OFFICIAL REVISE / all ten operations closed, one workflow run/attempt, no pending external state
+
+Gate C original terminal run/job:
+Workflow 40930819906 / attempt 1 / job 123648451740 — SUCCESS
+
+Gate C C-030 through C-070:
+PUBLISHED / S02 terminal report received
 
 Gate C accountable role / instance:
 PROTOCOL_PORTABILITY / PP-002 (S01 -> S02)
@@ -116,7 +150,7 @@ Current coordinator:
 PROJECT_CONTROL / PC-003 (succession control/PC-003_SUCCESSION.md)
 
 Authorized Gate C operation:
-ONE isolated workflow/run/attempt already emitted by S01; no further emission/retry/replacement authorized.
+ONE isolated workflow/run/attempt completed and reconciled. Additional live emission/retry/replacement prohibited.
 
 Protected refs at rollover intake:
 All five protected refs independently verified unchanged; Gate C operational branch verified at exact harness SHA.
