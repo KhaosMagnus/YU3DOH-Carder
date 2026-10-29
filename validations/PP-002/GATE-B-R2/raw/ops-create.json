@@ -1,0 +1,12 @@
+{
+  "source_kind": "GITHUB_MUTATION_RECEIPT",
+  "requested_at": "2026-10-29T16:56:57.951Z",
+  "receipt_at": "2026-10-29T16:56:58.560Z",
+  "timing_scope": "Connector invocation/acknowledgement boundaries",
+  "response": {
+    "success": true,
+    "raw": {
+      "branch": "ops/pp-002-gate-b-r2-actions"
+    }
+  }
+}

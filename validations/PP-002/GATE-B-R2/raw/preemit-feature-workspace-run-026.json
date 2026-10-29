@@ -1,0 +1,17 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/feature/workspace-run-026",
+  "requested_at": "2026-10-29T16:56:55.442Z",
+  "receipt_at": "2026-10-29T16:56:55.828Z",
+  "timing_scope": "Connector request issuance and completed connector response receipt; not HTTP wire telemetry",
+  "response": {
+    "ref": "refs/heads/feature/workspace-run-026",
+    "node_id": "REF_kwDOUehrqtoAJHJlZnMvaGVhZHMvZmVhdHVyZS93b3Jrc3BhY2UtcnVuLTAyNg",
+    "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/feature/workspace-run-026",
+    "object": {
+      "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+      "type": "commit",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/e11579950ef7ed20e4b6eeee88f9c3597c1f074b"
+    }
+  }
+}

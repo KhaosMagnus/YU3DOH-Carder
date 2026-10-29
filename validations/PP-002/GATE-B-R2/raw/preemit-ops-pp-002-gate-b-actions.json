@@ -1,0 +1,17 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/ops/pp-002-gate-b-actions",
+  "requested_at": "2026-10-29T16:56:55.442Z",
+  "receipt_at": "2026-10-29T16:56:56.001Z",
+  "timing_scope": "Connector request issuance and completed connector response receipt; not HTTP wire telemetry",
+  "response": {
+    "ref": "refs/heads/ops/pp-002-gate-b-actions",
+    "node_id": "REF_kwDOUehrqtoAJHJlZnMvaGVhZHMvb3BzL3BwLTAwMi1nYXRlLWItYWN0aW9ucw",
+    "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/ops/pp-002-gate-b-actions",
+    "object": {
+      "sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+      "type": "commit",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/dd6e8bfecadab0a83c8008ea65300b1f0ba518f8"
+    }
+  }
+}
