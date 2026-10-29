@@ -1,0 +1,74 @@
+{
+  "schema": "PP002-GATE-C-S02-CUSTODY-v1",
+  "recorded_at": "2026-10-29T18:47:08.262Z",
+  "role": "PROTOCOL_PORTABILITY",
+  "instance": "PP-002",
+  "requested_session": "PP-002/S02",
+  "coordinator": "PROJECT_CONTROL / PC-003",
+  "routing_control_sha": "34011f6466ce096b310ef1c43c277d2bfd2af7aa",
+  "rollover_control_sha": "1352de4daddc6c2143943af2ad7142333f7be963",
+  "activation_control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+  "checkpoint": {
+    "path": "validations/PP-002/GATE-C/C-020_S01_ROLLOVER_CHECKPOINT.json",
+    "blob": "1b8055add2533d04e6c3b42e6344e3bee9c46614",
+    "recheck": "S02/predecessor-recheck.json",
+    "byte_identical_replay": true
+  },
+  "authority": {
+    "path": "control/PP-002_GATE-C_AUTHORIZATION.md",
+    "blob": "92537ee26b6f9da86cc2fa060d35679d748aff8f"
+  },
+  "successor_route": {
+    "path": "routing/ROUTE-PP-002-GATE-C-S02.md",
+    "blob": "4c279dc88aa380ee7c42ac260d9a5369a1f4d319"
+  },
+  "operation_identity": {
+    "branch": "ops/pp-002-gate-c-actions",
+    "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+    "run_id": 40930819906,
+    "run_attempt": 1,
+    "job_ids": [
+      123648451740
+    ]
+  },
+  "authority_compatibility": {
+    "current_head": "34011f6466ce096b310ef1c43c277d2bfd2af7aa",
+    "rollover_ancestry": "ahead / 1 coordinator commit",
+    "frozen_authorization_unchanged": true
+  },
+  "reference_custody": "S02/entry-reference-receipts.json",
+  "fresh_run_job_state_claimed": false,
+  "run_job_queries_before_C030": 0,
+  "predecessor_status": "Historical receipt only; no current STILL_RUNNING/SUCCESS/cleanup claim",
+  "source_inventory": "S02/source-recovery-manifest.json",
+  "local_provenance": "New empty working root; freshly fetched GitHub bytes; predecessor scratch/helpers/stores not read",
+  "inherited": [
+    "Frozen authorization/route and coordinator intake",
+    "Immutable C-020 and source-bound receipt manifest",
+    "Exact run/job/harness identity and original positive issuance receipts",
+    "Byte-pinned C adapter and unchanged R1 core",
+    "Historical negative fixture; not evidence about current run"
+  ],
+  "NON_INHERITED": [
+    "Private chain of thought",
+    "Unrecorded predecessor conversation memory, including automatically surfaced history",
+    "Transient executor-local assumptions",
+    "UI observations not durably captured",
+    "Local files/process state not represented by published evidence",
+    "Any receipt not actually published into the checkpoint/evidence package",
+    "Scratch helper scripts, runtime store variables, credentials or predecessor tool sessions"
+  ],
+  "session_boundary": {
+    "owner_transfer_statement": "PP-002/S02 — THIS NEW CONVERSATION",
+    "platform_input_observation": "Predecessor dialogue is present in supplied context; treated NON_INHERITED and excluded from source derivations",
+    "distinct_platform_conversation_ids": "UNKNOWN / not exposed by normal available tools",
+    "genuine_session_separation": "UNCERTAIN / not independently established by labels or repository route",
+    "S01_post_checkpoint_inactivity": "Reported by predecessor; explicitly not independently measured in PC intake",
+    "scope": "These gaps affect terminal rollover acceptance, not permission for read-only recovery/closure of the identified original operation"
+  },
+  "closer": "PROTOCOL_PORTABILITY / PP-002 / S02 accepts custody of the original operation under the current transfer; same accountable PP-002",
+  "safe_next_action": "BLOCK",
+  "block_scope": "All new emissions/retries/replacements and unsupported PASS claims; read-only original-operation observation/reconciliation remains authorized",
+  "next_authorized_step": "After C030 publication obtain fresh original workflow/job receipts for C040; do not inherit old lifecycle",
+  "separate_final_recommendation": "Only after terminal Gate C disposition per successor route"
+}

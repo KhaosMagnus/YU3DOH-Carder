@@ -1,0 +1,98 @@
+[
+  {
+    "branch": "main",
+    "expected": "54cc3aad246c89a29f2a18be63c539db68cae041",
+    "requested_at": "2026-10-29T18:43:47.293Z",
+    "receipt_at": "2026-10-29T18:43:47.726Z",
+    "response": {
+      "ref": "refs/heads/main",
+      "node_id": "REF_kwDOUehrqq9yZWZzL2hlYWRzL21haW4",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/main",
+      "object": {
+        "sha": "54cc3aad246c89a29f2a18be63c539db68cae041",
+        "type": "commit",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/54cc3aad246c89a29f2a18be63c539db68cae041"
+      }
+    }
+  },
+  {
+    "branch": "feature/workspace-v0.1",
+    "expected": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+    "requested_at": "2026-10-29T18:43:47.293Z",
+    "receipt_at": "2026-10-29T18:43:47.709Z",
+    "response": {
+      "ref": "refs/heads/feature/workspace-v0.1",
+      "node_id": "REF_kwDOUehrqtoAIXJlZnMvaGVhZHMvZmVhdHVyZS93b3Jrc3BhY2UtdjAuMQ",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/feature/workspace-v0.1",
+      "object": {
+        "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+        "type": "commit",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/e11579950ef7ed20e4b6eeee88f9c3597c1f074b"
+      }
+    }
+  },
+  {
+    "branch": "feature/workspace-run-026",
+    "expected": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+    "requested_at": "2026-10-29T18:43:47.293Z",
+    "receipt_at": "2026-10-29T18:43:47.967Z",
+    "response": {
+      "ref": "refs/heads/feature/workspace-run-026",
+      "node_id": "REF_kwDOUehrqtoAJHJlZnMvaGVhZHMvZmVhdHVyZS93b3Jrc3BhY2UtcnVuLTAyNg",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/feature/workspace-run-026",
+      "object": {
+        "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+        "type": "commit",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/e11579950ef7ed20e4b6eeee88f9c3597c1f074b"
+      }
+    }
+  },
+  {
+    "branch": "ops/pp-002-gate-b-actions",
+    "expected": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+    "requested_at": "2026-10-29T18:43:47.294Z",
+    "receipt_at": "2026-10-29T18:43:47.837Z",
+    "response": {
+      "ref": "refs/heads/ops/pp-002-gate-b-actions",
+      "node_id": "REF_kwDOUehrqtoAJHJlZnMvaGVhZHMvb3BzL3BwLTAwMi1nYXRlLWItYWN0aW9ucw",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/ops/pp-002-gate-b-actions",
+      "object": {
+        "sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+        "type": "commit",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/dd6e8bfecadab0a83c8008ea65300b1f0ba518f8"
+      }
+    }
+  },
+  {
+    "branch": "ops/pp-002-gate-b-r2-actions",
+    "expected": "0e679ad863076098d92d8a7704f6ca88948b651b",
+    "requested_at": "2026-10-29T18:43:47.294Z",
+    "receipt_at": "2026-10-29T18:43:47.664Z",
+    "response": {
+      "ref": "refs/heads/ops/pp-002-gate-b-r2-actions",
+      "node_id": "REF_kwDOUehrqtoAJ3JlZnMvaGVhZHMvb3BzL3BwLTAwMi1nYXRlLWItcjItYWN0aW9ucw",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/ops/pp-002-gate-b-r2-actions",
+      "object": {
+        "sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+        "type": "commit",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/0e679ad863076098d92d8a7704f6ca88948b651b"
+      }
+    }
+  },
+  {
+    "branch": "ops/pp-002-gate-c-actions",
+    "expected": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+    "requested_at": "2026-10-29T18:43:47.294Z",
+    "receipt_at": "2026-10-29T18:43:47.691Z",
+    "response": {
+      "ref": "refs/heads/ops/pp-002-gate-c-actions",
+      "node_id": "REF_kwDOUehrqtoAJHJlZnMvaGVhZHMvb3BzL3BwLTAwMi1nYXRlLWMtYWN0aW9ucw",
+      "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/refs/heads/ops/pp-002-gate-c-actions",
+      "object": {
+        "sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "type": "commit",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/commits/9c508d06e3862b4b142e998708026a5ed8757fd0"
+      }
+    }
+  }
+]

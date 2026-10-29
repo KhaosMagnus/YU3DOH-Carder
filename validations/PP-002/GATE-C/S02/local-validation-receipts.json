@@ -1,0 +1,59 @@
+[
+  {
+    "argv": [
+      "python3",
+      "validation/pp002-gate-c/observer.py",
+      "--root",
+      ".",
+      "--manifest",
+      "validations/PP-002/GATE-C/C-020_MANIFEST.json",
+      "--ledger",
+      "validations/PP-002/GATE-C/C-020_S01_ROLLOVER_CHECKPOINT.json",
+      "--output",
+      "checkpoint-copy.json",
+      "--result",
+      "validations/PP-002/GATE-C/S02/predecessor-recheck.json"
+    ],
+    "completed_at": "2026-10-29T18:46:29.456581+00:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "label": "predecessor-recheck",
+    "started_at": "2026-10-29T18:46:29.393550+00:00"
+  },
+  {
+    "argv": [
+      "python3",
+      "validation/pp002-gate-b-r1/revalidate.py",
+      "--input-root",
+      ".",
+      "--manifest",
+      "validations/PP-002/GATE-B-R1/input-manifest.json",
+      "validate",
+      "--ledger",
+      "validations/PP-002/GATE-B/010_EMITTED.json",
+      "--result",
+      "validations/PP-002/GATE-C/S02/historical-negative.json"
+    ],
+    "completed_at": "2026-10-29T18:46:29.507786+00:00",
+    "exit_code": 1,
+    "expected_exit": 1,
+    "label": "historical-negative",
+    "started_at": "2026-10-29T18:46:29.456879+00:00"
+  },
+  {
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "validation/pp002-gate-c",
+      "-v"
+    ],
+    "completed_at": "2026-10-29T18:46:29.608901+00:00",
+    "exit_code": 0,
+    "expected_exit": 0,
+    "label": "unit-tests",
+    "started_at": "2026-10-29T18:46:29.507997+00:00"
+  }
+]

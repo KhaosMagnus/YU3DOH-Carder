@@ -1,0 +1,405 @@
+{
+  "files": [
+    {
+      "git_blob_sha": "ba0ac48192452ea8015a9b70fd41217b3eae9fbc",
+      "path": "validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json",
+      "receipt_at": "2026-10-29T18:44:37.902Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "c093d1f59894ab5bdfde36148530134b83028bc5",
+      "path": "validations/PP-002/GATE-C/raw/C-000-publish.json",
+      "receipt_at": "2026-10-29T18:44:37.969Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "65d85f49b7675f68f0d8cde1ac3d26909591bd8e",
+      "path": "validations/PP-002/GATE-C/raw/emit.json",
+      "receipt_at": "2026-10-29T18:44:38.035Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "ab9e524db23048d9a88e2e535c277d08a3afa722",
+      "path": "validations/PP-002/GATE-C/raw/ops-create.json",
+      "receipt_at": "2026-10-29T18:44:37.854Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "6058643aeed140e457efaba0ca3559d6bb36cd91",
+      "path": "validations/PP-002/GATE-C/raw/rollover-jobs.json",
+      "receipt_at": "2026-10-29T18:44:37.859Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "56a8f4415b9c2436df9b763d65552dee61bd157e",
+      "path": "validations/PP-002/GATE-C/raw/rollover-workflow.json",
+      "receipt_at": "2026-10-29T18:44:38.007Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "df6792ab3f4baed67e350a4ca06e56e86c1a66bb",
+      "path": "validations/PP-002/GATE-C/C-020_MANIFEST.json",
+      "receipt_at": "2026-10-29T18:44:37.896Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "241370cde675fbf558ad0439b3a200c602db303b",
+      "path": "validations/PP-002/GATE-C/C-020_VALIDATION.json",
+      "receipt_at": "2026-10-29T18:44:37.963Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "80591dd78b7aa414913e7a08767b0e6a2c7e5623",
+      "path": "validation/pp002-gate-c/observer.py",
+      "receipt_at": "2026-10-29T18:44:37.989Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "cf2069f851aaf4e004bda6dc04a7c246f8defce2",
+      "path": "validation/pp002-gate-c/test_observer.py",
+      "receipt_at": "2026-10-29T18:44:38.523Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "e189cf780fbb0711fa442f342bec5d760bf4f3b1",
+      "path": "validation/pp002-gate-b-r1/revalidate.py",
+      "receipt_at": "2026-10-29T18:44:37.947Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "f953cb8d968d88aab1b9c64b3928939825dda30e",
+      "path": "validations/PP-002/GATE-B-R1/input-manifest.json",
+      "receipt_at": "2026-10-29T18:44:38.032Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "1ac3689c1e811d1594291afee6b2c1c6efd093d0",
+      "path": "protocols/GENERIC_PROJECT_CONTROL_PROTOCOL-v1.0.md",
+      "receipt_at": "2026-10-29T18:44:38.667Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "e9c0cfa89294202e8c499c11ad840d806fffae5e",
+      "path": "control/PP-002_EXECUTION_INTERRUPTION_RECOVERY_PILOT-v2.md",
+      "receipt_at": "2026-10-29T18:44:37.988Z",
+      "requested_at": "2026-10-29T18:44:37.566Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "4c279dc88aa380ee7c42ac260d9a5369a1f4d319",
+      "path": "routing/ROUTE-PP-002-GATE-C-S02.md",
+      "receipt_at": "2026-10-29T18:41:11.245Z",
+      "requested_at": "2026-10-29T18:41:10.806Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "f958c87a0e8a6941f9b051998cd90ddd4dcb0f33",
+      "path": "runs/PP-002_GATE-C_S01_ROLLOVER_INTAKE.md",
+      "receipt_at": "2026-10-29T18:41:11.279Z",
+      "requested_at": "2026-10-29T18:41:10.807Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "e7a88b65a54294f2798b108cb2b23fb747a8616c",
+      "path": "validations/PP-002/GATE-C/S02_DURABLE_RECOVERY_ENTRY.md",
+      "receipt_at": "2026-10-29T18:41:11.147Z",
+      "requested_at": "2026-10-29T18:41:10.807Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "92537ee26b6f9da86cc2fa060d35679d748aff8f",
+      "path": "control/PP-002_GATE-C_AUTHORIZATION.md",
+      "receipt_at": "2026-10-29T18:41:11.119Z",
+      "requested_at": "2026-10-29T18:41:10.807Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "1b8055add2533d04e6c3b42e6344e3bee9c46614",
+      "path": "validations/PP-002/GATE-C/C-020_S01_ROLLOVER_CHECKPOINT.json",
+      "receipt_at": "2026-10-29T18:42:51.743Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "9c1fe1926e4218012fb1eb0300fae0ae220b0b99",
+      "path": "validation/pp002-gate-c/README.md",
+      "receipt_at": "2026-10-29T18:42:51.617Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "266405043f2a9c67437adeb25459db4a4a0f1e1a",
+      "path": "validations/PP-002/GATE-C/implementation-pin.json",
+      "receipt_at": "2026-10-29T18:42:52.108Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "57d0529143f50478f1159a84f5aba33aaf7fe618",
+      "path": "control/PP-002_GATE-C_OWNER_APPROVAL.md",
+      "receipt_at": "2026-10-29T18:42:51.618Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "bf461388794066991eb1846e082fda599701e157",
+      "path": "routing/ROUTE-PP-002-GATE-C.md",
+      "receipt_at": "2026-10-29T18:42:51.590Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "0ce9f1883eb7a5c92224ebc24b54cf7e1671bae3",
+      "path": "control/PC-003_SUCCESSION.md",
+      "receipt_at": "2026-10-29T18:42:51.636Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "1422cf2578443ad997d7b13563215bf708d3a108",
+      "path": "chats/instances/PP-002.md",
+      "receipt_at": "2026-10-29T18:42:51.678Z",
+      "requested_at": "2026-10-29T18:42:51.234Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "c18e362b221b8d8866ed342dffd596eaeb12aab1",
+      "path": "roles/PROTOCOL_PORTABILITY.md",
+      "receipt_at": "2026-10-29T18:42:52.351Z",
+      "requested_at": "2026-10-29T18:42:51.235Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "de46b0d23326fe4c565c5487cf0ebc763954e7f7",
+      "path": "control/PP-002_GATE-C_PROPOSAL.md",
+      "receipt_at": "2026-10-29T18:42:51.655Z",
+      "requested_at": "2026-10-29T18:42:51.235Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "9d505054d67e54103bea9e3776c367d2ef0a1e92",
+      "path": "validations/PP-002/GATE-B/000_INTENT.json",
+      "receipt_at": "2026-10-29T18:45:19.429Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "49080aa4325adfbb3b72e7b3bf518921a45cb39e",
+      "path": "validations/PP-002/GATE-B/010_EMITTED.json",
+      "receipt_at": "2026-10-29T18:45:19.685Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "1a72368cdd21fb7e91ca6d7d9786e95354c9a454",
+      "path": "validations/PP-002/GATE-B/020_OBSERVATION_LOSS.json",
+      "receipt_at": "2026-10-29T18:45:19.963Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "0930d99e56a93f30ad9170e007c1db36d4ef80e8",
+      "path": "validations/PP-002/GATE-B/030_RECOVERY_OBSERVATION.json",
+      "receipt_at": "2026-10-29T18:45:19.612Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "37cd17d78f0a47914d0f66cfb3a06c4ccb377ffd",
+      "path": "validations/PP-002/GATE-B/040_VERIFIED_RECOVERY_DECISIONS.json",
+      "receipt_at": "2026-10-29T18:45:19.258Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "0cbd002e9b4d922d1bbff4965e8eab7d20c3aa3d",
+      "path": "validations/PP-002/GATE-B/050_TERMINAL_RECONCILIATION.json",
+      "receipt_at": "2026-10-29T18:45:19.410Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "31935ed1f066a6e4fef29faca235337363a47414",
+      "path": "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json",
+      "receipt_at": "2026-10-29T18:45:19.636Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "dfe0c531a2bc674c81ccefabbaaba06e662aac0e",
+      "path": "validations/PP-002/GATE-B/logs/123310073647.log",
+      "receipt_at": "2026-10-29T18:45:19.357Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "749ea6e75303c0587429a75a3fe6eb59a1ff7ef8",
+      "path": "validations/PP-002/GATE-B/logs/123310073907.log",
+      "receipt_at": "2026-10-29T18:45:19.632Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "e6c0012a8a2807b745fa17f401883e7ca54540b0",
+      "path": "validations/PP-002/GATE-B/logs/123310073956.log",
+      "receipt_at": "2026-10-29T18:45:19.349Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "5a5083b5d5102d6353c44bb2ed7ec9297675ce0e",
+      "path": "validations/PP-002/GATE-B/raw/12879024432/cleanup.json",
+      "receipt_at": "2026-10-29T18:45:19.976Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "c757e4d8fbae4dad5351e320adba2be2a107f5e4",
+      "path": "validations/PP-002/GATE-B/raw/12879024432/events.jsonl",
+      "receipt_at": "2026-10-29T18:45:19.292Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "00a6f54a03c649fe9da348d4f1c9d2017afc81fd",
+      "path": "validations/PP-002/GATE-B/raw/12879024432/final.json",
+      "receipt_at": "2026-10-29T18:45:19.330Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "ae95488ada7df21aeb2720e5591d811955c4895b",
+      "path": "validations/PP-002/GATE-B/raw/12879024432/manifest.json",
+      "receipt_at": "2026-10-29T18:45:19.409Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "726e9cf8334811a242cc683d1ff52acbdc476672",
+      "path": "validations/PP-002/GATE-B/raw/12879024432/marker.json",
+      "receipt_at": "2026-10-29T18:45:19.347Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "6dc79d18612afa1123fd150be93e371e5e3a0ec3",
+      "path": "validations/PP-002/GATE-B/raw/12879024432/startup.json",
+      "receipt_at": "2026-10-29T18:45:19.350Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "ee651f582995710555ade6c33548859f877094af",
+      "path": "validations/PP-002/GATE-B/raw/12879037812/partial.json",
+      "receipt_at": "2026-10-29T18:45:19.342Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "89687e62e5c80f5f8141c2fc6a051cb455cf3455",
+      "path": "validations/PP-002/GATE-B/raw/12879053427/cleanup.json",
+      "receipt_at": "2026-10-29T18:45:19.347Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "9b8481a164b96108c6bd6729d7ffd84d3b308ff5",
+      "path": "validations/PP-002/GATE-B/raw/12879053427/events.jsonl",
+      "receipt_at": "2026-10-29T18:45:19.340Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "0e2b8578aed2e17553d08bac4d10a99048bc6034",
+      "path": "validations/PP-002/GATE-B/raw/12879053427/final.json",
+      "receipt_at": "2026-10-29T18:45:19.637Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "ae16618a1e907bed423650e8238f88c576314c83",
+      "path": "validations/PP-002/GATE-B/raw/12879053427/manifest.json",
+      "receipt_at": "2026-10-29T18:45:19.450Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "eaf86e12b6b71fc273e049fdf5d217fbe82cb4f1",
+      "path": "validations/PP-002/GATE-B/raw/12879053427/marker.json",
+      "receipt_at": "2026-10-29T18:45:19.400Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "57b9807032673bf7bc4a8c348b947ec52e3cd8f7",
+      "path": "validations/PP-002/GATE-B/raw/12879053427/startup.json",
+      "receipt_at": "2026-10-29T18:45:19.674Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "1e6423656574de5217fb4a0345b50226168594a8",
+      "path": "validations/PP-002/GATE-B/raw/12879496366/cleanup.json",
+      "receipt_at": "2026-10-29T18:45:19.423Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "73b48e9ccaea6d4554ff44f195ec7c4b70504111",
+      "path": "validations/PP-002/GATE-B/raw/12879496366/events.jsonl",
+      "receipt_at": "2026-10-29T18:45:19.520Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "aa293a318292f6701d9af21e246a11f851856f73",
+      "path": "validations/PP-002/GATE-B/raw/12879496366/final.json",
+      "receipt_at": "2026-10-29T18:45:19.450Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "810c53d62fd0b692625903403493cde58eab2ac5",
+      "path": "validations/PP-002/GATE-B/raw/12879496366/manifest.json",
+      "receipt_at": "2026-10-29T18:45:19.649Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "2ac108243a15a3e7a4dfde93fbcc622cf68cdda0",
+      "path": "validations/PP-002/GATE-B/raw/12879496366/marker.json",
+      "receipt_at": "2026-10-29T18:45:19.418Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "ee651f582995710555ade6c33548859f877094af",
+      "path": "validations/PP-002/GATE-B/raw/12879496366/partial.json",
+      "receipt_at": "2026-10-29T18:45:19.512Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    },
+    {
+      "git_blob_sha": "357ade7e95fdca691f318d4f24379c212e2517fe",
+      "path": "validations/PP-002/GATE-B/raw/12879496366/startup.json",
+      "receipt_at": "2026-10-29T18:45:19.421Z",
+      "requested_at": "2026-10-29T18:45:18.972Z",
+      "source_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+    }
+  ],
+  "materialization": "Fresh GitHub content only in a new isolated working directory; no predecessor scratch inputs",
+  "source_control_sha": "34011f6466ce096b310ef1c43c277d2bfd2af7aa"
+}
