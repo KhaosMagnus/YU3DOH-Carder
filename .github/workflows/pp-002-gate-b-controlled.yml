@@ -1,0 +1,105 @@
+name: PP-002 Gate B disposable recovery experiment
+on:
+  push:
+    branches: [ops/pp-002-gate-b-actions]
+    paths:
+      - '.github/workflows/pp-002-gate-b-*.yml'
+      - 'validation/pp002-gate-b/**'
+permissions:
+  contents: read
+concurrency:
+  group: pp002-gate-b-20261029-01
+  cancel-in-progress: false
+jobs:
+  B1:
+    name: B1 active after observation loss
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: validation/pp002-gate-b
+          persist-credentials: false
+      - name: Create exactly one B1 effect
+        run: python3 validation/pp002-gate-b/run.py start B1
+      - name: B1 bounded active observation window
+        run: python3 validation/pp002-gate-b/run.py hold B1 300
+      - name: Explicit B1 owned-root cleanup
+        if: always()
+        run: python3 validation/pp002-gate-b/run.py cleanup B1
+      - name: B1 final receipt and manifest
+        if: always()
+        run: python3 validation/pp002-gate-b/run.py finish B1
+      - name: Preserve B1 raw evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pp002-gate-b-20261029-01-B1-${{ github.run_id }}
+          path: gate-b-evidence/B1
+          retention-days: 30
+          if-no-files-found: error
+  B2:
+    name: B2 completed with unobserved confirmation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: validation/pp002-gate-b
+          persist-credentials: false
+      - name: Create exactly one B2 effect
+        run: python3 validation/pp002-gate-b/run.py start B2
+      - name: B2 completion during observer gap
+        run: python3 validation/pp002-gate-b/run.py hold B2 90
+      - name: Explicit B2 owned-root cleanup
+        if: always()
+        run: python3 validation/pp002-gate-b/run.py cleanup B2
+      - name: B2 final receipt and manifest
+        if: always()
+        run: python3 validation/pp002-gate-b/run.py finish B2
+      - name: Preserve B2 raw evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pp002-gate-b-20261029-01-B2-${{ github.run_id }}
+          path: gate-b-evidence/B2
+          retention-days: 30
+          if-no-files-found: error
+  B3:
+    name: B3 failed child and independent parent cleanup
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: validation/pp002-gate-b
+          persist-credentials: false
+      - name: Create exactly one B3 partial effect
+        run: python3 validation/pp002-gate-b/run.py start B3
+      - name: B3 intentionally failing child
+        run: python3 validation/pp002-gate-b/run.py fail-child B3
+      - name: Preserve B3 partial evidence before parent completion
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pp002-gate-b-20261029-01-B3-partial-${{ github.run_id }}
+          path: gate-b-evidence/B3/partial.json
+          retention-days: 30
+          if-no-files-found: error
+      - name: B3 parent remains active after child failure
+        if: always()
+        run: python3 validation/pp002-gate-b/run.py hold B3 330
+      - name: Explicit B3 owned-root cleanup
+        if: always()
+        run: python3 validation/pp002-gate-b/run.py cleanup B3
+      - name: B3 final receipt and manifest
+        if: always()
+        run: python3 validation/pp002-gate-b/run.py finish B3
+      - name: Preserve B3 final raw evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pp002-gate-b-20261029-01-B3-${{ github.run_id }}
+          path: gate-b-evidence/B3
+          retention-days: 30
+          if-no-files-found: error
