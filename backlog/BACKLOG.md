@@ -27,34 +27,27 @@ Gate B-R1:
 COMPLETE / PASS
 
 Gate B-R2:
-AUTHORIZED / ACTIVE
+COMPLETE / PASS
 
-Owner approval:
-control/PP-002_GATE-B-R2_OWNER_APPROVAL.md
+Gate B-R2 disposition:
+runs/PP-002_GATE-B-R2_PASS_DISPOSITION.md
 
-Effective authorization:
-control/PP-002_GATE-B-R2_AUTHORIZATION.md
+Next proposed:
+GATE C — REAL SESSION ROLLOVER RECOVERY
 
-Route:
-routing/ROUTE-PP-002_GATE-B-R2.md
-
-Operational branch:
-ops/pp-002-gate-b-r2-actions
-
-Authorized execution:
-ONE WORKFLOW / ONE ATTEMPT
-
-Expected output:
-protocols/PP-002_GATE-B-R2_CORRECTED_LIVE_REVALIDATION_REPORT.md
-
-Historical Gate B branch:
-ops/pp-002-gate-b-actions @ dd6e8bfecadab0a83c8008ea65300b1f0ba518f8
-DO NOT MOVE
+Proposal:
+control/PP-002_GATE-C_PROPOSAL.md
 
 Gate C:
+PENDING OWNER APPROVAL / NOT AUTHORIZED
+
+Additional live workflows:
 NOT AUTHORIZED
 
 Generic Protocol v1.0:
+FROZEN / UNCHANGED
+
+PP-002 v2:
 FROZEN / UNCHANGED
 
 Product work:
