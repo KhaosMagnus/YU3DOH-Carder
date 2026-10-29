@@ -1,0 +1,11 @@
+{
+  "source_kind": "GITHUB_MUTATION_RECEIPT",
+  "requested_at": "2026-10-29T18:26:22.971Z",
+  "receipt_at": "2026-10-29T18:26:24.042Z",
+  "response": {
+    "success": true,
+    "raw": {
+      "branch": "ops/pp-002-gate-c-actions"
+    }
+  }
+}

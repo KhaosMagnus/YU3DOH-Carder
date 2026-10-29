@@ -1,0 +1,11 @@
+{
+  "source_kind": "GITHUB_MUTATION_RECEIPT",
+  "requested_at": "2026-10-29T18:25:51.444Z",
+  "receipt_at": "2026-10-29T18:25:52.941Z",
+  "response": {
+    "success": true,
+    "raw": {
+      "success": true
+    }
+  }
+}

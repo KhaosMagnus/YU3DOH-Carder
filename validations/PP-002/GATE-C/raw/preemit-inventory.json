@@ -1,0 +1,11 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs?branch=ops%2Fpp-002-gate-c-actions&per_page=100",
+  "requested_at": "2026-10-29T18:26:22.420Z",
+  "receipt_at": "2026-10-29T18:26:22.819Z",
+  "timing_scope": "Connector invocation and completed response receipt; not HTTP wire telemetry",
+  "response": {
+    "total_count": 0,
+    "workflow_runs": []
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "source_kind": "GITHUB_API_RECEIPT",
+  "source_id": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs/40930819906/jobs?per_page=100",
+  "requested_at": "2026-10-29T18:26:39.305Z",
+  "receipt_at": "2026-10-29T18:26:40.112Z",
+  "timing_scope": "Connector invocation and completed response receipt; not HTTP wire telemetry",
+  "response": {
+    "total_count": 1,
+    "jobs": [
+      {
+        "id": 123648451740,
+        "run_id": 40930819906,
+        "workflow_name": "PP-002 Gate C real session rollover",
+        "head_branch": "ops/pp-002-gate-c-actions",
+        "run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/runs/40930819906",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUehrqs8AAAAcygWknA",
+        "head_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/actions/jobs/123648451740",
+        "html_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/actions/runs/40930819906/job/123648451740",
+        "status": "in_progress",
+        "conclusion": null,
+        "created_at": "2026-10-29T18:26:28Z",
+        "started_at": "2026-10-29T18:26:30Z",
+        "completed_at": null,
+        "name": "C1 session rollover disposable operation",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-29T18:26:30Z",
+            "completed_at": "2026-10-29T18:26:31Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-29T18:26:31Z",
+            "completed_at": "2026-10-29T18:26:32Z"
+          },
+          {
+            "name": "Create exactly one C1 effect",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-29T18:26:32Z",
+            "completed_at": "2026-10-29T18:26:32Z"
+          },
+          {
+            "name": "Bounded session rollover window",
+            "status": "in_progress",
+            "conclusion": null,
+            "number": 4,
+            "started_at": "2026-10-29T18:26:32Z",
+            "completed_at": null
+          },
+          {
+            "name": "Explicit C1 owned-root cleanup",
+            "status": "pending",
+            "conclusion": null,
+            "number": 5,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "C1 final receipt and manifest",
+            "status": "pending",
+            "conclusion": null,
+            "number": 6,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Preserve C1 raw evidence",
+            "status": "pending",
+            "conclusion": null,
+            "number": 7,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "pending",
+            "conclusion": null,
+            "number": 14,
+            "started_at": null,
+            "completed_at": null
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/check-runs/123648451740",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000000148,
+        "runner_name": "GitHub Actions 1000000148",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  }
+}
