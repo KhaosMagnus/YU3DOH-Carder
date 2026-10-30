@@ -5,7 +5,7 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Q02 design ACCEPT / Q02-PROT-001 policy decision intake | No prototype execution permission; Q01 PASS offline retained |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Federated core direction intake; Q02 B1 Owner choice pending | Q02 design accepted; prototype unapproved, central repo not created |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
 | PP-002 | PROTOCOL_PORTABILITY | Q02-DES-001 COMPLETE / DESIGN ACCEPTED | Proposed offline prototype awaiting Owner policy decision | Design blob a06fb711; no prototype authorization |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
@@ -90,6 +90,18 @@ Q02-PROT-001 / PROPOSED / NO CODE AUTHORIZATION
 
 Q02 Owner decision request:
 control/PP-002_Q02_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
+
+Federated Project Control direction:
+control/PROJECT_CONTROL_FEDERATED_ARCHITECTURE_DIRECTION.md
+
+Q02 proposed B1 isolation alignment:
+control/PP-002_Q02_FEDERATED_ALIGNMENT_AND_ISOLATION_PROPOSAL.md
+
+Q02 next Owner B1 request:
+control/PP-002_Q02_B1_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
+
+Q02-PROT-001 execution:
+NOT AUTHORIZED / NO EXPERIMENTAL BRANCH CREATED
 
 Q02 proposed prototype scope:
 control/PP-002_Q02_OFFLINE_PROTOTYPE_PROPOSED_SCOPE.md

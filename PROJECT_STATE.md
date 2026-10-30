@@ -164,6 +164,24 @@ control/PP-002_Q02_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
 Q02 policy blocker:
 meta/project-control documentation-only under protocols/GIT_CONTROL_POLICY.md; exact future experimental-code location/exception must be explicitly decided by Owner
 
+Project Control federated strategic direction:
+OWNER-ALIGNED / TARGET ARCHITECTURE ONLY / CENTRAL MASTER NOT CREATED
+
+Federated direction:
+control/PROJECT_CONTROL_FEDERATED_ARCHITECTURE_DIRECTION.md
+
+Q02 proposed B1 experiment alignment:
+control/PP-002_Q02_FEDERATED_ALIGNMENT_AND_ISOLATION_PROPOSAL.md
+
+Q02 next Owner B1 decision:
+control/PP-002_Q02_B1_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
+
+Q02 prototype branch:
+experiment/pp002-q02-prot-001 (PROPOSED / NOT CREATED / B1 OWNER APPROVAL PENDING)
+
+Future central master repository:
+PROPOSED STRATEGIC TARGET / NOT AUTHORIZED / NOT CREATED
+
 Q02 future implementation/integration/adoption:
 NOT AUTHORIZED; requires fresh PC-003 and Owner decisions under applicable authority
 
