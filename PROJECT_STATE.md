@@ -141,7 +141,22 @@ Q01 design disposition:
 runs/PP-002_Q01_DESIGN_ACCEPTANCE.md
 
 Q01 offline implementation:
-AUTHORIZED / NOT YET DELIVERED / NO LIVE EXECUTION
+DELIVERED / READY FOR INDEPENDENT QA / NOT YET INDEPENDENTLY ACCEPTED
+
+Q01 implementation candidate:
+meta/project-control @ 328e57035d34f98c4d8d417729e8b12f91894e95
+
+Q01 implementation report:
+implementations/PP-002_Q01_OFFLINE_IMPLEMENTATION_REPORT.md @ blob 8f8e6b0a63b0bc5ad4c995134bf20f6d8a74ac76
+
+Q01 delivery:
+5 new source / 586 new evidence / 1 report / 692 previous blobs preserved / 0 out-of-scope changes
+
+Q01 implementation intake:
+runs/PP-002_Q01_IMPLEMENTATION_INTAKE.md
+
+Q01 self-test reported:
+F01-F31 / 79 subcases / 138 profile results per replay / 590055 byte-identical semantic bytes / original R1 and Gate C regression self-tests, independent QA pending
 
 Q01 authorized implementation scope:
 Q01-IMPL-001 @ control/PP-002_Q01_OFFLINE_IMPLEMENTATION_AUTHORIZATION.md
@@ -153,7 +168,22 @@ Q01 offline evidence root:
 validations/PP-002/Q01-COLLECTOR/Q01-IMPL-001/**
 
 Q01 independent QA:
-NOT ASSIGNED / PENDING IMPLEMENTATION DELIVERY; DESIGN_QA reviewer to be separately routed
+AUTHORIZED / DQA-007 / NOT STARTED AT ACTIVATION
+
+Q01 QA authorization:
+control/PP-002_Q01_DQA-007_INDEPENDENT_QA_AUTHORIZATION.md
+
+Q01 QA request:
+validations/PP-002/Q01-COLLECTOR/DQA-007_EXTERNAL_QA_REQUEST.md
+
+Q01 QA route:
+routing/ROUTE-PP-002-Q01-DQA-007.md
+
+Q01 QA candidate:
+328e57035d34f98c4d8d417729e8b12f91894e95 / all source/evidence frozen; no integration or live execution
+
+Q01 QA output:
+validations/PP-002/Q01-COLLECTOR/DQA-007_EXTERNAL_QA_REPORT.md
 
 P01 / P02:
 UNCERTAIN / UNKNOWN; unchanged

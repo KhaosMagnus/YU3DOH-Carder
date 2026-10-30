@@ -5,10 +5,11 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Q01 design accepted / bounded offline implementation authorization | Final experiment REVISE; no live execution |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Q01 candidate intake / DQA-007 independent QA routing | Self-test not independent acceptance; no live authority |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | Q01 OFFLINE IMPLEMENTATION AUTHORIZED / NOT DELIVERED | Q01-IMPL-001 experimental collector only | 31 test families specified, not yet run; no live operations |
+| PP-002 | PROTOCOL_PORTABILITY | Q01 IMPLEMENTED / READY FOR INDEPENDENT REVIEW | Q01-IMPL-001 candidate frozen at 328e57035d34 | 31 family self-tests reported; QA pending |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
+| DQA-007 | DESIGN_QA | AUTHORIZED / NOT YET STARTED | Q01-IMPL-001 independent offline QA | Exact candidate 328e57035d34; no QA verdict issued |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
 | DEPLOY-006 | DEPLOYMENT_VALIDATION | COMPLETE / EVIDENCE ACCESS READY | RUN 026 evidence transport | artifact 12838688889 |
 | DQA-005 | DESIGN_QA | COMPLETE / INCONCLUSIVE | RUN 026 / CR-0002 | historical |
@@ -61,7 +62,19 @@ Q01 offline implementation route:
 routing/ROUTE-PP-002_Q01_OFFLINE_IMPLEMENTATION.md
 
 Q01 external QA:
-NOT AUTHORIZED / PENDING CODE AND TEST EVIDENCE
+AUTHORIZED / DQA-007 / PENDING INDEPENDENT RESULT
+
+Q01 implementation candidate:
+328e57035d34f98c4d8d417729e8b12f91894e95
+
+Q01 implementation intake:
+runs/PP-002_Q01_IMPLEMENTATION_INTAKE.md
+
+DQA-007 primary QA route:
+routing/ROUTE-PP-002-Q01-DQA-007.md
+
+DQA-007 report pending:
+validations/PP-002/Q01-COLLECTOR/DQA-007_EXTERNAL_QA_REPORT.md
 
 Historical read-only recommendation route:
 routing/ROUTE-PP-002-FINAL_EXPERIMENT_RECOMMENDATION.md
