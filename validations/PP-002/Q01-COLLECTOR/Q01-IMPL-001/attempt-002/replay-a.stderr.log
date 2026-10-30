@@ -1,0 +1,50 @@
+test_F01 (q01_contract_tests.Contract.test_F01) ... ok
+test_F02 (q01_contract_tests.Contract.test_F02) ... ok
+test_F03 (q01_contract_tests.Contract.test_F03) ... ok
+test_F04 (q01_contract_tests.Contract.test_F04) ... ok
+test_F05 (q01_contract_tests.Contract.test_F05) ... ok
+test_F06 (q01_contract_tests.Contract.test_F06) ... ok
+test_F07 (q01_contract_tests.Contract.test_F07) ... ok
+test_F08 (q01_contract_tests.Contract.test_F08) ... ok
+test_F09 (q01_contract_tests.Contract.test_F09) ... ok
+test_F10 (q01_contract_tests.Contract.test_F10) ... ok
+test_F11 (q01_contract_tests.Contract.test_F11) ... ok
+test_F12 (q01_contract_tests.Contract.test_F12) ... ok
+test_F13 (q01_contract_tests.Contract.test_F13) ... ok
+test_F14 (q01_contract_tests.Contract.test_F14) ... ok
+test_F15 (q01_contract_tests.Contract.test_F15) ... ok
+test_F16 (q01_contract_tests.Contract.test_F16) ... ok
+test_F17 (q01_contract_tests.Contract.test_F17) ... FAIL
+test_F18 (q01_contract_tests.Contract.test_F18) ... ok
+test_F19 (q01_contract_tests.Contract.test_F19) ... ok
+test_F20 (q01_contract_tests.Contract.test_F20) ... ok
+test_F21 (q01_contract_tests.Contract.test_F21) ... ok
+test_F22 (q01_contract_tests.Contract.test_F22) ... ok
+test_F23 (q01_contract_tests.Contract.test_F23) ... ok
+test_F24 (q01_contract_tests.Contract.test_F24) ... ok
+test_F25 (q01_contract_tests.Contract.test_F25) ... ok
+test_F26 (q01_contract_tests.Contract.test_F26) ... ok
+test_F27 (q01_contract_tests.Contract.test_F27) ... ok
+test_F28 (q01_contract_tests.Contract.test_F28) ... ok
+test_F29 (q01_contract_tests.Contract.test_F29) ... ok
+test_F30 (q01_contract_tests.Contract.test_F30) ... ok
+test_F31 (q01_contract_tests.Contract.test_F31) ... ok
+
+======================================================================
+FAIL: test_F17 (q01_contract_tests.Contract.test_F17)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/15d4b127081a/pp002-q01-impl-aZvxcvrM/validation/pp002-q01-collector/test_guard.py", line 343, in test_F17
+    result=self.check("F17-R2-reconciled",{"EXACT_REQUEST_HISTORY":"UNKNOWN","EXACT_CONTENT":"PASS"})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/15d4b127081a/pp002-q01-impl-aZvxcvrM/validation/pp002-q01-collector/test_guard.py", line 224, in check
+    self.assertEqual(result["verdict"], wanted, (label, profile, result["violations"], result["unknown_claims"]))
+AssertionError: 'FAIL' != 'UNKNOWN'
+- FAIL
++ UNKNOWN
+ : ('F17-R2-reconciled', 'EXACT_REQUEST_HISTORY', [{'retrieval_id': 'read-1', 'logical_operation_id': 'R2-INTENT-PUBLISH', 'invariant_code': 'ADMINISTRATIVE_LOCATOR_MISMATCH', 'affected_claim': 'planned_path', 'expected': 'validations/PP-002/GATE-B-R2/000_INTENT.json', 'actual': 'validations/PP-002/GATE-B-R2/R2-000_INTENT.json', 'sources': [], 'severity': 'ERROR', 'blocked_use': 'EXACT_REQUEST_HISTORY'}, {'retrieval_id': 'read-1', 'logical_operation_id': 'R2-INTENT-PUBLISH', 'invariant_code': 'RECONCILIATION_SCOPE_MISMATCH', 'affected_claim': 'planned_path', 'expected': 'UNKNOWN', 'actual': 'UNKNOWN', 'sources': [], 'severity': 'ERROR', 'blocked_use': 'EXACT_REQUEST_HISTORY'}], [{'retrieval_id': 'read-1', 'field': 'CONNECTOR_RECEIPT', 'reason': 'CORRELATION_UNKNOWN', 'material': True}, {'retrieval_id': 'read-1', 'field': 'REQUEST_ENVELOPE', 'reason': 'REQUEST_IDENTITY_UNKNOWN', 'material': True}, {'retrieval_id': 'read-1', 'field': 'receipt_at', 'reason': 'SOURCE_RECEIPT_TIME_UNKNOWN', 'material': True}, {'retrieval_id': 'read-1', 'field': 'request.path', 'reason': 'REQUEST_IDENTITY_UNKNOWN', 'material': True}, {'retrieval_id': 'read-1', 'field': 'request.ref', 'reason': 'REQUEST_IDENTITY_UNKNOWN', 'material': True}, {'retrieval_id': 'read-1', 'field': 'request.repository', 'reason': 'REQUEST_IDENTITY_UNKNOWN', 'material': True}, {'retrieval_id': 'read-1', 'field': 'requested_at', 'reason': 'SOURCE_RECEIPT_TIME_UNKNOWN', 'material': True}])
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.952s
+
+FAILED (failures=1)

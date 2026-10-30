@@ -1,0 +1,50 @@
+test_F01 (q01_contract_tests.Contract.test_F01) ... ok
+test_F02 (q01_contract_tests.Contract.test_F02) ... ok
+test_F03 (q01_contract_tests.Contract.test_F03) ... ok
+test_F04 (q01_contract_tests.Contract.test_F04) ... ok
+test_F05 (q01_contract_tests.Contract.test_F05) ... ok
+test_F06 (q01_contract_tests.Contract.test_F06) ... ok
+test_F07 (q01_contract_tests.Contract.test_F07) ... ok
+test_F08 (q01_contract_tests.Contract.test_F08) ... ok
+test_F09 (q01_contract_tests.Contract.test_F09) ... ok
+test_F10 (q01_contract_tests.Contract.test_F10) ... ok
+test_F11 (q01_contract_tests.Contract.test_F11) ... ok
+test_F12 (q01_contract_tests.Contract.test_F12) ... ok
+test_F13 (q01_contract_tests.Contract.test_F13) ... ok
+test_F14 (q01_contract_tests.Contract.test_F14) ... ok
+test_F15 (q01_contract_tests.Contract.test_F15) ... ok
+test_F16 (q01_contract_tests.Contract.test_F16) ... ok
+test_F17 (q01_contract_tests.Contract.test_F17) ... ok
+test_F18 (q01_contract_tests.Contract.test_F18) ... ok
+test_F19 (q01_contract_tests.Contract.test_F19) ... ok
+test_F20 (q01_contract_tests.Contract.test_F20) ... ok
+test_F21 (q01_contract_tests.Contract.test_F21) ... FAIL
+test_F22 (q01_contract_tests.Contract.test_F22) ... ok
+test_F23 (q01_contract_tests.Contract.test_F23) ... ok
+test_F24 (q01_contract_tests.Contract.test_F24) ... ok
+test_F25 (q01_contract_tests.Contract.test_F25) ... ok
+test_F26 (q01_contract_tests.Contract.test_F26) ... ok
+test_F27 (q01_contract_tests.Contract.test_F27) ... ok
+test_F28 (q01_contract_tests.Contract.test_F28) ... ok
+test_F29 (q01_contract_tests.Contract.test_F29) ... ok
+test_F30 (q01_contract_tests.Contract.test_F30) ... ok
+test_F31 (q01_contract_tests.Contract.test_F31) ... ok
+
+======================================================================
+FAIL: test_F21 (q01_contract_tests.Contract.test_F21)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/15d4b127081a/pp002-q01-impl-aZvxcvrM/validation/pp002-q01-collector/test_guard.py", line 452, in test_F21
+    result=self.check("F21-url-"+str(i),"FAIL",["URL_IDENTITY_INVALID" if i<6 else "URL_IDENTITY_MISMATCH"] if False else [],fixture=f)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/15d4b127081a/pp002-q01-impl-aZvxcvrM/validation/pp002-q01-collector/test_guard.py", line 249, in check
+    self.assertEqual(result["verdict"], wanted, (label, profile, result["violations"], result["unknown_claims"]))
+AssertionError: 'UNKNOWN' != 'FAIL'
+- UNKNOWN
++ FAIL
+ : ('F21-url-6', 'EXACT_REQUEST_HISTORY', [], [{'retrieval_id': 'read-1', 'field': 'response.url', 'reason': 'UNSUPPORTED_URL', 'material': True}])
+
+----------------------------------------------------------------------
+Ran 31 tests in 4.528s
+
+FAILED (failures=1)

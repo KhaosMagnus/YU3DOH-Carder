@@ -1,0 +1,71 @@
+{
+  "status": "DEVELOPMENT_HISTORY / NOT_CANONICAL_FINAL_RESULT",
+  "entries": [
+    {
+      "directory": "attempt-001",
+      "observation": "Runner path-expression error after successful R1 subprocess; source/test execution did not complete.",
+      "execution_receipt_exists": false
+    },
+    {
+      "directory": "attempt-002",
+      "observation": "R2 namespace legacy suffix rejected; F17 failed; fixed bounded legacy parser.",
+      "execution_receipt_exists": false
+    },
+    {
+      "directory": "attempt-003",
+      "observation": "31 tests passed, outer runner rejected audit counters because relative dir_fd cleanup paths were misresolved; fixed audit containment resolution.",
+      "execution_receipt_exists": false
+    },
+    {
+      "directory": "attempt-004",
+      "observation": "Earlier 126-result candidate passed; superseded by additional custody checks.",
+      "execution_receipt_exists": true
+    },
+    {
+      "directory": "attempt-005",
+      "observation": "New time/source checks exposed two missing-response fixtures retaining old receipt clocks; fixtures corrected to preserve UNKNOWN.",
+      "execution_receipt_exists": false
+    },
+    {
+      "directory": "attempt-006",
+      "observation": "Earlier 136-result candidate passed; superseded by source diagnostics and nested-audit review.",
+      "execution_receipt_exists": true
+    },
+    {
+      "directory": "final-self-test",
+      "observation": "136-result candidate passed; nested audit files subsequently included in automatic aggregate.",
+      "execution_receipt_exists": true
+    },
+    {
+      "directory": "final-self-test-v2",
+      "observation": "136-result candidate passed; explicit oracle linkage subsequently added.",
+      "execution_receipt_exists": true
+    },
+    {
+      "directory": "final-contract-001",
+      "observation": "136-result candidate passed; diagnostic redaction/claim-status checks subsequently added.",
+      "execution_receipt_exists": true
+    },
+    {
+      "directory": "final-contract-002",
+      "observation": "Synthetic unsupported URL case initially expected FAIL; actual safe UNKNOWN is correct for unsupported forms; oracle corrected without allowing use.",
+      "execution_receipt_exists": false
+    },
+    {
+      "directory": "final-contract-003",
+      "observation": "138-result candidate passed; fixture byte custody subsequently tightened.",
+      "execution_receipt_exists": true
+    },
+    {
+      "directory": "final-contract-004",
+      "observation": "138-result candidate passed; raw historical content fixture metadata subsequently completed.",
+      "execution_receipt_exists": true
+    },
+    {
+      "directory": "final-contract-005",
+      "observation": "Final pinned candidate; all required tests and controls passed.",
+      "execution_receipt_exists": true
+    }
+  ],
+  "limits": "Earlier source versions were local working states, not separately published candidates. Their retained logs/pins document iterations; only final-contract-005 is the fully delivered/reproducible candidate. Intermediate bulky fixture archives and duplicate semantic files remain transient scratch."
+}

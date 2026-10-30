@@ -1,0 +1,55 @@
+{
+  "source_kind": "FRESH_GITHUB_REF_RECEIPTS",
+  "scope": "Publication safety preflight, not historical workflow observation",
+  "refs": [
+    {
+      "branch": "meta/project-control",
+      "sha": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+      "requested_at": "2026-10-30T01:05:12.441Z",
+      "receipt_at": "2026-10-30T01:05:12.780Z",
+      "source_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/meta/project-control"
+    },
+    {
+      "branch": "main",
+      "sha": "54cc3aad246c89a29f2a18be63c539db68cae041",
+      "requested_at": "2026-10-30T01:05:12.441Z",
+      "receipt_at": "2026-10-30T01:05:12.770Z",
+      "source_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/main"
+    },
+    {
+      "branch": "feature/workspace-v0.1",
+      "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+      "requested_at": "2026-10-30T01:05:12.441Z",
+      "receipt_at": "2026-10-30T01:05:12.810Z",
+      "source_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/feature/workspace-v0.1"
+    },
+    {
+      "branch": "feature/workspace-run-026",
+      "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+      "requested_at": "2026-10-30T01:05:12.441Z",
+      "receipt_at": "2026-10-30T01:05:12.993Z",
+      "source_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/feature/workspace-run-026"
+    },
+    {
+      "branch": "ops/pp-002-gate-b-actions",
+      "sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+      "requested_at": "2026-10-30T01:05:12.441Z",
+      "receipt_at": "2026-10-30T01:05:12.789Z",
+      "source_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/ops/pp-002-gate-b-actions"
+    },
+    {
+      "branch": "ops/pp-002-gate-b-r2-actions",
+      "sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+      "requested_at": "2026-10-30T01:05:12.441Z",
+      "receipt_at": "2026-10-30T01:05:12.810Z",
+      "source_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/ops/pp-002-gate-b-r2-actions"
+    },
+    {
+      "branch": "ops/pp-002-gate-c-actions",
+      "sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+      "requested_at": "2026-10-30T01:05:12.441Z",
+      "receipt_at": "2026-10-30T01:05:12.904Z",
+      "source_url": "https://api.github.com/repos/KhaosMagnus/YU3DOH-Carder/git/ref/heads/ops/pp-002-gate-c-actions"
+    }
+  ]
+}

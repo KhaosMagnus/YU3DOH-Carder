@@ -1,0 +1,1 @@
+{"argv":["-m","unittest","discover","-s","/workspace/scratch/15d4b127081a/pp002-q01-impl-aZvxcvrM/validation/pp002-gate-c","-p","test_*.py","-v"],"exit_code":0,"expected_exit":0,"label":"gate-c-unit","receipt_at":"2026-10-30T00:55:08.554929+00:00","started_at":"2026-10-30T00:55:08.237330+00:00"}

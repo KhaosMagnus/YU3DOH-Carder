@@ -1,0 +1,1387 @@
+{
+  "cases": [
+    {
+      "actual": "PASS",
+      "case": "F01-api-form",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F01",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F01-api-form",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F01",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F01-exact",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F01",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F01-exact",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F01",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F01-raw-form",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F01",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F01-raw-form",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F01",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F02-structured-only",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F02",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F02-structured-only",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F02",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F03-missing-request",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F03",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F03-missing-request",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F03",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F04-routing-fallback",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F04",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "UNSUPPORTED_CLAIM"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F04-routing-fallback",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F04",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "UNSUPPORTED_CLAIM"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F04-wrong-issuance-pointer",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F04",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "UNSUPPORTED_REQUEST_IDENTITY"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F04-wrong-issuance-pointer",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F04",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "UNSUPPORTED_REQUEST_IDENTITY"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F05-C030-same-blob",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F05",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "REF_MISMATCH_IDENTICAL_BLOB"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F05-C030-same-blob",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F05",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "REF_MISMATCH_IDENTICAL_BLOB"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F05-without-diagnostic-prose",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F05",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "REF_MISMATCH_IDENTICAL_BLOB"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F05-without-diagnostic-prose",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F05",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "REF_MISMATCH_IDENTICAL_BLOB"
+      ]
+    },
+    {
+      "actual": "PASS",
+      "case": "F06-annotated-projection",
+      "expected": "PASS",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F06",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F06-annotated-projection",
+      "expected": "UNKNOWN",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F06",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F07-different-blob",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F07",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "REF_MISMATCH_DIFFERENT_BLOB",
+        "BLOB_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F07-different-blob",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F07",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "REF_MISMATCH_DIFFERENT_BLOB",
+        "BLOB_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-manifest-ref-even-with-correct-request",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "REF_MISMATCH_BLOB_RELATION_UNKNOWN"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-manifest-ref-even-with-correct-request",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "REF_MISMATCH_BLOB_RELATION_UNKNOWN"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-wrong-commit-membership",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "MEMBERSHIP_IDENTITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-wrong-commit-membership",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "MEMBERSHIP_IDENTITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-wrong-path",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "MEMBERSHIP_IDENTITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-wrong-path",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "MEMBERSHIP_IDENTITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-wrong-repository",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "MEMBERSHIP_IDENTITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F08-wrong-repository",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F08",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "MEMBERSHIP_IDENTITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F09-missing-membership",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F09",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F09-missing-membership",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F09",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F09-missing-response",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F09",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F09-missing-response",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F09",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F09-missing-url",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F09",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F09-missing-url",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F09",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F10-from-recorded_at",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F10",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "TIMESTAMP_ROLE_CONFLATION"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F10-from-recorded_at",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F10",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "TIMESTAMP_ROLE_CONFLATION"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F10-from-verified_at",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F10",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "TIMESTAMP_ROLE_CONFLATION"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F10-from-verified_at",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F10",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "TIMESTAMP_ROLE_CONFLATION"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F10-other-receipt-clock",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F10",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "TIMESTAMP_SOURCE_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F10-other-receipt-clock",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F10",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "TIMESTAMP_SOURCE_MISMATCH"
+      ]
+    },
+    {
+      "actual": "PASS",
+      "case": "F11-valid-equal-clock-values",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F11",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F11-valid-equal-clock-values",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F11",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F12-no-clock-substitution",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F12",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F12-no-clock-substitution",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F12",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F13-false-origin-upgrade",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F13",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "CAPTURE_ORIGIN_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F13-false-origin-upgrade",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F13",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "CAPTURE_ORIGIN_MISMATCH"
+      ]
+    },
+    {
+      "actual": "PASS",
+      "case": "F13-later-attestation",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F13",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F13-later-attestation",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F13",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F14-malformed",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F14",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "INVALID_TIMESTAMP"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F14-malformed",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F14",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "INVALID_TIMESTAMP"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F14-naive",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F14",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "INVALID_TIMESTAMP"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F14-naive",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F14",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "INVALID_TIMESTAMP"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F14-reversed",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F14",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "TIMESTAMP_ORDER_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F14-reversed",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F14",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "TIMESTAMP_ORDER_INVALID"
+      ]
+    },
+    {
+      "actual": "PASS",
+      "case": "F15-offset-and-old-event",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F15",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F15-offset-and-old-event",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F15",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F16-R2-unreconciled",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F16",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "ADMINISTRATIVE_LOCATOR_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F16-R2-unreconciled",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F16",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "ADMINISTRATIVE_LOCATOR_MISMATCH"
+      ]
+    },
+    {
+      "actual": "PASS",
+      "case": "F17-R2-reconciled",
+      "expected": "PASS",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F17",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F17-R2-reconciled",
+      "expected": "UNKNOWN",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F17",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F18-namespace",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F18",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "NAMESPACE_AUTHORITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F18-namespace",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F18",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "NAMESPACE_AUTHORITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F18-subject",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F18",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "NAMESPACE_AUTHORITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F18-subject",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F18",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "NAMESPACE_AUTHORITY_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-concurrent-swapped-responses",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-concurrent-swapped-responses",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-duplicate-id",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "CORRELATION_ID_DUPLICATE"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-duplicate-id",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "CORRELATION_ID_DUPLICATE"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-swapped-request",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-swapped-request",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-wrong-id",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F19-wrong-id",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F19",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-git-header",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-git-header",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-length",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-length",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-newline",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-newline",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-returned-sha",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "BLOB_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-returned-sha",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "BLOB_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-source-bytes",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F20-source-bytes",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F20",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "SOURCE_BYTES_MISMATCH"
+      ]
+    },
+    {
+      "actual": "EXIT_3",
+      "case": "F21-duplicate-json",
+      "expected": "EXIT_3",
+      "family": "F21",
+      "profile": "INPUT"
+    },
+    {
+      "actual": "EXIT_3",
+      "case": "F21-symlink",
+      "expected": "EXIT_3",
+      "family": "F21",
+      "profile": "INPUT"
+    },
+    {
+      "actual": "EXIT_3",
+      "case": "F21-traversal",
+      "expected": "EXIT_3",
+      "family": "F21",
+      "profile": "INPUT"
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-0",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-0",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-1",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-1",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-2",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-2",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-3",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-3",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-4",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-4",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-5",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F21-url-5",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "URL_IDENTITY_INVALID"
+      ]
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F21-url-6",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F21-url-6",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F21",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F22-UNKNOWN",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F22",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F22-UNKNOWN",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F22",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F22-feature-branch",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F22",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F22-feature-branch",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F22",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "BLOCK_CALLBACK",
+      "callback_invocations": 0,
+      "case": "F23-content-changed",
+      "expected": "BLOCK_CALLBACK",
+      "family": "F23",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+    },
+    {
+      "actual": "BLOCK_CALLBACK",
+      "callback_invocations": 0,
+      "case": "F23-other-bundle",
+      "expected": "BLOCK_CALLBACK",
+      "family": "F23",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+    },
+    {
+      "actual": "BLOCK_CALLBACK",
+      "callback_invocations": 0,
+      "case": "F23-output-path-changed",
+      "expected": "BLOCK_CALLBACK",
+      "family": "F23",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+    },
+    {
+      "actual": "BLOCK_CALLBACK",
+      "callback_invocations": 0,
+      "case": "F24-content-not-current-state",
+      "expected": "BLOCK_CALLBACK",
+      "family": "F24",
+      "profile": "EXACT_CONTENT",
+      "reason": "CONTENT_NOT_FRESH_STATE"
+    },
+    {
+      "actual": "ALLOW_FAKE",
+      "callback_invocations": 1,
+      "case": "F24-positive-fake-only",
+      "expected": "ALLOW_FAKE",
+      "family": "F24",
+      "profile": "EXACT_CONTENT"
+    },
+    {
+      "actual": "BLOCK_CALLBACK",
+      "callback_invocations": 0,
+      "case": "F24-provenance-fail",
+      "expected": "BLOCK_CALLBACK",
+      "family": "F24",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+    },
+    {
+      "actual": "BLOCK_CALLBACK",
+      "callback_invocations": 0,
+      "case": "F24-provenance-unknown",
+      "expected": "BLOCK_CALLBACK",
+      "family": "F24",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+    },
+    {
+      "actual": "BLOCK_CALLBACK",
+      "callback_invocations": 0,
+      "case": "F24-state-check-fail",
+      "expected": "BLOCK_CALLBACK",
+      "family": "F24",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "reason": "STATE_CHECK_BLOCKED_OR_UNBOUND"
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F25-no-plan-inheritance",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F25",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "UNKNOWN",
+      "case": "F25-no-plan-inheritance",
+      "expected": "UNKNOWN",
+      "expected_operation": "OP-1",
+      "family": "F25",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "FAIL",
+      "case": "F26-original-negative",
+      "expected": "FAIL",
+      "family": "F26",
+      "mandatory_controls": 6,
+      "profile": "FROZEN_R1",
+      "violations": 53
+    },
+    {
+      "actual": "PASS",
+      "case": "F27-frozen-positives",
+      "expected": "PASS",
+      "family": "F27",
+      "profile": "FROZEN_CHECKERS"
+    },
+    {
+      "actual": "PASS",
+      "case": "F28-order-and-run-clock",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F28",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": "PASS",
+      "case": "F28-order-and-run-clock",
+      "expected": "PASS",
+      "expected_operation": "OP-1",
+      "family": "F28",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": []
+    },
+    {
+      "actual": 3,
+      "case": "F29-cli-exclusive-output",
+      "expected": 3,
+      "family": "F29",
+      "profile": "CLI"
+    },
+    {
+      "actual": 0,
+      "case": "F29-cli-exit-0",
+      "expected": 0,
+      "family": "F29",
+      "profile": "CLI"
+    },
+    {
+      "actual": 1,
+      "case": "F29-cli-exit-1",
+      "expected": 1,
+      "family": "F29",
+      "profile": "CLI"
+    },
+    {
+      "actual": 2,
+      "case": "F29-cli-exit-2",
+      "expected": 2,
+      "family": "F29",
+      "profile": "CLI"
+    },
+    {
+      "actual": 3,
+      "case": "F29-cli-exit-3",
+      "expected": 3,
+      "family": "F29",
+      "profile": "CLI"
+    },
+    {
+      "actual": "FAIL",
+      "case": "F29-cycle",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F29",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "SOURCE_DERIVATION_CYCLE"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F29-cycle",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F29",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "SOURCE_DERIVATION_CYCLE"
+      ]
+    },
+    {
+      "actual": "EXIT_3",
+      "case": "F29-missing-pin",
+      "expected": "EXIT_3",
+      "family": "F29",
+      "profile": "INPUT"
+    },
+    {
+      "actual": "FAIL",
+      "case": "F29-orphan",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F29",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F29-orphan",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F29",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "CORRELATION_ID_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F29-pointer",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F29",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "SOURCE_POINTER_INVALID"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F29-pointer",
+      "expected": "FAIL",
+      "expected_operation": "OP-1",
+      "family": "F29",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "SOURCE_POINTER_INVALID"
+      ]
+    },
+    {
+      "actual": "EXIT_3",
+      "case": "F29-unknown-profile",
+      "expected": "EXIT_3",
+      "family": "F29",
+      "profile": "INPUT"
+    },
+    {
+      "actual": "FAIL",
+      "case": "F30-other-operation",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F30",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "ADMINISTRATIVE_LOCATOR_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F30-other-operation",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F30",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "ADMINISTRATIVE_LOCATOR_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F30-other-revision",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F30",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "RECONCILIATION_SCOPE_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F30-other-revision",
+      "expected": "FAIL",
+      "expected_operation": "R2-INTENT-PUBLISH",
+      "family": "F30",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "RECONCILIATION_SCOPE_MISMATCH"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F31-full-legacy-manifest",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F31",
+      "profile": "EXACT_CONTENT",
+      "required_invariant_codes": [
+        "REF_MISMATCH_IDENTICAL_BLOB"
+      ]
+    },
+    {
+      "actual": "FAIL",
+      "case": "F31-full-legacy-manifest",
+      "expected": "FAIL",
+      "expected_operation": "C020-RETRIEVAL",
+      "family": "F31",
+      "profile": "EXACT_REQUEST_HISTORY",
+      "required_invariant_codes": [
+        "REF_MISMATCH_IDENTICAL_BLOB"
+      ]
+    }
+  ],
+  "oracle_source": "Explicit assertions in byte-pinned test_guard.py, not guard-derived verdicts",
+  "scope": "OFFLINE_SELF_TEST / NOT_INDEPENDENT_QA"
+}

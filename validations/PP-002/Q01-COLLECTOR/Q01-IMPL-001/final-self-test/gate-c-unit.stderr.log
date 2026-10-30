@@ -1,0 +1,19 @@
+test_assembly_time_substitution (test_observer.GateCChecks.test_assembly_time_substitution) ... ok
+test_false_nonemission (test_observer.GateCChecks.test_false_nonemission) ... ok
+test_missing_child_uncertain (test_observer.GateCChecks.test_missing_child_uncertain) ... ok
+test_missing_source (test_observer.GateCChecks.test_missing_source) ... ok
+test_no_retry (test_observer.GateCChecks.test_no_retry) ... ok
+test_rollover_cannot_change_instance (test_observer.GateCChecks.test_rollover_cannot_change_instance) ... ok
+test_rollover_job_identity (test_observer.GateCChecks.test_rollover_job_identity) ... ok
+test_rollover_stop_mandatory (test_observer.GateCChecks.test_rollover_stop_mandatory) ... ok
+test_rollover_valid_custody (test_observer.GateCChecks.test_rollover_valid_custody) ... ok
+test_source_tampering (test_observer.GateCChecks.test_source_tampering) ... ok
+test_stale_not_done (test_observer.GateCChecks.test_stale_not_done) ... ok
+test_unsupported_cleanup (test_observer.GateCChecks.test_unsupported_cleanup) ... ok
+test_valid_single_case (test_observer.GateCChecks.test_valid_single_case) ... ok
+test_wrong_attempt (test_observer.GateCChecks.test_wrong_attempt) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.183s
+
+OK

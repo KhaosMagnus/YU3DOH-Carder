@@ -1,0 +1,722 @@
+[
+  {
+    "path": "runs/PP-002_Q01_DESIGN_ACCEPTANCE.md",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:39:24.994Z",
+    "receipt_at": "2026-10-30T00:39:25.312Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/runs/PP-002_Q01_DESIGN_ACCEPTANCE.md",
+    "returned_blob": "8c8d36cf58be90a43c47dc0eece361159a66940b",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "control/PP-002_Q01_OFFLINE_IMPLEMENTATION_AUTHORIZATION.md",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:39:24.998Z",
+    "receipt_at": "2026-10-30T00:39:25.398Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/control/PP-002_Q01_OFFLINE_IMPLEMENTATION_AUTHORIZATION.md",
+    "returned_blob": "907a5ebed1d19edbf95f2cac5549750ece6ce2ac",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "routing/ROUTE-PP-002_Q01_OFFLINE_IMPLEMENTATION.md",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:39:24.998Z",
+    "receipt_at": "2026-10-30T00:39:25.325Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/routing/ROUTE-PP-002_Q01_OFFLINE_IMPLEMENTATION.md",
+    "returned_blob": "419d225a9a86babe57d3b983b412bded0359d2f8",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "handoffs/PP-002_Q01_COLLECTOR_CORRECTION_DESIGN_HANDOFF.md",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:39:24.998Z",
+    "receipt_at": "2026-10-30T00:39:25.437Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/handoffs/PP-002_Q01_COLLECTOR_CORRECTION_DESIGN_HANDOFF.md",
+    "returned_blob": "c72e0a6d0889ceee4e901126a33587072180017f",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validation/pp002-gate-b-r1/README.md",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.235Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validation/pp002-gate-b-r1/README.md",
+    "returned_blob": "6dcc8ec548b818111bd3d7752bd48bb0fe8ae97f",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validation/pp002-gate-b-r1/revalidate.py",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.352Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validation/pp002-gate-b-r1/revalidate.py",
+    "returned_blob": "e189cf780fbb0711fa442f342bec5d760bf4f3b1",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validation/pp002-gate-b-r1/run_checks.py",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.216Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validation/pp002-gate-b-r1/run_checks.py",
+    "returned_blob": "64fb54b4e37375dae8261c9c0c011876f2282df0",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validation/pp002-gate-b-r1/test_revalidate.py",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.374Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validation/pp002-gate-b-r1/test_revalidate.py",
+    "returned_blob": "3f647fab1d494c64f06927dc471b5c3aeba58952",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validation/pp002-gate-c/README.md",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.382Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validation/pp002-gate-c/README.md",
+    "returned_blob": "9c1fe1926e4218012fb1eb0300fae0ae220b0b99",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validation/pp002-gate-c/observer.py",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.162Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validation/pp002-gate-c/observer.py",
+    "returned_blob": "80591dd78b7aa414913e7a08767b0e6a2c7e5623",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validation/pp002-gate-c/test_observer.py",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.375Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validation/pp002-gate-c/test_observer.py",
+    "returned_blob": "cf2069f851aaf4e004bda6dc04a7c246f8defce2",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R1/input-manifest.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.337Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R1/input-manifest.json",
+    "returned_blob": "f953cb8d968d88aab1b9c64b3928939825dda30e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R1/corrected-derivation.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.272Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R1/corrected-derivation.json",
+    "returned_blob": "4d897d3fb6e557c12a95c86cdb27370f9c96597c",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/C-020_MANIFEST.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.221Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/C-020_MANIFEST.json",
+    "returned_blob": "df6792ab3f4baed67e350a4ca06e56e86c1a66bb",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/C-020_S01_ROLLOVER_CHECKPOINT.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.366Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/C-020_S01_ROLLOVER_CHECKPOINT.json",
+    "returned_blob": "1b8055add2533d04e6c3b42e6344e3bee9c46614",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/C-060_MANIFEST.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.203Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/C-060_MANIFEST.json",
+    "returned_blob": "b72c6f46ec70d9bf41d9567fe3ef264737fb2544",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/C-060_TERMINAL_RECONCILIATION.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.342Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/C-060_TERMINAL_RECONCILIATION.json",
+    "returned_blob": "ed2ba51e212e25beec8d6470bdbf940f038b6995",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/source-reference-audit-correction.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.347Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/source-reference-audit-correction.json",
+    "returned_blob": "f53d082705f74e4e9bbe8dac84817baf511fea17",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/source-recovery-manifest.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.757Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/source-recovery-manifest.json",
+    "returned_blob": "a6135c91d13e267fbffb9c72fa0def6aa9712b67",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/R2-000_INTENT.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.183Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/R2-000_INTENT.json",
+    "returned_blob": "f2563ec430bce506abcf8d4bcc4d032a9272ee40",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/R2-010_MANIFEST.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.321Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/R2-010_MANIFEST.json",
+    "returned_blob": "1ff5d37285d13f0ce422d161fa29abe5070f29b3",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/recovery-entry.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.221Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/recovery-entry.json",
+    "returned_blob": "393a0db65358b2182a4224895dd7d269f712553e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/planning-path-reconciliation.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:40:35.841Z",
+    "receipt_at": "2026-10-30T00:40:36.350Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/planning-path-reconciliation.json",
+    "returned_blob": "71aa7dcfa78b91c3aa4771ffb95bbacd96e4a27e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/000_INTENT.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.082Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/000_INTENT.json",
+    "returned_blob": "9d505054d67e54103bea9e3776c367d2ef0a1e92",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/010_EMITTED.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.902Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/010_EMITTED.json",
+    "returned_blob": "49080aa4325adfbb3b72e7b3bf518921a45cb39e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/020_OBSERVATION_LOSS.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.812Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/020_OBSERVATION_LOSS.json",
+    "returned_blob": "1a72368cdd21fb7e91ca6d7d9786e95354c9a454",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/030_RECOVERY_OBSERVATION.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.802Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/030_RECOVERY_OBSERVATION.json",
+    "returned_blob": "0930d99e56a93f30ad9170e007c1db36d4ef80e8",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/040_VERIFIED_RECOVERY_DECISIONS.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.725Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/040_VERIFIED_RECOVERY_DECISIONS.json",
+    "returned_blob": "37cd17d78f0a47914d0f66cfb3a06c4ccb377ffd",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/050_TERMINAL_RECONCILIATION.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.981Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/050_TERMINAL_RECONCILIATION.json",
+    "returned_blob": "0cbd002e9b4d922d1bbff4965e8eab7d20c3aa3d",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.811Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/060_BOOKKEEPING_CORRECTION.json",
+    "returned_blob": "31935ed1f066a6e4fef29faca235337363a47414",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/logs/123310073647.log",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.902Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/logs/123310073647.log",
+    "returned_blob": "dfe0c531a2bc674c81ccefabbaaba06e662aac0e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/logs/123310073907.log",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.756Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/logs/123310073907.log",
+    "returned_blob": "749ea6e75303c0587429a75a3fe6eb59a1ff7ef8",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/logs/123310073956.log",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.765Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/logs/123310073956.log",
+    "returned_blob": "e6c0012a8a2807b745fa17f401883e7ca54540b0",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879024432/cleanup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.740Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879024432/cleanup.json",
+    "returned_blob": "5a5083b5d5102d6353c44bb2ed7ec9297675ce0e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879024432/events.jsonl",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.834Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879024432/events.jsonl",
+    "returned_blob": "c757e4d8fbae4dad5351e320adba2be2a107f5e4",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879024432/final.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.806Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879024432/final.json",
+    "returned_blob": "00a6f54a03c649fe9da348d4f1c9d2017afc81fd",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879024432/manifest.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.780Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879024432/manifest.json",
+    "returned_blob": "ae95488ada7df21aeb2720e5591d811955c4895b",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879024432/marker.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.139Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879024432/marker.json",
+    "returned_blob": "726e9cf8334811a242cc683d1ff52acbdc476672",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879024432/startup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.750Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879024432/startup.json",
+    "returned_blob": "6dc79d18612afa1123fd150be93e371e5e3a0ec3",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879037812/partial.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.768Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879037812/partial.json",
+    "returned_blob": "ee651f582995710555ade6c33548859f877094af",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879053427/cleanup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.967Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879053427/cleanup.json",
+    "returned_blob": "89687e62e5c80f5f8141c2fc6a051cb455cf3455",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879053427/events.jsonl",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:10.307Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879053427/events.jsonl",
+    "returned_blob": "9b8481a164b96108c6bd6729d7ffd84d3b308ff5",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879053427/final.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.894Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879053427/final.json",
+    "returned_blob": "0e2b8578aed2e17553d08bac4d10a99048bc6034",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879053427/manifest.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.764Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879053427/manifest.json",
+    "returned_blob": "ae16618a1e907bed423650e8238f88c576314c83",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879053427/marker.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.807Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879053427/marker.json",
+    "returned_blob": "eaf86e12b6b71fc273e049fdf5d217fbe82cb4f1",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879053427/startup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.031Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879053427/startup.json",
+    "returned_blob": "57b9807032673bf7bc4a8c348b947ec52e3cd8f7",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879496366/cleanup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.862Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879496366/cleanup.json",
+    "returned_blob": "1e6423656574de5217fb4a0345b50226168594a8",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879496366/events.jsonl",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.896Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879496366/events.jsonl",
+    "returned_blob": "73b48e9ccaea6d4554ff44f195ec7c4b70504111",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879496366/final.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.949Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879496366/final.json",
+    "returned_blob": "aa293a318292f6701d9af21e246a11f851856f73",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879496366/manifest.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.142Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879496366/manifest.json",
+    "returned_blob": "810c53d62fd0b692625903403493cde58eab2ac5",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879496366/marker.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.861Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879496366/marker.json",
+    "returned_blob": "2ac108243a15a3e7a4dfde93fbcc622cf68cdda0",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879496366/partial.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.907Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879496366/partial.json",
+    "returned_blob": "ee651f582995710555ade6c33548859f877094af",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B/raw/12879496366/startup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.874Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B/raw/12879496366/startup.json",
+    "returned_blob": "357ade7e95fdca691f318d4f24379c212e2517fe",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.887Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json",
+    "returned_blob": "ba0ac48192452ea8015a9b70fd41217b3eae9fbc",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/raw/C-000-publish.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.867Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/raw/C-000-publish.json",
+    "returned_blob": "c093d1f59894ab5bdfde36148530134b83028bc5",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/raw/emit.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.919Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/raw/emit.json",
+    "returned_blob": "65d85f49b7675f68f0d8cde1ac3d26909591bd8e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/raw/ops-create.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.344Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/raw/ops-create.json",
+    "returned_blob": "ab9e524db23048d9a88e2e535c277d08a3afa722",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/raw/rollover-jobs.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.867Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/raw/rollover-jobs.json",
+    "returned_blob": "6058643aeed140e457efaba0ca3559d6bb36cd91",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/raw/rollover-workflow.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.862Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/raw/rollover-workflow.json",
+    "returned_blob": "56a8f4415b9c2436df9b763d65552dee61bd157e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/12922708409/cleanup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.811Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/12922708409/cleanup.json",
+    "returned_blob": "3c57ce7db7e84029df9b6e7bf61b7abdbd65dfb4",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/12922708409/events.jsonl",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.832Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/12922708409/events.jsonl",
+    "returned_blob": "6c52afff00c75de5fae2c69c19c83784c8d05334",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/12922708409/final.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.907Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/12922708409/final.json",
+    "returned_blob": "7f66732d759106561b365ff00a2244f3e82cad30",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/12922708409/manifest.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.923Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/12922708409/manifest.json",
+    "returned_blob": "521c28020106395ee4ae5595e0eaab8ea2c387f2",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/12922708409/marker.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.924Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/12922708409/marker.json",
+    "returned_blob": "5c71d97cc92ef282a20e11d6919b98e45cfeb9b3",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/12922708409/startup.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.082Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/12922708409/startup.json",
+    "returned_blob": "775de313117987085909e194b1e1116866b2fbe3",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/terminal-jobs.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.950Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/terminal-jobs.json",
+    "returned_blob": "f1e6555114d8b2b6a16188a5d364acc8d7a66deb",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-C/S02/raw/terminal-workflow.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.937Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-C/S02/raw/terminal-workflow.json",
+    "returned_blob": "503cd889872bf52f9fff7c26e1b17882d32c6822",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/raw/R2-000 pre-emission intent and pinned observer-publish.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.198Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/raw/R2-000%20pre-emission%20intent%20and%20pinned%20observer-publish.json",
+    "returned_blob": "0736a72fcba174cee12e18e8da991a9db50ec70f",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/raw/emit.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.022Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/raw/emit.json",
+    "returned_blob": "96150e86d64e674c6481c82912935ccdcc0b965c",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/raw/initial-jobs.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.956Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/raw/initial-jobs.json",
+    "returned_blob": "ae8c34fd40c9801fa5cc4f6ec60a726ad124c239",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/raw/initial-workflow.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:04.987Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/raw/initial-workflow.json",
+    "returned_blob": "8e816a80828a3ef4003328cb2def310a6669e89e",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  },
+  {
+    "path": "validations/PP-002/GATE-B-R2/raw/ops-create.json",
+    "requested_ref": "565a197ce19d3ed140b002e1d709644cfbdda79e",
+    "requested_at": "2026-10-30T00:41:04.408Z",
+    "receipt_at": "2026-10-30T00:41:05.109Z",
+    "returned_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/565a197ce19d3ed140b002e1d709644cfbdda79e/validations/PP-002/GATE-B-R2/raw/ops-create.json",
+    "returned_blob": "0449ffef5b24967362c8cfd3ae0b7ae63dd2dba9",
+    "capture_origin": "AT_ISSUANCE_RECEIPT / RETAINED_RESPONSE",
+    "time_scope": "Connector invocation/completed tool response; not HTTP wire time"
+  }
+]
