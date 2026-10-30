@@ -131,6 +131,33 @@ control/PP-002_Q01_COLLECTOR_CORRECTION_SCOPE.md
 Q01 DESIGN route:
 routing/ROUTE-PP-002_Q01_COLLECTOR_CORRECTION_DESIGN.md
 
+Q01 design handoff:
+handoffs/PP-002_Q01_COLLECTOR_CORRECTION_DESIGN_HANDOFF.md @ blob c72e0a6d0889ceee4e901126a33587072180017f
+
+Q01 design decision:
+ACCEPT / IMPLEMENTABLE / 31 offline test families specified, NOT EXECUTED
+
+Q01 design disposition:
+runs/PP-002_Q01_DESIGN_ACCEPTANCE.md
+
+Q01 offline implementation:
+AUTHORIZED / NOT YET DELIVERED / NO LIVE EXECUTION
+
+Q01 authorized implementation scope:
+Q01-IMPL-001 @ control/PP-002_Q01_OFFLINE_IMPLEMENTATION_AUTHORIZATION.md
+
+Q01 implementation route:
+routing/ROUTE-PP-002_Q01_OFFLINE_IMPLEMENTATION.md
+
+Q01 offline evidence root:
+validations/PP-002/Q01-COLLECTOR/Q01-IMPL-001/**
+
+Q01 independent QA:
+NOT ASSIGNED / PENDING IMPLEMENTATION DELIVERY; DESIGN_QA reviewer to be separately routed
+
+P01 / P02:
+UNCERTAIN / UNKNOWN; unchanged
+
 Final recommendation route:
 routing/ROUTE-PP-002-FINAL_EXPERIMENT_RECOMMENDATION.md
 
