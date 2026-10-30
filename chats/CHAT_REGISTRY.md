@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Q02-DES-001 integration architecture design routed | Q01 offline PASS closed; design only, no live adoption |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Q02 design ACCEPT / Q02-PROT-001 policy decision intake | No prototype execution permission; Q01 PASS offline retained |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | Q01 CLOSED / Q02 DESIGN AUTHORIZED | Q02-DES-001 integration architecture and closure readiness | Q01 DQA-007 PASS retained; implementation not authorized |
+| PP-002 | PROTOCOL_PORTABILITY | Q02-DES-001 COMPLETE / DESIGN ACCEPTED | Proposed offline prototype awaiting Owner policy decision | Design blob a06fb711; no prototype authorization |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
@@ -77,7 +77,22 @@ Q01 integration/adoption:
 NOT AUTHORIZED
 
 Q02 integration design:
-AUTHORIZED / DESIGN ONLY / PROTOCOL_PORTABILITY PP-002
+COMPLETE / ACCEPT DESIGN / OFFLINE MOCK IMPLEMENTABLE
+
+Q02 handoff:
+handoffs/PP-002_Q02_Q01_CONTROL_INTEGRATION_DESIGN_HANDOFF.md
+
+Q02 design disposition:
+runs/PP-002_Q02_DESIGN_ACCEPTANCE.md
+
+Q02 prototype:
+Q02-PROT-001 / PROPOSED / NO CODE AUTHORIZATION
+
+Q02 Owner decision request:
+control/PP-002_Q02_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
+
+Q02 proposed prototype scope:
+control/PP-002_Q02_OFFLINE_PROTOTYPE_PROPOSED_SCOPE.md
 
 Q02 Owner direction:
 control/PP-002_Q02_OWNER_DESIGN_APPROVAL.md

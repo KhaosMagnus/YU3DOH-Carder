@@ -141,7 +141,28 @@ Q02 expected handoff:
 handoffs/PP-002_Q02_Q01_CONTROL_INTEGRATION_DESIGN_HANDOFF.md
 
 Q02 status:
-AUTHORIZED / DESIGN NOT YET DELIVERED / NO IMPLEMENTATION OR LIVE INTEGRATION
+CLOSED / ACCEPT DESIGN / DESIGN IMPLEMENTABLE FOR OFFLINE MOCK / NOT LIVE-ENFORCEMENT APPROVED
+
+Q02 handoff:
+handoffs/PP-002_Q02_Q01_CONTROL_INTEGRATION_DESIGN_HANDOFF.md @ blob a06fb711662848ccc16d2e32d621be279a9b1f4d
+
+Q02 design publication:
+meta/project-control @ 95a7238f2d9173c90ab6541239ad2fbcba1e062b
+
+Q02 official design acceptance:
+runs/PP-002_Q02_DESIGN_ACCEPTANCE.md
+
+Q02 next offline prototype:
+Q02-PROT-001 / PROPOSED / NOT AUTHORIZED / OWNER EXECUTABLE-PLACEMENT DECISION PENDING
+
+Q02 proposed prototype scope:
+control/PP-002_Q02_OFFLINE_PROTOTYPE_PROPOSED_SCOPE.md
+
+Q02 Owner prototype decision request:
+control/PP-002_Q02_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
+
+Q02 policy blocker:
+meta/project-control documentation-only under protocols/GIT_CONTROL_POLICY.md; exact future experimental-code location/exception must be explicitly decided by Owner
 
 Q02 future implementation/integration/adoption:
 NOT AUTHORIZED; requires fresh PC-003 and Owner decisions under applicable authority
