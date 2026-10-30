@@ -1,0 +1,9 @@
+{
+  "claim_scope": "Historical source-receipt view only",
+  "invariant_violation_count": 0,
+  "operation_count": 24,
+  "result": "PASS",
+  "valid_current_observed_ledger": true,
+  "validator": "PP002-GATE-B-R1-consistency-v1",
+  "violations": []
+}

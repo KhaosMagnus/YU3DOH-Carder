@@ -1,0 +1,739 @@
+{
+  "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+  "input_manifest": {
+    "context": {
+      "admin_sources": {
+        "C-EMIT": "validations/PP-002/GATE-C/raw/emit.json",
+        "C-INTENT-PUBLISH": "validations/PP-002/GATE-C/raw/C-000-publish.json",
+        "C-OPS-CREATE": "validations/PP-002/GATE-C/raw/ops-create.json"
+      },
+      "branch": "ops/pp-002-gate-c-actions",
+      "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+      "jobs_source": "validations/PP-002/GATE-C/raw/rollover-jobs.json",
+      "run_attempt": 1,
+      "run_id": 40930819906,
+      "verified_packages": {},
+      "workflow_source": "validations/PP-002/GATE-C/raw/rollover-workflow.json"
+    },
+    "files": {
+      "validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json": {
+        "bytes": 13353,
+        "git_blob_sha": "ba0ac48192452ea8015a9b70fd41217b3eae9fbc",
+        "sha256": "a47afaa16a9b253d72499a310af3c123668238300abf566645db9e8c5131fc88"
+      },
+      "validations/PP-002/GATE-C/raw/C-000-publish.json": {
+        "bytes": 220,
+        "git_blob_sha": "c093d1f59894ab5bdfde36148530134b83028bc5",
+        "sha256": "c17df86930c90d88916bc367edef188518fc1923fd4e911024bfcaeff79e1a05"
+      },
+      "validations/PP-002/GATE-C/raw/emit.json": {
+        "bytes": 220,
+        "git_blob_sha": "65d85f49b7675f68f0d8cde1ac3d26909591bd8e",
+        "sha256": "6f241e8ada6490143e1236b54cb877300ec66e47f21fa24314b86a9a746eb136"
+      },
+      "validations/PP-002/GATE-C/raw/ops-create.json": {
+        "bytes": 242,
+        "git_blob_sha": "ab9e524db23048d9a88e2e535c277d08a3afa722",
+        "sha256": "b9f1a7b7a7a1cf9409d7fd6dba46843fd489bbc68600a6fb57c897ef6927d524"
+      },
+      "validations/PP-002/GATE-C/raw/rollover-jobs.json": {
+        "bytes": 3632,
+        "git_blob_sha": "6058643aeed140e457efaba0ca3559d6bb36cd91",
+        "sha256": "632068420ef7b5576ea336b00bfd5ea1cd6fd5603b984cb285e2b1a0c510f24b"
+      },
+      "validations/PP-002/GATE-C/raw/rollover-workflow.json": {
+        "bytes": 15085,
+        "git_blob_sha": "56a8f4415b9c2436df9b763d65552dee61bd157e",
+        "sha256": "79f43b8103ce8daacc68a659933bbe536d7e71ad67c0babef443c66d38de2e75"
+      }
+    },
+    "source_control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d"
+  },
+  "observed_state": [
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_NOT_APPLICABLE",
+      "effect": "EFFECT_CONFIRMED",
+      "event_at": "UNKNOWN",
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "CONFIRMED_DONE",
+      "logical_operation_id": "C-INTENT-PUBLISH",
+      "outcome": "SUCCESS",
+      "parent_operation_id": "NONE",
+      "receipt_at": "2026-10-29T18:25:52.941Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:25:51.444Z",
+      "responded_at": "2026-10-29T18:25:52.941Z",
+      "safe_next_action": "REUSE_RESULT",
+      "source_id": "validations/PP-002/GATE-C/raw/C-000-publish.json#/response",
+      "source_kind": "PUBLICATION_ACK",
+      "state_as_of": "2026-10-29T18:25:52.941Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/C-000-publish.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_NOT_APPLICABLE",
+      "effect": "EFFECT_CONFIRMED",
+      "event_at": "UNKNOWN",
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "CONFIRMED_DONE",
+      "logical_operation_id": "C-OPS-CREATE",
+      "outcome": "SUCCESS",
+      "parent_operation_id": "NONE",
+      "receipt_at": "2026-10-29T18:26:24.042Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:26:22.971Z",
+      "responded_at": "2026-10-29T18:26:24.042Z",
+      "safe_next_action": "REUSE_RESULT",
+      "source_id": "validations/PP-002/GATE-C/raw/ops-create.json#/response",
+      "source_kind": "REF_ACK",
+      "state_as_of": "2026-10-29T18:26:24.042Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/ops-create.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_NOT_APPLICABLE",
+      "effect": "EFFECT_CONFIRMED",
+      "event_at": "UNKNOWN",
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "CONFIRMED_DONE",
+      "logical_operation_id": "C-EMIT",
+      "outcome": "SUCCESS",
+      "parent_operation_id": "NONE",
+      "receipt_at": "2026-10-29T18:26:25.573Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:26:24.202Z",
+      "responded_at": "2026-10-29T18:26:25.573Z",
+      "safe_next_action": "REUSE_RESULT",
+      "source_id": "validations/PP-002/GATE-C/raw/emit.json#/response",
+      "source_kind": "REF_ACK",
+      "state_as_of": "2026-10-29T18:26:25.573Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/emit.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_REQUIRED",
+      "effect": "POSSIBLE_EFFECT",
+      "event_at": {
+        "created_at": "2026-10-29T18:26:27Z",
+        "updated_at": "2026-10-29T18:26:30Z"
+      },
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "STILL_RUNNING",
+      "logical_operation_id": "C-WORKFLOW",
+      "outcome": "UNKNOWN",
+      "parent_operation_id": "C-EMIT",
+      "receipt_at": "2026-10-29T18:28:56.387Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:28:55.996Z",
+      "responded_at": "2026-10-29T18:28:56.387Z",
+      "safe_next_action": "KEEP_OBSERVING",
+      "source_id": "validations/PP-002/GATE-C/raw/rollover-workflow.json#/response",
+      "source_kind": "WORKFLOW_QUERY_RECEIPT",
+      "state_as_of": "2026-10-29T18:28:56.387Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/rollover-workflow.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_REQUIRED",
+      "effect": "POSSIBLE_EFFECT",
+      "event_at": {
+        "completed_at": "UNKNOWN",
+        "created_at": "2026-10-29T18:26:28Z",
+        "started_at": "2026-10-29T18:26:30Z"
+      },
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "STILL_RUNNING",
+      "logical_operation_id": "C1-JOB",
+      "outcome": "UNKNOWN",
+      "parent_operation_id": "C-WORKFLOW",
+      "receipt_at": "2026-10-29T18:28:57.016Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:28:55.996Z",
+      "responded_at": "2026-10-29T18:28:57.016Z",
+      "safe_next_action": "KEEP_OBSERVING",
+      "source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/response/jobs/0",
+      "source_kind": "JOB_QUERY_RECEIPT",
+      "state_as_of": "2026-10-29T18:28:57.016Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_REQUIRED",
+      "effect": "EFFECT_CONFIRMED",
+      "event_at": {
+        "completed_at": "2026-10-29T18:26:32Z",
+        "started_at": "2026-10-29T18:26:32Z"
+      },
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "CONFIRMED_DONE",
+      "logical_operation_id": "C1-EFFECT",
+      "outcome": "SUCCESS",
+      "parent_operation_id": "C1-JOB",
+      "receipt_at": "2026-10-29T18:28:57.016Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:28:55.996Z",
+      "responded_at": "2026-10-29T18:28:57.016Z",
+      "safe_next_action": "RECONCILE_EFFECT",
+      "source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/response/jobs/0/steps/2",
+      "source_kind": "STEP_QUERY_RECEIPT",
+      "state_as_of": "2026-10-29T18:28:57.016Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "EMITTED_ACKNOWLEDGED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_NOT_APPLICABLE",
+      "effect": "POSSIBLE_EFFECT",
+      "event_at": {
+        "completed_at": "UNKNOWN",
+        "started_at": "2026-10-29T18:26:32Z"
+      },
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "STILL_RUNNING",
+      "logical_operation_id": "C1-HOLD",
+      "outcome": "UNKNOWN",
+      "parent_operation_id": "C1-JOB",
+      "receipt_at": "2026-10-29T18:28:57.016Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:28:55.996Z",
+      "responded_at": "2026-10-29T18:28:57.016Z",
+      "safe_next_action": "KEEP_OBSERVING",
+      "source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/response/jobs/0/steps/3",
+      "source_kind": "STEP_QUERY_RECEIPT",
+      "state_as_of": "2026-10-29T18:28:57.016Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "NOT_EMITTED_CONFIRMED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_UNKNOWN",
+      "effect": "NO_EFFECT_CONFIRMED",
+      "event_at": {
+        "completed_at": "UNKNOWN",
+        "started_at": "UNKNOWN"
+      },
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "CONFIRMED_NOT_DONE",
+      "logical_operation_id": "C1-CLEANUP",
+      "outcome": "NOT_APPLICABLE",
+      "parent_operation_id": "C1-JOB",
+      "receipt_at": "2026-10-29T18:28:57.016Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:28:55.996Z",
+      "responded_at": "2026-10-29T18:28:57.016Z",
+      "safe_next_action": "BLOCK",
+      "source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/response/jobs/0/steps/4",
+      "source_kind": "STEP_QUERY_RECEIPT",
+      "state_as_of": "2026-10-29T18:28:57.016Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "NOT_EMITTED_CONFIRMED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_NOT_APPLICABLE",
+      "effect": "NO_EFFECT_CONFIRMED",
+      "event_at": {
+        "completed_at": "UNKNOWN",
+        "started_at": "UNKNOWN"
+      },
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "CONFIRMED_NOT_DONE",
+      "logical_operation_id": "C1-FINALIZE",
+      "outcome": "NOT_APPLICABLE",
+      "parent_operation_id": "C1-JOB",
+      "receipt_at": "2026-10-29T18:28:57.016Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:28:55.996Z",
+      "responded_at": "2026-10-29T18:28:57.016Z",
+      "safe_next_action": "BLOCK",
+      "source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/response/jobs/0/steps/5",
+      "source_kind": "STEP_QUERY_RECEIPT",
+      "state_as_of": "2026-10-29T18:28:57.016Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    },
+    {
+      "acknowledgement": "NOT_EMITTED_CONFIRMED",
+      "action_scope": "No retry/replacement/cancel authority; read receipts are historical immediately after capture",
+      "cleanup": "CLEANUP_NOT_APPLICABLE",
+      "effect": "NO_EFFECT_CONFIRMED",
+      "event_at": {
+        "completed_at": "UNKNOWN",
+        "started_at": "UNKNOWN"
+      },
+      "evidence": "EVIDENCE_VERIFIED",
+      "evidence_scope": "Execution status receipt; exact marker/cleanup reuse requires verified artifact package",
+      "lifecycle": "CONFIRMED_NOT_DONE",
+      "logical_operation_id": "C1-UPLOAD",
+      "outcome": "NOT_APPLICABLE",
+      "parent_operation_id": "C1-JOB",
+      "receipt_at": "2026-10-29T18:28:57.016Z",
+      "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+      "requested_at": "2026-10-29T18:28:55.996Z",
+      "responded_at": "2026-10-29T18:28:57.016Z",
+      "safe_next_action": "BLOCK",
+      "source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/response/jobs/0/steps/6",
+      "source_kind": "STEP_QUERY_RECEIPT",
+      "state_as_of": "2026-10-29T18:28:57.016Z",
+      "supplemental_source_ids": [],
+      "temporal_support": "Orchestrator boundary times retained with raw connector response",
+      "time_source_id": "validations/PP-002/GATE-C/raw/rollover-jobs.json#/receipt_at",
+      "verified_at": "2026-10-29T18:28:58.337952+00:00"
+    }
+  ],
+  "planned_intent": {
+    "accountable_instance": "PP-002",
+    "artifact_count": 1,
+    "attempt_count": 1,
+    "coordinator": "PROJECT_CONTROL / PC-003",
+    "exclusive_effect_count": 1,
+    "hold_seconds": 900,
+    "issuing_session": "PP-002/S01",
+    "job_count": 1,
+    "job_timeout_minutes": 18,
+    "operations": [
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Publish durable pre-emission intent",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C-INTENT-PUBLISH",
+        "operation_type": "CONTROL_PUBLICATION",
+        "parent_operation_id": "NONE",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Publish durable pre-emission intent",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "ADMIN"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "refs/heads/ops/pp-002-gate-c-actions",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Create isolated Gate C branch at frozen input",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C-OPS-CREATE",
+        "operation_type": "GIT_REF_CREATE",
+        "parent_operation_id": "NONE",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Create isolated Gate C branch at frozen input",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "ADMIN"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "refs/heads/ops/pp-002-gate-c-actions",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Advance isolated branch once to bounded harness; emit one workflow",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C-EMIT",
+        "operation_type": "GIT_REF_UPDATE_EMISSION",
+        "parent_operation_id": "NONE",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Advance isolated branch once to bounded harness; emit one workflow",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "ADMIN"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "pp002-gate-c-20261029-01/workflow",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Complete one bounded disposable workflow across real conversation rollover",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C-WORKFLOW",
+        "operation_type": "EXTERNAL_WORKFLOW",
+        "parent_operation_id": "C-EMIT",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Complete one bounded disposable workflow across real conversation rollover",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "WORKFLOW"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "pp002-gate-c-20261029-01/C1",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Execute original effect, bounded hold, cleanup and evidence upload",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C1-JOB",
+        "operation_type": "EXTERNAL_JOB",
+        "parent_operation_id": "C-WORKFLOW",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Execute original effect, bounded hold, cleanup and evidence upload",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "JOB"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "RUNNER_TEMP/pp002-gate-c-20261029-01/C1/effect.marker",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Create exactly one exclusive owned marker",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C1-EFFECT",
+        "operation_type": "DISPOSABLE_NON_IDEMPOTENT_EFFECT",
+        "parent_operation_id": "C1-JOB",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Create exactly one exclusive owned marker",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "EFFECT"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "RUNNER_TEMP/pp002-gate-c-20261029-01/C1",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Keep original operation active across session handoff for at most 900 seconds",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C1-HOLD",
+        "operation_type": "BOUNDED_WAIT",
+        "parent_operation_id": "C1-JOB",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Keep original operation active across session handoff for at most 900 seconds",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "HOLD"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "RUNNER_TEMP/pp002-gate-c-20261029-01/C1",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Check marker ownership and remove only the owned root",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C1-CLEANUP",
+        "operation_type": "APPLICATION_CLEANUP",
+        "parent_operation_id": "C1-JOB",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Check marker ownership and remove only the owned root",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "CLEANUP"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "GITHUB_WORKSPACE/gate-c-evidence/C1/final.json",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Verify one effect and explicit removal; emit final receipt and manifest",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C1-FINALIZE",
+        "operation_type": "EVIDENCE_FINALIZATION",
+        "parent_operation_id": "C1-JOB",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Verify one effect and explicit removal; emit final receipt and manifest",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "FINALIZE"
+      },
+      {
+        "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+        "accountable_owner": "PROTOCOL_PORTABILITY / PP-002",
+        "authority_artifact": "control/PP-002_GATE-C_AUTHORIZATION.md",
+        "closer": "PROTOCOL_PORTABILITY / PP-002; S02 recovers closure; PC-003 assigns a closer if successor unavailable",
+        "effect_output_namespace": "pp002-gate-c-20261029-01-C1-RUN_ID",
+        "emission_channel": "Single authorized branch advance -> Actions; original scheduled children only",
+        "harness_SHA": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "intended_effect": "Upload original raw evidence exactly once with 30-day retention",
+        "issuing_session": "PP-002/S01",
+        "logical_operation_id": "C1-UPLOAD",
+        "operation_type": "ACTIONS_ARTIFACT_UPLOAD",
+        "parent_operation_id": "C1-JOB",
+        "product_subject": "NOT_APPLICABLE / no product execution",
+        "purpose": "Upload original raw evidence exactly once with 30-day retention",
+        "retry_idempotency": "Initial issuance only. Exclusive marker/root. No rerun, second attempt, replacement or blind repeat. Lost identity/ACK requires reconciliation.",
+        "role": "UPLOAD"
+      }
+    ],
+    "remaining_scope": "S02 C-030/040/050/060/070 and terminal Gate C report; no protocol adoption",
+    "retention": "Actions artifact 30 days; S02 copies raw evidence into Git and closes original; branch retained read-only for PC",
+    "role": "PROTOCOL_PORTABILITY",
+    "rollover": "Genuine different conversation initiated by Owner/PC-003 after C-020; no simulated subagent rollover",
+    "stop_boundary": "Successful C-020 control publication ACK is S01 final tool action; no post-publication observation/mutation",
+    "successor_session": "PP-002/S02",
+    "total_job_budget_minutes": 18,
+    "workflow_count": 1
+  },
+  "recorded_at": "2026-10-29T18:28:58.337040+00:00",
+  "revalidation_control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+  "rollover": {
+    "CONTROL_SHA": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+    "INSTANCE_ID": "PP-002",
+    "NON_INHERITED": [
+      "Private chain of thought",
+      "Unrecorded predecessor conversation memory, including automatically surfaced history",
+      "Transient executor-local assumptions",
+      "UI observations not durably captured",
+      "Local files/process state not represented by published evidence",
+      "Any receipt not actually published into the checkpoint/evidence package",
+      "Scratch helper scripts, runtime store variables, credentials or predecessor tool sessions"
+    ],
+    "ROLE": "PROTOCOL_PORTABILITY",
+    "S01_STOP_AFTER_C020_PUBLICATION": true,
+    "S01_post_checkpoint_activity": "Must remain ZERO; S02/PC assesses boundary. Not pre-claimed as completed future evidence.",
+    "S01_stop_declaration": "The successful expected-head/CAS control ref advance publishing C-020 is S01 final tool action. S01 will perform no post-publication observation/polling, mutation, retry, cancellation or cleanup, except a documented emergency explicitly needed to contain an escaping effect.",
+    "SESSION_ID": "PP-002/S01",
+    "accountable_closer": "PROTOCOL_PORTABILITY / PP-002; S02 explicitly recovers closure in C-030; PC-003 assigns closer if S02 unavailable",
+    "accountable_instance": "PP-002",
+    "assignment": "PP-002 \u2014 Execution Interruption Recovery Pilot",
+    "authority": {
+      "blob": "92537ee26b6f9da86cc2fa060d35679d748aff8f",
+      "control": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+      "path": "control/PP-002_GATE-C_AUTHORIZATION.md"
+    },
+    "checkpoint_publication_sha": "RESOLVE_FROM_EXACT_SESSION_ROLLOVER_ENVELOPE_OR_GIT_COMMIT_CONTAINING_THIS_FILE",
+    "control_at_last_verified_parent": "4704b7cbdccf018e11dd7a8184544c24157b9c06",
+    "control_branch": "meta/project-control",
+    "coordinator": "PROJECT_CONTROL / PC-003",
+    "entry_action": "Recover durable authority/custody and get fresh original run/job observations first; no duplicate or retry",
+    "harness_parent": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+    "harness_sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+    "inherited_evidence_inventory": [
+      {
+        "control": "8a3dbbcd50f4f556c8aeb005511501ab27743bf1",
+        "path": "validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json"
+      },
+      {
+        "control": "4704b7cbdccf018e11dd7a8184544c24157b9c06",
+        "path": "validations/PP-002/GATE-C/C-010_INITIAL_OBSERVATION.json"
+      },
+      {
+        "control": "4704b7cbdccf018e11dd7a8184544c24157b9c06",
+        "path": "validations/PP-002/GATE-C/C-010_MANIFEST.json"
+      },
+      {
+        "control": "8a3dbbcd50f4f556c8aeb005511501ab27743bf1",
+        "path": "validations/PP-002/GATE-C/implementation-pin.json"
+      },
+      {
+        "control": "8a3dbbcd50f4f556c8aeb005511501ab27743bf1",
+        "path": "validations/PP-002/GATE-C/historical-negative-result.json"
+      },
+      {
+        "control": "8a3dbbcd50f4f556c8aeb005511501ab27743bf1",
+        "path": "validation/pp002-gate-c/README.md"
+      },
+      {
+        "path": "validation/pp002-gate-c/observer.py",
+        "sha256": "3b8fd9b243573b30845b644a1189ae5624e1d644d074e39137a09451d98e29cf"
+      },
+      {
+        "path": "validation/pp002-gate-b-r1/revalidate.py",
+        "sha256": "0ebe717cb4830d376668a9d3ac193fd026399279c09a68af656e04d566247633"
+      },
+      {
+        "control": "C020_PUBLICATION",
+        "path": "validations/PP-002/GATE-C/raw/rollover-workflow.json"
+      },
+      {
+        "control": "C020_PUBLICATION",
+        "path": "validations/PP-002/GATE-C/raw/rollover-jobs.json"
+      },
+      {
+        "control": "C020_PUBLICATION",
+        "path": "validations/PP-002/GATE-C/S02_DURABLE_RECOVERY_ENTRY.md"
+      },
+      {
+        "control": "C020_PUBLICATION",
+        "path": "validations/PP-002/GATE-C/C-020_REF_CUSTODY.json"
+      }
+    ],
+    "job_ids": [
+      123648451740
+    ],
+    "last_observation_source_ids": [
+      "validations/PP-002/GATE-C/raw/rollover-workflow.json",
+      "validations/PP-002/GATE-C/raw/rollover-jobs.json"
+    ],
+    "latest_validated_snapshot": "C-020_S01_ROLLOVER_CHECKPOINT.json",
+    "latest_validation_source": "C-020_VALIDATION.json",
+    "logical_ledger_source": "C-020_S01_ROLLOVER_CHECKPOINT.json#/observed_state",
+    "namespace": "pp002-gate-c-20261029-01",
+    "operational_branch": "ops/pp-002-gate-c-actions",
+    "owner_approval": {
+      "blob": "57d0529143f50478f1159a84f5aba33aaf7fe618",
+      "path": "control/PP-002_GATE-C_OWNER_APPROVAL.md"
+    },
+    "planned_intent_source": "validations/PP-002/GATE-C/C-000_PRE_EMISSION_INTENT.json#/planned_intent",
+    "prior_snapshot": {
+      "control": "4704b7cbdccf018e11dd7a8184544c24157b9c06",
+      "path": "C-010_INITIAL_OBSERVATION.json"
+    },
+    "protected_refs": [
+      {
+        "branch": "main",
+        "receipt_at": "2026-10-29T18:28:54.356Z",
+        "requested_at": "2026-10-29T18:28:53.823Z",
+        "sha": "54cc3aad246c89a29f2a18be63c539db68cae041",
+        "source": "validations/PP-002/GATE-C/raw/rollover-ref-main.json"
+      },
+      {
+        "branch": "feature/workspace-v0.1",
+        "receipt_at": "2026-10-29T18:28:54.232Z",
+        "requested_at": "2026-10-29T18:28:53.823Z",
+        "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+        "source": "validations/PP-002/GATE-C/raw/rollover-ref-feature-workspace-v0.1.json"
+      },
+      {
+        "branch": "feature/workspace-run-026",
+        "receipt_at": "2026-10-29T18:28:54.416Z",
+        "requested_at": "2026-10-29T18:28:53.823Z",
+        "sha": "e11579950ef7ed20e4b6eeee88f9c3597c1f074b",
+        "source": "validations/PP-002/GATE-C/raw/rollover-ref-feature-workspace-run-026.json"
+      },
+      {
+        "branch": "ops/pp-002-gate-b-actions",
+        "receipt_at": "2026-10-29T18:28:54.233Z",
+        "requested_at": "2026-10-29T18:28:53.823Z",
+        "sha": "dd6e8bfecadab0a83c8008ea65300b1f0ba518f8",
+        "source": "validations/PP-002/GATE-C/raw/rollover-ref-ops-pp-002-gate-b-actions.json"
+      },
+      {
+        "branch": "ops/pp-002-gate-b-r2-actions",
+        "receipt_at": "2026-10-29T18:28:54.206Z",
+        "requested_at": "2026-10-29T18:28:53.823Z",
+        "sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+        "source": "validations/PP-002/GATE-C/raw/rollover-ref-ops-pp-002-gate-b-r2-actions.json"
+      },
+      {
+        "branch": "ops/pp-002-gate-c-actions",
+        "receipt_at": "2026-10-29T18:28:54.621Z",
+        "requested_at": "2026-10-29T18:28:53.823Z",
+        "sha": "9c508d06e3862b4b142e998708026a5ed8757fd0",
+        "source": "validations/PP-002/GATE-C/raw/rollover-ref-ops-pp-002-gate-c-actions.json"
+      },
+      {
+        "branch": "meta/project-control",
+        "receipt_at": "2026-10-29T18:28:54.251Z",
+        "requested_at": "2026-10-29T18:28:53.823Z",
+        "sha": "4704b7cbdccf018e11dd7a8184544c24157b9c06",
+        "source": "validations/PP-002/GATE-C/raw/rollover-ref-meta-project-control.json"
+      }
+    ],
+    "recorded_at": "2026-10-29T18:28:58.024036+00:00",
+    "remaining_checkpoints": [
+      "C-030",
+      "C-040",
+      "C-050",
+      "C-060",
+      "C-070"
+    ],
+    "resource_bounds": {
+      "attempts": 1,
+      "hold_seconds_max": 900,
+      "job_timeout_minutes": 18,
+      "workflow_runs": 1
+    },
+    "retention": {
+      "actions_days": 30,
+      "branch": "Retain exact Gate C harness for PC disposition",
+      "raw_evidence_copy": "S02 verifies/copies original artifact/logs into Gate C Git evidence"
+    },
+    "return_to": "PROJECT_CONTROL / PC-003",
+    "route": {
+      "blob": "bf461388794066991eb1846e082fda599701e157",
+      "control": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+      "path": "routing/ROUTE-PP-002-GATE-C.md"
+    },
+    "run_attempt": 1,
+    "run_id": 40930819906,
+    "safe_next_action": "KEEP_OBSERVING",
+    "source_receipt_times": {
+      "validations/PP-002/GATE-C/raw/rollover-jobs.json": {
+        "receipt_at": "2026-10-29T18:28:57.016Z",
+        "requested_at": "2026-10-29T18:28:55.996Z"
+      },
+      "validations/PP-002/GATE-C/raw/rollover-workflow.json": {
+        "receipt_at": "2026-10-29T18:28:56.387Z",
+        "requested_at": "2026-10-29T18:28:55.996Z"
+      }
+    },
+    "state_information_boundary": "All states are historical as of their source receipts. S02 MUST fetch fresh state before any affected continuation; no later outcome is asserted.",
+    "successor_expected": "PP-002/S02",
+    "successor_start": "Owner/PC-003 starts a different PP-002/S02 conversation from exact durable transfer; no subagent or same-conversation relabeling",
+    "terminal_gate_result": "NOT_ISSUED_BY_S01 / SESSION_ROLLOVER_ONLY",
+    "terminal_report": "protocols/PP-002_GATE-C_REAL_SESSION_ROLLOVER_REPORT.md",
+    "unresolved_items": [
+      "Workflow/job/hold are nonterminal at named receipt; terminal outcome UNKNOWN",
+      "Raw marker/final-package bytes not yet retrieved or verified; do not claim final sufficient evidence",
+      "Owned cleanup step has positive pending receipt; root removal is not yet established",
+      "Retention/disposal and terminal closer disposition remain for S02",
+      "No actual quota exhaustion, involuntary crash or lost issuance ACK is established"
+    ],
+    "workflow_file": ".github/workflows/pp-002-gate-c-rollover.yml",
+    "workflow_independence": "Already-issued bounded hold/finalizers continue without S01 polling. Natural completion before S02 recovery is permitted."
+  },
+  "schema": "PP002-GATE-C-source-ledger-v1",
+  "subject_control_sha": "aa2aba815f4f421ff09fb6c2d51234d36392b08d",
+  "verified_at": "2026-10-29T18:28:58.337952+00:00"
+}

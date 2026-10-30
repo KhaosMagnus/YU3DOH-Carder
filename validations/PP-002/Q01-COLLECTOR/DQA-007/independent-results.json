@@ -1,0 +1,185 @@
+{
+  "checks": [
+    {
+      "name": "positive connected exact-history fake control",
+      "passed": true,
+      "detail": {
+        "callbacks": 1,
+        "outcome": {
+          "invoked": true,
+          "reason": "BOTH_SCOPED_CHECKS_PASS"
+        }
+      }
+    },
+    {
+      "name": "stale authority",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+        }
+      }
+    },
+    {
+      "name": "stale accountable closer",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+        }
+      }
+    },
+    {
+      "name": "stale source index origin",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+        }
+      }
+    },
+    {
+      "name": "stale payload bytes",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+        }
+      }
+    },
+    {
+      "name": "stale actual output path",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+        }
+      }
+    },
+    {
+      "name": "stale dependency",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "VALIDATED_BUNDLE_CHANGED_OR_BLOCKED"
+        }
+      }
+    },
+    {
+      "name": "unbound passing state checker",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "STATE_CHECK_BLOCKED_OR_UNBOUND"
+        }
+      }
+    },
+    {
+      "name": "state checker UNKNOWN",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "STATE_CHECK_BLOCKED_OR_UNBOUND"
+        }
+      }
+    },
+    {
+      "name": "content-only cannot authorize fresh state",
+      "passed": true,
+      "detail": {
+        "callbacks": 0,
+        "outcome": {
+          "invoked": false,
+          "reason": "CONTENT_NOT_FRESH_STATE"
+        }
+      }
+    },
+    {
+      "name": "content positive fake without freshness claim",
+      "passed": true,
+      "detail": {
+        "callbacks": 1,
+        "outcome": {
+          "invoked": true,
+          "reason": "BOTH_SCOPED_CHECKS_PASS"
+        }
+      }
+    },
+    {
+      "name": "unknown issuance preserved across profiles",
+      "passed": true,
+      "detail": {
+        "history": "UNKNOWN",
+        "content": "PASS"
+      }
+    },
+    {
+      "name": "equal numeric clock improper recorded_at",
+      "passed": true,
+      "detail": "FAIL"
+    },
+    {
+      "name": "equal numeric clock improper verified_at",
+      "passed": true,
+      "detail": "FAIL"
+    },
+    {
+      "name": "equal numeric clock proper independent pointers",
+      "passed": true,
+      "detail": "PASS"
+    },
+    {
+      "name": "swapped correlation cannot pass content",
+      "passed": true,
+      "detail": "FAIL"
+    },
+    {
+      "name": "raw Q01 wrong-ref identical-blob oracle",
+      "passed": true,
+      "detail": {
+        "declared_ref": "34011f6466ce096b310ef1c43c277d2bfd2af7aa",
+        "attested_actual_ref": "1352de4daddc6c2143943af2ad7142333f7be963",
+        "blobs": [
+          "1b8055add2533d04e6c3b42e6344e3bee9c46614",
+          "1b8055add2533d04e6c3b42e6344e3bee9c46614"
+        ],
+        "request_issuance": "UNKNOWN",
+        "timing_origin": "LATER_ATTESTATION"
+      }
+    },
+    {
+      "name": "raw R2 administrative mismatch oracle",
+      "passed": true,
+      "detail": {
+        "plan": "validations/PP-002/GATE-B-R2/000_INTENT.json",
+        "actual": "validations/PP-002/GATE-B-R2/R2-000_INTENT.json",
+        "read_ref": "ac0e60ad0126945bd560c32ecb82596a360590bc",
+        "publication_ref": "e319d4b03cc04fd07dc88df90e06071bfff53ef2",
+        "effect_axes": "UNCHANGED"
+      }
+    },
+    {
+      "name": "raw R2 publication and later read are distinct memberships",
+      "passed": true,
+      "detail": "f2563ec430bce506abcf8d4bcc4d032a9272ee40"
+    }
+  ],
+  "count": 19,
+  "all_passed": true
+}

@@ -1,0 +1,27 @@
+test_absent_source_time_does_not_use_current_clock (test_revalidate.ConsistencyTests.test_absent_source_time_does_not_use_current_clock) ... ok
+test_cannot_drop_or_duplicate_material_claims (test_revalidate.ConsistencyTests.test_cannot_drop_or_duplicate_material_claims) ... ok
+test_corrected_positive_zero_violations (test_revalidate.ConsistencyTests.test_corrected_positive_zero_violations) ... ok
+test_event_time_cannot_be_relabelled_response_time (test_revalidate.ConsistencyTests.test_event_time_cannot_be_relabelled_response_time) ... ok
+test_extra_assembly_observation_alias_cannot_bypass_timestamp_checks (test_revalidate.ConsistencyTests.test_extra_assembly_observation_alias_cannot_bypass_timestamp_checks) ... ok
+test_independent_expected_historical_states (test_revalidate.ConsistencyTests.test_independent_expected_historical_states) ... ok
+test_input_byte_mutation_is_rejected (test_revalidate.ConsistencyTests.test_input_byte_mutation_is_rejected) ... ok
+test_intent_is_not_an_observed_state_source (test_revalidate.ConsistencyTests.test_intent_is_not_an_observed_state_source) ... ok
+test_later_cleanup_must_not_be_projected_backward (test_revalidate.ConsistencyTests.test_later_cleanup_must_not_be_projected_backward) ... ok
+test_legacy_ack_alias_cannot_coexist_as_an_unchecked_false_claim (test_revalidate.ConsistencyTests.test_legacy_ack_alias_cannot_coexist_as_an_unchecked_false_claim) ... ok
+test_missing_child_observations_are_unknown_not_planned_or_future (test_revalidate.ConsistencyTests.test_missing_child_observations_are_unknown_not_planned_or_future) ... ok
+test_missing_or_cross_operation_source_rejected (test_revalidate.ConsistencyTests.test_missing_or_cross_operation_source_rejected) ... ok
+test_missing_request_time_remains_unknown (test_revalidate.ConsistencyTests.test_missing_request_time_remains_unknown) ... ok
+test_operation_specific_pending_step_is_positive_nonstart_evidence (test_revalidate.ConsistencyTests.test_operation_specific_pending_step_is_positive_nonstart_evidence) ... ok
+test_parent_identity_cannot_silently_change (test_revalidate.ConsistencyTests.test_parent_identity_cannot_silently_change) ... ok
+test_recorded_time_cannot_be_observation_time (test_revalidate.ConsistencyTests.test_recorded_time_cannot_be_observation_time) ... ok
+test_reintroduced_known_state_defects_rejected (test_revalidate.ConsistencyTests.test_reintroduced_known_state_defects_rejected) ... ok
+test_required_original_rejected_with_all_five_operations (test_revalidate.ConsistencyTests.test_required_original_rejected_with_all_five_operations) ... ok
+test_required_original_timestamp_defect (test_revalidate.ConsistencyTests.test_required_original_timestamp_defect) ... ok
+test_unknown_outcome_does_not_become_success (test_revalidate.ConsistencyTests.test_unknown_outcome_does_not_become_success) ... ok
+test_validator_does_not_use_d01_report_verdict_list (test_revalidate.ConsistencyTests.test_validator_does_not_use_d01_report_verdict_list) ... ok
+test_verified_time_cannot_fill_absent_receipt (test_revalidate.ConsistencyTests.test_verified_time_cannot_fill_absent_receipt) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.079s
+
+OK

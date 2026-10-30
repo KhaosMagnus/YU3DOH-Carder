@@ -1,0 +1,56 @@
+{
+  "wait_started_at": "2026-10-29T16:59:40.774Z",
+  "minimum_timer_wait_seconds": 220,
+  "wait_completed_at": "2026-10-29T17:03:35.465Z",
+  "recovered_run_id": 40916583578,
+  "harness_sha": "0e679ad863076098d92d8a7704f6ca88948b651b",
+  "run_attempt": 1,
+  "durable_recovery_reads": [
+    {
+      "key": "authorization",
+      "path": "control/PP-002_GATE-B-R2_AUTHORIZATION.md",
+      "ref": "930dcab160df28c7606991cff4388fea29f351cf",
+      "requested_at": "2026-10-29T17:03:58.345Z",
+      "receipt_at": "2026-10-29T17:03:58.664Z",
+      "encoding": "utf-8",
+      "sha": "d70a449107254b081c684195d4734f964f65bc08",
+      "display_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/930dcab160df28c7606991cff4388fea29f351cf/control/PP-002_GATE-B-R2_AUTHORIZATION.md",
+      "display_title": "PP-002_GATE-B-R2_AUTHORIZATION.md"
+    },
+    {
+      "key": "intent",
+      "path": "validations/PP-002/GATE-B-R2/R2-000_INTENT.json",
+      "ref": "ac0e60ad0126945bd560c32ecb82596a360590bc",
+      "requested_at": "2026-10-29T17:03:58.345Z",
+      "receipt_at": "2026-10-29T17:03:58.949Z",
+      "encoding": "utf-8",
+      "sha": "f2563ec430bce506abcf8d4bcc4d032a9272ee40",
+      "display_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/ac0e60ad0126945bd560c32ecb82596a360590bc/validations/PP-002/GATE-B-R2/R2-000_INTENT.json",
+      "display_title": "R2-000_INTENT.json"
+    },
+    {
+      "key": "checkpoint",
+      "path": "validations/PP-002/GATE-B-R2/R2-020_OBSERVATION_LOSS.json",
+      "ref": "ac0e60ad0126945bd560c32ecb82596a360590bc",
+      "requested_at": "2026-10-29T17:03:58.345Z",
+      "receipt_at": "2026-10-29T17:03:58.719Z",
+      "encoding": "utf-8",
+      "sha": "22972e04f35815d2dc515b6f24e83c9ee13ee4b3",
+      "display_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/ac0e60ad0126945bd560c32ecb82596a360590bc/validations/PP-002/GATE-B-R2/R2-020_OBSERVATION_LOSS.json",
+      "display_title": "R2-020_OBSERVATION_LOSS.json"
+    },
+    {
+      "key": "loss_plan",
+      "path": "validations/PP-002/GATE-B-R2/R2-020_LOSS_PLAN.json",
+      "ref": "ac0e60ad0126945bd560c32ecb82596a360590bc",
+      "requested_at": "2026-10-29T17:03:58.345Z",
+      "receipt_at": "2026-10-29T17:03:58.848Z",
+      "encoding": "utf-8",
+      "sha": "97cd0917a97be62769a21cc5db3175a28a34811e",
+      "display_url": "https://github.com/KhaosMagnus/YU3DOH-Carder/blob/ac0e60ad0126945bd560c32ecb82596a360590bc/validations/PP-002/GATE-B-R2/R2-020_LOSS_PLAN.json",
+      "display_title": "R2-020_LOSS_PLAN.json"
+    }
+  ],
+  "terminal_state_inherited": false,
+  "workflow_emission_allowed": false
+}
