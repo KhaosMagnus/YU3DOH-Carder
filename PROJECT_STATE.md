@@ -120,7 +120,31 @@ PP-002 official final disposition:
 runs/PP-002_FINAL_REVISE_DISPOSITION.md
 
 Next bounded work:
-P01/P02 existing-evidence assessment closed at current record / intake if genuinely new independent evidence arrives; Q01 offline correction DESIGN ONLY routed to PP-002
+Q02-DES-001 — Q01 Project Control Integration Architecture / resilience closure readiness; DESIGN ONLY; Owner approved scope/design preparation. P01/P02 intake remains dependent on genuinely new independently attributable evidence.
+
+Q02 Owner design direction:
+control/PP-002_Q02_OWNER_DESIGN_APPROVAL.md
+
+Q02 frozen design scope:
+control/PP-002_Q02_Q01_INTEGRATION_DESIGN_SCOPE.md
+
+Q02 design authorization:
+control/PP-002_Q02_Q01_INTEGRATION_DESIGN_AUTHORIZATION.md
+
+Q02 design route:
+routing/ROUTE-PP-002-Q02-Q01-INTEGRATION-DESIGN.md
+
+Q02 design owner:
+PROTOCOL_PORTABILITY / PP-002
+
+Q02 expected handoff:
+handoffs/PP-002_Q02_Q01_CONTROL_INTEGRATION_DESIGN_HANDOFF.md
+
+Q02 status:
+AUTHORIZED / DESIGN NOT YET DELIVERED / NO IMPLEMENTATION OR LIVE INTEGRATION
+
+Q02 future implementation/integration/adoption:
+NOT AUTHORIZED; requires fresh PC-003 and Owner decisions under applicable authority
 
 P01/P02 evidence sufficiency:
 control/PP-002_P01_P02_EXISTING_EVIDENCE_ASSESSMENT.md

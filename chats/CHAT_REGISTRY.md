@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Q01 DQA-007 PASS disposition / offline closure | Q01 offline accepted; Gate C and experiment REVISE unchanged |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Q02-DES-001 integration architecture design routed | Q01 offline PASS closed; design only, no live adoption |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | Q01-IMPL-001 COMPLETE / ACCEPTED OFFLINE | Q01 collector guard implementation | DQA-007 independent PASS on exact candidate; no live integration |
+| PP-002 | PROTOCOL_PORTABILITY | Q01 CLOSED / Q02 DESIGN AUTHORIZED | Q02-DES-001 integration architecture and closure readiness | Q01 DQA-007 PASS retained; implementation not authorized |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
@@ -75,6 +75,24 @@ Q01 QA publication:
 
 Q01 integration/adoption:
 NOT AUTHORIZED
+
+Q02 integration design:
+AUTHORIZED / DESIGN ONLY / PROTOCOL_PORTABILITY PP-002
+
+Q02 Owner direction:
+control/PP-002_Q02_OWNER_DESIGN_APPROVAL.md
+
+Q02 frozen scope:
+control/PP-002_Q02_Q01_INTEGRATION_DESIGN_SCOPE.md
+
+Q02 authorization:
+control/PP-002_Q02_Q01_INTEGRATION_DESIGN_AUTHORIZATION.md
+
+Q02 route:
+routing/ROUTE-PP-002-Q02-Q01-INTEGRATION-DESIGN.md
+
+Q02 expected design handoff:
+handoffs/PP-002_Q02_Q01_CONTROL_INTEGRATION_DESIGN_HANDOFF.md
 
 Q01 implementation candidate:
 328e57035d34f98c4d8d417729e8b12f91894e95
