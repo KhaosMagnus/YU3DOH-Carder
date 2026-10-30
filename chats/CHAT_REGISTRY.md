@@ -5,11 +5,11 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Q01 candidate intake / DQA-007 independent QA routing | Self-test not independent acceptance; no live authority |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Q01 DQA-007 PASS disposition / offline closure | Q01 offline accepted; Gate C and experiment REVISE unchanged |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | Q01 IMPLEMENTED / READY FOR INDEPENDENT REVIEW | Q01-IMPL-001 candidate frozen at 328e57035d34 | 31 family self-tests reported; QA pending |
+| PP-002 | PROTOCOL_PORTABILITY | Q01-IMPL-001 COMPLETE / ACCEPTED OFFLINE | Q01 collector guard implementation | DQA-007 independent PASS on exact candidate; no live integration |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
-| DQA-007 | DESIGN_QA | AUTHORIZED / NOT YET STARTED | Q01-IMPL-001 independent offline QA | Exact candidate 328e57035d34; no QA verdict issued |
+| DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
 | DEPLOY-006 | DEPLOYMENT_VALIDATION | COMPLETE / EVIDENCE ACCESS READY | RUN 026 evidence transport | artifact 12838688889 |
 | DQA-005 | DESIGN_QA | COMPLETE / INCONCLUSIVE | RUN 026 / CR-0002 | historical |
@@ -62,7 +62,19 @@ Q01 offline implementation route:
 routing/ROUTE-PP-002_Q01_OFFLINE_IMPLEMENTATION.md
 
 Q01 external QA:
-AUTHORIZED / DQA-007 / PENDING INDEPENDENT RESULT
+CLOSED / DQA-007 / PASS / OFFLINE ONLY
+
+Q01 official QA disposition:
+runs/PP-002_Q01_DQA-007_PASS_DISPOSITION.md
+
+Q01 independent QA report:
+validations/PP-002/Q01-COLLECTOR/DQA-007_EXTERNAL_QA_REPORT.md
+
+Q01 QA publication:
+2908496953319926131d05c3dd1e5f4e8d3f84bb
+
+Q01 integration/adoption:
+NOT AUTHORIZED
 
 Q01 implementation candidate:
 328e57035d34f98c4d8d417729e8b12f91894e95
@@ -73,8 +85,8 @@ runs/PP-002_Q01_IMPLEMENTATION_INTAKE.md
 DQA-007 primary QA route:
 routing/ROUTE-PP-002-Q01-DQA-007.md
 
-DQA-007 report pending:
-validations/PP-002/Q01-COLLECTOR/DQA-007_EXTERNAL_QA_REPORT.md
+DQA-007 report finalized:
+validations/PP-002/Q01-COLLECTOR/DQA-007_EXTERNAL_QA_REPORT.md @ blob e3196b1991d5a1b798b760a37891d70ea9ac10b9
 
 Historical read-only recommendation route:
 routing/ROUTE-PP-002-FINAL_EXPERIMENT_RECOMMENDATION.md

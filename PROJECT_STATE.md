@@ -141,7 +141,7 @@ Q01 design disposition:
 runs/PP-002_Q01_DESIGN_ACCEPTANCE.md
 
 Q01 offline implementation:
-DELIVERED / READY FOR INDEPENDENT QA / NOT YET INDEPENDENTLY ACCEPTED
+CLOSED / IMPLEMENTED / INDEPENDENT QA PASS / ACCEPTED OFFLINE ONLY
 
 Q01 implementation candidate:
 meta/project-control @ 328e57035d34f98c4d8d417729e8b12f91894e95
@@ -155,8 +155,8 @@ Q01 delivery:
 Q01 implementation intake:
 runs/PP-002_Q01_IMPLEMENTATION_INTAKE.md
 
-Q01 self-test reported:
-F01-F31 / 79 subcases / 138 profile results per replay / 590055 byte-identical semantic bytes / original R1 and Gate C regression self-tests, independent QA pending
+Q01 self-test historical record:
+F01-F31 / 79 subcases / 138 profile results per replay / 590055 byte-identical semantic bytes; superseded for acceptance by independent DQA-007 PASS
 
 Q01 authorized implementation scope:
 Q01-IMPL-001 @ control/PP-002_Q01_OFFLINE_IMPLEMENTATION_AUTHORIZATION.md
@@ -168,7 +168,22 @@ Q01 offline evidence root:
 validations/PP-002/Q01-COLLECTOR/Q01-IMPL-001/**
 
 Q01 independent QA:
-AUTHORIZED / DQA-007 / NOT STARTED AT ACTIVATION
+CLOSED / DQA-007 / PASS / OFFLINE ONLY
+
+Q01 QA published:
+meta/project-control @ 2908496953319926131d05c3dd1e5f4e8d3f84bb
+
+Q01 QA report:
+validations/PP-002/Q01-COLLECTOR/DQA-007_EXTERNAL_QA_REPORT.md @ blob e3196b1991d5a1b798b760a37891d70ea9ac10b9
+
+Q01 official QA disposition:
+runs/PP-002_Q01_DQA-007_PASS_DISPOSITION.md
+
+Q01 validated target:
+328e57035d34f98c4d8d417729e8b12f91894e95 / 590055-byte reproducible semantic replay / F01-F31 / unchanged R1 and Gate C
+
+Q01 live integration:
+NOT AUTHORIZED; NO AUTOMATIC SUCCESSOR OR ADOPTION
 
 Q01 QA authorization:
 control/PP-002_Q01_DQA-007_INDEPENDENT_QA_AUTHORIZATION.md
