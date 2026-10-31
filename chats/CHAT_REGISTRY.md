@@ -5,7 +5,7 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Option I independent evidence QA accepted; Owner custodian evidence choice pending | S1/S2 unproven; prototype NO-GO; GOV-BRANCH-001 deferred |
+| PC-003 | PROJECT_CONTROL | ACTIVE | C1 Owner approved; P0 nonsecret platform/issuer/runtime custodian evidence requested | No response attested; S1/S2 unproven; GOV-BRANCH-001 deferred |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
 | PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 COMPLETE / EVIDENCE INTAKE PASS | Option I source 3d80a1fe / DQA-009 ff4db019 | 4 UNKNOWN / 4 PARTIAL; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
@@ -192,8 +192,29 @@ validations/PP-002/Q02-I/DQA-009_INDEPENDENT_EVIDENCE_QA_REPORT.md @ blob 3399a4
 Q02 Option I coordinator PASS disposition:
 runs/PP-002_Q02_I_DQA-009_EVIDENCE_PASS_DISPOSITION.md
 
-Q02 next Owner custodian evidence decision:
-control/PP-002_Q02_POST_I_EXTERNAL_CUSTODIAN_EVIDENCE_OWNER_DECISION_REQUEST.md / PENDING / NO CONFIGURATION OR EXECUTION
+Q02 Owner custodian evidence decision source:
+control/PP-002_Q02_POST_I_EXTERNAL_CUSTODIAN_EVIDENCE_OWNER_DECISION_REQUEST.md / C1 APPROVED
+
+Q02 C1 Owner approval:
+control/PP-002_Q02_C1_OWNER_EXTERNAL_EVIDENCE_APPROVAL.md
+
+Q02 C1 frozen scope:
+control/PP-002_Q02_C1_EXTERNAL_EVIDENCE_CAPTURE_SCOPE.md
+
+Q02 C1 effective authorization:
+control/PP-002_Q02_C1_EXTERNAL_EVIDENCE_CAPTURE_AUTHORIZATION.md
+
+Q02 C1 owner-assisted route:
+routing/ROUTE-PP-002-Q02-C1_OWNER_CUSTODIAN_INTAKE.md
+
+Q02 C1 external nonsecret request:
+validations/PP-002/Q02-C1/C1_ATTRIBUTABLE_NONSECRET_CUSTODIAN_REQUEST.md
+
+Q02 C1 evidence receipt/QA contract:
+validations/PP-002/Q02-C1/C1_EVIDENCE_RECEIPT_AND_ADJUDICATION_CONTRACT.md
+
+Q02 C1 activation record:
+runs/PP-002_Q02_C1_ACTIVATION_AND_OPEN_DEPENDENCIES.md / P0 EVIDENCE PENDING / NO TECHNICAL SECURITY GO
 
 Q02 Option I DQA scope:
 control/PP-002_Q02_I_DQA-009_REVIEW_SCOPE.md
