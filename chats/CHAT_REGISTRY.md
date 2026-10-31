@@ -5,10 +5,10 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | F1 returned, source verified; independent F1-DQA-001 routed to DQA-008 | S1/S2 unproven; prototype NO-GO |
+| PC-003 | PROJECT_CONTROL | ACTIVE | F1-DQA-008 paper PASS adjudication; Owner evidence/placement decision pending | S1/S2 NOT PROVEN; implementation NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
 | PP-002 | PROTOCOL_PORTABILITY | F1-SEC-FEAS-001 COMPLETE / DELIVERED | Candidate deabe05f / exact blob 96b23062 | Independent QA pending; no live authority |
-| DQA-008 | DESIGN_QA | F1-DQA-001 AUTHORIZED / AWAITING INDEPENDENT ACTIVATION | F1 feasibility/configuration contract review | DQ01–DQ10; paper-only, no settings or tests |
+| DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
@@ -144,7 +144,19 @@ Q02 F1 delivered design handoff:
 handoffs/PP-002_Q02_F1_FEASIBILITY_AND_CONFIGURATION_CONTRACT.md @ deabe05ff68facee4ac36a9ef45c599a54331c83 / blob 96b23062330006f59790883e87df4c095b37c5b2
 
 Q02 F1 independent design QA:
-F1-DQA-001 / DESIGN_QA DQA-008 / AUTHORIZED / REPORT PENDING
+F1-DQA-001 / DQA-008 / COMPLETE / PAPER PASS ONLY
+
+Q02 F1 independent report:
+validations/PP-002/Q02-F1/DQA-008_INDEPENDENT_DESIGN_QA_REPORT.md @ b2944e41131ff675fad9ed4248c88a372325706a / blob c5c78b74d354ba14c5dfa364a07bc3cdcd751f98
+
+Q02 F1 official PASS disposition:
+runs/PP-002_Q02_F1_DQA-008_PASS_DISPOSITION.md
+
+Q02 next Owner identity/placement decision:
+control/PP-002_Q02_POST_F1_PLACEMENT_AND_IDENTITY_EVIDENCE_DECISION_REQUEST.md / PENDING
+
+Q02 security status:
+S1-S2 NOT PROVEN / NO REAL CONFIGURATION / Q02-PROT-001 NO-GO
 
 Q02 F1 DQA scope:
 control/PP-002_Q02_F1_DQA-008_INDEPENDENT_REVIEW_SCOPE.md
