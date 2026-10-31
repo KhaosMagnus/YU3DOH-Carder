@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | B1 security design accepted; Owner configuration/B2 choice pending | S1-S2 unproven; prototype NO-GO |
+| PC-003 | PROJECT_CONTROL | ACTIVE | F1 Owner approval; read-only B1 feasibility contract routed | S1-S2 unproven; prototype NO-GO; no settings changes |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | B1-SEC-DES-001 COMPLETE / DESIGN ACCEPTED | B1 permission isolation handoff delivered | S1/S2 unproven; Q02-PROT-001 not authorized |
+| PP-002 | PROTOCOL_PORTABILITY | F1-SEC-FEAS-001 AUTHORIZED / DESIGN ONLY | B1 identity/ruleset viability and exact future qualification packet | No live configuration/prototype authority |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
@@ -121,8 +121,29 @@ handoffs/PP-002_Q02_B1_PERMISSION_ISOLATION_DESIGN_HANDOFF.md @ blob d89194237b1
 Q02 B1 design disposition:
 runs/PP-002_Q02_B1_SECURITY_DESIGN_ACCEPTANCE.md / ACCEPT DESIGN
 
-Q02 next Owner security path decision:
-control/PP-002_Q02_B1_SECURITY_NEXT_OWNER_DECISION_REQUEST.md / PENDING
+Q02 Owner F1 decision source:
+control/PP-002_Q02_B1_SECURITY_NEXT_OWNER_DECISION_REQUEST.md / F1 SELECTED
+
+Q02 F1 Owner approval:
+control/PP-002_Q02_F1_OWNER_FEASIBILITY_APPROVAL.md
+
+Q02 F1 read-only configuration snapshot:
+validations/PP-002/Q02-B1-SECURITY/PC-003_F1_READ_ONLY_CONFIGURATION_SNAPSHOT.md
+
+Q02 F1 frozen scope:
+control/PP-002_Q02_F1_FEASIBILITY_CONTRACT_SCOPE.md
+
+Q02 F1 authorization:
+control/PP-002_Q02_F1_FEASIBILITY_DESIGN_AUTHORIZATION.md
+
+Q02 F1 implementation route (design only):
+routing/ROUTE-PP-002-Q02-F1-FEASIBILITY-CONTRACT.md
+
+Q02 F1 expected design handoff:
+handoffs/PP-002_Q02_F1_FEASIBILITY_AND_CONFIGURATION_CONTRACT.md
+
+Q02 F1 independent contract QA:
+PLANNED / TO BE ASSIGNED BY PC-003 AFTER RETURN
 
 Q02-PROT-001 execution:
 NOT AUTHORIZED / NO EXPERIMENTAL BRANCH CREATED
