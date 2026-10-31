@@ -5,9 +5,10 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | F1 Owner approval; read-only B1 feasibility contract routed | S1-S2 unproven; prototype NO-GO; no settings changes |
+| PC-003 | PROJECT_CONTROL | ACTIVE | F1 returned, source verified; independent F1-DQA-001 routed to DQA-008 | S1/S2 unproven; prototype NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | F1-SEC-FEAS-001 AUTHORIZED / DESIGN ONLY | B1 identity/ruleset viability and exact future qualification packet | No live configuration/prototype authority |
+| PP-002 | PROTOCOL_PORTABILITY | F1-SEC-FEAS-001 COMPLETE / DELIVERED | Candidate deabe05f / exact blob 96b23062 | Independent QA pending; no live authority |
+| DQA-008 | DESIGN_QA | F1-DQA-001 AUTHORIZED / AWAITING INDEPENDENT ACTIVATION | F1 feasibility/configuration contract review | DQ01–DQ10; paper-only, no settings or tests |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
@@ -139,11 +140,26 @@ control/PP-002_Q02_F1_FEASIBILITY_DESIGN_AUTHORIZATION.md
 Q02 F1 implementation route (design only):
 routing/ROUTE-PP-002-Q02-F1-FEASIBILITY-CONTRACT.md
 
-Q02 F1 expected design handoff:
-handoffs/PP-002_Q02_F1_FEASIBILITY_AND_CONFIGURATION_CONTRACT.md
+Q02 F1 delivered design handoff:
+handoffs/PP-002_Q02_F1_FEASIBILITY_AND_CONFIGURATION_CONTRACT.md @ deabe05ff68facee4ac36a9ef45c599a54331c83 / blob 96b23062330006f59790883e87df4c095b37c5b2
 
-Q02 F1 independent contract QA:
-PLANNED / TO BE ASSIGNED BY PC-003 AFTER RETURN
+Q02 F1 independent design QA:
+F1-DQA-001 / DESIGN_QA DQA-008 / AUTHORIZED / REPORT PENDING
+
+Q02 F1 DQA scope:
+control/PP-002_Q02_F1_DQA-008_INDEPENDENT_REVIEW_SCOPE.md
+
+Q02 F1 DQA authorization:
+control/PP-002_Q02_F1_DQA-008_INDEPENDENT_QA_AUTHORIZATION.md
+
+Q02 F1 DQA request:
+validations/PP-002/Q02-F1/DQA-008_INDEPENDENT_DESIGN_QA_REQUEST.md
+
+Q02 F1 DQA route:
+routing/ROUTE-PP-002-Q02-F1-DQA-008.md
+
+Q02 F1 DQA planned report:
+validations/PP-002/Q02-F1/DQA-008_INDEPENDENT_DESIGN_QA_REPORT.md
 
 Q02-PROT-001 execution:
 NOT AUTHORIZED / NO EXPERIMENTAL BRANCH CREATED
