@@ -5,10 +5,10 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Option I delivered; DQA-009 independent source QA routed | S1/S2 NOT PROVEN; GOV-BRANCH-001 deferred |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Option I independent evidence QA accepted; Owner custodian evidence choice pending | S1/S2 unproven; prototype NO-GO; GOV-BRANCH-001 deferred |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 COMPLETE / RETURNED | Option I identity evidence report @ 3d80a1fe | 4 UNKNOWN / 4 PARTIAL; QA pending |
-| DQA-009 | DESIGN_QA | I-DQA-001 AUTHORIZED / AWAITING ACTIVATION | Independent Option I evidence fidelity review | IR01–IR08 / no S1/S2 or prototype GO |
+| PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 COMPLETE / EVIDENCE INTAKE PASS | Option I source 3d80a1fe / DQA-009 ff4db019 | 4 UNKNOWN / 4 PARTIAL; S1/S2 NO-GO |
+| DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
@@ -181,7 +181,19 @@ Q02 Option I receipt:
 runs/PP-002_Q02_I_EVIDENCE_INTAKE_RECEIPT.md
 
 Q02 Option I independent evidence QA:
-I-DQA-001 / DESIGN_QA DQA-009 / AUTHORIZED / REPORT PENDING
+I-DQA-001 / DQA-009 / COMPLETE / PASS INTAKE QUALITY ONLY
+
+Q02 Option I DQA publication:
+ff4db0195a28c6d4fc82f40f3c191d10a7430c85
+
+Q02 Option I DQA exact report:
+validations/PP-002/Q02-I/DQA-009_INDEPENDENT_EVIDENCE_QA_REPORT.md @ blob 3399a48b75763e650d41f49b2e28fbc52942ca62
+
+Q02 Option I coordinator PASS disposition:
+runs/PP-002_Q02_I_DQA-009_EVIDENCE_PASS_DISPOSITION.md
+
+Q02 next Owner custodian evidence decision:
+control/PP-002_Q02_POST_I_EXTERNAL_CUSTODIAN_EVIDENCE_OWNER_DECISION_REQUEST.md / PENDING / NO CONFIGURATION OR EXECUTION
 
 Q02 Option I DQA scope:
 control/PP-002_Q02_I_DQA-009_REVIEW_SCOPE.md
