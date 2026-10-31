@@ -267,7 +267,46 @@ Q02 F1 carry-forward findings:
 M01 MEDIUM / B1 N1 product-tag-cleanup/unlisted-work bounded continuity; M02 MEDIUM / W-K cross-writer lifecycle qualification; L01 LOW / alternate tag inventory
 
 Q02 next Owner evidence and placement decision:
-control/PP-002_Q02_POST_F1_PLACEMENT_AND_IDENTITY_EVIDENCE_DECISION_REQUEST.md / PENDING
+control/PP-002_Q02_POST_F1_PLACEMENT_AND_IDENTITY_EVIDENCE_DECISION_REQUEST.md / OPTION I SELECTED / B1-B2 PLACEMENT STILL UNDECIDED
+
+Q02 Option I Owner approval:
+control/PP-002_Q02_I_OWNER_EVIDENCE_INTAKE_APPROVAL.md / READ-ONLY NONSECRET EVIDENCE ONLY
+
+Q02 Option I frozen scope:
+control/PP-002_Q02_I_EVIDENCE_INTAKE_SCOPE.md
+
+Q02 Option I effective authorization:
+control/PP-002_Q02_I_EVIDENCE_INTAKE_AUTHORIZATION.md
+
+Q02 Option I evidence request:
+validations/PP-002/Q02-I/PP-002_IDENTITY_EVIDENCE_INTAKE_REQUEST.md
+
+Q02 Option I route:
+routing/ROUTE-PP-002-Q02-I-IDENTITY-EVIDENCE.md
+
+Q02 Option I initial read-only source:
+validations/PP-002/Q02-I/PC-003_INITIAL_NONSECRET_EVIDENCE_SNAPSHOT.md
+
+Q02 Option I assigned work:
+I-SEC-EVID-001 / PROTOCOL_PORTABILITY PP-002 / READ-ONLY / SINGLE ADDITIVE REPORT
+
+Q02 Option I expected report:
+validations/PP-002/Q02-I/PP-002_IDENTITY_AND_ROUTE_EVIDENCE_REPORT.md
+
+Q02 Option I independent evidence QA:
+NOT YET AUTHORIZED / TO BE ROUTED AFTER RETURN
+
+Q02 security gates:
+S1-S2 UNPROVEN / B1-B2 PROTOTYPE NO-GO; NO SETTINGS OR CODE AUTHORITY
+
+Deferred governance backlog:
+GOV-BRANCH-001 — GitHub branch-retirement audit / IMPORTANT / DEFERRED / NO REF DELETION AUTHORIZED
+
+Deferred branch observation:
+backlog/GOV_BRANCH_RETIREMENT_DEFERRED_OBSERVATION.md
+
+Priority checkpoints (MUST PRESERVE):
+feature/serial-v0.1, feature/workspace-v0.1, main, meta/project-control (plus any additional later verified checkpoint)
 
 Q02 future placement:
 B1-N1 CONDITIONAL / B2 PREFERRED PROVISIONALLY FOR BOUNDED OFFLINE PROTOTYPE / NEITHER AUTHORIZED

@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | F1-DQA-008 paper PASS adjudication; Owner evidence/placement decision pending | S1/S2 NOT PROVEN; implementation NO-GO |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Option I approved and identity evidence intake routed; GOV-BRANCH-001 deferred | S1/S2 NOT PROVEN; no branch removal or prototype |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | F1-SEC-FEAS-001 COMPLETE / DELIVERED | Candidate deabe05f / exact blob 96b23062 | Independent QA pending; no live authority |
+| PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 AUTHORIZED / READ-ONLY | Option I nonsecret identity/connection evidence intake | S1/S2 unproven; no live tools or security changes |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
@@ -152,8 +152,35 @@ validations/PP-002/Q02-F1/DQA-008_INDEPENDENT_DESIGN_QA_REPORT.md @ b2944e41131f
 Q02 F1 official PASS disposition:
 runs/PP-002_Q02_F1_DQA-008_PASS_DISPOSITION.md
 
-Q02 next Owner identity/placement decision:
-control/PP-002_Q02_POST_F1_PLACEMENT_AND_IDENTITY_EVIDENCE_DECISION_REQUEST.md / PENDING
+Q02 Owner identity/placement decision:
+control/PP-002_Q02_POST_F1_PLACEMENT_AND_IDENTITY_EVIDENCE_DECISION_REQUEST.md / OPTION I SELECTED
+
+Q02 Option I Owner approval:
+control/PP-002_Q02_I_OWNER_EVIDENCE_INTAKE_APPROVAL.md
+
+Q02 Option I frozen scope:
+control/PP-002_Q02_I_EVIDENCE_INTAKE_SCOPE.md
+
+Q02 Option I authorization:
+control/PP-002_Q02_I_EVIDENCE_INTAKE_AUTHORIZATION.md
+
+Q02 Option I evidence request:
+validations/PP-002/Q02-I/PP-002_IDENTITY_EVIDENCE_INTAKE_REQUEST.md
+
+Q02 Option I route:
+routing/ROUTE-PP-002-Q02-I-IDENTITY-EVIDENCE.md
+
+Q02 Option I source preflight:
+validations/PP-002/Q02-I/PC-003_INITIAL_NONSECRET_EVIDENCE_SNAPSHOT.md
+
+Q02 Option I expected report:
+validations/PP-002/Q02-I/PP-002_IDENTITY_AND_ROUTE_EVIDENCE_REPORT.md
+
+Q02 Option I evidence QA:
+NOT YET ASSIGNED / PC-003 TO ROUTE AFTER RETURN
+
+Deferred branch-retirement observation:
+backlog/GOV_BRANCH_RETIREMENT_DEFERRED_OBSERVATION.md / GOV-BRANCH-001 / IMPORTANT / DEFERRED / NO DELETION
 
 Q02 security status:
 S1-S2 NOT PROVEN / NO REAL CONFIGURATION / Q02-PROT-001 NO-GO

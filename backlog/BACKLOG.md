@@ -52,3 +52,21 @@ FROZEN / UNCHANGED
 
 Product work:
 NONE AUTHORIZED BY PP-002
+
+## Important deferred governance observation
+
+GOV-BRANCH-001:
+IMPORTANT / DEFERRED / NOT IN OPTION I / NO BRANCH DELETE AUTHORITY
+
+Owner checkpoint priorities:
+PRESERVE feature/serial-v0.1 and feature/workspace-v0.1; preserve main and meta/project-control. Do not assume any other ref is delete-safe by name.
+
+Observed inventory:
+47 GitHub branches, including feature/workspace-run-001..026 and historical ops refs; no serial-run-* branch observed in returned inventory.
+
+Revisit only after identity evidence and B1/B2 placement review, through a separately approved per-ref preservation/recovery audit. Must consider candidate checkpoint viability, historical operations, unique commits, tag/ref recoverability, N1 restriction cost and explicit later Owner delete approval.
+
+Detailed deferred record:
+backlog/GOV_BRANCH_RETIREMENT_DEFERRED_OBSERVATION.md
+
+No ref modifications under this observation.
