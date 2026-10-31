@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Federated core direction intake; Q02 B1 Owner choice pending | Q02 design accepted; prototype unapproved, central repo not created |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Q02 Owner six-gate decision; B1 read-only preflight and design routed | S1-S2 unproven; prototype NO-GO; no central repo |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | Q02-DES-001 COMPLETE / DESIGN ACCEPTED | Proposed offline prototype awaiting Owner policy decision | Design blob a06fb711; no prototype authorization |
+| PP-002 | PROTOCOL_PORTABILITY | B1-SEC-DES-001 AUTHORIZED / DESIGN ONLY | Q02 B1 permissions, isolation and six-gate feasibility | Q02 design accepted; no experimental code authority |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
@@ -97,8 +97,26 @@ control/PROJECT_CONTROL_FEDERATED_ARCHITECTURE_DIRECTION.md
 Q02 proposed B1 isolation alignment:
 control/PP-002_Q02_FEDERATED_ALIGNMENT_AND_ISOLATION_PROPOSAL.md
 
-Q02 next Owner B1 request:
+Q02 original Owner B1 implementation request:
 control/PP-002_Q02_B1_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
+
+Q02 Owner six-gate security decision:
+control/PP-002_Q02_B1_OWNER_SIX_GATE_DECISION.md
+
+Q02 B1 PC-003 read-only permissions preflight:
+validations/PP-002/Q02-B1-SECURITY/PC-003_READ_ONLY_PERMISSIONS_PREFLIGHT.md
+
+Q02 security design scope:
+control/PP-002_Q02_B1_SECURITY_DESIGN_SCOPE.md
+
+Q02 security design authorization:
+control/PP-002_Q02_B1_SECURITY_DESIGN_AUTHORIZATION.md
+
+Q02 security design route:
+routing/ROUTE-PP-002-Q02-B1-SECURITY-DESIGN.md
+
+Q02 B1 expected security design output:
+handoffs/PP-002_Q02_B1_PERMISSION_ISOLATION_DESIGN_HANDOFF.md
 
 Q02-PROT-001 execution:
 NOT AUTHORIZED / NO EXPERIMENTAL BRANCH CREATED

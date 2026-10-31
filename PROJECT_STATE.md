@@ -173,8 +173,29 @@ control/PROJECT_CONTROL_FEDERATED_ARCHITECTURE_DIRECTION.md
 Q02 proposed B1 experiment alignment:
 control/PP-002_Q02_FEDERATED_ALIGNMENT_AND_ISOLATION_PROPOSAL.md
 
-Q02 next Owner B1 decision:
+Q02 original Owner B1 execution request:
 control/PP-002_Q02_B1_OFFLINE_PROTOTYPE_OWNER_DECISION_REQUEST.md
+
+Q02 Owner six mandatory security gates:
+control/PP-002_Q02_B1_OWNER_SIX_GATE_DECISION.md / ADOPTED / STAGE-GATED
+
+Q02 B1 read-only preflight:
+validations/PP-002/Q02-B1-SECURITY/PC-003_READ_ONLY_PERMISSIONS_PREFLIGHT.md / COMPLETE / S1-S2 NOT ESTABLISHED / IMPLEMENTATION NO-GO
+
+Q02 B1 security design scope:
+control/PP-002_Q02_B1_SECURITY_DESIGN_SCOPE.md
+
+Q02 B1 security design authorization:
+control/PP-002_Q02_B1_SECURITY_DESIGN_AUTHORIZATION.md
+
+Q02 B1 security design route:
+routing/ROUTE-PP-002-Q02-B1-SECURITY-DESIGN.md
+
+Q02 assigned design:
+B1-SEC-DES-001 / PROTOCOL_PORTABILITY PP-002 / DESIGN ONLY / NO EXPERIMENT
+
+Q02 expected security handoff:
+handoffs/PP-002_Q02_B1_PERMISSION_ISOLATION_DESIGN_HANDOFF.md
 
 Q02 prototype branch:
 experiment/pp002-q02-prot-001 (PROPOSED / NOT CREATED / B1 OWNER APPROVAL PENDING)
