@@ -194,8 +194,23 @@ routing/ROUTE-PP-002-Q02-B1-SECURITY-DESIGN.md
 Q02 assigned design:
 B1-SEC-DES-001 / PROTOCOL_PORTABILITY PP-002 / DESIGN ONLY / NO EXPERIMENT
 
-Q02 expected security handoff:
-handoffs/PP-002_Q02_B1_PERMISSION_ISOLATION_DESIGN_HANDOFF.md
+Q02 delivered security handoff:
+handoffs/PP-002_Q02_B1_PERMISSION_ISOLATION_DESIGN_HANDOFF.md @ blob d89194237b128b76379533412baec5a56f754b20
+
+Q02 B1 security design publication:
+37b6982a0cadccdcff1062dcedf01297210bf3ad
+
+Q02 B1 security design acceptance:
+runs/PP-002_Q02_B1_SECURITY_DESIGN_ACCEPTANCE.md / ACCEPT DESIGN
+
+Q02 next Owner configuration-or-B2 decision:
+control/PP-002_Q02_B1_SECURITY_NEXT_OWNER_DECISION_REQUEST.md / PENDING
+
+Q02 B1 S1/S2:
+NOT INDEPENDENTLY PROVEN / IMPLEMENTATION NO-GO
+
+Q02-PROT-001:
+NOT AUTHORIZED; no experimental branch, settings, identity or rule mutation
 
 Q02 prototype branch:
 experiment/pp002-q02-prot-001 (PROPOSED / NOT CREATED / B1 OWNER APPROVAL PENDING)

@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Q02 Owner six-gate decision; B1 read-only preflight and design routed | S1-S2 unproven; prototype NO-GO; no central repo |
+| PC-003 | PROJECT_CONTROL | ACTIVE | B1 security design accepted; Owner configuration/B2 choice pending | S1-S2 unproven; prototype NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | B1-SEC-DES-001 AUTHORIZED / DESIGN ONLY | Q02 B1 permissions, isolation and six-gate feasibility | Q02 design accepted; no experimental code authority |
+| PP-002 | PROTOCOL_PORTABILITY | B1-SEC-DES-001 COMPLETE / DESIGN ACCEPTED | B1 permission isolation handoff delivered | S1/S2 unproven; Q02-PROT-001 not authorized |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
 | DQA-006 | DESIGN_QA | COMPLETE / EXTERNAL QA PASS | RUN 026 / CR-0002 | PASS |
@@ -115,8 +115,14 @@ control/PP-002_Q02_B1_SECURITY_DESIGN_AUTHORIZATION.md
 Q02 security design route:
 routing/ROUTE-PP-002-Q02-B1-SECURITY-DESIGN.md
 
-Q02 B1 expected security design output:
-handoffs/PP-002_Q02_B1_PERMISSION_ISOLATION_DESIGN_HANDOFF.md
+Q02 B1 actual security design output:
+handoffs/PP-002_Q02_B1_PERMISSION_ISOLATION_DESIGN_HANDOFF.md @ blob d89194237b128b76379533412baec5a56f754b20
+
+Q02 B1 design disposition:
+runs/PP-002_Q02_B1_SECURITY_DESIGN_ACCEPTANCE.md / ACCEPT DESIGN
+
+Q02 next Owner security path decision:
+control/PP-002_Q02_B1_SECURITY_NEXT_OWNER_DECISION_REQUEST.md / PENDING
 
 Q02-PROT-001 execution:
 NOT AUTHORIZED / NO EXPERIMENTAL BRANCH CREATED
