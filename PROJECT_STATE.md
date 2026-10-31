@@ -290,11 +290,35 @@ validations/PP-002/Q02-I/PC-003_INITIAL_NONSECRET_EVIDENCE_SNAPSHOT.md
 Q02 Option I assigned work:
 I-SEC-EVID-001 / PROTOCOL_PORTABILITY PP-002 / READ-ONLY / SINGLE ADDITIVE REPORT
 
-Q02 Option I expected report:
-validations/PP-002/Q02-I/PP-002_IDENTITY_AND_ROUTE_EVIDENCE_REPORT.md
+Q02 Option I received report:
+validations/PP-002/Q02-I/PP-002_IDENTITY_AND_ROUTE_EVIDENCE_REPORT.md @ 3d80a1fec9a837e7fad2a278dae17ccf23ad830b / blob 2d6f3d1911adb3869f69be6bf754be4a7e55a7a2
+
+Q02 Option I coordinator receipt:
+runs/PP-002_Q02_I_EVIDENCE_INTAKE_RECEIPT.md
+
+Q02 Option I evidence matrix:
+ID-01,03,07,08 UNKNOWN / ID-02,04,05,06 PARTIAL / S1-S2 NOT PROVEN
+
+Q02 new app usage observation:
+GitHub 'Allow all actions' (confirmation policy only, not an actual permission/ACL attestation)
 
 Q02 Option I independent evidence QA:
-NOT YET AUTHORIZED / TO BE ROUTED AFTER RETURN
+I-DQA-001 / DESIGN_QA DQA-009 / AUTHORIZED / REPORT PENDING
+
+Q02 Option I DQA scope:
+control/PP-002_Q02_I_DQA-009_REVIEW_SCOPE.md
+
+Q02 Option I DQA authorization:
+control/PP-002_Q02_I_DQA-009_INDEPENDENT_QA_AUTHORIZATION.md
+
+Q02 Option I DQA request:
+validations/PP-002/Q02-I/DQA-009_INDEPENDENT_REVIEW_REQUEST.md
+
+Q02 Option I DQA route:
+routing/ROUTE-PP-002-Q02-I-DQA-009.md
+
+Q02 Option I DQA expected report:
+validations/PP-002/Q02-I/DQA-009_INDEPENDENT_EVIDENCE_QA_REPORT.md
 
 Q02 security gates:
 S1-S2 UNPROVEN / B1-B2 PROTOTYPE NO-GO; NO SETTINGS OR CODE AUTHORITY

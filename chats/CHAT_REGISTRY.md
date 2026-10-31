@@ -5,9 +5,10 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Option I approved and identity evidence intake routed; GOV-BRANCH-001 deferred | S1/S2 NOT PROVEN; no branch removal or prototype |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Option I delivered; DQA-009 independent source QA routed | S1/S2 NOT PROVEN; GOV-BRANCH-001 deferred |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 AUTHORIZED / READ-ONLY | Option I nonsecret identity/connection evidence intake | S1/S2 unproven; no live tools or security changes |
+| PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 COMPLETE / RETURNED | Option I identity evidence report @ 3d80a1fe | 4 UNKNOWN / 4 PARTIAL; QA pending |
+| DQA-009 | DESIGN_QA | I-DQA-001 AUTHORIZED / AWAITING ACTIVATION | Independent Option I evidence fidelity review | IR01–IR08 / no S1/S2 or prototype GO |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
 | DQA-007 | DESIGN_QA | COMPLETE / INDEPENDENT QA PASS OFFLINE | Q01-IMPL-001 exact candidate | F01-F31, 4 byte-identical replays and frozen regressions verified |
@@ -173,11 +174,29 @@ routing/ROUTE-PP-002-Q02-I-IDENTITY-EVIDENCE.md
 Q02 Option I source preflight:
 validations/PP-002/Q02-I/PC-003_INITIAL_NONSECRET_EVIDENCE_SNAPSHOT.md
 
-Q02 Option I expected report:
-validations/PP-002/Q02-I/PP-002_IDENTITY_AND_ROUTE_EVIDENCE_REPORT.md
+Q02 Option I report:
+validations/PP-002/Q02-I/PP-002_IDENTITY_AND_ROUTE_EVIDENCE_REPORT.md @ 3d80a1fec9a837e7fad2a278dae17ccf23ad830b / blob 2d6f3d1911adb3869f69be6bf754be4a7e55a7a2
 
-Q02 Option I evidence QA:
-NOT YET ASSIGNED / PC-003 TO ROUTE AFTER RETURN
+Q02 Option I receipt:
+runs/PP-002_Q02_I_EVIDENCE_INTAKE_RECEIPT.md
+
+Q02 Option I independent evidence QA:
+I-DQA-001 / DESIGN_QA DQA-009 / AUTHORIZED / REPORT PENDING
+
+Q02 Option I DQA scope:
+control/PP-002_Q02_I_DQA-009_REVIEW_SCOPE.md
+
+Q02 Option I DQA authorization:
+control/PP-002_Q02_I_DQA-009_INDEPENDENT_QA_AUTHORIZATION.md
+
+Q02 Option I DQA request:
+validations/PP-002/Q02-I/DQA-009_INDEPENDENT_REVIEW_REQUEST.md
+
+Q02 Option I DQA route:
+routing/ROUTE-PP-002-Q02-I-DQA-009.md
+
+Q02 Option I DQA expected report:
+validations/PP-002/Q02-I/DQA-009_INDEPENDENT_EVIDENCE_QA_REPORT.md
 
 Deferred branch-retirement observation:
 backlog/GOV_BRANCH_RETIREMENT_DEFERRED_OBSERVATION.md / GOV-BRANCH-001 / IMPORTANT / DEFERRED / NO DELETION
