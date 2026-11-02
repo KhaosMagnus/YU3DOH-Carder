@@ -5,7 +5,7 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | C1 Owner approved; P0 nonsecret platform/issuer/runtime custodian evidence requested | No response attested; S1/S2 unproven; GOV-BRANCH-001 deferred |
+| PC-003 | PROJECT_CONTROL | ACTIVE | C1 owner-forwarded AI support guidance registered; product/surface clarification drafted | Not a provider attestation; S1/S2 unproven; GOV-BRANCH-001 deferred |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
 | PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 COMPLETE / EVIDENCE INTAKE PASS | Option I source 3d80a1fe / DQA-009 ff4db019 | 4 UNKNOWN / 4 PARTIAL; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
@@ -215,6 +215,18 @@ validations/PP-002/Q02-C1/C1_EVIDENCE_RECEIPT_AND_ADJUDICATION_CONTRACT.md
 
 Q02 C1 activation record:
 runs/PP-002_Q02_C1_ACTIVATION_AND_OPEN_DEPENDENCIES.md / P0 EVIDENCE PENDING / NO TECHNICAL SECURITY GO
+
+Q02 C1 source receipt authorization:
+control/PP-002_Q02_C1_AI_SUPPORT_REPLY_RECEIPT_AUTHORIZATION.md
+
+Q02 C1 Owner-forwarded AI support guidance:
+validations/PP-002/Q02-C1/C1_AI_SUPPORT_RESPONSE_SOURCE_RECEIPT.md / SECONDARY ONLY / NO TECHNICAL S1-S2 PROOF
+
+Q02 C1 prepared follow-up:
+validations/PP-002/Q02-C1/C1_PLATFORM_SURFACE_CLARIFICATION_REQUEST.md / OWNER MAY SEND / NOT SENT
+
+Q02 C1 preliminary source disposition:
+runs/PP-002_Q02_C1_AI_SUPPORT_PRELIMINARY_EVIDENCE_DISPOSITION.md
 
 Q02 Option I DQA scope:
 control/PP-002_Q02_I_DQA-009_REVIEW_SCOPE.md
