@@ -5,10 +5,10 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | C2 handoff source verified; independent DQA-010 design review authorized | S1/S2 UNPROVEN; C2 implementation NO-GO; branch cleanup deferred |
+| PC-003 | PROJECT_CONTROL | ACTIVE | C2 DQA-010 PASS disposition published; Owner A1/A2/DEFER choice pending | S1/S2 unproven; prototype NO-GO; branch backlog deferred |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | C2-EXT-DES-001 COMPLETE / RETURNED | A1/A2 external isolation handoff @ abf5391d | Await independent DQA-010; no implementation |
-| DQA-010 | DESIGN_QA | C2-DQA-001 AUTHORIZED / AWAITING ACTIVATION | Independent C2 A1/A2 architecture QA | C2-Q01–Q12; original S2; no security GO |
+| PP-002 | PROTOCOL_PORTABILITY | C2-EXT-DES-001 COMPLETE / DESIGN QA ACCEPTED | A1/A2 source @ abf5391d / DQA-010 report @ 6a8ed166 | No new PP-002 task; no implementation |
+| DQA-010 | DESIGN_QA | C2-DQA-001 COMPLETE / INDEPENDENT DESIGN QA PASS | All C2-Q01–Q12 PASS; report @ 6a8ed166 | H01–H03 blocking future implementation; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
@@ -272,7 +272,19 @@ Q02 C2 coordinator source intake:
 runs/PP-002_Q02_C2_DESIGN_INTAKE_RECEIPT.md
 
 Q02 C2 independent QA:
-C2-DQA-001 / DESIGN_QA DQA-010 / AUTHORIZED / AWAITING RETURN
+C2-DQA-001 / DESIGN_QA DQA-010 / COMPLETE / PASS DESIGN QUALITY ONLY
+
+Q02 C2 QA publication:
+6a8ed1664a12b6972d45bf8bf08371b7941dc235
+
+Q02 C2 QA result:
+validations/PP-002/Q02-C2/DQA-010_INDEPENDENT_DESIGN_QA_REPORT.md @ blob d9fed86b13bc17678ed3630f60c77ffc3b7848c4
+
+Q02 C2 coordinator official disposition:
+runs/PP-002_Q02_C2_DQA-010_DESIGN_PASS_DISPOSITION.md
+
+Q02 next Owner decision A1/A2/DEFER:
+control/PP-002_Q02_C2_POST_DQA010_OWNER_A1_A2_DEFER_DECISION_REQUEST.md / PENDING / NO TECHNICAL OR LOCATION EXCEPTION
 
 Q02 C2 DQA-010 frozen scope:
 control/PP-002_Q02_C2_DQA-010_INDEPENDENT_REVIEW_SCOPE.md
@@ -286,8 +298,8 @@ validations/PP-002/Q02-C2/DQA-010_INDEPENDENT_DESIGN_QA_REQUEST.md
 Q02 C2 DQA-010 route:
 routing/ROUTE-PP-002-Q02-C2-DQA-010.md
 
-Q02 C2 independent report expected:
-validations/PP-002/Q02-C2/DQA-010_INDEPENDENT_DESIGN_QA_REPORT.md / NOT YET PUBLISHED
+Q02 C2 independent report delivered:
+validations/PP-002/Q02-C2/DQA-010_INDEPENDENT_DESIGN_QA_REPORT.md @ 6a8ed1664a12b6972d45bf8bf08371b7941dc235 / blob d9fed86b13bc17678ed3630f60c77ffc3b7848c4
 
 Q02 Option I DQA scope:
 control/PP-002_Q02_I_DQA-009_REVIEW_SCOPE.md
