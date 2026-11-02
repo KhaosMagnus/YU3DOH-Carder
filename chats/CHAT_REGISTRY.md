@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | C1 third support input assessed; C2 external-isolation DESIGN Owner approval pending | S1/S2 NOT PROVEN; no implementation; GOV-BRANCH-001 DEFERRED |
+| PC-003 | PROJECT_CONTROL | ACTIVE | C2 DESIGN ONLY authorized and routed to PP-002; independent QA pending return | S1/S2 unproven; no implementation; GOV-BRANCH-001 deferred |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | I-SEC-EVID-001 COMPLETE / EVIDENCE INTAKE PASS | Option I source 3d80a1fe / DQA-009 ff4db019 | 4 UNKNOWN / 4 PARTIAL; S1/S2 NO-GO |
+| PP-002 | PROTOCOL_PORTABILITY | C2-EXT-DES-001 AUTHORIZED / DESIGN ONLY | Isolated executor+publisher design; one handoff pending | NO infra/permissions/tests; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
 | IA-004 | INTEGRATION_ADMIN | COMPLETE / INTEGRATED | RUN 026 / CR-0002 | fast-forward verified |
@@ -246,8 +246,26 @@ validations/PP-002/Q02-C1/C1_THIRD_AI_SUPPORT_REPLY_AND_PUBLIC_DOC_REVIEW.md / S
 Q02 C1 coordinator no-per-chat-isolation design disposition:
 runs/PP-002_Q02_C1_CONVERSATION_ISOLATION_DECISION_DISPOSITION.md / C1 P0 EVIDENCE NOT ATTESTED
 
-Q02 next C2 design-only decision request:
-control/PP-002_Q02_C2_EXTERNAL_ISOLATION_DESIGN_OWNER_DECISION_REQUEST.md / OWNER APPROVAL PENDING / NO C2 EXECUTION
+Q02 C2 Owner decision:
+control/PP-002_Q02_C2_EXTERNAL_ISOLATION_DESIGN_OWNER_DECISION_REQUEST.md / DESIGN ONLY APPROVED
+
+Q02 C2 Owner design approval:
+control/PP-002_Q02_C2_OWNER_DESIGN_APPROVAL.md
+
+Q02 C2 design scope:
+control/PP-002_Q02_C2_EXTERNAL_ISOLATION_DESIGN_SCOPE.md
+
+Q02 C2 design authorization:
+control/PP-002_Q02_C2_DESIGN_AUTHORIZATION.md
+
+Q02 C2 design request:
+validations/PP-002/Q02-C2/PP-002_C2_EXTERNAL_ISOLATION_DESIGN_REQUEST.md
+
+Q02 C2 design route:
+routing/ROUTE-PP-002-Q02-C2-PP-002-DESIGN.md
+
+Q02 C2 expected single handoff:
+handoffs/PP-002_Q02_C2_EXTERNAL_ISOLATION_DESIGN_HANDOFF.md / NOT YET DELIVERED / INDEPENDENT QA LATER
 
 Q02 Option I DQA scope:
 control/PP-002_Q02_I_DQA-009_REVIEW_SCOPE.md
