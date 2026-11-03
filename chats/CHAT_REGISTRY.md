@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | C2 DQA-010 PASS disposition published; Owner A1/A2/DEFER choice pending | S1/S2 unproven; prototype NO-GO; branch backlog deferred |
+| PC-003 | PROJECT_CONTROL | ACTIVE | Owner A1 preference and F0 documentary inventory authorized; PP-002 activation routed | No technical preflight, code exception or implementation; S1/S2 NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | C2-EXT-DES-001 COMPLETE / DESIGN QA ACCEPTED | A1/A2 source @ abf5391d / DQA-010 report @ 6a8ed166 | No new PP-002 task; no implementation |
+| PP-002 | PROTOCOL_PORTABILITY | A1-F0-INV-001 AUTHORIZED / AWAITING OWNER FACTS | Existing E/V/media/custody and workload inventory only | Single new Markdown report; no system access; S1/S2 NO-GO |
 | DQA-010 | DESIGN_QA | C2-DQA-001 COMPLETE / INDEPENDENT DESIGN QA PASS | All C2-Q01–Q12 PASS; report @ 6a8ed166 | H01–H03 blocking future implementation; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
@@ -284,7 +284,28 @@ Q02 C2 coordinator official disposition:
 runs/PP-002_Q02_C2_DQA-010_DESIGN_PASS_DISPOSITION.md
 
 Q02 next Owner decision A1/A2/DEFER:
-control/PP-002_Q02_C2_POST_DQA010_OWNER_A1_A2_DEFER_DECISION_REQUEST.md / PENDING / NO TECHNICAL OR LOCATION EXCEPTION
+control/PP-002_Q02_C2_POST_DQA010_OWNER_A1_A2_DEFER_DECISION_REQUEST.md / A1 PREFERENCE SELECTED ONLY
+
+Q02 A1 Owner/F0 authorization:
+control/PP-002_Q02_A1_OWNER_PREFERENCE_AND_F0_APPROVAL.md
+
+Q02 A1 F0 frozen scope:
+control/PP-002_Q02_A1_F0_NONSECRET_INVENTORY_SCOPE.md
+
+Q02 A1 F0 effective authorization:
+control/PP-002_Q02_A1_F0_EFFECTIVE_AUTHORIZATION.md
+
+Q02 A1 F0 request:
+validations/PP-002/Q02-A1-F0/PP-002_A1_F0_DOCUMENTARY_INVENTORY_REQUEST.md
+
+Q02 A1 F0 route:
+routing/ROUTE-PP-002-Q02-A1-F0-PP-002.md
+
+Q02 A1 F0 activation:
+runs/PP-002_Q02_A1_F0_ACTIVATION.md
+
+Q02 A1 F0 report target:
+validations/PP-002/Q02-A1-F0/PP-002_A1_F0_NONSECRET_FEASIBILITY_INVENTORY_REPORT.md / PENDING OWNER FACTS
 
 Q02 C2 DQA-010 frozen scope:
 control/PP-002_Q02_C2_DQA-010_INDEPENDENT_REVIEW_SCOPE.md
