@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | Owner A1 preference and F0 documentary inventory authorized; PP-002 activation routed | No technical preflight, code exception or implementation; S1/S2 NO-GO |
+| PC-003 | PROJECT_CONTROL | ACTIVE | PP-002 A1-F0 received; DQA-011 documentary QA proposal prepared, Owner approval pending | No independent source-fidelity PASS, no technical preflight or implementation |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | A1-F0-INV-001 AUTHORIZED / AWAITING OWNER FACTS | Existing E/V/media/custody and workload inventory only | Single new Markdown report; no system access; S1/S2 NO-GO |
+| PP-002 | PROTOCOL_PORTABILITY | A1-F0-INV-001 COMPLETE / REPORT DELIVERED | F0 source @ f6b17f22; partial Owner-reported inventory | Evidence-quality QA pending Owner decision; no new PP-002 job |
 | DQA-010 | DESIGN_QA | C2-DQA-001 COMPLETE / INDEPENDENT DESIGN QA PASS | All C2-Q01–Q12 PASS; report @ 6a8ed166 | H01–H03 blocking future implementation; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
@@ -304,8 +304,26 @@ routing/ROUTE-PP-002-Q02-A1-F0-PP-002.md
 Q02 A1 F0 activation:
 runs/PP-002_Q02_A1_F0_ACTIVATION.md
 
-Q02 A1 F0 report target:
-validations/PP-002/Q02-A1-F0/PP-002_A1_F0_NONSECRET_FEASIBILITY_INVENTORY_REPORT.md / PENDING OWNER FACTS
+Q02 A1 F0 delivered report:
+validations/PP-002/Q02-A1-F0/PP-002_A1_F0_NONSECRET_FEASIBILITY_INVENTORY_REPORT.md @ f6b17f22635ffa780a31f63156b8f9f65e296dad / blob f7de7932da9b17cbfcd08e476054fcfa188c0a48
+
+Q02 A1 F0 PC-003 source intake:
+runs/PP-002_Q02_A1_F0_INTAKE_RECEIPT.md / PARTIAL DECLARED FEASIBILITY
+
+Q02 A1 F0 proposed independent review:
+DQA-011 / A1-F0-DQA-001 / NOT ACTIVATED
+
+Q02 A1 F0 proposed review scope:
+control/PP-002_Q02_A1_F0_DQA011_PROPOSED_SCOPE.md
+
+Q02 A1 F0 proposed review request:
+validations/PP-002/Q02-A1-F0/DQA-011_PROPOSED_INDEPENDENT_DOCUMENTARY_REVIEW_REQUEST.md
+
+Q02 A1 F0 proposed INACTIVE route:
+routing/ROUTE-PP-002_Q02_A1_F0_EVIDENCE_QA_PROPOSED.md
+
+Q02 A1 F0 future Owner QA decision:
+control/PP-002_Q02_A1_F0_DQA011_OWNER_REVIEW_DECISION_REQUEST.md / PENDING
 
 Q02 C2 DQA-010 frozen scope:
 control/PP-002_Q02_C2_DQA-010_INDEPENDENT_REVIEW_SCOPE.md
