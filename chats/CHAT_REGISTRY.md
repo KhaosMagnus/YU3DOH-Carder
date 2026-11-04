@@ -5,9 +5,10 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | PP-002 A1-F0 received; DQA-011 documentary QA proposal prepared, Owner approval pending | No independent source-fidelity PASS, no technical preflight or implementation |
+| PC-003 | PROJECT_CONTROL | ACTIVE | A1-F0 DQA-011 independent documentary review authorized and routed | Await DQA-011 source-quality report; technical S1/S2 NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
 | PP-002 | PROTOCOL_PORTABILITY | A1-F0-INV-001 COMPLETE / REPORT DELIVERED | F0 source @ f6b17f22; partial Owner-reported inventory | Evidence-quality QA pending Owner decision; no new PP-002 job |
+| DQA-011 | DESIGN_QA | A1-F0-DQA-001 AUTHORIZED / AWAITING ACTIVATION | Independent F0-Q01–Q10 Owner-declaration quality review | Missing original quotes may cause INCONCLUSIVE; S1/S2 NO-GO |
 | DQA-010 | DESIGN_QA | C2-DQA-001 COMPLETE / INDEPENDENT DESIGN QA PASS | All C2-Q01–Q12 PASS; report @ 6a8ed166 | H01–H03 blocking future implementation; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
 | DQA-008 | DESIGN_QA | F1-DQA-001 COMPLETE / INDEPENDENT PAPER PASS | F1 source contract @ deabe05f / report @ b2944e41 | M01/M02 MEDIUM, L01 LOW; no S1/S2 proof |
@@ -323,7 +324,25 @@ Q02 A1 F0 proposed INACTIVE route:
 routing/ROUTE-PP-002_Q02_A1_F0_EVIDENCE_QA_PROPOSED.md
 
 Q02 A1 F0 future Owner QA decision:
-control/PP-002_Q02_A1_F0_DQA011_OWNER_REVIEW_DECISION_REQUEST.md / PENDING
+control/PP-002_Q02_A1_F0_DQA011_OWNER_REVIEW_DECISION_REQUEST.md / APPROVED DOCUMENTARY QA ONLY
+
+Q02 A1 F0 DQA-011 Owner approval:
+control/PP-002_Q02_A1_F0_DQA011_OWNER_APPROVAL.md
+
+Q02 A1 F0 DQA-011 frozen effective review scope:
+control/PP-002_Q02_A1_F0_DQA011_FROZEN_REVIEW_SCOPE.md
+
+Q02 A1 F0 DQA-011 effective authorization:
+control/PP-002_Q02_A1_F0_DQA011_EFFECTIVE_AUTHORIZATION.md
+
+Q02 A1 F0 DQA-011 effective request:
+validations/PP-002/Q02-A1-F0/DQA-011_INDEPENDENT_DOCUMENTARY_QA_REQUEST.md
+
+Q02 A1 F0 DQA-011 effective route:
+routing/ROUTE-PP-002_Q02_A1_F0_DQA011_EFFECTIVE.md
+
+Q02 A1 F0 DQA-011 expected report:
+validations/PP-002/Q02-A1-F0/DQA-011_INDEPENDENT_DOCUMENTARY_QA_REPORT.md / PENDING
 
 Q02 C2 DQA-010 frozen scope:
 control/PP-002_Q02_C2_DQA-010_INDEPENDENT_REVIEW_SCOPE.md
