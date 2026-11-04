@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | A1-F0C received; P1-DES and DQA-012 documentary proposals pending Owner decision | Erebo/Alucard only reported candidates; synthetic trial UNKNOWN; technical NO-GO |
+| PC-003 | PROJECT_CONTROL | ACTIVE | P1-DES first synthetic rehearsal documentary design authorized and routed to PP-002 | DQA-012 remains inactive; Erebo/Alucard unqualified; technical NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | A1-F0C-INV-001 COMPLETE / REPORT RECEIVED | Source a3f166d6; Erebo/Alucard tentative, custody conditional, first pilot unknown | Await new Owner decision; no code or technical execution |
+| PP-002 | PROTOCOL_PORTABILITY | A1-P1-DES-001 AUTHORIZED / AWAITING TRANSFER | One documentary bounded synthetic provenance/recovery rehearsal specification | No equipment access, software, media transfer or prototype |
 | DQA-011 | DESIGN_QA | A1-F0-DQA-001 COMPLETE / INCONCLUSIVE | F0-Q01,Q03–Q10 PASS bounded; Q02/U1–U7 INCONCLUSIVE @ 93f13b24 | Source fidelity gap OPEN, assignment CLOSED; no security GO |
 | DQA-010 | DESIGN_QA | C2-DQA-001 COMPLETE / INDEPENDENT DESIGN QA PASS | All C2-Q01–Q12 PASS; report @ 6a8ed166 | H01–H03 blocking future implementation; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
@@ -387,10 +387,34 @@ Q02 A1-F0C proposed QA route:
 routing/ROUTE-PP-002-Q02-A1-F0C-DQA012-PROPOSED.md / NOT ACTIVE
 
 Q02 A1 first synthetic rehearsal definition proposal:
-control/PP-002_Q02_A1_P1_SYNTHETIC_REHEARSAL_DEFINITION_PROPOSAL.md / DESIGN ONLY / NOT AUTHORIZED
+control/PP-002_Q02_A1_P1_SYNTHETIC_REHEARSAL_DEFINITION_PROPOSAL.md / HISTORICAL PROPOSAL / DESIGN-ONLY SUCCESSOR AUTHORIZED
+
+Q02 A1-P1-DES Owner approval:
+control/PP-002_Q02_A1_P1_DES_OWNER_APPROVAL.md
+
+Q02 A1-P1-DES frozen scope:
+control/PP-002_Q02_A1_P1_DES_FROZEN_SCOPE.md
+
+Q02 A1-P1-DES effective authorization:
+control/PP-002_Q02_A1_P1_DES_EFFECTIVE_AUTHORIZATION.md
+
+Q02 A1-P1-DES primary request:
+validations/PP-002/Q02-A1-P1-DES/PP-002_A1_P1_DOCUMENTARY_DESIGN_REQUEST.md
+
+Q02 A1-P1-DES effective route:
+routing/ROUTE-PP-002-Q02-A1-P1-DES-PP-002.md
+
+Q02 A1-P1-DES activation:
+runs/PP-002_Q02_A1_P1_DES_ACTIVATION.md
+
+Q02 A1-P1-DES expected handoff:
+handoffs/PP-002_Q02_A1_P1_SYNTHETIC_REHEARSAL_DESIGN_SPECIFICATION.md / NOT YET DELIVERED
+
+Q02 A1-P1-DES status:
+DOCUMENTARY DESIGN ONLY / PP-002 / DQA-012 INACTIVE / NO P1 EXECUTION OR F1-F2
 
 Q02 A1-F0C next Owner decision request:
-control/PP-002_Q02_A1_F0C_NEXT_OWNER_DECISION_REQUEST.md / P1-DES RECOMMENDED / OWNER CHOICE PENDING
+control/PP-002_Q02_A1_F0C_NEXT_OWNER_DECISION_REQUEST.md / P1-DES APPROVED / DQA-012 PENDING
 
 Q02 A1-F0C status:
 NEW OWNER FACTS ONLY; NO PRIVATE ORIGINAL COMPARISON OR RETROACTIVE U1-U7 REPAIR; F1-F2/PROTOTYPE NO-GO
