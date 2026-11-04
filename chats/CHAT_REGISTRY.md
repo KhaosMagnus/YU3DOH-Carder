@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | DQA-011 INCONCLUSIVE disposition published; private source-comparison proposal only | F0 partial Owner-reported; U1–U7 uncorroborated; S1/S2 NO-GO |
+| PC-003 | PROJECT_CONTROL | ACTIVE | A1-F0C supplementary documentary clarification authorized and routed to PP-002 | DQA-011 inconclusive/closed; U1–U7 uncorroborated; technical NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | A1-F0-INV-001 COMPLETE / REPORT DELIVERED | F0 source @ f6b17f22; partial Owner-reported inventory | Evidence-quality QA pending Owner decision; no new PP-002 job |
+| PP-002 | PROTOCOL_PORTABILITY | A1-F0C-INV-001 AUTHORIZED / AWAITING NEW OWNER FACTS | Prospective E/V, custody, one pilot, no-code-on-control clarifications only | Single additive nonsecret report; no technical scope or original-source comparison |
 | DQA-011 | DESIGN_QA | A1-F0-DQA-001 COMPLETE / INCONCLUSIVE | F0-Q01,Q03–Q10 PASS bounded; Q02/U1–U7 INCONCLUSIVE @ 93f13b24 | Source fidelity gap OPEN, assignment CLOSED; no security GO |
 | DQA-010 | DESIGN_QA | C2-DQA-001 COMPLETE / INDEPENDENT DESIGN QA PASS | All C2-Q01–Q12 PASS; report @ 6a8ed166 | H01–H03 blocking future implementation; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
@@ -352,6 +352,30 @@ control/PP-002_Q02_A1_F0_PRIVATE_ORIGINAL_SOURCE_COMPARISON_PROPOSAL.md / NOT AU
 
 Q02 A1 F0 source-fidelity issue:
 F0-Q02 U1-U7 INCONCLUSIVE / OTHER NINE QA CRITERIA PASS BOUNDED
+
+Q02 A1-F0C Owner approval:
+control/PP-002_Q02_A1_F0C_OWNER_APPROVAL.md
+
+Q02 A1-F0C frozen documentary scope:
+control/PP-002_Q02_A1_F0C_DOCUMENTARY_CLARIFICATION_SCOPE.md
+
+Q02 A1-F0C effective authorization:
+control/PP-002_Q02_A1_F0C_EFFECTIVE_AUTHORIZATION.md
+
+Q02 A1-F0C primary request:
+validations/PP-002/Q02-A1-F0C/PP-002_A1_F0C_DOCUMENTARY_CLARIFICATION_REQUEST.md
+
+Q02 A1-F0C effective route to PP-002:
+routing/ROUTE-PP-002-Q02-A1-F0C-PP-002.md
+
+Q02 A1-F0C activation record:
+runs/PP-002_Q02_A1_F0C_ACTIVATION.md
+
+Q02 A1-F0C report target:
+validations/PP-002/Q02-A1-F0C/PP-002_A1_F0C_DOCUMENTARY_FEASIBILITY_CLARIFICATION_REPORT.md / NOT YET DELIVERED
+
+Q02 A1-F0C status:
+NEW OWNER FACTS ONLY; NO PRIVATE ORIGINAL COMPARISON OR RETROACTIVE U1-U7 REPAIR; F1-F2/PROTOTYPE NO-GO
 
 Q02 C2 DQA-010 frozen scope:
 control/PP-002_Q02_C2_DQA-010_INDEPENDENT_REVIEW_SCOPE.md
