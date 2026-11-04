@@ -5,9 +5,9 @@ protocol_version: 1.0
 
 | Instance | Role | Status | Current / last assignment | Evidence status |
 |---|---|---|---|---|
-| PC-003 | PROJECT_CONTROL | ACTIVE | A1-F0C supplementary documentary clarification authorized and routed to PP-002 | DQA-011 inconclusive/closed; U1–U7 uncorroborated; technical NO-GO |
+| PC-003 | PROJECT_CONTROL | ACTIVE | A1-F0C received; P1-DES and DQA-012 documentary proposals pending Owner decision | Erebo/Alucard only reported candidates; synthetic trial UNKNOWN; technical NO-GO |
 | PC-002 | PROJECT_CONTROL | COMPLETE / ROLLED OVER | PP-002 Gate C intake predecessor | Succeeded by PC-003; history retained |
-| PP-002 | PROTOCOL_PORTABILITY | A1-F0C-INV-001 AUTHORIZED / AWAITING NEW OWNER FACTS | Prospective E/V, custody, one pilot, no-code-on-control clarifications only | Single additive nonsecret report; no technical scope or original-source comparison |
+| PP-002 | PROTOCOL_PORTABILITY | A1-F0C-INV-001 COMPLETE / REPORT RECEIVED | Source a3f166d6; Erebo/Alucard tentative, custody conditional, first pilot unknown | Await new Owner decision; no code or technical execution |
 | DQA-011 | DESIGN_QA | A1-F0-DQA-001 COMPLETE / INCONCLUSIVE | F0-Q01,Q03–Q10 PASS bounded; Q02/U1–U7 INCONCLUSIVE @ 93f13b24 | Source fidelity gap OPEN, assignment CLOSED; no security GO |
 | DQA-010 | DESIGN_QA | C2-DQA-001 COMPLETE / INDEPENDENT DESIGN QA PASS | All C2-Q01–Q12 PASS; report @ 6a8ed166 | H01–H03 blocking future implementation; S1/S2 NO-GO |
 | DQA-009 | DESIGN_QA | I-DQA-001 COMPLETE / INDEPENDENT EVIDENCE QA PASS | IR01–IR08 and 13 record hashes; report ff4db019 | G01–G03 HIGH readiness gaps; no S1/S2 proof |
@@ -371,8 +371,26 @@ routing/ROUTE-PP-002-Q02-A1-F0C-PP-002.md
 Q02 A1-F0C activation record:
 runs/PP-002_Q02_A1_F0C_ACTIVATION.md
 
-Q02 A1-F0C report target:
-validations/PP-002/Q02-A1-F0C/PP-002_A1_F0C_DOCUMENTARY_FEASIBILITY_CLARIFICATION_REPORT.md / NOT YET DELIVERED
+Q02 A1-F0C delivered report:
+validations/PP-002/Q02-A1-F0C/PP-002_A1_F0C_DOCUMENTARY_FEASIBILITY_CLARIFICATION_REPORT.md @ a3f166d623aa52c72401de64e95c4ffce67106ad / blob 082faf4ea6fefb47f466bd2ca48041b676176908
+
+Q02 A1-F0C official coordinator intake:
+runs/PP-002_Q02_A1_F0C_INTAKE_DISPOSITION.md / PARTIAL OWNER-DECLARED FEASIBILITY
+
+Q02 A1-F0C independent DQA-012 proposal:
+control/PP-002_Q02_A1_F0C_DQA012_PROPOSED_SCOPE.md / NOT AUTHORIZED
+
+Q02 A1-F0C proposed QA request:
+validations/PP-002/Q02-A1-F0C/DQA-012_PROPOSED_DOCUMENTARY_REVIEW_REQUEST.md / NOT ACTIVE
+
+Q02 A1-F0C proposed QA route:
+routing/ROUTE-PP-002-Q02-A1-F0C-DQA012-PROPOSED.md / NOT ACTIVE
+
+Q02 A1 first synthetic rehearsal definition proposal:
+control/PP-002_Q02_A1_P1_SYNTHETIC_REHEARSAL_DEFINITION_PROPOSAL.md / DESIGN ONLY / NOT AUTHORIZED
+
+Q02 A1-F0C next Owner decision request:
+control/PP-002_Q02_A1_F0C_NEXT_OWNER_DECISION_REQUEST.md / P1-DES RECOMMENDED / OWNER CHOICE PENDING
 
 Q02 A1-F0C status:
 NEW OWNER FACTS ONLY; NO PRIVATE ORIGINAL COMPARISON OR RETROACTIVE U1-U7 REPAIR; F1-F2/PROTOTYPE NO-GO
