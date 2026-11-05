@@ -827,3 +827,21 @@ control/PP-002_Q02_A1_P1_POST_DES_OWNER_DECISION_REQUEST.md / OPTION A INDEPENDE
 
 Q02 A1-P1 next:
 NO DESIGN IMPLEMENTATION. F0C DQA-012 INACTIVE. P1 paper QA requires separate Owner approval/frozen effective route; exact case, code custody, E/V/transport and S1-S6 remain undecided/NO-GO.
+
+Q02 A1-P1 independent design QA Owner approval:
+control/PP-002_Q02_A1_P1_DQA013_OWNER_APPROVAL.md / APPROVED / PAPER ONLY / NO TECHNICAL EXECUTION
+
+Q02 A1-P1 DQA-013 frozen independent design QA scope:
+control/PP-002_Q02_A1_P1_DQA013_FROZEN_REVIEW_SCOPE.md / P1-DQ01–P1-DQ12 / STATIC Q01-C2 CONTRACT REVIEW
+
+Q02 A1-P1 DQA-013 effective authorization, request and route:
+control/PP-002_Q02_A1_P1_DQA013_EFFECTIVE_AUTHORIZATION.md ; validations/PP-002/Q02-A1-P1-DES/DQA-013_INDEPENDENT_DESIGN_QA_REQUEST.md ; routing/ROUTE-PP-002-Q02-A1-P1-DQA013_EFFECTIVE.md / ONE ADDITIVE REPORT
+
+Q02 A1-P1 DQA-013 activation:
+runs/PP-002_Q02_A1_P1_DQA013_ACTIVATION.md / OWNER APPROVED / TRANSFER TO NEW DESIGN_QA DQA-013 / QA REPORT NOT YET RECEIVED
+
+Q02 A1-P1 DQA-013 expected report:
+validations/PP-002/Q02-A1-P1-DES/P1_DES_INDEPENDENT_DESIGN_QA_REPORT.md / NOT YET DELIVERED
+
+Q02 A1-P1 future Owner decisions:
+Exact N/M/U/T scenario adoption, code custody, qualified E/V/Owner custody, safe transport and original S1/S2 + S3-S6 remain undecided/NO-GO. DQA-012 F0C INACTIVE.
