@@ -892,3 +892,39 @@ NOT AUTHORIZED / DQA-012 F0C INACTIVE / NO NEW DQA ALLOCATED
 
 Q02 A1-PRE-EVID permanent security and execution conditions:
 S1/S2 NOT PROVEN; S3–S6 NOT EXECUTED; privileged source reads and host/security tests PROHIBITED; Q02-PROT-001 F1/F2 NO-GO; CONTENT_EVIDENCE, FixtureSeal, E/V, transport, publisher/issuer/server-CAS UNQUALIFIED; Gate C/final REVISE; protocols FROZEN; GOV-BRANCH-001 DEFERRED.
+
+
+## New bounded experimental closure — 2026-11-09 / PROJECT_CONTROL PC-004
+
+ONLINE-1B-R1 experiment:
+CLOSED / TERMINAL PASS LIMITED TO CONNECTED SINGLE-WRITER GITHUB LAB RECOVERY
+
+ONLINE-1B-R1 Owner authority:
+GRANTED for conditional one-run isolated secondary lab / follow-up explicit documentation closure authorization
+
+ONLINE-1B-R1 terminal independent verification:
+validations/PP-002/ONLINE-1B/PC-004_INDEPENDENT_TERMINAL_VALIDATION_REPORT.md
+
+ONLINE-1B-R1 official coordinator disposition:
+runs/PP-002_ONLINE-1B_R1_TERMINAL_PASS_DISPOSITION.md
+
+ONLINE-1B-R1 laboratory:
+JormungandrMagnus/pp002-online-1b-lab ; test/online-1b-20261108-r1 @ 1e610f0c0f52c223528dec466201fd2cde12faa1 ; C-020 @ d5e7265067f2486e864a615dddcf0db7a019451c
+
+ONLINE-1B-R1 essential finding:
+OP-03 ACK omitted deliberately; S02 recovered effect from independent GitHub reads, REUSE_RESULT / no retry, then committed OP-04 to OP-06 sequentially. Six Git-file effects exactly once in examined reachable history; 7 linear commits including checkpoint; lab main and original product refs unchanged at terminal assessment.
+
+ONLINE-1B-R1 acceptance boundary:
+No proven platform session IDs, predecessor inactivity, truly involuntary interruption, writer concurrency/CAS, universal permission isolation, non-Git idempotency or original Q02 S1-S6 security passage.
+
+ONLINE-1C successor proposal:
+control/PP-002_ONLINE-1C_CONCURRENCY_ADMISSION_PROPOSAL.md / PROPOSED / OWNER EXECUTION AUTHORIZATION NOT GRANTED
+
+Original PP-002 official Gate C and final disposition:
+REVISE / UNCHANGED; P01 UNCERTAIN; P02 UNKNOWN.
+
+Q02-PROT-001 and Generic Project Control Protocol:
+NO-GO / FROZEN / NO ADOPTION.
+
+Publication scope:
+Documentation-only, append-only record under meta/project-control; no product changes. Older PC-003 coordinator state entries are historical; PC-004 is the accountable coordinator for this separately authorized ONLINE-1B experimental closure.
