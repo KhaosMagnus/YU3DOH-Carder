@@ -928,3 +928,39 @@ NO-GO / FROZEN / NO ADOPTION.
 
 Publication scope:
 Documentation-only, append-only record under meta/project-control; no product changes. Older PC-003 coordinator state entries are historical; PC-004 is the accountable coordinator for this separately authorized ONLINE-1B experimental closure.
+
+
+## ONLINE-1C-A1 terminal and subsequent bounded diagnostic — 2026-11-09 / PC-004
+
+ONLINE-1C-A1 Owner execution authority:
+GRANTED one isolated lab run; completed, no additional writes authorized.
+
+ONLINE-1C-A1 result:
+TERMINAL / INCONCLUSIVE / STOPPED — A published, B absent from reachable branch, but GraphQL error UNKNOWN and stale expected-head rejection CAUSE NOT PROVEN.
+
+ONLINE-1C-A1 canonical evidence:
+validations/PP-002/ONLINE-1C-A1/PC-004_INDEPENDENT_TERMINAL_ASSESSMENT.md
+
+ONLINE-1C-A1 official disposition:
+runs/PP-002_ONLINE-1C_A1_TERMINAL_INCONCLUSIVE_DISPOSITION.md
+
+ONLINE-1C-A1 lab:
+JormungandrMagnus/pp002-online-1b-lab ; test/online-1c-20261109-a1 @ 0204e991389f4b6098a9f57da4d205f0901b7716 ; B candidate object 3aba7a03d7ceea88c6c8a21eeecb1fc9f0db811c not reachable through experiment ref.
+
+ONLINE-1C-DIAG-001 Owner authorization:
+GRANTED for canonical documentary closure and strictly read-only diagnostic, not execution.
+
+ONLINE-1C-DIAG-001 report and secondary capability inventory route:
+validations/PP-002/ONLINE-1C-DIAG-001/PC-004_READONLY_CONNECTOR_CAPABILITY_DIAGNOSTIC.md ; routing/ROUTE-PP-002-ONLINE-1C-DIAG-001-SECONDARY-READONLY.md
+
+ONLINE-1C-DIAG-001 finding:
+REST ref update has sha/force, no documented expected_sha; primary GitHub connector exposes expected_sha but not native GraphQL createCommitOnBranch; secondary runtime native conditional route UNKNOWN. P3 error cause UNKNOWN. Live A2 conditional admission NO-GO until independently scoped callable route and issuer confirmed.
+
+ONLINE-1C-A2 successor:
+control/PP-002_ONLINE-1C_A2_CONDITIONAL_MUTATION_PROPOSED_SCOPE.md / DESIGN PROPOSAL ONLY / NO OWNER EXECUTION AUTHORIZATION.
+
+Original PP-002 Gate C and official final:
+REVISE UNCHANGED; P01 UNCERTAIN, P02 UNKNOWN; Q02-PROT-001 NO-GO; Generic Project Control Protocol frozen; ONLINE-1B LAB-SCOPED PASS unchanged.
+
+Documentation publication:
+This update is authorized only on meta/project-control using expected-head control; laboratory, product main and experimental refs are not moved by the documentation commit.
