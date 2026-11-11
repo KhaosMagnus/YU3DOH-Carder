@@ -994,3 +994,24 @@ Optional single provider outreach authorization with named channel and redacted 
 
 Historical PP-002 and product control:
 Gate C/final REVISE unchanged; ONLINE-1B PASS lab only; Q02-PROT-001 NO-GO; Generic Project Control v1.0 FROZEN; product main remains unchanged.
+
+
+## PP-002 ONLINE-1C external support parked / recovery checkpoint — 2026-11-11
+
+Owner direction:
+Create durable checkpoint of the exact unresolved GitHub Work connector/CAS support dependency, resume other independent project tasks; no new experiment authorization.
+
+Canonical checkpoint:
+runs/PP-002_ONLINE-1C_SUPPORT_HUMAN_ESCALATION_RECOVERY_CHECKPOINT.md / FROZEN / RECOVERY_READY / EXTERNAL RESPONSE PENDING.
+
+External support state:
+OWNER-REPORTED HUMAN SUPPORT ESCALATION CONFIRMED IN UI; CHATGPT WORK MODE CLARIFIED; provider technical reply NOT RECEIVED; ticket ID UNKNOWN; provider contract/atomicity and P3 root cause UNKNOWN.
+
+ONLINE-1C execution:
+A1 TERMINAL INCONCLUSIVE; DIAG-001 UNAVAILABLE IN INVENTORIED SECONDARY SESSION; ROUTE-001 DOC CLOSED; A2 NO-GO / NOT AUTHORIZED; B NOT AUTHORIZED. Lab branches remain preserved at exact checkpoints.
+
+Resume gate:
+New attributable provider response or explicit fresh Owner direction -> read checkpoint by immutable commit, verify latest GitHub state and provenance, assess evidence and request separate explicit Owner GRANTED for any new write.
+
+Independent work:
+ALLOWED only under each workstream's separately established scope/authorization. Original PP-002 Gate C/final REVISE, Q02-PROT-001 NO-GO and generic protocol frozen unchanged.
