@@ -1015,3 +1015,24 @@ New attributable provider response or explicit fresh Owner direction -> read che
 
 Independent work:
 ALLOWED only under each workstream's separately established scope/authorization. Original PP-002 Gate C/final REVISE, Q02-PROT-001 NO-GO and generic protocol frozen unchanged.
+
+
+## ONLINE-1C-SUPPORT-R1 single-use authorized reproduction — 2026-11-11
+
+Owner authorization:
+GRANTED for EXACT one new disposable laboratory branch + two synthetic candidate commits (A child H0, B child A) + ONE valid expected-head ref update P2 + ONE deliberately stale ref update P3, with Owner-managed Chrome Network sanitized HAR and OBS video capture. No retries, reset, deletion, broad credentials or workflows.
+
+Frozen effective authorization:
+control/PP-002_ONLINE-1C_SUPPORT_R1_OWNER_AUTHORIZATION.md
+
+Secondary execution transfer:
+routing/ROUTE-PP-002-ONLINE-1C-SUPPORT-R1-SECONDARY-WORK.md
+
+Target lab and branch:
+JormungandrMagnus/pp002-online-1b-lab ; test/online-1c-support-r1 ; initial H0=d0aa948053ed81d5ac2b992521eeff6383c039cc ; branch observed absent in preflight.
+
+Pre-execution guard:
+Owner confirms OBS visibly records full Work+DevTools screen and Network Preserve log/recording is active; secondary rechecks its GitHub issuer/repo scope, main H0 and target ref absence. On mismatch, STOP.
+
+Historical isolation:
+ONLINE-1C-A1 INCONCLUSIVE unchanged; secondary DIAG-001 native action UNAVAILABLE in observed tool surface, P3 cause UNKNOWN; A2 NO-GO; PP-002 Gate C/final REVISE unchanged; Q02 NO-GO. Single-use experimental authority, no implicit subsequent trial.
